@@ -4,7 +4,7 @@ layout: default
 
 <div class="header-container jumbotron">
     <div class="container">
-        <h1>Extempore documentation</h1>
+        <h1>Extempore</h1>
         <p>Not your grandfather's audivisual live programming environment.</p>
         <p><a class="btn btn-primary btn-lg" href="{{ "/docs" | prepend: site.baseurl }}" role="button">Learn more</a></p>
     </div>
@@ -16,12 +16,25 @@ layout: default
     <div class="row">
         <div class="col-md-6">
             <h2 class="header-light regular-pad">What is Extempore?</h2>
-            <blockquote>
-              <p>It's pretty cool, that's what it is.</p>
-            </blockquote>
+            <p>
+              Extempore is a programming language and runtime environment
+              designed to support <strong>cyberphysical programming</strong>,
+              where a human programmer operates as an active agent in a
+              real-time distributed network of environmentally aware systems.
+              The cyberphysical programmer interacts with the distributed
+              real-time system procedurally by modifying code on-the-fly.
+            </p>
+            <p>
+              Extempore provides a completely hotswappable runtime environment
+              with a strong temporal semantics, a flexible concurrency
+              architecture, builtin support for distributed heterogenous
+              operation (both OS and Architecture), and aims to provide flexible
+              compiler-as-a-service functionality. Extempore makes extensive use
+              of the LLVM project to provide back-end code generation.
+            </p>
         </div>
-        <div class="col-md-6 text-center">
-            <img src="img/jekyll-dark.png" alt="" class="img-responsive">
+        <div class="col-md-6">
+            <iframe class="img-responsive" width="100%" height="auto" src="https://www.youtube.com/embed/yY1FSsUV-8c?rel=0&amp;showinfo=0" frameborder="0" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -30,8 +43,25 @@ layout: default
     <div class="row">
         <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-pencil" aria-hidden="true"></i></h1>
-            <h3 class="text-center">Easy to use...<em>*cough*</em></h3>
-            <p>A monoid is just an endofunctor in the category of obscure scheme backtraces an 30-second compile times... what's the problem?</p>
+            <h3 class="text-center">xtlang<em>*cough*</em></h3>
+
+            <p>
+              <strong>xtlang</strong> is a new systems programming language
+              designed to support the programming of real-time systems <emph>in
+              real-time</emph>. xtlang is designed to mix the high-level
+              expressiveness of Lisp with the low-level expressiveness of C.
+            </p>
+
+            <p>
+              xtlang uses an s-expression syntax similar to Scheme, and borrows
+              many Lisp-like semantics including first class closures, tail
+              recursion and macros. However, xtlang also borrows heavily from
+              systems languages like C and features static typing, low-level
+              type expressivity, direct pointer manipulation and explicit memory
+              managment (i.e. no GC). xtlang then extends these C semantics with
+              type-inferencing, ad-hoc polymorphism, reified generics, and
+              zone/region based memory management.
+            </p>
         </div>
         <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-cogs" aria-hidden="true"></i></h1>
@@ -40,7 +70,7 @@ layout: default
         </div>
         <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-code-fork" aria-hidden="true"></i></h1>
-            <h3 class="text-center">Get started today</h3>
+            <h3 class="text-center">Get started</h3>
             <p>Just get amongst it.</p>
         </div>
     </div>
