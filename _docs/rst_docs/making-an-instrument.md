@@ -2,8 +2,7 @@
 title: making-an-instrument
 ---
 
-Making an instrument {#making-an-instrument}
-====================
+# Making an instrument {#making-an-instrument}
 
 Note
 
@@ -46,8 +45,7 @@ role="doc">note-level-music</span>. If you want to come back later to
 find out in a bit more detail exactly what’s going on with Extempore
 instruments then this is the place to find out.
 
-The Hammond organ {#the-hammond-organ}
------------------
+## The Hammond organ {#the-hammond-organ}
 
 The instrument we’re going to build in this tutorial is a [hammond
 organ](http://en.wikipedia.org/wiki/Hammond_organ). Firstly, because the
@@ -121,8 +119,7 @@ context is helpful in understanding *why* the organ’s tone is produced
 like it is, and helps us think about how to represent and produce the
 tone digitally.
 
-Making a drone organ {#making-a-drone-organ}
---------------------
+## Making a drone organ {#making-a-drone-organ}
 
 The first part of making an instrument is defining its ‘drone’ tone: the
 sound that the instrument makes when it’s being sustained. The kernel is
@@ -288,8 +285,7 @@ changes. If you’re playing along at home, change the argument from
 `440.0` to some other value, recompile it and listen to the difference
 in the playback pitch of the organ tone.
 
-Instruments and note-level control {#instruments-and-note-level-control}
-----------------------------------
+## Instruments and note-level control {#instruments-and-note-level-control}
 
 *You can probably skim over this section if you’re not concerned about
 the low-level details of how Extempore’s instrument infrastructure.
@@ -421,8 +417,7 @@ code involved in this process, and they contain some (slight)
 simplifications. They’re designed to explain the key aspects of how the
 code works.
 
-Step two: the note kernel {#step-two-the-note-kernel}
--------------------------
+## Step two: the note kernel {#step-two-the-note-kernel}
 
 Back to the task at hand, we need to construct the note and effects
 kernels for our hammond organ instrument. Once we have those,
@@ -516,8 +511,7 @@ directly for playback in the `dsp` closure), `organ_note_c` returns a
 As I described in the previous section, this provides the flexibility
 required to manage note scheduling (via `_play_note`) and polyphony.
 
-Step three: the effect kernel {#step-three-the-effect-kernel}
------------------------------
+## Step three: the effect kernel {#step-three-the-effect-kernel}
 
 The final piece of the puzzle is the effect kernel `organ_fx`. In a
 tonewheel organ, the main effect which we want to model is the [Leslie
@@ -563,8 +557,7 @@ the input sample `in` is processed with the flanger and tremolo for the
 appropriate channel. The source code for `flanger_c` can be found in
 `libs/core/audio_dsp.xtm`.
 
-Playing the instrument {#playing-the-instrument}
-----------------------
+## Playing the instrument {#playing-the-instrument}
 
 Now, let’s see if our instrument works! Having compiled both
 `organ_note_c` and `organ_fx`, we’re finally ready to use

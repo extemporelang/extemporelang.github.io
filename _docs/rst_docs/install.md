@@ -2,8 +2,7 @@
 title: install
 ---
 
-Installing Extempore {#installing-extempore}
-====================
+# Installing Extempore {#installing-extempore}
 
 When we talk about *installing* extempore, there are few steps to it:
 
@@ -19,8 +18,7 @@ you really only need step 1 to start writing xtlang code. Most of these
 instructions will do all three steps by default, with comments about
 there are ways to tailor your install if you want something different.
 
-Download a pre-built binary {#download-a-pre-built-binary}
----------------------------
+## Download a pre-built binary {#download-a-pre-built-binary}
 
 Download a [binary
 release](https://github.com/digego/extempore/releases), unzip it and run
@@ -33,8 +31,7 @@ If you're not planning to make changes to Extempore itself,
 :   then downloading a binary is probably the best option. You can still
     write your own xtlang code, run the examples, etc.
 
-Build from source {#build-from-source}
------------------
+## Build from source {#build-from-source}
 
 The build-from-source workflow will download and build all the
 dependencies you need (including LLVM). So, if you've got a C++ compiler
@@ -196,8 +193,7 @@ download for you and move into `libs/platform-shlibs`. If anyone can
 figure out how to build a 64-bit libsndfile on Windows (preferrably with
 CMake) in a sane way then let me know.
 
-Shared library dependencies {#shared-library-dependencies}
----------------------------
+## Shared library dependencies {#shared-library-dependencies}
 
 The full list of external libraries required for the Extempore standard
 library are:
@@ -234,8 +230,7 @@ Still, if you're keen to get these libraries some other way (e.g.
 through your system-provided package manager) then that's fine - just
 use `-DBUILD_DEPS=OFF`.
 
-LLVM 3.7.0 {#llvm-3.7.0}
-----------
+## LLVM 3.7.0 {#llvm-3.7.0}
 
 If you don't have an `EXT_LLVM_DIR` environment variable set on your
 system, then Extempore will download, patch and build LLVM 3.7.0 for you
@@ -280,8 +275,7 @@ make sure you set the `EXT_LLVM_DIR` environment variable to point to
 that directory (where you installed LLVM) so that the Extempore build
 process knows where to find it.
 
-Install through homebrew (OSX-only) {#install-through-homebrew-osx-only}
------------------------------------
+## Install through homebrew (OSX-only) {#install-through-homebrew-osx-only}
 
 Note
 

@@ -2,8 +2,7 @@
 title: type-inference
 ---
 
-Type inferencing {#type-inferencing}
-================
+# Type inferencing {#type-inferencing}
 
 In xtlang, type annotations can be attached to the declaration of any
 variable using a colon, e.g.
@@ -69,8 +68,7 @@ type directly with the definition of the `xt_add3` symbol
 (xt_add4 2 9) ;; returns 11
 ~~~~
 
-Scheme and xtlang types {#scheme-and-xtlang-types}
------------------------
+## Scheme and xtlang types {#scheme-and-xtlang-types}
 
 Extempore can run both Scheme and xtlang code, but Scheme doesn't know
 anything about xtlang's types---things like tuples, arrays, vectors,

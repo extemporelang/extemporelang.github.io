@@ -2,8 +2,7 @@
 title: sampler
 ---
 
-Loading and using a sampler {#loading-and-using-a-sampler}
-===========================
+# Loading and using a sampler {#loading-and-using-a-sampler}
 
 A sampler is an instrument which stores chunks of audio which can be
 *triggered*---played back. Samplers are used in many different ways,
@@ -23,8 +22,7 @@ sampler up: using the Scheme macro `bind-sampler` instead of
 can be used in all the same situations (e.g. as the `inst` argument to
 `play-note` or `play`) as an instrument can.
 
-Samplers 101 {#samplers-101}
-------------
+## Samplers 101 {#samplers-101}
 
 You can think of a sampler as a series of 'slots', each of which
 contains a sound file.
@@ -99,8 +97,7 @@ memory footprint. If sound quality is more important, use more slots,
 but if low memory use is more important, use fewer slots and let the
 sampler interpolate in the gaps.
 
-Creating a drum sampler {#creating-a-drum-sampler}
------------------------
+## Creating a drum sampler {#creating-a-drum-sampler}
 
 Ok, enough background material---let's make some noise. We'll create an
 instance of Extempore's sampler called `drums`. To do this, we use the
@@ -194,8 +191,7 @@ sampler.
 Cool, seems to work fine. For a tutorial on how to generate beats and
 drum patterns, check out <span role="doc">note-level-music</span>.
 
-Creating a piano sampler {#creating-a-piano-sampler}
-------------------------
+## Creating a piano sampler {#creating-a-piano-sampler}
 
 Ok, drums are loaded, let's add one more sampler---this time a `piano`.
 
@@ -331,8 +327,7 @@ And finally, to try it out:
 
 Awesome, we've got a piano. Success!
 
-Doing cool things with samplers {#doing-cool-things-with-samplers}
--------------------------------
+## Doing cool things with samplers {#doing-cool-things-with-samplers}
 
 There are lots of possibilities at this stage. If you're interested in
 seeing how to make vaguely 'conventional' musical material, then <span

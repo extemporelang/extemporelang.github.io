@@ -2,8 +2,7 @@
 title: time
 ---
 
-Time in Extempore {#time-in-extempore}
-=================
+# Time in Extempore {#time-in-extempore}
 
 Note
 
@@ -57,8 +56,7 @@ more accurate clock, running at the audio sample rate (which will
 usually be 44.1kHz). That's why Extempore *always* connects to an audio
 device on startup---even if you're not producing any audio output.
 
-Scheduling events for future execution {#scheduling-events-for-future-execution}
---------------------------------------
+## Scheduling events for future execution {#scheduling-events-for-future-execution}
 
 Being able to schedule events (e.g. for music playback or even arbitrary
 code execution) for execution in the future is *super handy*. As an
@@ -125,8 +123,7 @@ language. However, Extempore allows us to create and schedule code for
 future execution. This turns out to be very useful in time-based
 programming.
 
-Temporal recursion {#temporal-recursion}
-------------------
+## Temporal recursion {#temporal-recursion}
 
 There is a common design pattern in Extempore programming called
 **temporal recursion**. By writing a function which *schedules itself*

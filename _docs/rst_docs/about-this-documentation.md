@@ -2,8 +2,7 @@
 title: about-this-documentation
 ---
 
-About this documentation {#about-this-documentation}
-========================
+# About this documentation {#about-this-documentation}
 
 This documentation is generated using
 [Sphinx](http://www.sphinx-doc.org/), using the
@@ -14,8 +13,7 @@ host it on GH pages. Since it's all just
 [reStructured](http://www.sphinx-doc.org/en/stable/rest.html) text files
 in the `docs/` subdirectory, it's easy for others to contribute.
 
-Generating {#generating}
-----------
+## Generating {#generating}
 
 To generate these docs, you'll need a few python packages, something
 like:
@@ -41,8 +39,7 @@ webserver somewhere---it's a self-contained static site.
 Currently, we're hosting it on GitHub pages through the Extempore repo,
 in a special `gh-pages` branch.
 
-Contributing {#contributing}
-------------
+## Contributing {#contributing}
 
 If you find problems, or can think of improvements, [fork away on
 GH](https://github.com/digego/extempore), edit the documentation source
@@ -55,8 +52,7 @@ If you've got questions, or want to bounce around some ideas for
 improvements before you go ahead and make big changes then get in touch
 on the [mailing list](mailto:extemporelang@googlegroups.com).
 
-ReStructured text cheat sheet {#restructured-text-cheat-sheet}
------------------------------
+## ReStructured text cheat sheet {#restructured-text-cheat-sheet}
 
 Since these docs use Sphinx, their [ReStructured text
 docs](www.sphinx-doc.org/en/stable/rest.html) are the best place to

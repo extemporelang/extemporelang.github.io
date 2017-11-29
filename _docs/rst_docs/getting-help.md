@@ -2,8 +2,7 @@
 title: getting-help
 ---
 
-Getting Help {#getting-help}
-============
+# Getting Help {#getting-help}
 
 Learning a new programming language is hard, so don't despair if you get
 stuck and need help. The [mailing

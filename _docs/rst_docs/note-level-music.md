@@ -2,8 +2,7 @@
 title: note-level-music
 ---
 
-Playing an instrument {#playing-an-instrument}
-=====================
+# Playing an instrument {#playing-an-instrument}
 
 Note
 
@@ -23,8 +22,7 @@ If you want a deeper understanding of what's going on 'under the hood',
 see <span role="doc">making-an-instrument</span>, although it's not
 necessary to understand any of that to make music in Extempore.
 
-Setting up an instrument {#setting-up-an-instrument}
-------------------------
+## Setting up an instrument {#setting-up-an-instrument}
 
 This is about the simplest program you can write in Extempore. It loads
 an instrument and plays a single note.
@@ -88,8 +86,7 @@ Congratulations, you have successfully written a Scheme function to play
 a C major chord. Try changing the pitch arguments to make different
 chords.
 
-Playing in time {#playing-in-time}
----------------
+## Playing in time {#playing-in-time}
 
 In keeping with traditions laid down in ages past by folks much smarter
 than me, I should also provide a "Hello World" example. Because we're in
@@ -196,8 +193,7 @@ in the `dsp` output callback:
 (dsp:set! dsp)
 ~~~~
 
-Playing scales and chords {#playing-scales-and-chords}
--------------------------
+## Playing scales and chords {#playing-scales-and-chords}
 
 First, let's implement a simple iterative process. Remember that in MIDI
 note numbers (which `play-note` uses) `60` is middle C, `61` is C\#,
@@ -310,8 +306,7 @@ list, use `for-each` instead of `map`.
 Ok, now we've covered the basics. Before we move on, if you haven't read
 the time tutorial it's probably a good idea to go and read it now.
 
-Temporal recursion {#temporal-recursion}
-------------------
+## Temporal recursion {#temporal-recursion}
 
 If you have already read <span role="doc">time</span>, you'll be all set
 to start using `callback`. We've already looked at various ways to play
@@ -433,8 +428,7 @@ shorten the durations a little (constant legato gets a touch boring).
 (play-seq (now) '(60 62 64 67) '(11025))
 ~~~~
 
-Pitch classes {#pitch-classes}
--------------
+## Pitch classes {#pitch-classes}
 
 If you've read many 20th Century composition texts on [pitch
 classes](http://en.wikipedia.org/wiki/Pitch_class), you could be
@@ -611,8 +605,7 @@ Of course we could easily use larger leaps by changing
 `pc:relative` can be a useful way of constraining (and then later
 releasing) melodic invention.
 
-Making chords with pitch classes {#making-chords-with-pitch-classes}
---------------------------------
+## Making chords with pitch classes {#making-chords-with-pitch-classes}
 
 Ok, that's enough 13thC noise, let's go hard core 20thC and make a `I`
 `IV` `V` progression :) But first a crazy 21stC chord. Once
@@ -683,8 +676,7 @@ There's a lot more we can do with pitch classes. You can go and explore
 right now if you like, and there's also plenty more to come in this
 guide too.
 
-Harmony {#harmony}
--------
+## Harmony {#harmony}
 
 Time to move onto some serious composition, and what could be more
 serious than diatonic harmony :)
@@ -880,8 +872,7 @@ longer duration option for `I` and `IV`.
 (progression (now) 'i)
 ~~~~
 
-Beat & tempo {#beat-tempo}
-------------
+## Beat & tempo {#beat-tempo}
 
 'Bring back the beat' I hear you say. OK, on to beat & tempo. In this
 section we're going to need a drum instrument. What a
@@ -1183,8 +1174,7 @@ length of the hi-hat sound. Also notice that we are moving around our
 callback faster than before---but this is fine as long as our time
 increment has a suitable ratio to both metres.
 
-Putting it all together {#putting-it-all-together}
------------------------
+## Putting it all together {#putting-it-all-together}
 
 Let's keep going with this idea and add some pitched musical content as
 well, using the `synth` and `organ` instruments we were using earlier

@@ -2,8 +2,7 @@
 title: impromptu-users
 ---
 
-Extempore for Impromptu users {#extempore-for-impromptu-users}
-=============================
+# Extempore for Impromptu users {#extempore-for-impromptu-users}
 
 Note
 
@@ -22,8 +21,7 @@ Impromptu users might have:
 2.  what's new or different
 3.  what will I have to do to switch over
 
-What's the same {#whats-the-same}
----------------
+## What's the same {#whats-the-same}
 
 -   Impromptu's Scheme interpreter has been brought into Extempore
     largely unchanged. So any vanilla Scheme code or libraries should
@@ -31,8 +29,7 @@ What's the same {#whats-the-same}
 -   <span role="doc">time</span> (including `(now)`, `callback`,
     temporal recursion etc.) is exactly the same as it was in Impromptu.
 
-What's new or different {#whats-new-or-different}
------------------------
+## What's new or different {#whats-new-or-different}
 
 There are some obvious 'big picture' differences:
 
@@ -99,8 +96,7 @@ examples you might find interesting are:
 -   `examples/external/xtmrender1.xtm` (or any of the other xtmrender
     examples)
 
-What will I have to change to switch from Impromptu to Extempore? {#what-will-i-have-to-change-to-switch-from-impromptu-to-extempore}
------------------------------------------------------------------
+## What will I have to change to switch from Impromptu to Extempore? {#what-will-i-have-to-change-to-switch-from-impromptu-to-extempore}
 
 **Audio**
 
@@ -132,8 +128,7 @@ If you're using OpenGL, then you may not need to change much. But it's
 definitely worth going over the code carefully to see if it's still
 doing what you expect.
 
-Getting help {#getting-help}
-------------
+## Getting help {#getting-help}
 
 Many of the folks on the Extempore [mailing
 list](https://groups.google.com/extemporelang) (including myself) were

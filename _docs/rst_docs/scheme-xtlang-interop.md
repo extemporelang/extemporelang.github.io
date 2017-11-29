@@ -2,8 +2,7 @@
 title: scheme-xtlang-interop
 ---
 
-Scheme-xtlang interop {#scheme-xtlang-interop}
-=====================
+# Scheme-xtlang interop {#scheme-xtlang-interop}
 
 The rationale behind having the two languages is covered in <span
 role="doc">philosophy</span>, but there are a few other things worth
@@ -68,8 +67,7 @@ newly created closures itself has a type (which is basically a closure
 type with certain input types and return type). Again, see <span
 role="doc">types</span> for a more detailed discussion.
 
-More caveats {#more-caveats}
-------------
+## More caveats {#more-caveats}
 
 Sometimes, the Scheme-xtlang interop stuff can be a bit too tricky for
 its own good. Consider this example:

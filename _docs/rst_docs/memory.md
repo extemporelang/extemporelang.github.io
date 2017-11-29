@@ -2,8 +2,7 @@
 title: memory
 ---
 
-Memory management in Extempore {#memory-management-in-extempore}
-==============================
+# Memory management in Extempore {#memory-management-in-extempore}
 
 Note
 
@@ -30,8 +29,7 @@ disadvantages. To work effectively in Extempore it's helpful to know a
 bit more about how to work with memory in Extempore, and that's what
 I'll try to cover in this post.
 
-Automatic garbage collection in Scheme {#automatic-garbage-collection-in-scheme}
---------------------------------------
+## Automatic garbage collection in Scheme {#automatic-garbage-collection-in-scheme}
 
 Scheme objects (lists, closures, numbers, etc.) are automatically
 [garbage
@@ -103,8 +101,7 @@ happen at a really inconvenient time as far as your program is concerned
 (Murphy's law and all that). This is particularly problematic in domains
 where timing is critical, such as real-time audio and video.
 
-Manual memory management in xtlang {#manual-memory-management-in-xtlang}
-----------------------------------
+## Manual memory management in xtlang {#manual-memory-management-in-xtlang}
 
 Hang on a sec---isn't working with real-time audio and video xtlang (and
 therefore Extempore's) *raison d'etre?* Well, yes is is---the
@@ -163,8 +160,7 @@ deallocate all at once, then use a zone. There can be multiple zones in
 existence at once, and they don't interfere (or have anything to do
 with) each other.
 
-The three flavours of memory in Extempore {#the-three-flavours-of-memory-in-extempore}
------------------------------------------
+## The three flavours of memory in Extempore {#the-three-flavours-of-memory-in-extempore}
 
 So, in accordance with the three different memory 'types' (the stack,
 the heap, and zones) there are three memory allocation functions in
@@ -177,8 +173,7 @@ Also, `alloc` in xtlang is an alias for `zalloc`. So if you ever see an
 `alloc` in xtlang code just remember that it's grabbing memory from a
 zone.
 
-Stack allocation with salloc {#stack-allocation-with-salloc}
-----------------------------
+## Stack allocation with salloc {#stack-allocation-with-salloc}
 
 As I mentioned above, the stack is associated with function calls, their
 arguments and local variables. Because xtlang uses (in general) <span
@@ -336,8 +331,7 @@ So, what we need in this case is to allocate some memory which will
 still hang around after the closure returns. `salloc` isn't up to the
 task, but `zalloc` is.
 
-Zone allocation with zalloc {#zone-allocation-with-zalloc}
----------------------------
+## Zone allocation with zalloc {#zone-allocation-with-zalloc}
 
 Zone allocation is kindof like stack allocation, except with user
 control over when the memory is freed (as opposed it happening at the
@@ -514,8 +508,7 @@ The `bind-func` zone will live for the extent of the top level closure,
 and will be refreshed if the closure is rebuilt (i.e. the old zone will
 be destroyed and a new zone allocated).
 
-Heap allocation with halloc {#heap-allocation-with-halloc}
----------------------------
+## Heap allocation with halloc {#heap-allocation-with-halloc}
 
 Finally, we meet `halloc`, the Extempore function for allocating memory
 from the heap. The heap is for long-lived memory, such as data that you
@@ -566,8 +559,7 @@ in binding global data structures which you want to have accessible from
 anywhere in your xtlang code. Binding global xtlang variables is the job
 of `bind-val`.
 
-Choosing the right memory for the job {#choosing-the-right-memory-for-the-job}
--------------------------------------
+## Choosing the right memory for the job {#choosing-the-right-memory-for-the-job}
 
 Each different alloc function is good for different things, and the
 general idea to keep in mind is that you want your memory to hang around
@@ -623,8 +615,7 @@ write clean and performant code in xtlang. And from there, the
 performance and control of working with 'bare metal' types opens up lots
 of cool possibilities.
 
-Pointers {#pointers}
---------
+## Pointers {#pointers}
 
 xtlang's pointer types may cause some confusion for those who aren't
 used to (explicitly) working with reference types. That's nothing to be
@@ -706,8 +697,7 @@ what it was the previous time (28 rather than 26). This is because the
 then forgets them when it is exited (that is, when the paren matching
 the opening paren is reached).
 
-Pointers: storing memory addresses as values {#pointers-storing-memory-addresses-as-values}
---------------------------------------------
+## Pointers: storing memory addresses as values {#pointers-storing-memory-addresses-as-values}
 
 What we've done so far is store the value (how many cats we have) into
 the variable `num_cats`. The value has an address in memory, but as a
@@ -819,8 +809,7 @@ of type `i64` (which we did with `num_cats` in the `print_num_cats` and
 variable (`num_cats_ptr`) which gives us a place to load and store the
 data.
 
-Buffers and pointer arithmetic {#buffers-and-pointer-arithmetic}
-------------------------------
+## Buffers and pointer arithmetic {#buffers-and-pointer-arithmetic}
 
 In all the examples so far, we've only used a pointer to a single value.
 This has worked fine, but you might have been wondering why we bothered,
@@ -936,8 +925,7 @@ above, `num_ptr` points to memory address 27, so `(pref num_ptr 2)`
 would point to memory address 29. `(pref (pref-ptr num_ptr n) 0)` is the
 same as `(pref (pref-ptr num_ptr 0) n)` for any integer *n*.
 
-Pointers to higher-order types {#pointers-to-higher-order-types}
-------------------------------
+## Pointers to higher-order types {#pointers-to-higher-order-types}
 
 The <span role="doc">xtlang type system &lt;types&gt;</span> has both
 primitive types (floats and ints) and higher-order types like tuples,
@@ -1070,8 +1058,7 @@ working with pointers to compound types: no-one wants figure out (and
 keep track of) the size of a tuple like `<i32,i8,|17,double|*,double>`
 and calculate the stride manually.
 
-Other benefits of using pointers {#other-benefits-of-using-pointers}
---------------------------------
+## Other benefits of using pointers {#other-benefits-of-using-pointers}
 
 There are a few other situations where being able to pass pointers
 around is really handy.

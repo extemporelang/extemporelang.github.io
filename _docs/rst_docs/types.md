@@ -2,8 +2,7 @@
 title: types
 ---
 
-xtlang types {#xtlang-types}
-============
+# xtlang types {#xtlang-types}
 
 Note
 
@@ -44,11 +43,9 @@ clarity---some of these aren't strictly necessary (*as I'll show later*)
 because the type inferencing compiler will figure out the types of
 variables in many cases.
 
-Primitive types {#primitive-types}
-===============
+# Primitive types {#primitive-types}
 
-Integers {#integers}
---------
+## Integers {#integers}
 
 ![image](/images/int-examples.png)
 
@@ -68,8 +65,7 @@ A couple of gotchas:
 -   there is no `char` type, only `i8`. In xtlang, strings are
     null-terminated char arrays/pointers with the signature `i8*`.
 
-Floats {#floats}
-------
+## Floats {#floats}
 
 ![image](/images/float-examples.png)
 
@@ -82,8 +78,7 @@ Float literals in xtlang code (e.g. `4.2`) are interpreted as `double`
 unless the type signatures suggest otherwise (as is the case with `i64`
 int literals).
 
-Pointer types {#pointer-types}
--------------
+## Pointer types {#pointer-types}
 
 ![image](/images/pointer-examples.png)
 
@@ -230,8 +225,7 @@ as `(pref (pref-ptr a 0) n)` for any integer *n*.
 One final note for C programmers: there is no `void*` in xtlang, use an
 `i8*` instead.
 
-C Strings {#c-strings}
----------
+## C Strings {#c-strings}
 
 There's also no `char` type, just `i8`. So string literals in xtlang are
 pointers to null terminated arrays (just like in C) but instead have
@@ -258,8 +252,7 @@ then disappearing on you.
 xtlang does have a nicer `String` type, defined in `libs/base/base.xtm`
 (TODO more docs coming soon!).
 
-Aggregate types {#aggregate-types}
-===============
+# Aggregate types {#aggregate-types}
 
 There are three base aggregate types in xtlang: tuples, arrays and
 vectors. In each case, these names mean pretty much the same thing they
@@ -271,8 +264,7 @@ done through a call to one of the *alloc* functions, as in the <span
 role="ref">example above &lt;pointer-type-doc&gt;</span> with pointers
 to primitive types.
 
-Tuples {#tuples}
-------
+## Tuples {#tuples}
 
 An n-tuple is a fixed-length structure with n elements. *Different*
 tuples can have different lengths (different values of *n*), but a
@@ -331,8 +323,7 @@ different types. And because xtlang is strongly typed, even if you do
 get confused and try to `tset!` an array type the compiler will catch
 the error for you.
 
-Arrays {#arrays}
-------
+## Arrays {#arrays}
 
 An array in xtlang is a fixed length array of elements of a single type
 (like a static C array). The array type signature specifies the length
@@ -360,8 +351,7 @@ Setting and getting values from arrays is done with (you guessed it!)
 array (that is, not to the first element but to some element further
 into the array), use `aref-ptr`.
 
-Vectors {#vectors}
--------
+## Vectors {#vectors}
 
 The final aggregate data type in xtlang is the vector type. Vectors are
 like arrays in that they are fixed length homogeneous type buffers, but
@@ -391,8 +381,7 @@ code you're working on is the performance bottleneck in your system,
 it's probably best to start out with arrays, and to change to vectors
 later on if it becomes necessary.
 
-Closures {#closures}
---------
+## Closures {#closures}
 
 The final important type in xtlang is the
 [closure](http://en.wikipedia.org/wiki/Closure_(computer_science)) type,
@@ -507,8 +496,7 @@ enlightenment. Or something.
 There's lots more to say about closures, but I'll leave that for another
 post.
 
-Named types {#named-types}
-===========
+# Named types {#named-types}
 
 To round it off, you can also define your own types. This is convenient:
 it's easier to type `my_type` than `[double*,<i64,i32>,float,float]`,
@@ -608,8 +596,7 @@ as `bind-type` does, which can lead to execution-time problems which
 would otherwise have been caught by the compiler. So you should almost
 always use `bind-type` over `bind-alias`.
 
-Generics {#generics}
-========
+# Generics {#generics}
 
 With [generics](https://en.wikipedia.org/wiki/Generic_programming),
 xtlang provides a way to specify types and closures without concrete
