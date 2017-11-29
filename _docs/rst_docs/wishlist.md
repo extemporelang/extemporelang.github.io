@@ -2,8 +2,7 @@
 title: wishlist
 ---
 
-Extempore wishlist {#extempore-wishlist}
-==================
+# Extempore wishlist {#extempore-wishlist}
 
 Building a new programming language, runtime and ecosystem is a
 multifaceted job. Here are a few projects (some small, some not so
@@ -11,16 +10,14 @@ small) which would be really nice---if you think you'd like to
 contribute, give us a shout out on the [mailing
 list](mailto:extemporelang@googlegroups.com).
 
-Core {#core}
-----
+## Core {#core}
 
 These projects involve hacking on the Extempore binary itself.
 
 1.  upgrade to LLVM 5.0 & ORCJIT
 2.  port Extempore to 64-bit ARM (`aarch64`)
 
-xtlang {#xtlang}
-------
+## xtlang {#xtlang}
 
 These projects (mostly) involve adding/improving libraries for doing
 cool things in xtlang.
@@ -30,8 +27,7 @@ cool things in xtlang.
     vega-lite for Extempore)
 3.  add DirectX (or perhaps Vulkan) support
 
-Ecosystem {#ecosystem}
----------
+## Ecosystem {#ecosystem}
 
 These projects are "ecosystem/tooling" projects.
 

@@ -2,8 +2,7 @@
 title: concurrency
 ---
 
-Concurrency {#concurrency}
-===========
+# Concurrency {#concurrency}
 
 Warning
 
@@ -148,8 +147,7 @@ Anyway, so far so good, the main point being the independence of the
 memory spaces, and Extempore's IPC layer for communication between
 Scheme processes.
 
-Concurrency in xtlang {#concurrency-in-xtlang}
----------------------
+## Concurrency in xtlang {#concurrency-in-xtlang}
 
 Things get more interesting when we introduce xtlang.
 

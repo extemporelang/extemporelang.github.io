@@ -2,8 +2,7 @@
 title: docstrings
 ---
 
-xtlang docstrings {#xtlang-docstrings}
-=================
+# xtlang docstrings {#xtlang-docstrings}
 
 xtlang supports rich docstrings with a lightweight javadoc/jsdoc-style
 markup for documenting individual parameters, return values, providing
@@ -76,8 +75,7 @@ You can also add docstrings to other (xtlang) things:
 >
 > @see BenType")
 
-Contributing {#contributing}
-------------
+## Contributing {#contributing}
 
 Currently (March 2016) not many xtlang functions have docstrings, and
 the ones that are there aren't very detailed/informative. Over the next

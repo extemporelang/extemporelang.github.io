@@ -2,8 +2,7 @@
 title: turning-the-sound-off-in-extempore
 ---
 
-Turning the sound off in Extempore {#turning-the-sound-off-in-extempore}
-==================================
+# Turning the sound off in Extempore {#turning-the-sound-off-in-extempore}
 
 Once you’ve got sound playing in Extempore, you may well want to turn it
 off. Understanding how to do that is helpful for understanding how the

@@ -2,8 +2,7 @@
 title: common-lisp-music
 ---
 
-"Common Lisp Music"-style example {#common-lisp-music-style-example}
-=================================
+# "Common Lisp Music"-style example {#common-lisp-music-style-example}
 
 Note
 

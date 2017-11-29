@@ -2,11 +2,9 @@
 title: bits-and-pieces
 ---
 
-What's possible with Extempore? {#whats-possible-with-extempore}
-===============================
+# What's possible with Extempore? {#whats-possible-with-extempore}
 
-Real-time DSP {#real-time-dsp}
--------------
+## Real-time DSP {#real-time-dsp}
 
 Make your own DSP signal chain. [Start
 low-level](2012-06-07-dsp-basics-in-extempore.org) (with unit
@@ -20,8 +18,7 @@ things on the fly :)
 The `examples/core/audio_101.xtm` example file is a good place to start
 for this sort of thing.
 
-Higher-level (note based) audio sequencing {#higher-level-note-based-audio-sequencing}
-------------------------------------------
+## Higher-level (note based) audio sequencing {#higher-level-note-based-audio-sequencing}
 
 If writing raw bits to the sound card isn't your cup of tea, then
 there's a '[instrument](2012-10-16-a-really-simple-instrument.org)'
@@ -44,8 +41,7 @@ between these high-level and low-level music making approaches. Mixing
 Scheme and xtlang code is the whole point of Extempore---so pick
 whichever approach is the best fit for what you're trying to achieve.
 
-Graphics processing {#graphics-processing}
--------------------
+## Graphics processing {#graphics-processing}
 
 This 'philosophy' document doesn't cover it, but Extempore also has
 support for working with graphics. Both 2D (via [nanovg]()) and 3D (via
@@ -56,8 +52,7 @@ There are a few OpenGL examples in `examples/external/` which might be
 of interest for those who want to get started with graphics in
 Extempore.
 
-Working with external C libraries {#working-with-external-c-libraries}
----------------------------------
+## Working with external C libraries {#working-with-external-c-libraries}
 
 If there's a particular C library that you'd like to explore in a more
 dynamic way than is possible with a statically compiled binary, then you
@@ -72,14 +67,12 @@ determine the types/function signatures of the library's functions), you
 can bind it on the fly and add it into the live programming loop. Check
 out the `libs/external` directory to see how it's done.
 
-And much more… {#and-much-more}
---------------
+## And much more… {#and-much-more}
 
 I'm sure you can think of a way to leverage Extempore that I haven't
 even thought of :)
 
-How do I start? {#how-do-i-start}
----------------
+## How do I start? {#how-do-i-start}
 
 Extempore works on [Windows
 7](2013-03-20-building-extempore-on-windows.org), [OSX and

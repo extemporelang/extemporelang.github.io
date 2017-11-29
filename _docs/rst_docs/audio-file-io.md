@@ -2,8 +2,7 @@
 title: audio-file-io
 ---
 
-Reading & writing audio files in Extempore {#reading-writing-audio-files-in-extempore}
-==========================================
+# Reading & writing audio files in Extempore {#reading-writing-audio-files-in-extempore}
 
 Extempore’s `libsndfile` bindings[^1] provide functionality for both
 reading and writing audio files. Here’s a short example of how to both

@@ -2,8 +2,7 @@
 title: quickstart
 ---
 
-quickstart {#quickstart}
-==========
+# quickstart {#quickstart}
 
 I get it, you're impatient---here's the bare minimum required to get
 from zero to running Extempore code.
@@ -13,8 +12,7 @@ Note
 Some of the tutorial documentation is out of date. If you get stuck, the
 best place to ask for help is the mailing list.
 
-Installation {#installation}
-------------
+## Installation {#installation}
 
 Note
 
@@ -31,8 +29,7 @@ If you're more of a build-from-source type, then <span
 role="ref">that's pretty
 easy as well &lt;build-from-source-doc&gt;</span>.
 
-Editor setup {#editor-setup}
-------------
+## Editor setup {#editor-setup}
 
 To write Extempore code you need a text editor, and there are <span
 role="doc">Extempore "plugins" for several text editors &lt;editor-support&gt;</span>
@@ -51,8 +48,7 @@ role="doc">editor support page &lt;editor-support&gt;</span> for
 instructions on how to get started hacking Extempore code in your editor
 of choice.
 
-"Hello, World!" {#hello-world}
----------------
+## "Hello, World!" {#hello-world}
 
 Hello, World! is pretty straightforward in Extempore
 
@@ -60,8 +56,7 @@ Hello, World! is pretty straightforward in Extempore
 (println "Hello, World!")
 ~~~~
 
-"Hello, Sine!" {#hello-sine}
---------------
+## "Hello, Sine!" {#hello-sine}
 
 Since Extempore has multimedia programming as a core part of its DNA,
 here's "Hello, Sine!"
@@ -75,15 +70,13 @@ here's "Hello, Sine!"
 (dsp:set! sine)
 ~~~~
 
-"Hello, Triangle!" {#hello-triangle}
-------------------
+## "Hello, Triangle!" {#hello-triangle}
 
 "Hello, Triangle!" is a bit more complicated, since setting up the
 OpenGL state machine requires a bit of boilerplate. See
 `examples/external/shader-tutorials/triangle.xtm` to get started.
 
-Beyond "Hello..." {#beyond-hello...}
------------------
+## Beyond "Hello..." {#beyond-hello...}
 
 These simple snippets gloss over some subtleties of what's going on. But
 hey, if you've started quickly(ish), then this page has done its job. To

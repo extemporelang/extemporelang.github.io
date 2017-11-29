@@ -2,8 +2,7 @@
 title: caas
 ---
 
-Interacting with the Extempore Compiler {#interacting-with-the-extempore-compiler}
-=======================================
+# Interacting with the Extempore Compiler {#interacting-with-the-extempore-compiler}
 
 Note
 
@@ -46,8 +45,7 @@ up is pretty easy &lt;atom-editor-setup&gt;</span> In the end it doesn't
 matter too much which editor you use, so pick the one that makes you
 happiest.
 
-Running Extempore {#running-extempore}
------------------
+## Running Extempore {#running-extempore}
 
 Once you've <span
 role="doc">downloaded and built &lt;quickstart&gt;</span> Extempore
@@ -103,8 +101,7 @@ basis for Extempore's powerful distributed processing capability. For
 the moment, though, you don't have to worry about multiple processes,
 just connect and interact with the `primary` process.
 
-Connecting to the Extempore compiler {#connecting-to-the-extempore-compiler}
-------------------------------------
+## Connecting to the Extempore compiler {#connecting-to-the-extempore-compiler}
 
 So far, all the stuff we've done has been in a shell console. The
 `extempore` process, which provides the Extempore compiler, is just
@@ -138,8 +135,7 @@ arguments will be `localhost` and `7099` respectively. If the connection
 is made successfully, then Extempore will echo back the string "Welcome
 to extempore!".
 
-Evaluating code {#evaluating-code}
----------------
+## Evaluating code {#evaluating-code}
 
 Once everything's hooked up, then the compiler is just waiting there for
 you to give it some code to evaluate. So, from a 'blank slate' `.xtm`
@@ -249,8 +245,7 @@ that the two parts of the code were both evaluated successfully: the
 `doughnut_area` closure compiled successfully, and the result
 `58.904862` was returned to the editor.
 
-The power (and danger) of CaaS {#the-power-and-danger-of-caas}
-------------------------------
+## The power (and danger) of CaaS {#the-power-and-danger-of-caas}
 
 Thus we've only evaluated code in the order it appears in the file.
 Closures which use other closures or globals have all worked fine. But

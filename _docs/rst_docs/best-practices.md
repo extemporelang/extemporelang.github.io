@@ -2,8 +2,7 @@
 title: best-practices
 ---
 
-Best practices {#best-practices}
-==============
+# Best practices {#best-practices}
 
 Note
 

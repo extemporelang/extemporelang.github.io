@@ -2,8 +2,7 @@
 title: audio-signal-processing
 ---
 
-Audio signal processing {#audio-signal-processing}
-=======================
+# Audio signal processing {#audio-signal-processing}
 
 Note
 
@@ -71,8 +70,7 @@ language and environment. So instead of the ugens (unit generators, e.g.
 oscillators) being locked up in a different language to the control
 language, it's all mixed in together.
 
-Abstraction and higher-order functions {#abstraction-and-higher-order-functions}
---------------------------------------
+## Abstraction and higher-order functions {#abstraction-and-higher-order-functions}
 
 Let's create some oscillators:
 
@@ -134,8 +132,7 @@ library support etc are provided in the standard library (especially in
 `libs/core/audio_dsp.xtm`). Still, it's useful to build things up from
 first principles to show how it all works.
 
-Beyond pure tones {#beyond-pure-tones}
------------------
+## Beyond pure tones {#beyond-pure-tones}
 
 Playing a single sine tone is boring. Now, instead of just using the
 *one* oscillator, let's use a few of them to generate a whole bunch of
@@ -177,8 +174,7 @@ very well, though, so it would be great if we could create and
 initialise them programmatically. This brings us to a couple of new
 (compound) types: tuples, and arrays.
 
-Tuples in xtlang {#tuples-in-xtlang}
-----------------
+## Tuples in xtlang {#tuples-in-xtlang}
 
 As a refresher, <span role="ref">tuples &lt;tuple-type-doc&gt;</span> in
 xtlang are heterogeneous groupings of any xtlang types (just like a C
@@ -277,8 +273,7 @@ There's no reason why the types in the tuple have to be the same.
 Indeed, usually they won't be---tuples allow us to define more complex
 data structures which are suitable for the task at hand.
 
-Arrays in DSP code {#arrays-in-dsp-code}
-------------------
+## Arrays in DSP code {#arrays-in-dsp-code}
 
 If tuples are xtlang's structs, then arrays are (funnily enough)
 xtlang's arrays. Unlike tuples, which can be composed of heterogeneous
@@ -379,8 +374,7 @@ playing the even harmonics (check the equality test in the
 initialisation of `amp_array`). For fun, change that equality test to an
 inequality test (`<>`) and listen to the result!
 
-Packaging noise into instruments {#packaging-noise-into-instruments}
---------------------------------
+## Packaging noise into instruments {#packaging-noise-into-instruments}
 
 This is hopefully beginning to flesh out the practice of doing real-time
 DSP in Extempore. It might seem like reinventing the wheel, building all
@@ -545,8 +539,7 @@ Let's add a stereo delay to make things a bit more interesting
 Nice one. Also, remember that you change the fx closure at any time
 (just edit the code and re-evaluate it).
 
-Putting it all together {#putting-it-all-together}
------------------------
+## Putting it all together {#putting-it-all-together}
 
 Finally, to complete the instrument, we use a special `make-instrument`
 macro

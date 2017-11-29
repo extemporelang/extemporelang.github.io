@@ -2,8 +2,7 @@
 title: testing
 ---
 
-Unit testing in Extempore {#unit-testing-in-extempore}
-=========================
+# Unit testing in Extempore {#unit-testing-in-extempore}
 
 Extempore's unit testing library (`libs/core/test.xtm`) provides a few
 functions/macros for writing unit tests for xtlang code. The most
@@ -51,8 +50,7 @@ that e.g. the music/graphics sounds/looks ok. Still, running these files
 from top-to-bottom and making sure they don't crash and produce the
 right output is important as well.
 
-Running the tests {#running-the-tests}
------------------
+## Running the tests {#running-the-tests}
 
 The easiest way to run the test suite is using CMake/CTest. By default,
 there's a **test** target created in the Extempore configure process, so
@@ -89,8 +87,7 @@ To **exclude** only the labels matching `<regex>`, use:
 
     ctest -LE <regex>
 
-Get involved {#get-involved}
-------------
+## Get involved {#get-involved}
 
 We really appreciate [bug
 reports](https://github.com/digego/extempore/issues), and the best way

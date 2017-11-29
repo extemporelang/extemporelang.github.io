@@ -2,8 +2,7 @@
 title: philosophy
 ---
 
-The Extempore philosophy {#the-extempore-philosophy}
-========================
+# The Extempore philosophy {#the-extempore-philosophy}
 
 Note
 
@@ -33,8 +32,7 @@ role="doc">allocated
 memory &lt;memory&gt;</span>, and with a few 'helper functions' data can
 even flow through both languages fluidly.
 
-What's scheme, and what's xtlang? {#whats-scheme-and-whats-xtlang}
----------------------------------
+## What's scheme, and what's xtlang? {#whats-scheme-and-whats-xtlang}
 
 This is all a bit abstract, so let's look at a couple of examples:
 
@@ -92,8 +90,7 @@ high-performance machine code. Basically, Extempore's xtlang compiler
 generates the LLVM IR, and this is then passed to LLVM for compiling and
 linking.
 
-So why two languages? {#so-why-two-languages}
----------------------
+## So why two languages? {#so-why-two-languages}
 
 Why introduce this confusion? Why not just pick one language or the
 other (or design a new language which has aspects of both)? By way of
@@ -224,8 +221,7 @@ performance benefits and bit-level control of working much closer to the
 metal. It's even nice (most of the time, at least!) to get the compile
 errors, it's better to catch type mismatches earlier rather than later.
 
-**Live** programming: Interacting with the Extempore compiler/runtime {#live-programming-interacting-with-the-extempore-compilerruntime}
----------------------------------------------------------------------
+## **Live** programming: Interacting with the Extempore compiler/runtime {#live-programming-interacting-with-the-extempore-compilerruntime}
 
 Remember the claim in the opening paragraph that Extempore is a language
 designed with 'live programming' in mind? Now, 'live programming' is a

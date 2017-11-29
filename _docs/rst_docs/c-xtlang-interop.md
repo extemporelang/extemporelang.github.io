@@ -2,8 +2,7 @@
 title: c-xtlang-interop
 ---
 
-C-xtlang interop {#c-xtlang-interop}
-================
+# C-xtlang interop {#c-xtlang-interop}
 
 Note
 
@@ -33,8 +32,7 @@ rewriting bits in C isn't usually of any benefit. The main reason you'll
 want to call C code from xtlang, then, is to take advantage of existing
 libraries.
 
-xtlang-C interaction {#xtlang-c-interaction}
---------------------
+## xtlang-C interaction {#xtlang-c-interaction}
 
 In some ways, mixing xtlang code and C code is easy. The type system is
 quite similar: all of xtlang's floats and ints have a C counterpart
@@ -76,8 +74,7 @@ be evaluated before you can use the functions in the library. Extempore
 can then load the shared library, xtlang can call functions in the
 library, and it should all be peaches.
 
-Foolib: the world's most useless C library {#foolib-the-worlds-most-useless-c-library}
-------------------------------------------
+## Foolib: the world's most useless C library {#foolib-the-worlds-most-useless-c-library}
 
 Let's consider a really simple example. Say we have a C library which
 only defines *one function* called `foo`. This library (libfoo) will
@@ -182,8 +179,7 @@ have exact (bit-identical) xtlang counterparts, so there's really no
 hard work to do (in contrast to higher level languages, which have to
 worry about boxing/unboxing numeric types, for example).
 
-KissFFT: a more useful library {#kissfft-a-more-useful-library}
-------------------------------
+## KissFFT: a more useful library {#kissfft-a-more-useful-library}
 
 As a more useful example, let's look at the library `fft.xtm` in the
 `libs/external` directory which comes with Extempore. `fft.xtm` uses the
@@ -412,8 +408,7 @@ at the code. In general, the approach I've taken here of "find the
 function you want to call first, then work backwards to define all the
 necessary types and helper functions" is probably not a bad one.
 
-The external directory {#the-external-directory}
-----------------------
+## The external directory {#the-external-directory}
 
 If you've looked around the extempore `examples` or `libs` directory,
 you might have noticed that there are `core`, `external` and `contrib`

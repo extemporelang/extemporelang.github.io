@@ -2,8 +2,7 @@
 title: index
 ---
 
-The Extempore programming environment {#the-extempore-programming-environment}
-=====================================
+# The Extempore programming environment {#the-extempore-programming-environment}
 
 Welcome to Extempore's documentation site. It's a work in progress---up
 till now things have been hosted on [Ben's
@@ -30,8 +29,7 @@ common-lisp-music sampler graphics impromptu-users
 
 getting-help contributing testing
 
-Other useful things {#other-useful-things}
-===================
+# Other useful things {#other-useful-things}
 
 -   <span role="ref">genindex</span>
 -   <span role="ref">search</span>

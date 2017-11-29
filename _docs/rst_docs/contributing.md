@@ -2,8 +2,7 @@
 title: contributing
 ---
 
-Contributing {#contributing}
-============
+# Contributing {#contributing}
 
 Note
 

@@ -2,8 +2,7 @@
 title: graphics
 ---
 
-Graphics {#graphics}
-========
+# Graphics {#graphics}
 
 Note
 

@@ -2,8 +2,7 @@
 title: editor-support
 ---
 
-Text editors {#text-editors}
-============
+# Text editors {#text-editors}
 
 Note
 
@@ -12,8 +11,7 @@ If you don't have a favourite text editor, or don't really
 :   know what a text editor is, then that's ok! Atom is probably the
     text editor for you.
 
-Atom {#atom}
-----
+## Atom {#atom}
 
 [Atom](https://atom.io/) is a cross-platform text editor which runs on
 OS X, Linux and Windows. It was originally created by GitHub, but it's
@@ -80,8 +78,7 @@ If you *do* want to restart the Extempore process, just `ctrl+c` in the
 terminal where `extempore` is running to kill it, then start it up
 again.
 
-Emacs {#emacs}
------
+## Emacs {#emacs}
 
 ### Installation {#installation-1}
 
@@ -115,8 +112,7 @@ To restart the Extempore process, just `C-c C-c` in the `*extempore*`
 buffer where `extempore` is running to kill it, then start it up again
 with `M-x switch-to-extempore` (`C-c C-z`).
 
-Sublime Text 2 {#sublime-text-2}
---------------
+## Sublime Text 2 {#sublime-text-2}
 
 [Sublime Text 2](http://www.sublimetext.com) (ST2) is a cross-platform
 text editor which runs on OS X, Linux and Windows. It's the 'spiritual
@@ -176,8 +172,7 @@ to evaluate. It would be nice if it would eval the top-level
 s-expression if no region was highlighted. This is hopefully not too
 tricky to add if you know a bit about how ST2 works.
 
-Vim {#vim}
----
+## Vim {#vim}
 
 Extempore's [vim plugin](https://github.com/timburgess/extempore.vim) is
 maintained by Tim Burgess.
