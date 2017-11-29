@@ -52,58 +52,51 @@ If you've got questions, or want to bounce around some ideas for
 improvements before you go ahead and make big changes then get in touch
 on the [mailing list](mailto:extemporelang@googlegroups.com).
 
+# Extempore wishlist {#extempore-wishlist}
+
+Building a new programming language, runtime and ecosystem is a
+multifaceted job. Here are a few projects (some small, some not so
+small) which would be really nice---if you think you'd like to
+contribute, give us a shout out on the [mailing
+list](mailto:extemporelang@googlegroups.com).
+
+## Core {#core}
+
+These projects involve hacking on the Extempore binary itself.
+
+1.  upgrade to LLVM 5.0 & ORCJIT
+2.  port Extempore to 64-bit ARM (`aarch64`)
+
+## xtlang {#xtlang}
+
+These projects (mostly) involve adding/improving libraries for doing
+cool things in xtlang.
+
+1.  add animation to the graphics pipeline
+2.  a 2D/3D hardware-accelerated data visualisation library (e.g. a
+    vega-lite for Extempore)
+3.  add DirectX (or perhaps Vulkan) support
+
+## Ecosystem {#ecosystem}
+
+These projects are "ecosystem/tooling" projects.
+
+1.  add xtlang support to highlight.js (shouldn't be *too* difficult,
+    you can basically copy the parsing regexes from the Atom plugin)
+2.  a SWIG (or similar) wrapper generator to automatically generate the
+    xtlang `bind-lib` definitions
+3.  improve the main Extempore website (<http://extempore.moso.com.au>),
+    potentially rolling this docs website into the main site
+4.  add an xtlang package manager (e.g. CPAN or cargo for Extempore)
+5.  set up Jenkins (or CTest, or whatever) build & test servers for
+    Windows, macOS and Linux to create nightly builds and run the test
+    suite
+6.  make the CMake build process aware of the xtlang ahead-of-time
+    compilation process, so that `make aot` only re-aot-compiles an
+    xtlang library if it has changed
 ## ReStructured text cheat sheet {#restructured-text-cheat-sheet}
 
 Since these docs use Sphinx, their [ReStructured text
 docs](www.sphinx-doc.org/en/stable/rest.html) are the best place to
 look, but here are a few quick reminders about the formatting of these
 doc files.
-
-### Sections {#sections}
-
-Section headings are underlined, where the "level" of the heading is
-determined by the character used for the underline like so:
-
-    Section heading
-    ===============
-
-    Subsection heading
-    ------------------
-
-    Subsubsection heading
-    ^^^^^^^^^^^^^^^^^^^^^
-
-    Paragraph heading
-    """""""""""""""""
-
-### Source Code {#source-code}
-
-For Extempore code blocks, use the `source-code` directive, then indent
-the code block:
-
-    .. source-code:: extempore
-
-    (printf "foo")
-
-### Links {#links}
-
-External links should be done like this:
-
-    You can `Google all the things!`_
-
-    .. _Google all the things!`: www.google.com
-
-You can make internal links to other parts of the documentation:
-
-    if the documentation you want to link to lives in it's own top-level
-    .rst file, you can use e.g. :doc:`quickstart` (use the fiename
-    without extension in the target).
-
-    If you want the link text to be something other than the title of
-    the subpage, use e.g. :doc:`getting started quickly <quickstart>`
-
-You can also add arbitrary link targets:
-
-    .. _this-is-a-target:
-
-    For more information, see :ref:`this-is-a-target`

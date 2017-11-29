@@ -1,5 +1,6 @@
 ---
 title: bits-and-pieces
+published: false
 ---
 
 # What's possible with Extempore? {#whats-possible-with-extempore}

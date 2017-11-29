@@ -1,11 +1,19 @@
-- title: Getting Started
+- title: Overview
   docs:
-  - home
-  - themes
-  - customization
+  - overview/quickstart
+  - overview/install
+  - overview/using-extempore
+  - overview/philosophy
+  - overview/time
+  - overview/going-further
+  - overview/getting-help
+  - overview/community
+  - overview/contributing
 
-- title: Examples
+- title: Reference
   docs:
-  - cheatsheet
-  - font-awesome
-  - bootstrap
+  - reference/
+
+- title: Guides
+  docs:
+  - guides/

@@ -2,24 +2,10 @@
 title: quickstart
 ---
 
-# quickstart {#quickstart}
-
 I get it, you're impatient---here's the bare minimum required to get
 from zero to running Extempore code.
 
-Note
-
-Some of the tutorial documentation is out of date. If you get stuck, the
-best place to ask for help is the mailing list.
-
 ## Installation {#installation}
-
-Note
-
-There are much more detailed instructions in <span role="doc">install</span>,
-
-:   so if you have any problems (or simply want to know what's going on)
-    with the steps below then that's a good place to look.
 
 The quickest way to get started is to download a [binary
 release](https://github.com/digego/extempore/releases), unzip it and run
