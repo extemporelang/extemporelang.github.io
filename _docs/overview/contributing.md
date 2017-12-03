@@ -1,58 +1,58 @@
 ---
-title: about-this-documentation
+title: Contributing
 ---
 
-# About this documentation {#about-this-documentation}
-
-This documentation is generated using
-[Sphinx](http://www.sphinx-doc.org/), using the
-[rtd](https://github.com/snide/sphinx_rtd_theme) theme. Eventually we
-might even host it at [Read the Docs](http://readthedocs.org), but
-currently someone (usually Ben) generates the static HTML, and then we
-host it on GH pages. Since it's all just
-[reStructured](http://www.sphinx-doc.org/en/stable/rest.html) text files
-in the `docs/` subdirectory, it's easy for others to contribute.
-
-## Generating {#generating}
-
-To generate these docs, you'll need a few python packages, something
-like:
-
-    pip install sphinx sphinx-autobuild sphinx_rtd_theme pygments
-
-The docs are generated from the reStructured text (`.rst`) files in the
-`docs/` subdirectory in the Extempore source distribution.
-
-If you want to work on the docs locally (with a live-reload server so
-that you can see the changes) you can use run `sphinx-autobuild` in this
-`docs/` directory on your local machine:
-
-    sphinx-autobuild . _build
-
-To actually build the docs to host somewhere, use the makefile:
-
-    make html
-
-then take the generated output from `_build/html` and dump it on a
-webserver somewhere---it's a self-contained static site.
-
-Currently, we're hosting it on GitHub pages through the Extempore repo,
-in a special `gh-pages` branch.
-
-## Contributing {#contributing}
-
-If you find problems, or can think of improvements, [fork away on
-GH](https://github.com/digego/extempore), edit the documentation source
-files and submit a pull request---we'd love these docs to become a real
-community effort. There will probably be a few broken links and other
-little things like that, so no pull request is too small to be
-appreciated :)
+There are heaps of ways you can contribute to Extempore---whether you've been
+hacking Extempore code for a long time or whether you're just starting out. If
+you're in the latter category then you can especially help out with the
+docs---take notes as you learn, write down (& suggest fixes) for anything that's
+missing or unclear. It's hard for Andy & Ben to remember what it's like to start
+out, but that doesn't mean that others should have to fight through like we did
+:)
 
 If you've got questions, or want to bounce around some ideas for
 improvements before you go ahead and make big changes then get in touch
 on the [mailing list](mailto:extemporelang@googlegroups.com).
 
-# Extempore wishlist {#extempore-wishlist}
+## Documentation
+
+This documentation is built using [Jekyll](https://jekyllrb.com/), using the
+[Jekyll Doc](https://aksakalli.github.io/jekyll-doc-theme/) theme. Since it's
+all just markdown files in the `docs/` subdirectory, it's easy for others to
+contribute.
+
+If you find problems, or can think of improvements, [fork away on
+GH](https://github.com/digego/extempore), edit the documentation source files
+and submit a pull request---there's a nice little "Edit on Github" link at the
+bottom of every page. We'd love these docs to become a real community effort.
+There will probably be a few broken links and other little things like that, so
+no pull request is too small to be appreciated :)
+
+### Building
+
+To generate these docs, you'll need a working ruby install & a few packages. The
+best way to get started is to use [bundler](http://bundler.io/), then it's:
+
+    bundle install # to get all the packages
+    bundle exec jekyll build # to build the docs website
+
+If you want to see your changes locally (which of course you do!) then you can
+run a local 'live' test server with
+
+    bundle exec jekyll serve
+
+### Hosting
+
+The docs are built and hosted automatically by GitHub through [GitHub
+pages](https://pages.github.com/). So the docs are re-built for every commit to
+the master branch of [the extemporelang.github.io
+repo](https://github.com/extemporelang/extemporelang.github.io).
+
+### Formatting
+
+There's no real styleguide, but just have a look at the existing doc pages.
+
+## Extempore wishlist
 
 Building a new programming language, runtime and ecosystem is a
 multifaceted job. Here are a few projects (some small, some not so
@@ -62,41 +62,34 @@ list](mailto:extemporelang@googlegroups.com).
 
 ## Core {#core}
 
-These projects involve hacking on the Extempore binary itself.
+These projects involve hacking on the Extempore executable itself:
 
 1.  upgrade to LLVM 5.0 & ORCJIT
 2.  port Extempore to 64-bit ARM (`aarch64`)
 
 ## xtlang {#xtlang}
 
-These projects (mostly) involve adding/improving libraries for doing
-cool things in xtlang.
+These projects (mostly) involve adding/improving libraries for doing cool things
+in xtlang:
 
 1.  add animation to the graphics pipeline
 2.  a 2D/3D hardware-accelerated data visualisation library (e.g. a
     vega-lite for Extempore)
-3.  add DirectX (or perhaps Vulkan) support
+3.  add TensorFlow C bindings for (at least) inference, & an example of how to
+    run a cool deep-learning-powered image processing model
+4.  add DirectX (or perhaps Vulkan) support
 
 ## Ecosystem {#ecosystem}
 
 These projects are "ecosystem/tooling" projects.
 
-1.  add xtlang support to highlight.js (shouldn't be *too* difficult,
-    you can basically copy the parsing regexes from the Atom plugin)
-2.  a SWIG (or similar) wrapper generator to automatically generate the
-    xtlang `bind-lib` definitions
-3.  improve the main Extempore website (<http://extempore.moso.com.au>),
-    potentially rolling this docs website into the main site
-4.  add an xtlang package manager (e.g. CPAN or cargo for Extempore)
-5.  set up Jenkins (or CTest, or whatever) build & test servers for
-    Windows, macOS and Linux to create nightly builds and run the test
-    suite
-6.  make the CMake build process aware of the xtlang ahead-of-time
-    compilation process, so that `make aot` only re-aot-compiles an
-    xtlang library if it has changed
-## ReStructured text cheat sheet {#restructured-text-cheat-sheet}
-
-Since these docs use Sphinx, their [ReStructured text
-docs](www.sphinx-doc.org/en/stable/rest.html) are the best place to
-look, but here are a few quick reminders about the formatting of these
-doc files.
+1.  add xtlang support to
+    [highlight.js](http://highlightjs.readthedocs.io/en/latest/language-guide.html)
+    (shouldn't be *too* difficult, you can basically copy the parsing regexes
+    from the Atom plugin)
+2.  write an extempore plugin for [VS
+    Code](https://code.visualstudio.com/docs/extensions/overview) xtlang
+3.  add an xtlang package manager (e.g. CPAN or cargo for Extempore)
+4.  make the CMake build process aware of the xtlang ahead-of-time compilation
+    process, so that `make aot` only re-aot-compiles an xtlang library if it has
+    changed
