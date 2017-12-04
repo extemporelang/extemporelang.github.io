@@ -1,0 +1,42 @@
+// a few niceties for lab/assignment content
+$noteColour: #f1c40f;
+$thinkColour: #3498db;
+$talkColour: #1abc9c;
+$doColour: #ff4ce8;
+$extensionColour: #9b59b6;
+
+@mixin lab-content-box ($heading, $colour){
+    padding: 10px;
+
+    &::before {
+        background: $colour;
+        color: #fff;
+        padding-left: 1em;
+        content: $heading;
+        display: block;
+        font-weight: 600;
+        margin-bottom: 1em;
+    }
+}
+
+.note-box {
+    @include lab-content-box("note", $noteColour);
+    background: lighten($noteColour, 25%);
+}
+.think-box {
+    @include lab-content-box("think", $thinkColour);
+    background: lighten($thinkColour, 30%);
+}
+.talk-box {
+    @include lab-content-box("talk", $talkColour);
+    background: lighten($talkColour, 40%);
+}
+.do-box {
+    @include lab-content-box("do", $doColour);
+    background: lighten($doColour, 22%);
+}
+.extension-box {
+    @include lab-content-box("extension", $extensionColour);
+    background: lighten($extensionColour, 30%);
+    border-color: $extensionColour;
+}
