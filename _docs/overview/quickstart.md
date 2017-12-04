@@ -1,38 +1,45 @@
 ---
-title: quickstart
+title: Quickstart
 ---
 
+{:.note-box}
 I get it, you're impatient---here's the bare minimum required to get
 from zero to running Extempore code.
 
-## Installation {#installation}
+## Installation
 
 The quickest way to get started is to download a [binary
 release](https://github.com/digego/extempore/releases), unzip it and run
 `extempore.exe` from inside the `extempore` folder.
 
-If you're more of a build-from-source type, then <span
-role="ref">that's pretty
-easy as well &lt;build-from-source-doc&gt;</span>.
+If you're more of a build-from-source type, then [that's pretty easy as
+well]({{site.baseurl}}/docs/overview/install/#build-from-source)
 
 ## Editor setup {#editor-setup}
 
-To write Extempore code you need a text editor, and there are <span
-role="doc">Extempore "plugins" for several text editors &lt;editor-support&gt;</span>
----Atom, Emacs, Sublime Text and Vim.
+{:.note-box}
 
-If you don't have a favourite text editor, then [Atom](https://atom.io/)
-is probably a good choice---it's free, available on all platforms and
-doesn't have as steep a learning curve as some other editors. Head over
-to the <span
-role="ref">Extempore Atom setup &lt;atom-editor-setup&gt;</span> docs to
-find out to download and set it up for Extempore.
+There's also a [VS Code
+plugin](https://github.com/extemporelang/extempore4vscode) in the
+works---probably not ready for prime time, but it's a nice editor and it might
+be the best option in the future once some of the rough edges are knocked off.
 
-If you *do* have a favourite text editor, and it's one of the ones
-mentioned above, then see the <span
-role="doc">editor support page &lt;editor-support&gt;</span> for
-instructions on how to get started hacking Extempore code in your editor
-of choice.
+To write Extempore code you need a text editor, and there are Extempore
+"plugins" for [several text
+editors]({{site.baseurl}}/_docs/overview/editor-support/)---Atom, Emacs, Sublime
+Text and Vim.
+
+If you don't have a favourite text editor, then [Atom](https://atom.io/) is
+probably a good choice---it's free, available on all platforms and doesn't have
+as steep a learning curve as some other editors. Head over to the [Extempore
+Atom setup
+]({{site.baseurl}}/_docs/overview/editor-support/#extempore-atom-setup) docs to
+find out how to download and set it up for Extempore.
+
+If you *do* have a favourite text editor, and it's one of the ones mentioned
+above, then see the [editor
+support]({{site.baseurl}}/_docs/overview/editor-support/) page for instructions
+on how to get started hacking Extempore code in your editor of choice.
 
 ## "Hello, World!" {#hello-world}
 
@@ -55,6 +62,18 @@ here's "Hello, Sine!"
 ;; tell Extempore to use `sine` as the audio output sink
 (dsp:set! sine)
 ~~~~
+
+If you want to turn it off, just re-define the `dsp` function to return
+"silence":
+
+```
+(bind-func dsp:DSP
+  (lambda (in time chan dat)
+    0.0))
+```
+
+In the snipped above we've used `0.0`, but any constant value will work (because
+physics).
 
 ## "Hello, Triangle!" {#hello-triangle}
 
