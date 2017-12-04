@@ -25,20 +25,19 @@ works---probably not ready for prime time, but it's a nice editor and it might
 be the best option in the future once some of the rough edges are knocked off.
 
 To write Extempore code you need a text editor, and there are Extempore
-"plugins" for [several text
-editors]({{site.baseurl}}/_docs/overview/editor-support/)---Atom, Emacs, Sublime
-Text and Vim.
+"plugins" for [several text editors]({{site.baseurl}}{% link
+_docs/overview/editor-support.md %})---Atom, Emacs, Sublime Text and Vim.
 
 If you don't have a favourite text editor, then [Atom](https://atom.io/) is
 probably a good choice---it's free, available on all platforms and doesn't have
 as steep a learning curve as some other editors. Head over to the [Extempore
 Atom setup
-]({{site.baseurl}}/_docs/overview/editor-support/#extempore-atom-setup) docs to
+]({{site.baseurl}}/docs/overview/editor-support/#extempore-atom-setup) docs to
 find out how to download and set it up for Extempore.
 
 If you *do* have a favourite text editor, and it's one of the ones mentioned
 above, then see the [editor
-support]({{site.baseurl}}/_docs/overview/editor-support/) page for instructions
+support]({{site.baseurl}}/docs/overview/editor-support/) page for instructions
 on how to get started hacking Extempore code in your editor of choice.
 
 ## "Hello, World!" {#hello-world}
