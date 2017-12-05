@@ -1,108 +1,97 @@
 ---
-title: sampler
+title: Loading and using a sampler
 ---
 
-# Loading and using a sampler {#loading-and-using-a-sampler}
-
 A sampler is an instrument which stores chunks of audio which can be
-*triggered*---played back. Samplers are used in many different ways,
-such as providing digital simulations of acoustic instruments (e.g. a
-piano sampler which plays recorded samples of a *real* piano when
-triggered by messages from a MIDI keyboard) or they can be used to play
-and manipulate non-acoustic sounds.
+*triggered*---played back. Samplers are used in many different ways, such as
+providing digital simulations of acoustic instruments (e.g. a piano sampler
+which plays recorded samples of a *real* piano when triggered by messages from a
+MIDI keyboard) or they can be used to play and manipulate non-acoustic sounds.
 
 Since samplers are so useful, Extempore provides a built-in sampler in
-`libs/external/instruments_ext.xtm`. This sampler basically works like
-any other Extempore instrument, such as those described in <span
-role="doc">making-an-instrument</span>), except that the note kernel
-closure is already set up for you---you just have to load the sampler
-with sound files. There is also a slight difference in the way we set a
-sampler up: using the Scheme macro `bind-sampler` instead of
-`bind-instrument`. The Extempore sampler is still an xtlang closure, and
-can be used in all the same situations (e.g. as the `inst` argument to
-`play-note` or `play`) as an instrument can.
+`libs/external/instruments_ext.xtm`. This sampler basically works like any other
+Extempore instrument, such as those described in [making an
+instrument]({{site.baseurl}}{% link _docs/guides/making-an-instrument.md %})),
+except that the note kernel closure is already set up for you---you just have to
+load the sampler with sound files. There is also a slight difference in the way
+we set a sampler up: using the Scheme macro `bind-sampler` instead of
+`bind-instrument`. The Extempore sampler is still an xtlang closure, and can be
+used in all the same situations (e.g. as the `inst` argument to `play-note` or
+`play`) as an instrument can.
 
 ## Samplers 101 {#samplers-101}
 
-You can think of a sampler as a series of 'slots', each of which
-contains a sound file.
+You can think of a sampler as a series of 'slots', each of which contains a
+sound file.
 
 ![image](/images/sampler/piano-full.png)
 
 Each slot has a unique index, and playing the sampler generally involves
-specifying the index of the sample to play, the loudness/velocity and
-the duration. There are lots of subtleties to this process, such as what
-to do when the duration is longer than the sample length, what to do if
-there isn't a sample at the given index, etc., but at a high level
-that's how it works.
+specifying the index of the sample to play, the loudness/velocity and the
+duration. There are lots of subtleties to this process, such as what to do when
+the duration is longer than the sample length, what to do if there isn't a
+sample at the given index, etc., but at a high level that's how it works.
 
-If you look at the filenames in each slot (although it's the audio
-*data* in the slots, not the filename strings), you'll notice that they
-refer to [wave](http://en.wikipedia.org/wiki/WAV) (audio) files named
-with [scientific pitch
-notation](http://en.wikipedia.org/wiki/Scientific_pitch_notation). These
-wave files could be recordings of a piano, or of a violin, or even of
-abstract sound effects (although at that point we'd have to wonder why
-they were named with pitches from the musical scale). The sampler
-doesn't care what audio data is stored in each slot, and it's up to you
-to make sure that both the slot the audio is stored in and the audio
-data itself make sense for whatever musical purpose you have in mind.
+If you look at the filenames in each slot (although it's the audio *data* in the
+slots, not the filename strings), you'll notice that they refer to
+[wave](http://en.wikipedia.org/wiki/WAV) (audio) files named with [scientific
+pitch notation](http://en.wikipedia.org/wiki/Scientific_pitch_notation). These
+wave files could be recordings of a piano, or of a violin, or even of abstract
+sound effects (although at that point we'd have to wonder why they were named
+with pitches from the musical scale). The sampler doesn't care what audio data
+is stored in each slot, and it's up to you to make sure that both the slot the
+audio is stored in and the audio data itself make sense for whatever musical
+purpose you have in mind.
 
 For sampling pitched instruments, using [MIDI note
-numbers](http://www.phys.unsw.edu.au/jw/notes.html) (middle C = 60) make
-sense, and that's the convention I've used in the diagram above. If you
-want to trigger the sample for middle C, just use `play-note` with a
-pitch argument of `60`.
+numbers](http://www.phys.unsw.edu.au/jw/notes.html) (middle C = 60) make sense,
+and that's the convention I've used in the diagram above. If you want to trigger
+the sample for middle C, just use `play-note` with a pitch argument of `60`.
 
-The Extempore sampler doesn't *have* to be full---there can be empty
-slots.
+The Extempore sampler doesn't *have* to be full---there can be empty slots.
 
 ![image](/images/sampler/piano-gaps.png)
 
-In this situation, when the sampler gets a `play-note` message
-corresponding to an empty slot, looks for the closest 'filled' slot,
-grabs that audio data, and linearly pitch-shifts it to play at the
-required pitch.
+In this situation, when the sampler gets a `play-note` message corresponding to
+an empty slot, looks for the closest 'filled' slot, grabs that audio data, and
+linearly pitch-shifts it to play at the required pitch.
 
-For example, say a message came in to play sample `72` (one octave above
-middle C). If the closest filled slot was middle C (slot `60`), then the
-sampler would play the middle C audio file pitch-shifted up one octave.
-If you've ever looked into the maths behind musical notes, you'll know
-that for every octave increase in pitch, the frequency of the waveform
-doubles. So, to play a sample *up an octave*, we play it back at double
-speed. In practice, because the audio sample rate is constant, we only
-play every second sample, which has the same effect---we're progressing
-through the audio data twice as fast. This is the same reason that when
-you hit fast-forward on a tape player (do people still remember tape
-players) while it's playing then you get a hilarious chipmunk effect,
-because everyone's voices are pitch-shifted up.
+For example, say a message came in to play sample `72` (one octave above middle
+C). If the closest filled slot was middle C (slot `60`), then the sampler would
+play the middle C audio file pitch-shifted up one octave. If you've ever looked
+into the maths behind musical notes, you'll know that for every octave increase
+in pitch, the frequency of the waveform doubles. So, to play a sample *up an
+octave*, we play it back at double speed. In practice, because the audio sample
+rate is constant, we only play every second sample, which has the same
+effect---we're progressing through the audio data twice as fast. This is the
+same reason that when you hit fast-forward on a tape player (do people still
+remember tape players) while it's playing then you get a hilarious chipmunk
+effect, because everyone's voices are pitch-shifted up.
 
-If we're not pitch-shifting by a whole octave, then the maths is a bit
-trickier (it's not just a matter of doubling the frequency), but the
-Extempore sampler takes care of that for us (including all sorts of
-fancy stuff like interpolating between individual audio samples). When
-`play-note` calls an empty slot in the sampler, the pitch-shifting up or
-down is taken care of, and it works as though we *did* have an audio
-file in that slot. The exception to this rule is if the audio sample has
-a meaningful tempo---such as a full drum loop. In this case, because the
-pitch-shifting is also speeding up or slowing down the sample playback,
-the tempo will be altered as well. Which may be fine, but it may also be
-a problem. If you're in that situation, then you'll probably want to
-make sure you have audio data in all the slots you're going to trigger.
+If we're not pitch-shifting by a whole octave, then the maths is a bit trickier
+(it's not just a matter of doubling the frequency), but the Extempore sampler
+takes care of that for us (including all sorts of fancy stuff like interpolating
+between individual audio samples). When `play-note` calls an empty slot in the
+sampler, the pitch-shifting up or down is taken care of, and it works as though
+we *did* have an audio file in that slot. The exception to this rule is if the
+audio sample has a meaningful tempo---such as a full drum loop. In this case,
+because the pitch-shifting is also speeding up or slowing down the sample
+playback, the tempo will be altered as well. Which may be fine, but it may also
+be a problem. If you're in that situation, then you'll probably want to make
+sure you have audio data in all the slots you're going to trigger.
 
-There is the potential for a loss in audio quality the further (in pitch
-terms) an audio file has to be shifted. Still, the 'missing sample
-interpolation' allows us to make a trade-off between sound quality and
-memory footprint. If sound quality is more important, use more slots,
-but if low memory use is more important, use fewer slots and let the
-sampler interpolate in the gaps.
+There is the potential for a loss in audio quality the further (in pitch terms)
+an audio file has to be shifted. Still, the 'missing sample interpolation'
+allows us to make a trade-off between sound quality and memory footprint. If
+sound quality is more important, use more slots, but if low memory use is more
+important, use fewer slots and let the sampler interpolate in the gaps.
 
 ## Creating a drum sampler {#creating-a-drum-sampler}
 
-Ok, enough background material---let's make some noise. We'll create an
-instance of Extempore's sampler called `drums`. To do this, we use the
-`bind-sampler` Scheme macro (once we've loaded it from the
-`libs/external/instruments_ext.xtm` library file).
+Ok, enough background material---let's make some noise. We'll create an instance
+of Extempore's sampler called `drums`. To do this, we use the `bind-sampler`
+Scheme macro (once we've loaded it from the `libs/external/instruments_ext.xtm`
+library file).
 
 ~~~~ sourceCode
 (sys:load "libs/external/instruments_ext.xtm")
@@ -120,24 +109,24 @@ instance of Extempore's sampler called `drums`. To do this, we use the
 (dsp:set! dsp)
 ~~~~
 
-But we're not done yet: the xtlang closure `drums` has been compiled,
-but it hasn't had any samples loaded into it's slots yet. So we need
-some drum samples, then. Extempore doesn't ship with any samples, you'll
-have to provide your own. The [Salamander
+But we're not done yet: the xtlang closure `drums` has been compiled, but it
+hasn't had any samples loaded into it's slots yet. So we need some drum samples,
+then. Extempore doesn't ship with any samples, you'll have to provide your own.
+The [Salamander
 drumkit](https://archive.org/download/SalamanderDrumkit/salamanderDrumkit.tar.bz2)
-is pretty cool–and also free, which is nice :) So I'm going to load
-those samples into my `drums` sampler.
+is pretty cool–and also free, which is nice :) So I'm going to load those
+samples into my `drums` sampler.
 
-First, download the Salamander drum kit samples, unzip and untar them
-and put the files somewhere. On my computer, I've put them into
-`/Users/ben/Music/sample-libs/drums/salamander`, but you can put them
-wherever you like. Just make sure that you set the right path in your
-code if you're following along.
+First, download the Salamander drum kit samples, unzip and untar them and put
+the files somewhere. On my computer, I've put them into
+`/Users/ben/Music/sample-libs/drums/salamander`, but you can put them wherever
+you like. Just make sure that you set the right path in your code if you're
+following along.
 
 When you unzip and untar `salamanderDrumkit.tar.bz2`, it will have a
-subdirectory called `OH`, which contains the wave files which contain
-the drum sounds. We're going to load (some of) these files into our
-`drums` sampler one at a time using the `set-sampler-index` function.
+subdirectory called `OH`, which contains the wave files which contain the drum
+sounds. We're going to load (some of) these files into our `drums` sampler one
+at a time using the `set-sampler-index` function.
 
 ~~~~ sourceCode
 (define drum-path "/Users/ben/Music/sample-libs/drums/salamander/OH/")
@@ -157,9 +146,9 @@ the drum sounds. We're going to load (some of) these files into our
 (set-sampler-index drums (string-append drum-path "ride1Bell_OH_F_6.wav") *gm-ride-bell* 0 0 0 1)
 ~~~~
 
-If that works properly, some info will be printed to the log about the
-audio files which have been loaded into the sampler. They should look
-something like this:
+If that works properly, some info will be printed to the log about the audio
+files which have been loaded into the sampler. They should look something like
+this:
 
 ~~~~ sourceCode
 file name:     /Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav
@@ -171,15 +160,14 @@ read/Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav:
 2(channels) 22898(frames):357.781250(k)     into index:35
 ~~~~
 
-If the log doesn't show something like that, then there are a few things
-which could have gone wrong:
+If the log doesn't show something like that, then there are a few things which
+could have gone wrong:
 
 -   have you set up `libsndfile` properly on your system?
 -   are the pathnames to to samples correct?
 -   did you define the `drums` sampler and did it compile properly?
 
-Assuming things worked properly, we should be able to play our `drums`
-sampler.
+Assuming things worked properly, we should be able to play our `drums` sampler.
 
 ~~~~ sourceCode
 ;; evaluate these as you see fit!
@@ -188,9 +176,16 @@ sampler.
 (play-note (now) drums *gm-closed-hi-hat* 80 44100)
 ~~~~
 
-Cool, seems to work fine. For a tutorial on how to generate beats and
-drum patterns, check out <span role="doc">note-level-music</span>.
+Cool, seems to work fine. For a tutorial on how to generate beats and drum
+patterns, check out [note-level music]({{site.baseurl}}{% link
+_docs/guides/note-level-music.md %}).
 
+## Doing cool things with samplers {#doing-cool-things-with-samplers}
+
+There are lots of possibilities at this stage. If you're interested in
+seeing how to make vaguely 'conventional' musical material, then <span
+role="doc">note-level-music</span> is a good place to start. And I'm
+sure you can think of lots of other possibilities—go nuts :)
 ## Creating a piano sampler {#creating-a-piano-sampler}
 
 Ok, drums are loaded, let's add one more sampler---this time a `piano`.
@@ -210,11 +205,10 @@ Ok, drums are loaded, let's add one more sampler---this time a `piano`.
 
 Luckily, there's a [Salamander
 piano](http://download.linuxaudio.org/lau/SalamanderGrandPianoV2/SalamanderGrandPianoV2_44.1khz16bit.tar.bz2)
-as well, which will do just fine for today. Go ahead and download that
-(you'll want the version called
-`SalamanderGrandPianoV2_44.1khz16bit.tar.bz2`). Again, unzip and untar
-the files to wherever you put that sort of thing. This time, the wave
-audio files should be in a `44.1khz16bit` subdirectory. Looking at the
+as well, which will do just fine for today. Go ahead and download that (you'll
+want the version called `SalamanderGrandPianoV2_44.1khz16bit.tar.bz2`). Again,
+unzip and untar the files to wherever you put that sort of thing. This time, the
+wave audio files should be in a `44.1khz16bit` subdirectory. Looking at the
 files in that directory (e.g. with `ls`), we get something like
 
 ~~~~ sourceCode
@@ -228,53 +222,50 @@ A0v14.wav  A6v10.wav  C4v7.wav    D#2v3.wav   F#1v14.wav  F#7v10.wav
 ... plus many more files
 ~~~~
 
-So it looks like the files are named with a simple naming convention,
-which makes use of scientific pitch notation. For example, `C4v5.wav`
-looks like it's a recording of C4 (middle C) on the piano, and the `v5`
-part probably means that it's the 5th velocity layer for the note C4.
-This means that there are multiple sound files (called *layers*) for
-each note, and the sampler will choose which one to play based on the
-velocity argument in the triggering call. Not all sample libraries will
-have multiple velocity layers, but they're a way of capturing the
-differences in sound between soft notes and loud notes---particularly on
-instruments where the difference between soft and loud is in more than
-just volume (such as a [Fender
+So it looks like the files are named with a simple naming convention, which
+makes use of scientific pitch notation. For example, `C4v5.wav` looks like it's
+a recording of C4 (middle C) on the piano, and the `v5` part probably means that
+it's the 5th velocity layer for the note C4. This means that there are multiple
+sound files (called *layers*) for each note, and the sampler will choose which
+one to play based on the velocity argument in the triggering call. Not all
+sample libraries will have multiple velocity layers, but they're a way of
+capturing the differences in sound between soft notes and loud
+notes---particularly on instruments where the difference between soft and loud
+is in more than just volume (such as a [Fender
 Rhodes](http://en.wikipedia.org/wiki/Rhodes_piano)).
 
-Extempore's built-in sampler **does not** support layers, although if
-you wanted to add that functionality in you could easily hack the
-sampler source code in `external/instruments.xtm`. So, what we want to
-do is choose just one of the layer files for each note to load into the
-sampler. We could choose the loudest layer, or the softest layer, or a
-random layer for each note (although this would lead to uneven loudness
-when playing the sampler with `play-note`). The main point is that we
-can only load *one* of the layers by default.
+Extempore's built-in sampler **does not** support layers, although if you wanted
+to add that functionality in you could easily hack the sampler source code in
+`external/instruments.xtm`. So, what we want to do is choose just one of the
+layer files for each note to load into the sampler. We could choose the loudest
+layer, or the softest layer, or a random layer for each note (although this
+would lead to uneven loudness when playing the sampler with `play-note`). The
+main point is that we can only load *one* of the layers by default.
 
-So if the audio files are named according to a meaninful convention, is
-there a way to make use of that? Loading each audio file individually
-can be pretty time-consuming---not to mention error-prone! How do we
-take a list of files (such as the output of `ls` above) and tell our
-sampler which files to load into which slots?
+So if the audio files are named according to a meaninful convention, is there a
+way to make use of that? Loading each audio file individually can be pretty
+time-consuming---not to mention error-prone! How do we take a list of files
+(such as the output of `ls` above) and tell our sampler which files to load into
+which slots?
 
 To do this, `external/instruments.xtm` provides a helper macro called
-`load-sampler`. Looking at the definition for `load-sampler`, we see
-that it takes the three arguments:
+`load-sampler`. Looking at the definition for `load-sampler`, we see that it
+takes the three arguments:
 
 1.  `sampler`, the sampler closure
 2.  `path`, the path to the directory where the audio files are
 3.  `parser`, a (Scheme) function
 
-The first two arguments are fairly self-explanatory, but the third one
-(the parser function) is where the magic happens.
+The first two arguments are fairly self-explanatory, but the third one (the
+parser function) is where the magic happens.
 
-`load-sampler` first creates a list of all the files (including hidden
-files) in the `path` directory. This list of filenames is then passed
-(as the single argument) to the function which was passed in as the
-`parser` argument to `load-sampler`. This parser function's job is to
-take that messy list of filenames and return a nice neat 'list of
-lists', telling the sampler which files to load into which slots. Each
-of the elements of this list returned by the parser function has to have
-four elements:
+`load-sampler` first creates a list of all the files (including hidden files) in
+the `path` directory. This list of filenames is then passed (as the single
+argument) to the function which was passed in as the `parser` argument to
+`load-sampler`. This parser function's job is to take that messy list of
+filenames and return a nice neat 'list of lists', telling the sampler which
+files to load into which slots. Each of the elements of this list returned by
+the parser function has to have four elements:
 
 1.  the filename
 2.  the slot (midi note number) to load the file into
@@ -284,11 +275,11 @@ four elements:
     you'll want to do in most cases).
 
 So, going back to our filename example earlier, we want a filename like
-`C4v5.wav` to get mapped into a list like `("C4v5.wav" 60 0 0)`. The
-`60` is for middle C (C4), and the two `0` arguments mean a sample
-offset of `0` (so the file starts playing from the start) and plays for
-its whole length. Writing a Scheme function which can do this parsing
-isn't too difficult, and would look something like this
+`C4v5.wav` to get mapped into a list like `("C4v5.wav" 60 0 0)`. The `60` is for
+middle C (C4), and the two `0` arguments mean a sample offset of `0` (so the
+file starts playing from the start) and plays for its whole length. Writing a
+Scheme function which can do this parsing isn't too difficult, and would look
+something like this
 
 ~~~~ sourceCode
 (define parse-salamander-piano
@@ -313,11 +304,11 @@ isn't too difficult, and would look something like this
               parse-salamander-piano)
 ~~~~
 
-When you call `load-sampler` at the bottom of that code chunk, it should
-load all the 4th velocity layers into bank `0` of the `piano` sampler.
-The bank argument is necessary because each sampler can have multiple
-sound banks. The default bank is bank `0`, so if you don't want to use
-multiple sound banks just load into bank `0` and forget about it.
+When you call `load-sampler` at the bottom of that code chunk, it should load
+all the 4th velocity layers into bank `0` of the `piano` sampler. The bank
+argument is necessary because each sampler can have multiple sound banks. The
+default bank is bank `0`, so if you don't want to use multiple sound banks just
+load into bank `0` and forget about it.
 
 And finally, to try it out:
 
@@ -326,10 +317,3 @@ And finally, to try it out:
 ~~~~
 
 Awesome, we've got a piano. Success!
-
-## Doing cool things with samplers {#doing-cool-things-with-samplers}
-
-There are lots of possibilities at this stage. If you're interested in
-seeing how to make vaguely 'conventional' musical material, then <span
-role="doc">note-level-music</span> is a good place to start. And I'm
-sure you can think of lots of other possibilities—go nuts :)

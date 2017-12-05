@@ -1,23 +1,17 @@
 ---
-title: common-lisp-music
+title: "Common Lisp Music"-style example
 ---
 
-# "Common Lisp Music"-style example {#common-lisp-music-style-example}
-
-Note
-
-This was originally a post by Andy on the Extempore mailing
-
-:   list, suggestions/feedback welcome!
-
-First, we load in the DSP library
+Here's an example of how to do
+[CLM](https://ccrma.stanford.edu/software/clm/)-style musicmaking in Extempore.
+First, we load in the DSP library:
 
 ~~~~ sourceCode
 (sys:load "libs/core/audio_dsp.xtm")
 ~~~~
 
-First, we need a *master* dsp callback. We can call it whatever we like,
-but by convention we call it `dsp`. It's type **must** be
+We need a *master* DSP callback. We can call it whatever we like, but by
+convention we call it `dsp`. It's type **must** be
 `[float,float,i64,i64,float*]*`
 
 ~~~~ sourceCode
@@ -30,14 +24,14 @@ but by convention we call it `dsp`. It's type **must** be
 ~~~~
 
 We need to tell extempore what we called our DSP callback function using
-`dsp:set!`. We only call `dsp:set!` once per session---from that point
-until the end of the session this function is the audio callback
+`dsp:set!`. We only call `dsp:set!` once per session---from that point until the
+end of the session this function is the audio callback
 
 ~~~~ sourceCode
 (dsp:set! dsp)
 ~~~~
 
-We can of course recompile dsp on-the-fly:
+We can of course recompile `dsp` on-the-fly:
 
 ~~~~ sourceCode
 (bind-func dsp
@@ -48,9 +42,8 @@ We can of course recompile dsp on-the-fly:
           0.0))))
 ~~~~
 
-Now we have two oscillators, one for the left channel and one for the
-right. We also introduce `DSP`, a type alias for
-`[float,float,i64,i64,float*]*`
+Now we have two oscillators, one for the left channel and one for the right. We
+also introduce `DSP`, a type alias for `[float,float,i64,i64,float*]*`
 
 ~~~~ sourceCode
 (bind-func dsp:DSP
@@ -65,8 +58,8 @@ right. We also introduce `DSP`, a type alias for
              0.0)))))
 ~~~~
 
-Equivalently, Extempore's audio DSP library has multi-channel
-oscillators, so we can clean up our code a bit:
+Equivalently, Extempore's audio DSP library has multi-channel oscillators, so we
+can clean up our code a bit:
 
 ~~~~ sourceCode
 (bind-func dsp:DSP
@@ -75,8 +68,8 @@ oscillators, so we can clean up our code a bit:
       (oscil chan 0.3 220.0)))) ;; any number of channels
 ~~~~
 
-Let's add a frequency sweep. `SRf` is a global variable which holds the
-audio sample rate (f for `float`)
+Let's add a frequency sweep. `SRf` is a global variable which holds the audio
+sample rate (f for `float`)
 
 ~~~~ sourceCode
 (bind-func dsp:DSP
@@ -88,9 +81,8 @@ audio sample rate (f for `float`)
       (oscil chan 0.3 (* range (% (i64tof time) duration))))))
 ~~~~
 
-Now, we can "granulate" the rising oscillator. With the default
-settings, the the granulator will have little effect on the original
-signal.
+Now, we can "granulate" the rising oscillator. With the default settings, the
+the granulator will have little effect on the original signal.
 
 ~~~~ sourceCode
 (bind-func dsp:DSP
@@ -104,10 +96,9 @@ signal.
 ~~~~
 
 Now the fun part---start playing around with the granulator's settings!
-Extempore's granulator is stochastic and supports lo and hi ranges for
-most parameters, making a stochastic choice for each grain in that
-range. You can get determinstic behaviour by making lo and hi the same
-value.
+Extempore's granulator is stochastic and supports lo and hi ranges for most
+parameters, making a stochastic choice for each grain in that range. You can get
+determinstic behaviour by making lo and hi the same value.
 
 ~~~~ sourceCode
 (bind-func dsp:DSP
