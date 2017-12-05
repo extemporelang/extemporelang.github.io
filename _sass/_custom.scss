@@ -7,7 +7,7 @@ body {
 // a few niceties for lab/assignment content
 $noteColour: #f1c40f;
 $helpWantedColour: #3498db;
-$futureC()olour: #1abc9c;
+$futureColour: #1abc9c;
 $deprecatedColour: #ff4ce8;
 $extensionColour: #9b59b6;
 
@@ -34,7 +34,7 @@ $extensionColour: #9b59b6;
     background: lighten($helpWantedColour, 30%);
 }
 .future-box {
-    @include lab-content-box("future plans", $futureC()olour);
+    @include lab-content-box("future plans", $futureColour);
     background: lighten($futureColour, 40%);
 }
 .deprecated-box {
