@@ -1,22 +1,14 @@
 ---
-title: audio-signal-processing
+title: Audio signal processing
 ---
 
-# Audio signal processing {#audio-signal-processing}
-
-Note
-
-This was once a blog post---corrections/improvements
-
-:   welcome.
-
-In Extempore you can write dynamic, hot-swappable DSP code. There is a
-special function in the environment called (funnily enough) `dsp`. This
-is as simple as declaring an xtlang closure (with a specific type
-signature) to be the audio output 'sink'. The values returned by this
-function are sent directly to the audio driver and output as sound
-through the computer speakers. Every audio sample (that is, at a rate of
-44100Hz) this function is called with a few arguments:
+In Extempore you can write dynamic, hot-swappable DSP code. There is a special
+function in the environment called (funnily enough) `dsp`. This is as simple as
+declaring an xtlang closure (with a specific type signature) to be the audio
+output 'sink'. The values returned by this function are sent directly to the
+audio driver and output as sound through the computer speakers. Every audio
+sample (that is, at a rate of 44100Hz) this function is called with a few
+arguments:
 
 ~~~~ sourceCode
 (bind-func dsp
@@ -49,13 +41,12 @@ By default, the type of `SAMPLE` is `float`, it's just a type alias:
 
 but it can also be `double` (if `SAMPLE` was an alias to `double`).
 
-In the example above, I'm ignoring all of these arguments except for the
-`time` argument, which I'm using to generate a simple sinusoid at 440Hz.
-Note the use of the `convert` function, which converts `time` (which is
-an `i64`) to whatever type `SAMPLE` is. But the cool thing is that like
-all functions in Extempore, this `dsp` function can be redefined
-on-the-fly, as long as the type signature stays the same. So, if I
-change the `dsp` function to
+In the example above, I'm ignoring all of these arguments except for the `time`
+argument, which I'm using to generate a simple sinusoid at 440Hz. Note the use
+of the `convert` function, which converts `time` (which is an `i64`) to whatever
+type `SAMPLE` is. But the cool thing is that like all functions in Extempore,
+this `dsp` function can be redefined on-the-fly, as long as the type signature
+stays the same. So, if I change the `dsp` function to
 
 ~~~~ sourceCode
 (bind-func dsp
@@ -63,12 +54,12 @@ change the `dsp` function to
     (* (convert 0.1 SAMPLE) (random))))
 ~~~~
 
-then the output changes to white noise. This is the real power of xtlang
-(and Extempore)---everything's dynamic and modifiable at runtime, but
-it's also performant enough to do sample-level manipulation in the same
-language and environment. So instead of the ugens (unit generators, e.g.
-oscillators) being locked up in a different language to the control
-language, it's all mixed in together.
+then the output changes to white noise. This is the real power of xtlang (and
+Extempore)---everything's dynamic and modifiable at runtime, but it's also
+performant enough to do sample-level manipulation in the same language and
+environment. So instead of the ugens (unit generators, e.g. oscillators) being
+locked up in a different language to the control language, it's all mixed in
+together.
 
 ## Abstraction and higher-order functions {#abstraction-and-higher-order-functions}
 
@@ -93,10 +84,10 @@ The type message printed by the compiler when we evaluate `osc_c` is:
 
     Compiled osc_c >>> [[float,float,float]*,float]*
 
-See that the return type of the `osc_c` function is
-`[float,float,float]*`: a pointer to a closure which takes two `float`
-arguments and returns a `float`. This is our oscillator, and we can use
-our `osc_c` function to create as many oscillators as we need:
+See that the return type of the `osc_c` function is `[float,float,float]*`: a
+pointer to a closure which takes two `float` arguments and returns a `float`.
+This is our oscillator, and we can use our `osc_c` function to create as many
+oscillators as we need:
 
 ~~~~ sourceCode
 (bind-func dsp
@@ -111,32 +102,30 @@ our `osc_c` function to create as many oscillators as we need:
        (else 0.0)))))
 ~~~~
 
-The `phase` variable in each of our oscillator closures is how we
-maintain state between calls to `osc1` or `osc2`. Each time the closure
-is called, `phase` gets incremented (see the definition of `osc_c`
-above), and because `phase` is bound within a let that is local to the
-returned closure, each osc has its *own* `phase` value, so the
-oscillators created by `osc_c` are independent. In the case above, they
-are each called with different frequencies to produce sine tones of
-different pitch for each ear. This is closures in action, and it's an
-example of how the 'scheme-like' aspect of xtlang can simplify the job
-of maintaining state.
+The `phase` variable in each of our oscillator closures is how we maintain state
+between calls to `osc1` or `osc2`. Each time the closure is called, `phase` gets
+incremented (see the definition of `osc_c` above), and because `phase` is bound
+within a let that is local to the returned closure, each osc has its *own*
+`phase` value, so the oscillators created by `osc_c` are independent. In the
+case above, they are each called with different frequencies to produce sine
+tones of different pitch for each ear. This is closures in action, and it's an
+example of how the 'scheme-like' aspect of xtlang can simplify the job of
+maintaining state.
 
-It doesn't take much imagination to see that *much* cooler stuff can be
-done in `dsp` than just playing two sine tones. AM synthesis, FM
-synthesis, granular and wavetable synthesis, as well as sampling and
-sample manipulation---these are all possible. It's worth noting that
-there are heaps better/easier ways to achieve a lot of this stuff in
-Extempore: named constants for samplerate & 2pi, syntactic sugar,
-library support etc are provided in the standard library (especially in
-`libs/core/audio_dsp.xtm`). Still, it's useful to build things up from
-first principles to show how it all works.
+It doesn't take much imagination to see that *much* cooler stuff can be done in
+`dsp` than just playing two sine tones. AM synthesis, FM synthesis, granular and
+wavetable synthesis, as well as sampling and sample manipulation---these are all
+possible. It's worth noting that there are heaps better/easier ways to achieve a
+lot of this stuff in Extempore: named constants for samplerate & 2pi, syntactic
+sugar, library support etc are provided in the standard library (especially in
+`libs/core/audio_dsp.xtm`). Still, it's useful to build things up from first
+principles to show how it all works.
 
 ## Beyond pure tones {#beyond-pure-tones}
 
-Playing a single sine tone is boring. Now, instead of just using the
-*one* oscillator, let's use a few of them to generate a whole bunch of
-sine tones of different frequencies:
+Playing a single sine tone is boring. Now, instead of just using the *one*
+oscillator, let's use a few of them to generate a whole bunch of sine tones of
+different frequencies:
 
 ~~~~ sourceCode
 (bind-func osc_c ; osc_c is the same as last time
@@ -163,24 +152,22 @@ sine tones of different frequencies:
             (else 0.0)))))
 ~~~~
 
-See how the `let` 'outside' the `lambda` sets up the three oscillators,
-then the `lambda` closes over them and so each time the oscillator is
-called increments its `phase` value appropriately?
+See how the `let` 'outside' the `lambda` sets up the three oscillators, then the
+`lambda` closes over them and so each time the oscillator is called increments
+its `phase` value appropriately?
 
-Any number of oscillators (think of them as unit generators) can be
-bound and added in this way---this allows us to do additive synthesis.
-Having to define and refer to each osc individually doesn't scale up
-very well, though, so it would be great if we could create and
-initialise them programmatically. This brings us to a couple of new
-(compound) types: tuples, and arrays.
+Any number of oscillators (think of them as unit generators) can be bound and
+added in this way---this allows us to do additive synthesis. Having to define
+and refer to each osc individually doesn't scale up very well, though, so it
+would be great if we could create and initialise them programmatically. This
+brings us to a couple of new (compound) types: tuples, and arrays.
 
 ## Tuples in xtlang {#tuples-in-xtlang}
 
-As a refresher, <span role="ref">tuples &lt;tuple-type-doc&gt;</span> in
-xtlang are heterogeneous groupings of any xtlang types (just like a C
-struct). They're still statically typed, either explicitly or with the
-types inferred from the types of other variables and literals.
-Syntactically, tuples use angle brackets (`<>`).
+As a refresher, [tuples]({{site.baseurl}}{% link _docs/reference/types.md %}#tuples) in xtlang are heterogeneous groupings of any xtlang types (just like a C
+struct). They're still statically typed, either explicitly or with the types
+inferred from the types of other variables and literals. Syntactically, tuples
+use angle brackets (`<>`).
 
 When programming in xtlang you don't really ever deal with tuples
 directly---you deal with them by *reference* through pointers. There are

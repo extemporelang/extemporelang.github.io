@@ -1,15 +1,13 @@
 ---
-title: audio-file-io
+title: Reading & writing audio files in Extempore
 ---
 
-# Reading & writing audio files in Extempore {#reading-writing-audio-files-in-extempore}
+Extempore's `libsndfile` bindings[^1] provide functionality for both reading and
+writing audio files. Here's a short example of how to both read and write audio
+files.
 
-Extempore’s `libsndfile` bindings[^1] provide functionality for both
-reading and writing audio files. Here’s a short example of how to both
-read and write audio files.
-
-First, load up the required libraries and create an audio file closure
-with `audiofile_c`
+First, load up the required libraries and create an audio file closure with
+`audiofile_c`
 
 ~~~~ sourceCode
 (sys:load "libs/external/sndfile.xtm")
@@ -26,15 +24,14 @@ with `audiofile_c`
 `audiofile_c` takes three arguments:
 
 -   the name of the wav file to load
--   the offset into the file to start from (`0` for the start of the
-    file)
+-   the offset into the file to start from (`0` for the start of the file)
 -   the number of samples to read (`0` for the whole file)
 
-=audiofile<sub>c</sub>= returns a closure (which is bound to
-`audiofile`) which will, when called, return successive samples from the
-audio file in such a way that `audiofile` can be called once per output
-sample and will play through the audio file at normal speed. When `dsp`
-is compiled, the log view also prints some info about the file[^2]:
+`audiofile_c` returns a closure (which is bound to `audiofile`) which will, when
+called, return successive samples from the audio file in such a way that
+`audiofile` can be called once per output sample and will play through the audio
+file at normal speed. When `dsp` is compiled, the log view also prints some info
+about the file[^2]:
 
 ~~~~ sourceCode
 file name:     /Users/ben/Desktop/xtm-assets/peg.wav
@@ -43,15 +40,14 @@ channels:      2
 samples read:  21202944
 ~~~~
 
-It’s important to realise that the playhead—the point in the file which
-playback is ‘up to’—is stored internally to the `audiofile` closure, and
-if you just call it back with no arguments it will gradually move
-through the whole file (as it is doing in the above code). By default,
-when the playhead gets to the end of the file it wraps to the start, so
-the file playback will loop on forever.
+It's important to realise that the playhead---the point in the file which playback
+is 'up to'---is stored internally to the `audiofile` closure, and if you just call
+it back with no arguments it will gradually move through the whole file (as it
+is doing in the above code). By default, when the playhead gets to the end of
+the file it wraps to the start, so the file playback will loop on forever.
 
-To mess with this audio stream, let’s add some valve saturation-style
-distortion to both channels:
+To mess with this audio stream, let's add some valve saturation-style distortion
+to both channels:
 
 ~~~~ sourceCode
 (bind-func dsp:DSP 1000000000
@@ -67,13 +63,12 @@ distortion to both channels:
                (else (convert 0.0 SAMPLE)))))))
 ~~~~
 
-Sounds saturated and messy—great.[^3] Now, we want to write the
-processed audio back to a wav file. To do this, we need to [allocate
-some memory](2012-08-17-memory-management-in-extempore.org) to write the
-output samples into. Looking at the file info which was printed out
-earlier (in particular `samples read: 21202944`), we know that there are
-`21202944` samples in the input file, so that’s how big we want our
-output buffer to be.
+Sounds saturated and messy---great.[^3] Now, we want to write the processed
+audio back to a wav file. To do this, we need to [allocate some
+memory](2012-08-17-memory-management-in-extempore.org) to write the output
+samples into. Looking at the file info which was printed out earlier (in
+particular `samples read: 21202944`), we know that there are `21202944` samples
+in the input file, so that's how big we want our output buffer to be.
 
 ~~~~ sourceCode
 (bind-func dsp:DSP 1000000000
@@ -103,17 +98,17 @@ output buffer to be.
         out_sample))))
 ~~~~
 
-Once we get the “Audio buffer full” notification, it’s time to write the
-output buffer to a file. To do this, we use the `write_audio_file`
-function, which takes four arguments:
+Once we get the "Audio buffer full" notification, it's time to write the output
+buffer to a file. To do this, we use the `write_audio_file` function, which
+takes four arguments:
 
 -   the filename
--   the number of frames (a frame is a full set of samples—one for each
+-   the number of frames (a frame is a full set of samples---one for each
     channel)
 -   the number of channels
 -   a pointer to the buffer of audio samples
 
-Let’s add a function `write_data` to write the audio file:
+Let's add a function `write_data` to write the audio file:
 
 ~~~~ sourceCode
 (bind-func dsp:DSP 1000000000
@@ -149,20 +144,19 @@ Let’s add a function `write_data` to write the audio file:
         out_sample))))
 ~~~~
 
-After the recording has played through, the index will have counted up
-to `filesize`: the number of samples in the file, and the `write_file`
-closure will be called with the output data pointer. Sure enough, I hear
-the processed (saturated) output file when I listen to the
-`peg-processed.wav` file.
+After the recording has played through, the index will have counted up to
+`filesize`: the number of samples in the file, and the `write_file` closure will
+be called with the output data pointer. Sure enough, I hear the processed
+(saturated) output file when I listen to the `peg-processed.wav` file.
 
 There are lots of alternate ways to do this.
 
--   the sound can be processed offline (rather than in real-time inside
-    the `dsp` callback)
--   you can use the similar `audiofile_ptr_c` to return pointers into
-    the audio file buffer rather than the values themselves
--   you can write your own functions to either simplify or make the
-    process more flexible.
+-   the sound can be processed offline (rather than in real-time inside the
+    `dsp` callback)
+-   you can use the similar `audiofile_ptr_c` to return pointers into the audio
+    file buffer rather than the values themselves
+-   you can write your own functions to either simplify or make the process more
+    flexible.
 
 You can see the low-level libsndfile functions involved if you look in
 `libs/external/sndfile.xtm`.
@@ -172,14 +166,14 @@ But the primary workflow for writing audio files with Extempore is
 1.  write the audio samples to a buffer
 2.  write that buffer to a file using `write_audio_data`
 
-[^1]: The `libsndfile` library can be found at
-    `libs/external/sndfile.xtm`.
+[^1]: The `libsndfile` library can be found at `libs/external/sndfile.xtm`.
 
-[^2]: If you’re interested, the file I’m using is ‘Peg’ from [Steely
-    Dan’s
+[^2]:
+    If you're interested, the file I'm using is 'Peg' from [Steely Dan's
     Aja](http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531/steely-dan-aja-20120524).
-    It’s a great album.
+    It's a great album.
 
-[^3]: We had to wrap the `0.0` value in a `convert` call to get the
-    types right, as discussed in another
+[^3]:
+    We had to wrap the `0.0` value in a `convert` call to get the types right,
+    as discussed in another
     [post](2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.org).
