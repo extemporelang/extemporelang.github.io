@@ -6,9 +6,9 @@ body {
 
 // a few niceties for lab/assignment content
 $noteColour: #f1c40f;
-$thinkColour: #3498db;
-$talkColour: #1abc9c;
-$doColour: #ff4ce8;
+$helpWantedColour: #3498db;
+$futureC()olour: #1abc9c;
+$deprecatedColour: #ff4ce8;
 $extensionColour: #9b59b6;
 
 @mixin lab-content-box ($heading, $colour){
@@ -29,17 +29,17 @@ $extensionColour: #9b59b6;
     @include lab-content-box("note", $noteColour);
     background: lighten($noteColour, 25%);
 }
-.think-box {
-    @include lab-content-box("think", $thinkColour);
-    background: lighten($thinkColour, 30%);
+.help-wanted-box {
+    @include lab-content-box("help wanted", $helpWantedColour);
+    background: lighten($helpWantedColour, 30%);
 }
-.talk-box {
-    @include lab-content-box("talk", $talkColour);
-    background: lighten($talkColour, 40%);
+.future-box {
+    @include lab-content-box("future plans", $futureC()olour);
+    background: lighten($futureColour, 40%);
 }
-.do-box {
-    @include lab-content-box("do", $doColour);
-    background: lighten($doColour, 22%);
+.deprecated-box {
+    @include lab-content-box("deprecation warning", $deprecatedColour);
+    background: lighten($deprecatedColour, 22%);
 }
 .extension-box {
     @include lab-content-box("extension", $extensionColour);
