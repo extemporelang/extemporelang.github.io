@@ -10,8 +10,21 @@
 
 - title: Reference
   docs:
-  - reference/
+  - reference/types
+  - reference/type-inference
+  - reference/memory-management
+  - reference/scheme-xtlang-interop
+  - reference/concurrency
+  - reference/c-xtlang-interop
+  - reference/docstrings
+  - reference/testing
 
 - title: Guides
   docs:
-  - guides/
+  - guides/audio-signal-processing
+  - guides/audio-file-io
+  - guides/making-an-instrument
+  - guides/note-level-music
+  - guides/sampler
+  - guides/common-lisp-music
+  - guides/impromptu-users
