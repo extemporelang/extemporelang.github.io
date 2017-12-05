@@ -1,5 +1,5 @@
 ---
-title: "Common Lisp Music"-style example
+title: "\"Common Lisp Music\"-style example"
 ---
 
 Here's an example of how to do
