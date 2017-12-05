@@ -1,13 +1,10 @@
 ---
-title: testing
+title: Testing in Extempore
 ---
 
-# Unit testing in Extempore {#unit-testing-in-extempore}
-
 Extempore's unit testing library (`libs/core/test.xtm`) provides a few
-functions/macros for writing unit tests for xtlang code. The most
-important of these is the `xtmtest` macro, which takes (up to) three
-arguments:
+functions/macros for writing unit tests for xtlang code. The most important of
+these is the `xtmtest` macro, which takes (up to) three arguments:
 
 1.  the xtlang function to test (e.g. a `bind-func`)
 2.  a call to said function
@@ -25,53 +22,51 @@ Here's an example:
  5)
 ~~~~
 
-If things don't work as you'd expect, make sure you've quoted the
-`bind-func` form.
+If things don't work as you'd expect, make sure you've quoted the `bind-func`
+form.
 
 To test an xtlang function multiple times with different arguments, use
-`xtmtest-result` (call this as many times as you like with different
-arguments and return values).
+`xtmtest-result` (call this as many times as you like with different arguments
+and return values).
 
 ~~~~ sourceCode
 (xtmtest-result (add_two_integers 1 5) 6)
 (xtmtest-result (add_two_integers 10 5000) 5010)
 ~~~~
 
-xtlang already has a bunch of tests in the `tests/` directory. The
-general idea is that this directory structure will grow to mirror the
-`libs/` one, so that `tests/core/adt.xtm` has tests for the code in
-`libs/core/adt.xtm`, etc. Some of these test files exist already
-(although more tests are necessary in these cases), while others need to
-be created as new tests are written.
+xtlang already has a bunch of tests in the `tests/` directory. The general idea
+is that this directory structure will grow to mirror the `libs/` one, so that
+`tests/core/adt.xtm` has tests for the code in `libs/core/adt.xtm`, etc. Some of
+these test files exist already (although more tests are necessary in these
+cases), while others need to be created as new tests are written.
 
-In addition, the examples in `examples/core` and `examples/external` are
-an additional level of "testing"---although it's sometimes hard verify
-that e.g. the music/graphics sounds/looks ok. Still, running these files
-from top-to-bottom and making sure they don't crash and produce the
-right output is important as well.
+In addition, the examples in `examples/core` and `examples/external` are an
+additional level of "testing"---although it's sometimes hard verify that e.g.
+the music/graphics sounds/looks ok. Still, running these files from
+top-to-bottom and making sure they don't crash and produce the right output is
+important as well.
 
 ## Running the tests {#running-the-tests}
 
-The easiest way to run the test suite is using CMake/CTest. By default,
-there's a **test** target created in the Extempore configure process, so
-that on e.g. OSX/Linux, you can run all the tests & examples with:
+The easiest way to run the test suite is using CMake/CTest. By default, there's
+a **test** target created in the Extempore configure process, so that on e.g.
+OSX/Linux, you can run all the tests & examples with:
 
     make test
 
-This will take a while, but will give a full report on what works and
-what's broken.
+This will take a while, but will give a full report on what works and what's
+broken.
 
-If you want more control over how the tests are run, then the CMake
-configure process will also generate a `CTestTestfile.cmake` file in
-your build directory, and you can execute `ctest` in that directory with
-additional arguments. One use case of this is to only run tests with a
-certain label:
+If you want more control over how the tests are run, then the CMake configure
+process will also generate a `CTestTestfile.cmake` file in your build directory,
+and you can execute `ctest` in that directory with additional arguments. One use
+case of this is to only run tests with a certain label:
 
     cd /path/to/CTestTestfile.cmake
     ctest -L libs-core
 
-The tests are partitioned into the following (hopefully
-self-explanatory) labels:
+The tests are partitioned into the following (hopefully self-explanatory)
+labels:
 
 -   libs-core
 -   libs-external
@@ -89,12 +84,11 @@ To **exclude** only the labels matching `<regex>`, use:
 
 ## Get involved {#get-involved}
 
-We really appreciate [bug
-reports](https://github.com/digego/extempore/issues), and the best way
-to submit them these days is in the form of a failing test.
+We really appreciate [bug reports](https://github.com/digego/extempore/issues),
+and the best way to submit them these days is in the form of a failing test.
 
 You can just paste the failing test into an email to the [mailing
-list](mailto:extemporelang@googlegroups.com), or you can submit a pull
-request with the test in it. If you're not sure where your test should
-go, you can still submit it as a pull request---just add the test code
-to the bottom of the `tests/failing.xtm` file.
+list](mailto:extemporelang@googlegroups.com), or you can submit a pull request
+with the test in it. If you're not sure where your test should go, you can still
+submit it as a pull request---just add the test code to the bottom of the
+`tests/failing.xtm` file.
