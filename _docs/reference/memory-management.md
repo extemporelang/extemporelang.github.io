@@ -152,7 +152,7 @@ in xtlang code just remember that it's grabbing memory from a zone.
 
 As I mentioned above, the stack is associated with function calls, their
 arguments and local variables. Because xtlang uses (in general)
-[closures]({{site.baseurl}}{% link _docs/reference/types.md#closures %}) rather
+[closures]({{site.baseurl}}{% link _docs/reference/types.md %}#closures) rather
 than just plain functions, stack allocation and `salloc` in xtlang is used in
 the body of a closure. Remember that closures are just functions with their
 enclosing scope: think of a function which has packaged up any variables it
@@ -179,7 +179,7 @@ and int literals is allocated from in xtlang. String literals are bound globally
 which is bound in a `let` inside an xtlang `lambda` will be stack allocated,
 unless you explicitly request otherwise with `halloc` or `zalloc`.
 
-[String]({{site.baseurl}}{% link _docs/reference/types.md#string %}) literals
+[String]({{site.baseurl}}{% link _docs/reference/types.md %}#string) literals
 are the exception to the "all literals are on the stack" rule. String literals
 are actually stored as `i8*` on the heap (as though they were *halloced*). If
 you capture a pointer to one of these strings (e.g. with `pref-ptr`), then you
@@ -209,7 +209,7 @@ input-output pairs for the function *f(x) = 2x*.
 
 Notice how the tuple pointer `tup:<i64,i64>*` was `let`-bound to the return
 value of the call to `salloc`. Initially, the memory was uninitialised ([see
-here]({{site.baseurl}}{% link _docs/reference/types.md#pointers %}) for more
+here]({{site.baseurl}}{% link _docs/reference/types.md %}#pointers) for more
 background about pointers), then two `i64` values were filled into it with
 `tfill!`. This is basically all the closure does, apart from the `printf` calls
 which are just reading and printing out what's going on.
