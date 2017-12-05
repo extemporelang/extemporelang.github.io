@@ -48,26 +48,41 @@ pages](https://pages.github.com/). So the docs are re-built for every commit to
 the master branch of [the extemporelang.github.io
 repo](https://github.com/extemporelang/extemporelang.github.io).
 
-### Formatting
+### Style {#documentation-style}
 
-There's no real styleguide, but just have a look at the existing doc pages.
+There's no official styleguide, and as mentioned elsewhere some of this started
+off as blog posts on Ben's blog, so it's a bit all-over-the-place when it comes
+to style. Still, here are some general style/formatting principles:
+
+- on each page, use level 2 headings (`##`) as the highest level (i.e. no level
+  1 headings---that's reserved for the page title)
+
+- content should go in either the `overview`, `reference` or `guides` folders
+  (wherever it fits best)
+
+- use kebab-case for docs filenames (e.g. `page-title.md`)
+
+- a conversational writing style is ok, preferrably in a second-person narrative
+  voice (e.g. "now you're built an instrument") rather than first-person ("now
+  we've built an instrument") (**note:** there's a bunch of "we" stuff in there
+  from when Ben first wrote the material as blog posts, but the plan is to
+  change it to "you" over time)
 
 ## Extempore wishlist
 
-Building a new programming language, runtime and ecosystem is a
-multifaceted job. Here are a few projects (some small, some not so
-small) which would be really nice---if you think you'd like to
-contribute, give us a shout out on the [mailing
-list](mailto:extemporelang@googlegroups.com).
+Building a new programming language, runtime and ecosystem is a multifaceted
+job. Here are a few projects (some small, some not so small) which would be
+really nice---if you think you'd like to contribute, give us a shout out on the
+[mailing list](mailto:extemporelang@googlegroups.com).
 
-## Core {#core}
+### Core {#core}
 
 These projects involve hacking on the Extempore executable itself:
 
 1.  upgrade to LLVM 5.0 & ORCJIT
 2.  port Extempore to 64-bit ARM (`aarch64`)
 
-## xtlang {#xtlang}
+### xtlang {#xtlang}
 
 These projects (mostly) involve adding/improving libraries for doing cool things
 in xtlang:
@@ -79,7 +94,7 @@ in xtlang:
     run a cool deep-learning-powered image processing model
 4.  add DirectX (or perhaps Vulkan) support
 
-## Ecosystem {#ecosystem}
+### Ecosystem {#ecosystem}
 
 These projects are "ecosystem/tooling" projects.
 
@@ -89,7 +104,7 @@ These projects are "ecosystem/tooling" projects.
     from the Atom plugin)
 2.  write an extempore plugin for [VS
     Code](https://code.visualstudio.com/docs/extensions/overview) xtlang
-3.  add an xtlang package manager (e.g. CPAN or cargo for Extempore)
+3.  create an xtlang package manager (e.g. CPAN or cargo for Extempore)
 4.  make the CMake build process aware of the xtlang ahead-of-time compilation
     process, so that `make aot` only re-aot-compiles an xtlang library if it has
     changed
