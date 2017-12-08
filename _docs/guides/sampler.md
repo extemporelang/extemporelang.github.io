@@ -15,7 +15,7 @@ instrument]({{site.baseurl}}{% link _docs/guides/making-an-instrument.md %})),
 except that the note kernel closure is already set up for you---you just have to
 load the sampler with sound files. There is also a slight difference in the way
 we set a sampler up: using the Scheme macro `bind-sampler` instead of
-`bind-instrument`. The Extempore sampler is still an xtlang closure, and can be
+`make-instrument`. The Extempore sampler is still an xtlang closure, and can be
 used in all the same situations (e.g. as the `inst` argument to `play-note` or
 `play`) as an instrument can.
 

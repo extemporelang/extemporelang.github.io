@@ -302,11 +302,11 @@ and in an xtlang type diagram
 
 ![image](/images/making-an-instrument/full-organ-inst.png)
 
-`bind-instrument` is actually a (Scheme) macro, and it takes the two kernel
+`make-instrument` is actually a (Scheme) macro, and it takes the two kernel
 closures (`organ_note_c` and `organ_fx`) and compiles a new xtlang closure, and
 binds it to the name `organ`. These are just regular xtlang closures, they just
 have to have a particular type signature to allow them to play nicely with the
-rest of the `bind-instrument` processing chain. So, let's have a look at the
+rest of the `make-instrument` processing chain. So, let's have a look at the
 lifecycle of a note played on our `organ` with the help of a few xtlang type
 diagrams. I'll assume at this point that `organ` (and therefore `organ_note_c`
 and `organ_fx`) have been successfully compiled, even though they haven't---yet.
@@ -386,7 +386,7 @@ They're designed to explain the key aspects of how the code works.
 ## Step two: the note kernel {#step-two-the-note-kernel}
 
 Back to the task at hand, we need to construct the note and effects kernels for
-our hammond organ instrument. Once we have those, `bind-instrument` and
+our hammond organ instrument. Once we have those, `make-instrument` and
 `_play_note` allow us to play the organ like a soft synth, which is the goal
 we've been pursuing since the beginning.
 
@@ -523,11 +523,11 @@ code for `flanger_c` can be found in `libs/core/audio_dsp.xtm`.
 ## Playing the instrument {#playing-the-instrument}
 
 Now, let's see if our instrument works! Having compiled both `organ_note_c` and
-`organ_fx`, we're finally ready to use `bind-instrument` to make our xtlang
+`organ_fx`, we're finally ready to use `make-instrument` to make our xtlang
 hammond organ
 
 ~~~~ sourceCode
-(bind-instrument organ organ_note_c organ_fx)
+(make-instrument organ organ_note_c organ_fx)
 
 ;; Compiled organ >>> [float,float,i64,i64,float*]*
 
