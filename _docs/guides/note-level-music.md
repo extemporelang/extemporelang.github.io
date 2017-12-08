@@ -25,7 +25,7 @@ instrument and plays a single note.
 
 ;; define a synth using the provided components
 ;; synth_note_c and synth_fx
-(bind-instrument synth synth_note_c synth_fx)
+(make-instrument synth synth_note_c synth_fx)
 
 ;; add the instrument to the DSP output sink closure
 (bind-func dsp:DSP
@@ -162,7 +162,7 @@ callback:
 
 ;; define a synth using the provided components
 ;; synth_note_c and synth_fx
-(bind-instrument synth synth_note_c synth_fx)
+(make-instrument synth synth_note_c synth_fx)
 
 ;; add the instrument to the DSP output sink closure
 (bind-func dsp:DSP
@@ -740,7 +740,7 @@ changes:
 ~~~~ sourceCode
 ;; create our organ instrument (again, organ_note_c and organ_fx
  ;; are defined in libs/core/instruments.xtm
-(bind-instrument organ organ_note_c organ_fx)
+(make-instrument organ organ_note_c organ_fx)
 
 ;; add the instrument to the DSP output sink closure
 (bind-func dsp:DSP
