@@ -19,18 +19,12 @@ layout: default
             <p>
               Extempore is a programming language and runtime environment
               designed to support <strong>cyberphysical programming</strong>,
-              where a human programmer operates as an active agent in a
-              real-time distributed network of environmentally aware systems.
-              The cyberphysical programmer interacts with the distributed
-              real-time system procedurally by modifying code on-the-fly.
+              where a human programmer operates as an <emph>active</emph> agent in the world.
             </p>
             <p>
-              Extempore provides a completely hotswappable runtime environment
-              with a strong temporal semantics, a flexible concurrency
-              architecture, builtin support for distributed heterogenous
-              operation (both OS and Architecture), and aims to provide flexible
-              compiler-as-a-service functionality. Extempore makes extensive use
-              of the LLVM project to provide back-end code generation.
+              You might have seen Extempore used for livecoding&mdash;making live
+              music & visuals with code&mdash;and it's certainly very good at that,
+              but Extempore's ambitions are broader :)
             </p>
         </div>
         <div class="col-md-6">
@@ -45,60 +39,41 @@ layout: default
 
     <div class="row">
         <div class="col-sm-4">
-            <h1 class="text-center"><i class="fa fa-code" aria-hidden="true"></i></h1>
-            <h3 class="text-center">xtlang</h3>
+            <h1 class="text-center"><i class="fa fa-download" aria-hidden="true"></i></h1>
+            <h3 class="text-center">Get Extempore</h3>
 
             <p>
-              <strong>xtlang</strong> is a new systems programming language
-              designed to support the programming of real-time systems <emph>in
-              real-time</emph>. xtlang is designed to mix the high-level
-              expressiveness of Lisp with the low-level expressiveness of C.
-            </p>
-
-            <p>
-              xtlang uses an s-expression syntax similar to Scheme, and borrows
-              many Lisp-like semantics including first class closures, tail
-              recursion and macros. However, xtlang also borrows heavily from
-              systems languages like C and features static typing, low-level
-              type expressivity, direct pointer manipulation and explicit memory
-              managment (i.e. no GC). xtlang then extends these C semantics with
-              type-inferencing, ad-hoc polymorphism, reified generics, and
-              zone/region based memory management.
+              <ul>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/install.md %}#download-a-binary">dowload a binary</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/editor-support.md %}">set up your editor</a></li>
+              </ul>
             </p>
         </div>
+
         <div class="col-sm-4">
-            <h1 class="text-center"><i class="fa fa-book" aria-hidden="true"></i></h1>
-            <h3 class="text-center">Docs</h3>
+            <h1 class="text-center"><i class="fa fa-code" aria-hidden="true"></i></h1>
+            <h3 class="text-center">Use Extempore</h3>
             <p>
-              Like any programming language, the docs are super-important for
-              getting your head around things. Extempore's docs are split into three main sections:
               <ul>
-                <li>
-                  the overview section discusses the key concepts in
-                  Extempore/xtlang programming, and is a good place to find out
-                  why things are the way they are
-                </li>
-                <li>
-                  the reference section is the main xtlang language reference
-                </li>
-                <li>
-                  the guides section contains longer-form tutorials for new
-                  users coming to Extempore from different backgrounds,
-                  including musicians, programmers, and newcomers to livecoding
-                </li>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/using-extempore.md %}">evaluate code</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/guides/note-level-music.md %}">make music</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/philosophy.md %}">see the big picture</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/reference/types.md %}">learn xtlang</a></li>
               </ul>
             </p>
 
         </div>
+
         <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-question-circle" aria-hidden="true"></i></h1>
-            <h3 class="text-center">Finding help</h3>
+            <h3 class="text-center">Need help?</h3>
             <p>
-              If the docs don't seem to contain the answers you're looking for,
-              then the friendly Extempore community can help you out. Get in
-              touch on slack or on the mailing list.
+              <ul>
+                <li><a href="{{site.baseurl}}/docs/">read the docs</a></li>
+                <li><a href="mailto:extemporelang@googlegroups.com">mailing list</a></li>
+                <li><a href="https://livecode.slack.com/">slack</a></li>
+              </ul>
             </p>
-            <!-- <iframe width="100%" height="auto" src="https://www.youtube.com/embed/Sg2BjFQnr9s?rel=0" frameborder="0" allowfullscreen></iframe> -->
         </div>
     </div>
 
