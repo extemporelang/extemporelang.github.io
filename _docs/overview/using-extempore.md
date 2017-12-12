@@ -26,12 +26,12 @@ So, to do anything in Extempore you need a text editor which can
 2.  create a string which represents a valid chunk of Scheme or xtlang code
 3.  send that string over the TCP connection
 
-There are already Extempore modes/plugins for Atom, Emacs, vim and Sublime Text
-2 (see [editor support]({{site.baseurl}}{% link _docs/overview/editor-support.md
-%})). If you already have a favourite text editor, then you'll probably want to
-use that one. If you don't, then Atom is probably a good choice. In the end it
-doesn't matter too much which editor you use, so pick the one that makes you
-happiest.
+There are already Extempore modes/plugins for VSCode, Atom, Emacs, vim and
+Sublime Text 2 (see [editor support]({{site.baseurl}}{% link
+_docs/overview/editor-support.md %})). If you already have a favourite text
+editor, then you'll probably want to use that one. If you don't, then VSCode is
+probably a good choice. In the end it doesn't matter too much which editor you
+use, so pick the one that makes you happiest.
 
 ## Running Extempore {#running-extempore}
 
@@ -113,10 +113,11 @@ Now that we have
 -   the `extempore` process still running
 
 we can open up the TCP connection. In Emacs, this is done with `M-x
-extempore-connect`. In Atom, with `Alt+O`. In ST2, use the menu item `Tools >
-Extempore > Connect...`. The default host and port arguments will be `localhost`
-and `7099` respectively. If the connection is made successfully, then Extempore
-will echo back the string "Welcome to extempore!".
+extempore-connect`. In VSCode, it's `cmd+enter` (macOS)/`ctrl+enter`
+(Win/Linux). In Atom, with `Alt+O`. In ST2, use the menu item `Tools > Extempore
+> Connect...`. The default host and port arguments will be `localhost` and
+`7099` respectively. If the connection is made successfully, then Extempore will
+echo back the string "Welcome to extempore!".
 
 ## Evaluating code {#evaluating-code}
 
@@ -128,10 +129,10 @@ with some basic Scheme arithmetic. If you're playing along, you can write `(+ 1
 This is where the 'Compiler as a Service' (CaaS) thing starts to get real.
 Currently, the code `(+ 1 2)` is just text sitting in your editor. It won't get
 compiled until you send it for evaluation. The easiest way to do this is to move
-your cursor somewhere inside the code `(+ 1 2)` and hit `Alt+S` (in Atom) or
-`C-M-x` (in Emacs). In ST2, you have to highlight the code you want to evaluate
-and hit `Ctrl+e`. This takes the whole expression `(+ 1 2)` and sends it (as a
-string) to the running `extempore` compiler.
+your cursor somewhere inside the code `(+ 1 2)` and hit `cmd/ctrl+enter` (in
+VSCode) or `C-M-x` (in Emacs). In ST2, you have to highlight the code you want
+to evaluate and hit `Ctrl+e`. This takes the whole expression `(+ 1 2)` and
+sends it (as a string) to the running `extempore` compiler.
 
 ![image](/images/interacting-with-compiler/scheme-eval.png)
 

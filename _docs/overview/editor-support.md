@@ -2,16 +2,80 @@
 title: editor-support
 ---
 
-# Text editors {#text-editors}
+{:.note-box}
+If you don't have a favourite text editor, or don't really know what a text
+editor is, then that's ok! [VSCode](#vscode) is probably the text editor for you.
 
-Note
+## VSCode
 
-If you don't have a favourite text editor, or don't really
+[Visual Studio Code](https://code.visualstudio.com/) or VSCode is a
+cross-platform text editor from Microsoft.
 
-:   know what a text editor is, then that's ok! Atom is probably the
-    text editor for you.
+For a general introduction to VSCode, check out the This page doesn't cover all the basics of Atom here, because the [Atom
+documentation](https://atom.io/docs) do that pretty well. Think of this
+as a 'cheat sheet', for dipping back into to refresh your memory when
+you just can't remember how to do something off the top of your head.
+
+### Installation {#installation}
+
+To install VSCode, go to the [Visual Studio Code
+homepage](https://code.visualstudio.com/) and hit the big green "Download"
+button. Installing VSCode is a piece of cake---go to the and hit the big red
+"Download" button. Easy.
+
+Once you've got it up and running, you need to install the [VSCode Extempore
+extension](https://github.com/extemporelang/vscode-extempore)---this tells
+Install it through the Extensions view (`View > Extensions`) and search for
+"Extempore".
+
+If you want to run Extempore in a terminal *inside* Atom, then you can
+get the `term` package as well, search for it in the same window as
+before.
+
+The main way to do things in VSCode is through the "command palette", which you
+can bring up with `Ctrl+Shift+P` on Windows/Linux or `Cmd+Shift+P` on OSX. Type
+in a few letters, and you'll see the name of all the commands the system
+understands starting with those letters. It's really powerful, and it's a good
+first place to look when you want to do something. All of the menu bar commands
+in this blog post can be accessed through the command palette, and it's usually
+quicker than
+
+### Writing Extempore code
+
+1.  start VSCode
+2.  in the built-in terminal window, move into your Extempore directory
+    (wherever you [downloaded or built Extempore]({{site.baseurl}}{% link
+    _docs/overview/install.md %})) and start `extempore` (just type `extempore`
+    and hit `return`) and you should see it print out some info about your
+    system, then just sit there waiting for input
+4.  open (`File > Open`) an existing Extempore file such as
+    `examples/core/fmsynth.xtm`, or create and save new file with a `.xtm` extension
+5.  connect to the running Extempore process with the `Extempore Connect`
+    command---the default host/port options should be fine
+
+Then, to evaluate Extempore code, move your cursor into the top-level (i.e. the
+outermost brackets) of code you want to evaluate and hit `cmd+enter` (macOS) or
+`ctrl+enter` (Win/Linux) to evaluate the code. Change the code and re-evaluate
+it---the code is live, so you can change and re-evaluate things without having
+to re-start Extempore.
+
+{:.note-box}
+
+We're working on improving the VSCode plugin so that you don't have to be so
+careful about where the cursor is, e.g. so that you could just have it anywhere
+in an xtlang function and `ctrl+enter` would re-evaluate that function. Stay
+tuned!
+
+If you *do* want to restart the Extempore process, just `ctrl+c` in the terminal
+where `extempore` is running to kill it, then start it up again (you'll have to
+re-connect VSCode to the new Extempore process as well).
 
 ## Atom {#atom}
+
+{:.note-box}
+
+In the past, we've recommended Atom for new Extempore users without a text
+editor preference, but these days [VSCode](#vscode) is probably a better choice.
 
 [Atom](https://atom.io/) is a cross-platform text editor which runs on
 OS X, Linux and Windows. It was originally created by GitHub, but it's
@@ -42,14 +106,6 @@ Alternatively, you can install it at a terminal with
 If you want to run Extempore in a terminal *inside* Atom, then you can
 get the `term` package as well, search for it in the same window as
 before.
-
-The main way to do things in Atom is through the "command palette",
-which you can bring up with `Ctrl+Shift+P` on Windows/Linux or
-`Cmd+Shift+P` on OSX. Type in a few letters, and you'll see the name of
-all the commands the system understands starting with those letters.
-It's really powerful, and it's a good first place to look when you want
-to do something. All of the menu bar commands in this blog post can be
-accessed through the command palette, and it's usually quicker than
 
 ### Writing Extempore code {#writing-extempore-code}
 

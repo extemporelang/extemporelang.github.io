@@ -28,12 +28,10 @@ To write Extempore code you need a text editor, and there are Extempore
 "plugins" for [several text editors]({{site.baseurl}}{% link
 _docs/overview/editor-support.md %})---Atom, Emacs, Sublime Text and Vim.
 
-If you don't have a favourite text editor, then [Atom](https://atom.io/) is
-probably a good choice---it's free, available on all platforms and doesn't have
-as steep a learning curve as some other editors. Head over to the [Extempore
-Atom setup
-]({{site.baseurl}}/docs/overview/editor-support/#extempore-atom-setup) docs to
-find out how to download and set it up for Extempore.
+If you don't have a favourite text editor, then [VSCode]({{site.baseurl}}{% link
+_docs/overview/install.md %}#vscode) probably a good choice---it's free,
+available on all platforms and doesn't have as steep a learning curve as some
+other editors.
 
 If you *do* have a favourite text editor, and it's one of the ones mentioned
 above, then see the [editor
