@@ -1,5 +1,5 @@
 ---
-title: editor-support
+title: Editor support
 ---
 
 {:.note-box}
