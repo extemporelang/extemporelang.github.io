@@ -9,12 +9,8 @@ editor is, then that's ok! [VSCode](#vscode) is probably the text editor for you
 ## VSCode
 
 [Visual Studio Code](https://code.visualstudio.com/) or VSCode is a
-cross-platform text editor from Microsoft.
-
-For a general introduction to VSCode, check out the This page doesn't cover all the basics of Atom here, because the [Atom
-documentation](https://atom.io/docs) do that pretty well. Think of this
-as a 'cheat sheet', for dipping back into to refresh your memory when
-you just can't remember how to do something off the top of your head.
+cross-platform text editor from Microsoft. For a general introduction to VSCode,
+check out the excellent [docs](https://code.visualstudio.com/docs).
 
 ### Installation {#installation}
 
