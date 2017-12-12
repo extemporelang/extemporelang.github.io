@@ -2,6 +2,7 @@
   docs:
   - overview/quickstart
   - overview/install
+  - overview/editor-support
   - overview/using-extempore
   - overview/philosophy
   - overview/time
