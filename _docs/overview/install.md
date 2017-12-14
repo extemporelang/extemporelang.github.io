@@ -44,7 +44,7 @@ then here are some one-liner build commands:
     git clone https://github.com/digego/extempore && mkdir extempore/cmake-build && cd extempore/cmake-build && cmake .. && make install
 
     # Windows
-    git clone https://github.com/digego/extempore && mkdir extempore/cmake-build && cd extempore/cmake-build && cmake -G"Visual Studio 14 2015 Win64" .. && cmake --build . --target ALL_BUILD --config Release
+    git clone https://github.com/digego/extempore && mkdir extempore/cmake-build && cd extempore/cmake-build && cmake -G"Visual Studio 15 2017 Win64" .. && cmake --build . --target ALL_BUILD --config Release
 
 If you have problems, check out the platform-specific build notes below.
 
@@ -126,7 +126,7 @@ installed, and then to set the `JACK` CMake option with `-DJACK=ON`.
 
 Extempore has been tested on Windows 7 & Windows 10 with [Visual Studio
 Community
-2015](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
+2017](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
 
 If you don't want to use the the command-line described
 [above](#build-from-source), note that CMake generates a Visual Studio solution
@@ -187,18 +187,18 @@ maintains its own "world" of shared lib dependencies:
 If you're keen to get these libraries some other way (e.g. through your
 system-provided package manager) then that's fine - just use `-DBUILD_DEPS=OFF`.
 
-## LLVM 3.7.0 {#llvm-3.7.0}
+## LLVM 3.8.0
 
 If you don't have an `EXT_LLVM_DIR` environment variable set on your
-system, then Extempore will download, patch and build LLVM 3.7.0 for you
+system, then Extempore will download, patch and build LLVM 3.8.0 for you
 as part of the `make extempore` step. However, if you do want to build
 it yourself, then here's how.
 
-Grab the [3.7.0 source tarball](http://llvm.org/releases/download.html#3.7.0),
-apply the `extempore-llvm-3.7.0.patch` in `extras/`:
+Grab the [3.8.0 source tarball](http://llvm.org/releases/download.html#3.8.0),
+apply the `extempore-llvm-3.8.0.patch` in `extras/`:
 
-    cd /path/to/llvm-3.7.0.src
-    patch -p0 < /path/to/extempore/extras/extempore-llvm-3.7.0.patch
+    cd /path/to/llvm-3.8.0.src
+    patch -p0 < /path/to/extempore/extras/extempore-llvm-3.8.0.patch
 
 On **Windows**, the `<` redirection will work with `cmd.exe`, but not
 PowerShell.
@@ -210,7 +210,7 @@ the `install` step:
     cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_ZLIB=OFF -DCMAKE_INSTALL_PREFIX=c:/path/to/extempore/llvm .. && make && make install
 
 On **Windows**, you'll also need to specify a 64-bit generator e.g. `-G"Visual
-Studio 14 2015 Win64"`
+Studio 15 2017 Win64"`
 
 To build, open the `Extempore.sln` file and build the `ALL_BUILD` target, then
 the `INSTALL` target. If the install step doesn't work, you can try directly
