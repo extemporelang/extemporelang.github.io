@@ -1,5 +1,5 @@
 ---
-title: Closures
+title: Introduction to Functions
 ---
 
 ## Introduction
@@ -248,10 +248,26 @@ And now we can run ```($ (println(better-adder 100000000)))``` with absolutely n
 Like with Scheme, all functions in xtlang are lexical closures. This means that any variable referenced in the scope of the function is captured along with the function, even if that variable was not passed in as an argument.
 
 ~~~~ sourceCode
+;; this function returns another function that has access to the original x parameter
 (bind-func test-closure
+  (lambda (x)
+    (lambda (y) (+ x y))))
+
+($ ((test-closure 4) 3)) ;; returns 7
+~~~~
+
+The inner function has access to all the variables defined in the outer function, including the parameters that were passed into the function. We say that this function (which is anonymous) _closes over_ the variables in the outer function.
+
+We can also do this:
+
+~~~~ sourceCode
+(bind-func test-closure2
   (let ((x 4))
     (lambda (y)
       (* y x))))
 
-($ (mul-math 4)) ;; returns 256
+($ (mul-math 4)) ;; returns 16
 ~~~~
+
+By using the `let` form before we define the function bound to `test-closure`, we create a closure that contains the variable x the function can access (or to use the correct terminology, it _closes over_ `x`).
+
