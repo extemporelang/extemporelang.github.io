@@ -53,7 +53,7 @@ In a previous chapter we noted that you can define an environment for a closure 
 ($ (my-closure)) ;; this should print 6.
 ~~~~
 
-It is possible in xtlang to access that environment directly using a dot operator `closure_name.slot_name:type`. E.g. `f.a:i32` to access the value and `(f.a:i32 565)` to set it. So let's see how this works with `my-closure`:
+It is also possible in xtlang to access that environment directly using a dot operator `closure_name.slot_name:type`. E.g. `(f.a:i32)` to access the value and `(f.a:i32 565)` to set it. So let's see how this works with `my-closure`:
 
 ~~~~ sourceCode
 ($ (my-closure.a:i32 8))
@@ -69,7 +69,7 @@ This will also work for anonymous closures:
   (lambda (x:i64)
     (lambda (y) (+ x y))))
 
-(bind-val f [i64*,i64*]* (myclosure 4))
+(bind-val f [i64,i64]* (my-closure 4))
 
 ($ (println (f 5))) ;; prints 9
 
@@ -79,18 +79,18 @@ This will also work for anonymous closures:
 
 ~~~~
 
-And of course the closure's environment can also contain variables:
+And of course the closure's environment can also contain functions (or closures) of its own which you can also access:
 
 ~~~~ sourceCode
-(bind-func my-closure-func
+(bind-func my-closure-with-func
   (let ((f (lambda (x)
-    (+ x 1))))
-    (lambda (x)
-      (f x))))
+             (+ x 1))))
+    (lambda (y)
+      (f y))))
 
-($ (println (my-closure-func 4))) ;; prints 5
+($ (println (my-closure-with-func 4))) ;; prints 5
 
-($ (my-closure-func.f (lambda (x) (* x 2))))
+($ (my-closure-with-func.f:[i64,i64]* (lambda (x:i64) (* x 2))))
 
-($ (println (my-closure-func 4))) ;; prints 8
+($ (println (my-closure-with-func 4))) ;; prints 8
 ~~~~

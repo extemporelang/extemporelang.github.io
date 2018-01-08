@@ -1,3 +1,7 @@
+---
+title: User Defined Types
+---
+
 ## Aggregate Types
 
 Sometimes you need to store multiple pieces of data in a single variable. Extempore has four types for this:
