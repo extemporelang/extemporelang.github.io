@@ -2,6 +2,8 @@
 title: Primitive Types
 ---
 
+TODO -- NEED TO TALK ABOUT bind-val
+
 In this chapter we will introduce xtlang's type system. Unlike Scheme and other
 dynamically typed languages (e.g. Ruby and Python), XTLang requires you to
 define the types of all the variables that you are using. If you do not define
