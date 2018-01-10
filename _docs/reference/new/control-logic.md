@@ -1,0 +1,212 @@
+---
+title: Control Logic
+---
+
+## Introduction
+
+In this chapter we'll discuss some of your options in xtlang for control logic and how to use them. We'll begin by looking at functions that you are probably more familiar with, before looking at ways in which you can use tail recursion to achieve some of the same aims.
+
+## Blocks
+
+### begin
+
+TODO
+
+## Branching Logic
+
+### if
+
+You have already seen `if` used already, and so we'll just formally describe here how it works. If takes three parameters:
+
+1. An expression, or function, that returns true or false (i.e. a type of `i1`).
+1. The branch to evaluate if the comparison is true.
+1. The branch to evaluate if the comparison is false (e.g. the 'else' statement). This expression must have the same return type as the other branch. This return type can of course be `void`.
+
+~~~~ sourceCode
+(bind-func simple-if
+  (lambda (x:i1)
+    (if (x)
+        (println "x is true")
+        (println "x is false"))))
+
+($ (simple-if #t)) ;; "x is true"
+($ (simple-if #f)) ;; "x is false"
+~~~~
+
+Remember that both parts of the if statement must have the same return type:
+
+~~~~ sourceCode
+;; This won't compile as 5:i64 and 6.5:double
+(bind-func return-if
+  (lambda (x:i1)
+    (if (x) 5 6.5)))
+
+;; this is fine as 5 and 6 both have type i64
+(bind-func return-if
+  (lambda (x:i1)
+    (if (x) 5 6)))
+~~~~
+
+### cond
+
+Where `if` only allows two branches, `cond` supports multiple branches, with an optional default. It takes the form:
+
+~~~~ sourceCode
+(cond
+ ((comparison-1) (branch-1))   ;; this is the first branch
+ ((comparison-2) (branch-2))   ;; this is the second branch
+                     ...
+ ((comparison-n) (branch-n))   ;; the nth branch
+ (else (default-branch))       ;; an optional default
+)
+~~~~
+
+Only one branch will ever be taken, and as soon as a branch is completed then the `cond` block will return with the value from that branch.
+
+Each branch must return the same type, otherwise the compiler will complain (the type can of course be void). If you do not provide an else statement then the compiler will make sure that _a_ value of the right _type_ is returned as a default, though no guarantees are provided as to what value will be.
+
+So let's look at a couple of examples. First a version that returns default:
+
+~~~~ sourceCode
+($ (cond
+    ((= 5 4) (println "never reached"))
+    ((= 4 4) (println "4 equals 4"))
+    ((= 5 5) (println "never reached"))))  ;; this branch will never be executed.
+~~~~
+
+If we were to modify this code slightly then nothing will happen:
+
+~~~~ sourceCode
+;; Nothing will be printed to the terminal
+($ (cond
+    ((= 5 4) (println "never reached"))
+    ((= 4 6) (println "4 equals 4"))
+    ((= 5 8) (println "never reached"))))
+~~~~
+
+{:.note-box}
+If your return type is void then not providing an `else` branch often makes sense. For all other types this is likely to lead to subtle errors and is best avoided. If you think that the else statement should never be reached then put a logging statement there so you know that something went wrong.
+{:.note-box}
+
+If we add and `else` statement we can add defaults:
+
+~~~ sourceCode
+;; prints 7 to the terminal
+($ (println
+     (cond
+       ((= 5 4) 55)
+       ((= 4 6) 46)
+       (else 7))))
+~~~~
+
+## Looping
+
+### while
+
+`while`, unsuprisingly, loops until it's predicate is false. If takes two parameters:
+
+1. An expression, or function, that returns true or false (e.g. an `i1` type).
+1. The expression to evaluate while the predicate is `true`.
+
+~~~~ sourceCode
+(bind-func simple-while
+  (lambda (x:i64)
+    (let ((count 0))
+      (while (> x 0)
+        (begin
+          (inc count 1)
+          (dec x 1)))
+      (println "count is" count))))
+
+($ (simple-while 4)) ;; "count is 4"
+~~~~
+
+### until
+
+Someone should write this as it's very useful... :)
+
+### dotimes
+
+`dotimes` repeats the expression a fixed number of times. It takes the following form:
+
+```(dotimes (parameters) (expression))```
+
+The parameters block consists of:
+
+1. __REQUIRED:__ A variable to use as a counter. This must be defined in the environment of the `dotimes` loop (e.g. by using a `let` statement).
+2. __REQUIRED:__ The number of times to loop.
+3. __OPTIONAL:__ The starting value for the variable. The default for this value is `0`.
+
+~~~~ sourceCode
+;; defining i so we can use it in dotimes. 
+;; Note that the value we set it to is unimportant.
+($ (let ((i 0)) 
+  (dotimes (i 2) (println i "iteration")))) ;; i is set to the default of 0
+~~~~
+
+will print:
+~~~~ sourceCode
+0 iteration
+1 iteration
+~~~~
+
+The value that we set `i` to in the `let` statement is unimportant. The code below will give us the same output:
+
+~~~~ sourceCode
+;; Doesn't matter what we set i to.
+($ (let ((i 1000000)) 
+  (dotimes (i 2) (println i "iteration")))) ;; i is set to the default of 0
+~~~~
+
+If we want to change the value that our counter starts on then we can do the following:
+
+~~~~ sourceCode
+($ (let ((i 0)) ;; again the value here is unimportant
+  (dotimes (i 2 1) (println i "iteration"))))
+~~~~
+
+will print:
+
+~~~~ sourceCode
+1 iteration
+2 iteration
+~~~~
+
+### doloop
+
+Sometimes using a let statement in this way can be a little unwieldy and so `doloop` is provided as syntatic sugar for dotimes. Whenever you use `doloop` the compiler automatically creates the let-binding for your "counter" variable and creates a `dotimes` loop for you:
+
+~~~~ sourceCode
+($ (doloop (i 2) (println i "iteration")))
+
+;; this is identical to the doloop code above.
+($ (let ((i 0)) 
+  (dotimes (i 2) (println i "iteration"))))
+~~~~
+
+__WARNING:__ While doloop is convenient, it can make your code inefficient:
+
+~~~~ sourceCode
+;; inner loops
+(doloop (i inum)
+  (doloop (j jnum)
+     (* i j)))
+
+;; This generates the following
+(let ((i 0))
+   (dotimes (i inum)
+       (let ((j 0))
+          (dotimes (j jnum)
+               (* i j))))
+
+;; unfortunately the code above is extremely inefficient.
+
+;; The same loop optimized
+(let ((i 0)
+      (j 0))
+   (dotimes (i inum)
+     (dotimes (j jnum)
+       (* i j))))
+~~~~
+
+The use of inner `let` statements in loop blocks is extremely inefficient. Consequently you should never nest `doloop`. Use it sparingly to clarify complex code.
