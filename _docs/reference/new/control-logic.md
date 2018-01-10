@@ -1,5 +1,5 @@
 ---
-title: Control Logic
+title: Branching and Looping
 ---
 
 ## Introduction
@@ -10,7 +10,182 @@ In this chapter we'll discuss some of your options in xtlang for control logic a
 
 ### begin
 
+The `begin` form allows you to combine multiple expressions. The final expression in the block is the return value (all other return values are ignored.)
+
+~~~~ sourceCode
+;; This won't compile
+($ ((+ 3 5)
+    (- 3 4)))
+
+;; This will and returns -1
+($ (begin 
+    (+ 3 5)  ;; return value will be ignored.
+    (-3 4)))
+~~~~
+
+This is usually most useful for sequencing expressions with side effects. For example:
+
+~~~~ sourceCode
+($ (begin
+     (println "line 1")
+     (println "line 2")))
+~~~~
+
+Or if you wanted to add logging to a function:
+
+~~~~ sourceCode
+;; Dumb Logging Code
+(bind-func log-adder
+  (lambda (x:i64 y:i64)
+    (begin
+      (println "x:" x)
+      (println "y:" y)
+      (println "answer:" (+ x y))
+      (+ x y))))
+
+($ (log-adder 3 4))
+~~~~
+
+## Predicates
+
+Predicates are functions that either return #t, or #f. These are mostly self-explanatory, and so this section will mostly just document them for reference purposes.
+
+While predicates in xtlang work with many different types, they expect both types to be identical. So for example while both `(< 3 5)` and `(< 3.5 5.6)` are acceptable, `(< 3.5 5)` will throw a compiler error. If you need to compare two variables of different types then you will need to coerce one of them using either `convert`, or one of the more specific coercion functions. When doing this always be careful to coerce to a datatype that can hold more information, unless you _really_ know what you're doing. For example:
+
+~~~~ sourceCode
+($ (= 3.1 (convert 3))) ;; returns #f
+
+($ (= (convert 3.1) 3)) ;; returns #t, NOT #f
+~~~~
+
+The second expression results in a subtle bug. If you want to 'demote' a variable to a datatype that holds less information, always be explicit about how you want the information to be removed. E.g. if converting a float to an integer, use `ceil`, `floor`, `round`, etc to make explict the type of conversion you are expecting:
+
+~~~~ sourceCode
+($ (= (convert (abs 2.9)) 3)) ;; returns #t, which is what we are expecting.
+~~~~
+
+### Greater Than
+
++ __Function:__ `>`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
+
+~~~~ source Code
+($ (> 3 4))  ;; #f
+($ (> 4 3))  ;; #t
+~~~~
+
+### Greater Than or Equals
+
++ __Function:__ `>=`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
+
+~~~~ source Code
+($ (>= 3 4))  ;; #f
+($ (>= 4 3))  ;; #t
+($ (>= 4 4))  ;; #t
+~~~~
+
+
+### Less than
+
++ __Function:__ `<`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
+
+~~~~ source Code
+($ (< 3 4))  ;; #t
+($ (< 4 3))  ;; #f
+~~~~
+
+### Less Than or Equals
+
++ __Function:__ `<=`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
+
+~~~~ source Code
+($ (<= 3 4))  ;; #t
+($ (<= 4 3))  ;; #f
+($ (<= 4 4))  ;; #t
+~~~~
+
+### Equals
+
++ __Function:__ `=`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
+
+~~~~ source Code
+($ (= 3 4))  ;; #f
+($ (= 4 4))  ;; #t
+~~~~
+
+### Not Equal
+
++ __Function:__ `<>`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
+
+~~~~ source Code
+($ (<> 3 4))  ;; #t
+($ (<> 4 4))  ;; #f
+~~~~
+
+### Pointer is Null?
+
++ __Function:__ `null?`
++ __Supported Types:__ pointers?
+
+~~~~ source Code
 TODO
+~~~~
+
+### Not a Number?
+
+Returns true if the value passed to it is not a number (e.g. infinity).
+
++ __Function:__ `TODO`
++ __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`
+
+Might need to be implemented...
+
+~~~~ source Code
+TODO
+~~~~
+
+### OR
+
+Takes two predicates and applies 'OR' to their values.
+
++ __Function:__ `or`
++ __Supported Types:__ `i1`
+
+~~~~ source Code
+($ (or #t #f )) ;; #t
+($ (or (< 3 4) (= 3 4))) ;; #t
+~~~~
+
+### AND
+
+Takes two predicates and applies 'OR' to their values.
+
++ __Function:__ `and`
++ __Supported Types:__ `i1`
+
+~~~~ source Code
+($ (and #t #f )) ;; #f
+($ (and #t #t )) ;; #t
+($ (and (< 3 4) (= 3 4))) ;; #f
+~~~~
+
+### NOT
+
+Takes a predicate and inverts its value.
+
++ __Function:__ `not`
++ __Supported Types:__ `i1`
+
+~~~~ source Code
+($ (not #t )) ;; #f
+($ (not #f )) ;; #t
+($ (not (< 3 4)) ;; #f
+~~~~
 
 ## Branching Logic
 
@@ -90,7 +265,7 @@ If your return type is void then not providing an `else` branch often makes sens
 
 If we add and `else` statement we can add defaults:
 
-~~~ sourceCode
+~~~~ sourceCode
 ;; prints 7 to the terminal
 ($ (println
      (cond
