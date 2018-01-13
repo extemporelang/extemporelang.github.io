@@ -8,49 +8,73 @@ The two languages hosted by the Extempore compiler, xtlang and Scheme, have
 different approaches to dealing with memory allocation and management. While
 Scheme manages memory for you, in xtlang you have to do it yourself. The tradeoff is that while this takes more work, it means that we can write highly performant code that can process real-time audio and video.
 
-In xtlang whenever you need memory you ask the compiler for it, and when you're finished with it you tell the compiler to free the memory. This results in highly efficient code, but the downside is that if you forget to tell the compiler to free memory you can end up running out of memory pretty quickly. Fortunately xtlang has some good tools that can help you remember.
+In xtlang whenever you need memory you ask the compiler for it, and when you're finished with it you tell the compiler to free the memory. This results in highly efficient code, but the downside is that if you forget to tell the compiler to free memory you can end up running out of memory pretty quickly. Fortunately xtlang has some good tools that can help you manage this.
 
 
 ## Types of Memory
 
-Xtlang has three types of memory available to it:
-1. The Stack
-2. The Heap
-3. Zone Memory
+In the chapter on functions we saw that there are two types of memory accessible to your program - the stack and the heap. 
 
-We'll discuss each of these in turn, and when you should use them.
+The stack is where objects are allocated when you call a new function, and when your function returns any objects created on the stack during its lifecycle are deleted. This is very convenient as it means you don't have to worry about managing these objects, but it also means that these objects are deleted as soon as your function returns. If you have data that needs to live after the function as finished it's work then you need to allocate that data on the heap.
 
-### The Stack
+The heap is where all your long term data should be stored, along with large memory allocations (stack space is limited and your program will crash if the stack is used up). Data allocated on the heap will exist until you eplicitly tell the Operating System to delete it. It's up to you to free this memory when you no longer need it. If you forget to free it then your program will slowly use more and more memory, bringing your computer to a halt (these are called memory leaks).
 
-Whenever a function is called it pushes any variables passed in, along with local variables, onto the stack. When the function returns it 'pops' any memory allocated during the function call except for the return value. Consequently any
+XTLang offers you a third type of memory, the 'Zone'. While Zone memory is allocated in the stack, xtlang has a number of tools that make managing memory in zones a lot easier. In particular these help you use heap memory more efficiently as well as helping you automate free zone memory. In practice most of your memory allocation should use Zones.
 
-The **stack** is for dealing with function arguments and local
-    variables. Each function call 'pushes' some new data onto the stack,
-    and when the function returns it 'pops' off any local variables and
-    leaves its return value. Memory allocated on the stack lasts for as long as you're in scope of the function that allocated it. 
+### Stack Allocation
+
+Whenever a function is called it pushes any variables passed in, along with local variables, onto the stack. When the function returns it 'pops' any memory allocated during the function call except for the return value. Memory allocated on the stack lasts for as long as you're in the scope of the function that allocated it.
 
 There are two advantages to using the stack:
+
 1. Access and allocation are typically very quick.
 2. Memory deallocation is taken care of for you when the function returns.
 
-So how do we use the stack? Let's look at some examples:
+For core types, such as integers and floats, stack allocation happens by default. Every time you've written code that looks like:
 
 ~~~~ sourceCode
 (bind-func simple_stack_alloc
   (lambda ()
-    (let ((a 2)
-          (b 3.5))
-      (printf "a x b = %f\n"
-              (* (i64tod a) b)))))
-
-(simple_stack_alloc) ;; prints "a x b = 7.000000"
+    (let ((a 2) ;; stack allocated
+          (b 3.5)) ;; stack allocated
+      (* a b))))
 ~~~~
 
-When this function is called, the two variables `a` and `b` that were bound in the `let` call are allocated on the stack. This is the default for all variables (except Strings [fn:: Strings are discussed in 'Chapter']). 
+you have put data on the stack. However in the following `point` is allocated on the heap:
 
-And this is true for anything else that you bind in a `let` inside a `lambda`, unless you explicitly request that they be stored somewhere else.
+~~~~ sourceCode
+(bind-type Point <double,double>)
 
-However you can also allocate larger memory blocks. For example you might need a buffer for audio:
+(bind-func test-point
+  (lambda ()
+    (let ((point:Point* (Point 3.0 3.5)))
+       (println "x: " (tref point 0) "y: " (tref point 1)))))
+~~~~
+
+In general if a constructor returns a _pointer_ to an object then that object is allocated on the heap (and the above function has a memory leak). However you can allocate objects on the stack if you prefer:
+
+~~~~ sourceCode
+(bind-func test-point
+  (lambda ()
+    (let ((point:Point (Point_val 3.0 3.5))) ;; Allocating on the stack
+       (println "x: " (tref point 0) "y: " (tref point 1)))))
+~~~~
+
+If you append '_val' to the end of your constructor it will create the object on the stack. Note also that rather than return 'Point' as a pointer of type: `Point*`, it instead returns it is a `Point` object.
+
+We could also reserve space on the stack for multiple points:
+
+~~~~ sourceCode
+(bind-func test-point
+  (lambda ()
+    (let ((point:Point* (salloc 3))) ;; Allocating space on the stack
+      (begin 
+        (begin
+          (pref point 0)
+       (println "x: " (tref point 0) "y: " (tref point 1)))))
+~~~~
+
+If you need to be more low level then you can also allocate memory blocks. So for example, in the code below we are creating a buffer of floats on the stack:
 
 ~~~~ sourceCode
 (bind-func buffer_stack_alloc
@@ -61,9 +85,11 @@ However you can also allocate larger memory blocks. For example you might need a
           (pset! buf i 0.0)))))) ;; 0 out the audio buffer
 ~~~~
 
-In the function above we used `salloc` to allocate a memory block on the stack. This block can store `size` float values.[fn:: For C programmers note that Extempore allocates memory using the size of the type, rather than in bytes like C and C++]. When this memory block was created a pointer to the start of the block was bound to `buf`, which is a pointer of type `float*`.
+In the function above we used `salloc` to allocate a memory block on the stack. This block has a length of `size` float values[fn:: For C programmers note that Extempore allocates memory using the size of the type, rather than in bytes like C and C++]. A pointer to this memory block was bound to `buf` which has the type: `float*`. This memory block will last for as long as your program is running inside the `let` block, but as soon as your program exits the `let` block the memory block will be freed.
 
-What happens if we try to return our buffer:
+Note that xtlang will not stop you from returning `buf`. That's because `buf` is __not__ the memory that you allocated for your buffer. Instead it is a _pointer_ to the location where the buffer is stored. When xtlang frees that memory, that location in memory still exists, but it is no longer reserved for your audio buffer. Instead xtlang will use it for new memory allocations as it calls other functions. Which means that if you try and reference this 
+
+But what happens if we try to return our buffer:
 
 ~~~~ sourceCode
 (bind-func buffer_set
