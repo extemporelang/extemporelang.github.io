@@ -3,6 +3,7 @@ title: Primitive Types
 ---
 
 TODO -- NEED TO TALK ABOUT bind-val
+TODO -- Equality and Types
 
 In this chapter we will introduce xtlang's type system. Unlike Scheme and other
 dynamically typed languages (e.g. Ruby and Python), XTLang requires you to
