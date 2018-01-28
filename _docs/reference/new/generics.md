@@ -61,3 +61,66 @@ However, what happens if we pass in a type that is not supported by the function
 What a horrible error! As we'll see later in this chapter there are some things that we can do about this, and better tools are coming, but for the moment this is a limitation we have to live with. If you're writing a library, make sure you document the requirements for your generic function.
 
 ## Generic Types
+
+Let's suppose we want to create a list, but we don't care what the list contains:
+
+~~~~ sourceCode
+(sys:load "libs/base/adt.xtm")
+
+(bind-data MyList{!a}
+           (MyNil)
+           (MyCons !a MyList{!a}*))
+~~~~
+
+Note that this is exactly like an ADT with concrete types, but instead we're specifying our abstract type using `!a`. Now let's do some useful with this list. First of all we need to be able to see what's in a list:
+
+~~~~ sourceCode
+(bind-func toString_help:[String*,MyList{!a}*,String*]*
+  (lambda (lst s)
+    (MyCons$ lst (x xs)
+           (MyNil$ xs ()
+                 (toString_help xs (cat s (toString x)))
+                 (toString_help xs (cat s (toString x) (Str ","))))
+           (cat s (Str "]")))))
+
+(bind-func print:[void,MyList{!a}*]*
+  (lambda (lst)
+    (printout (toString_help lst (Str "[")))
+    void))
+
+(bind-func toString:[String*,List{!a}*]*
+  (lambda (lst)
+    (toString_help lst (Str "["))))
+
+(bind-val a-list MyList{i64}* (MyCons 1 (MyCons 2 (MyCons 3 (MyCons 4 (MyCons 5 (MyNil)))))))
+
+($ (println a-list)) ;; this prints out '[1,2,3,4,5]'
+~~~~
+
+Defining functions for an abstract ADT is almost the same as with concrete ADTs, the only difference is that that we add `{!a}` to the end of our type: `List{!a}`.
+
+Now let's do something a little bit more exciting, we're going to write a `fmap` function for our list.
+
+A `fmap` function is a higher order function that allows us to apply a function to every element in our list. So for example:
+
+~~~~ sourceCode
+($ (map (lambda (x) (+ x 3)) a-list)) ;; this will add 3 to every member of a-list
+~~~~
+
+It doesn't matter what function we pass in, so long as it has the right function signature. By using generics we can make sure that the signature is pretty generic. So how do we define `fmap`. Firstly `fmap` should take two parameters.
+
+The first parameter is a function that takes a single parameter that must share the type of our list: `fn:[!b,!a]*`. Note that the return type is different to the source type. There's no reason why we shouldn't be able to take a list of integers, process them and return a list of strings.
+
+The second parameter of course is the list. So let's put this together and define a type: `fmap:[MyList{!b}*,[!b,!a]*,MyList{!a}*]`
+
+In other words we take a list of type `MyList{!a}`, a function of type `[!b,!a]*` and return a list of type `MyList{!b}*` (remember that we typically pass pointers to complex types).
+
+So let's write this function:
+~~~~ sourceCode
+(bind-func fmap:[MyList{!b}*,[!b,!a]*,MyList{!a}*]*
+  (lambda (f lst)
+    (MyCons$ lst (x xs) (MyCons (f x) (fmap f xs)) (MyNil))))
+
+($ (println (fmap (lambda (x) (+ 3 x)) a-list))) ;; '[4,5,6,7,8]'
+($ (println (fmap (lambda (x) (toString x)) a-list))) ;; fmap returns a list of strings.
+~~~~
