@@ -260,6 +260,33 @@ The function returns a pointer to the value in the destination zone. So for exam
   .... ;; do something exciting with destData)
 ~~~~
 
+#### Destructor Functions
+
+Sometimes you don't just memory allocated with a zone, but also other resources that need to be cleaned up. For example you might have file handles, or network sockets, open. Xt_lang provides a cleanup hook which is run just before the zone is destroyed `zone_cleanup`
+
+~~~~ sourceCode
+(bind-func cleanup
+  (lambda ()
+    (println "Entering 'cleanup' function")
+    (let ((tmp2:i8* (alloc 8)))
+      (zone_cleanup (println "Clean up before leaving zone!"))
+      (println "do something")
+      (println "leaving 'cleanup' function")
+      void)))
+
+(bind-func cleanup-call
+  (lambda ()
+    (beginz
+     (println "In Zone ...")
+     (zone_cleanup (println "Clean up some additional stuff before leaving!"))
+     (cleanup)
+     void)
+    (println "Out of zone ...")
+    void))
+~~~~
+
+Whenever you pass `zone_cleanup` a block of code, xtlang registers this block with the currently active zone. When this zone is deleted your block of code will be run. As you can see in the example above you can register as many blocks of code as you like and each of them will be run (note that no guarantees are made as to the order in which they will be run).
+
 #### Closures and Zones
 
 When you create a top level function with `bind-func` xtlang makes use of a special type of zone:
