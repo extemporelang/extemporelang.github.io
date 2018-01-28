@@ -39,7 +39,38 @@ Most of the time you will not need to define the function type as Extempore's ty
 
 Often defining the types for one or more parameters will be sufficient and you will not need to give the function a type.
 
-### Accessing a Closure's Environment
+### Overloading Functions
+
+There will be many situations where you want to use the same function on different types. This is very easy in xtlang as you just write a new function with the desired type:
+
+~~~~ sourceCode
+(bind-func sum:[i64,i64,i64]*
+  (lambda (x y)
+    (+ x y)))
+
+(bind-func sum:[double,double,double]*
+  (lambda (x y)
+    (+ x y)))
+~~~~
+
+As long as the function type is different each time, you can do this as many times as makes sense. You can even overload functions based upon the return type, which can be occasionally useful:
+
+~~~~ sourceCode
+(bind-func sum:[float,i64,i64]*
+  (lambda (x y)
+    (convert (+ x y) )))
+
+(bind-func test-sum
+  (lambda ()
+    (let ((a:i64 (sum 3 4))
+          (b:double (sum 3.4 5.4))
+          (c:float (sum 3 4)))
+      (println a)
+      (println b)
+      (println c))))
+~~~~
+
+## Accessing a Closure's Environment
 
 In a previous chapter we noted that you can define an environment for a closure as part of its definition:
 
