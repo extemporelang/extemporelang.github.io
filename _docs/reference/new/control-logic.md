@@ -355,7 +355,7 @@ Sometimes using a let statement in this way can be a little unwieldy and so `dol
 ($ (doloop (i 2) (println i "iteration")))
 
 ;; this is identical to the doloop code above.
-($ (let ((i 0)) 
+($ (let ((i 0))
   (dotimes (i 2) (println i "iteration"))))
 ~~~~
 
