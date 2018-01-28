@@ -40,7 +40,7 @@ This function can take any type, the only restriction is that both parameters an
       (println x)))
 ~~~~
 
-We could make this function even more generic by using convert (in real code this particular example is best avoided. It's usually better to explicitly cast in this situations to prevent unexpected errors):
+We could make this function even more generic by using convert [fn::in real code this particular example is best avoided. It's usually better to explicitly cast in this situations to prevent unexpected errors]:
 
 ~~~~ sourceCode
 (bind-func rgsum:[!b,!a,!a]*
@@ -50,7 +50,22 @@ We could make this function even more generic by using convert (in real code thi
       (println x))) ;; this now works
 ~~~~
 
-However, what happens if we pass in a type that is not supported by the function `+`?
+So here we've specified a second type by simply using `!b`. Whenever you have a different generic type you simply introduce a new character: `my-func:[!c,!a,!b,!b]*`. So this is a function that takes three parameters. The first parameter has type: `!a`, while the other two parameters are of type `!b`. This function then returns a parameter that has type `!c`. So the following calls are all supported:
+
++ `(let ((x:i64 (my-call 3.2 'a' 'b'))) x)`
++ `(let ((x:i64 (my-call 'c' 'a' 'b'))) x)` - `!b` and `!a` can share the same type.
++ `(let ((x:i64 (my-call 3 2 4))) x)` - `!a` and `!b` and `!c` can all share the same type
+
+but the following will result in compiler errors:
+
++ `(let ((x:i64 (my-call 3.2 'a' 3))) x)` - the last two parameters must share a type.
+
+Your function types can also mix abstract and conrete types. This is perfectly acceptable:
+
++ `my-func:[i64,i64,!a]*`
+
+
+Returning to our `gsum` function - what happens if we pass in a type that is not supported by the function `+`?
 
 ~~~~ sourceCode
 ($ (gsum 'c' 'd')) ;; This won't compile
@@ -124,3 +139,17 @@ So let's write this function:
 ($ (println (fmap (lambda (x) (+ 3 x)) a-list))) ;; '[4,5,6,7,8]'
 ($ (println (fmap (lambda (x) (toString x)) a-list))) ;; fmap returns a list of strings.
 ~~~~
+
+This allows us to very succintly write a library of generic data types with useful functions, and this is in fact how the prelude library is written in xtlang.
+
+One more note about generics and complex data types. You can of course mix concrete and generic types in your type definitions:
+
+~~~~ sourceCode
+(bind-data EitherT{!a}
+           (LeftT String)
+           (RightT !a))
+
+(bind-type pointT <!a,!a,i64>) ;; where i64 is a hex color
+~~~~
+
+## Constraints
