@@ -2,6 +2,10 @@
 title: Generics
 ---
 
+## TODO
+
+Add something about alloc/zalloc etc with generics.
+
 ## Introduction
 
 In an earlier chapter we saw how you could overload functions so that they could handle different types appropriately:
