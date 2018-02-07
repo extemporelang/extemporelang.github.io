@@ -23,9 +23,8 @@ instrument and plays a single note.
 ;; load the instruments file 
 (sys:load "libs/core/instruments.xtm")
 
-;; define a synth using the provided components
-;; synth_note_c and synth_fx
-(make-instrument synth synth_note_c synth_fx)
+;; define a synth using the provided component fmsynth
+(make-instrument synth fmsynth)
 
 ;; add the instrument to the DSP output sink closure
 (bind-func dsp:DSP
@@ -160,9 +159,8 @@ callback:
 ~~~~ sourceCode
 (sys:load "libs/core/instruments.xtm")
 
-;; define a synth using the provided components
-;; synth_note_c and synth_fx
-(make-instrument synth synth_note_c synth_fx)
+;; define a synth using the provided component fmsynth
+(make-instrument synth fmsynth)
 
 ;; add the instrument to the DSP output sink closure
 (bind-func dsp:DSP
@@ -738,9 +736,9 @@ changes:
 2.  we'll make I and IV twice the duration of the other chords
 
 ~~~~ sourceCode
-;; create our organ instrument (again, organ_note_c and organ_fx
- ;; are defined in libs/core/instruments.xtm
-(make-instrument organ organ_note_c organ_fx)
+;; create our organ instrument (again, analogue
+ ;; is defined in libs/core/instruments.xtm
+(make-instrument organ analogue)
 
 ;; add the instrument to the DSP output sink closure
 (bind-func dsp:DSP
@@ -864,7 +862,7 @@ this tutorial: `*gm-cowbell*`, etc...
       (play-note time drums *gm-cowbell* 80 dur)
       (callback (+ time (* .5 dur)) 'drum-loop (+ time dur) (random '(22050 11025)))))
 
-(drum-loop (now) 11025)  
+(drum-loop (now) 11025)
 ~~~~
 
 And here's one way that we could go about transforming this into a more abstract
