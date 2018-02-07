@@ -14,8 +14,8 @@ Extempore instrument, such as those described in [making an
 instrument]({{site.baseurl}}{% link _docs/guides/making-an-instrument.md %})),
 except that the note kernel closure is already set up for you---you just have to
 load the sampler with sound files. There is also a slight difference in the way
-we set a sampler up: using the Scheme macro `bind-sampler` instead of
-`make-instrument`. The Extempore sampler is still an xtlang closure, and can be
+we set a sampler up: using the Scheme macro `make-instrument`.
+The Extempore sampler is still an xtlang closure, and can be
 used in all the same situations (e.g. as the `inst` argument to `play-note` or
 `play`) as an instrument can.
 
@@ -89,7 +89,7 @@ important, use fewer slots and let the sampler interpolate in the gaps.
 ## Creating a drum sampler {#creating-a-drum-sampler}
 
 Ok, enough background material---let's make some noise. We'll create an instance
-of Extempore's sampler called `drums`. To do this, we use the `bind-sampler`
+of Extempore's sampler called `drums`. To do this, we use the `make-instrument`
 Scheme macro (once we've loaded it from the `libs/external/instruments_ext.xtm`
 library file).
 
@@ -191,7 +191,7 @@ sure you can think of lots of other possibilities—go nuts :)
 Ok, drums are loaded, let's add one more sampler---this time a `piano`.
 
 ~~~~ sourceCode
-(bind-sampler piano sampler_note_hermite_c sampler_fx)
+(make-instrument piano sampler)
 
 ;; add the piano sampler to the dsp output callback
 ;; note how the drums is still there from before

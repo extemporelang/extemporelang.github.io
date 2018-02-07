@@ -777,7 +777,7 @@ changes:
 ~~~~
 
 If you had any temporal recursion-based music (e.g. the *previous* `progression`
-callback loop) playing when you evaluated the `define-instrumnent` form, then
+callback loop) playing when you evaluated the `define-instrument` form, then
 you may have heard a pause in the audio output while the xtlang code compiled.
 This is because the compilation of `organ` was happening in the same Scheme
 process as the `progression` callback loop. The Scheme process has to wait until
