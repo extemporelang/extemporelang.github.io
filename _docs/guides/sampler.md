@@ -97,7 +97,7 @@ library file).
 (sys:load "libs/external/instruments_ext.xtm")
 
 ;; define a sampler (called drums) using the default sampler note kernel and effects
-(bind-sampler drums sampler_note_hermite_c sampler_fx)
+(make-instrument drums sampler)
 
 ;; add the sampler to the dsp output callback
 (bind-func dsp:DSP
