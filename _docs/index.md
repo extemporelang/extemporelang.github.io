@@ -29,7 +29,8 @@ start, or you could see if we're on the **\#extempore** IRC channel on
 freenode.
 
 For discussions about the docs themselves, there's a new **extempore-docs**
-channel on the [livecode slack group](https://livecode.slack.com/) where you can
-discuss issues/comments/suggestions for the docs. Contributing to the docs
-[really is pretty easy]({{site.baseurl}}{% link _docs/overview/contributing.md
+channel on the [livecode lurk server (a slack
+equivalent)](https://talk.lurk.org/) where you can discuss
+issues/comments/suggestions for the docs. Contributing to the docs [really is
+pretty easy]({{site.baseurl}}{% link _docs/overview/contributing.md
 %}#documentation), so don't be afraid to pipe up if you've got ideas.
