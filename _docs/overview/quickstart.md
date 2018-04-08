@@ -64,7 +64,7 @@ If you want to turn it off, just re-define the `dsp` function to return
 "silence":
 
 ```
-(bind-func dsp:DSP
+(bind-func sine:DSP
   (lambda (in time chan dat)
     0.0))
 ```
