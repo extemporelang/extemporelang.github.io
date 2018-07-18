@@ -299,7 +299,7 @@ amplitude and frequency values.
                (/ suml 15.0))) ; normalise over all oscs
             ((= chan 1) ; right channel
              (let ((sumr 0.0))
-               (dotimes (i 15 15) ; sum over the first 15 oscs
+               (dotimes (i 15 15) ; sum over the remaining 15 oscs
                  (set! sumr (+ sumr ((aref osc_array i)
                                      (aref amp_array i)
                                      (aref freq_array i)))))
@@ -579,5 +579,5 @@ want to build your *own* instruments
 
 If you're interested in a more in-depth explanation of Extempore's
 instrument infrastructure, then you can <span
-role="doc">go and build your own
-tonewheel organ &lt;making-an-instrument&gt;</span>.
+role="doc">go and [build your own
+tonewheel organ]({{site.baseurl}}{% link _docs/reference/guides/making-an-instrument.md)</span>.
