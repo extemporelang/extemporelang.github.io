@@ -5,7 +5,7 @@ title: Contributing
 There are heaps of ways you can contribute to Extempore---whether you've been
 hacking Extempore code for a long time or whether you're just starting out. If
 you're in the latter category then you can especially help out with the
-docs---take notes as you learn, write down (& suggest fixes) for anything that's
+docs---take notes as you learn, write down (& suggest) fixes for anything that's
 missing or unclear. It's hard for Andy & Ben to remember what it's like to start
 out, but that doesn't mean that others should have to fight through like we did
 :)
