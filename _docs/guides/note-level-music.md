@@ -20,7 +20,7 @@ This is about the simplest program you can write in Extempore. It loads an
 instrument and plays a single note.
 
 ~~~~ sourceCode
-;; load the instruments file 
+;; load the instruments file
 (sys:load "libs/core/instruments.xtm")
 
 ;; define a synth using the provided component fmsynth
@@ -786,7 +786,7 @@ the compiler is done before it can continue with other Scheme code execution.
 The solution to this problem is to run the `progression` callback in a separate
 process. There's a blog guide in the works about how Extempore handles multiple
 processes and concurrency, but for the moment if you're interested have a look
-at the stuff at the bottom of the `examples/external/horde3d_knight.xtm` example
+at the stuff at the bottom of the `examples/contrib/horde3d_knight.xtm` example
 file. The `ipc:`-prefixed functions create and manage multiple processes in
 Extempore. If you're just mucking around at home, it's probably not a big
 problem to have a small pause in the audio output when you re-compile things.
