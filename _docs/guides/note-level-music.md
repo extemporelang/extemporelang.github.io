@@ -1104,10 +1104,10 @@ going to add some hi-hats to give it a constant pulse.
   (lambda (time)
     (play-note (*metro* time) drums
                (random (cons .8 *gm-closed-hi-hat*) (cons .2 *gm-open-hi-hat*))
-               (+ 40 (* 20 (cos (* 2 3.441592 time))))
+               (+ 40 (* 20 (cos (* 2 3.141592 time))))
                (random (cons .8 500)  (cons .2 2000)))
     (if (*metre1* time 1.0)
-        (begin (play-note (*metro* time) drums *gm-snare* 80 10000)
+        (begin (play-note (*metro* time) drums *gm-snare* 80 100000)
                (play-note (*metro* time) drums *gm-pedal-hi-hat* 80 100000)))
     (if (*metre2* time 1.0)
         (begin (play-note (*metro* time) drums *gm-kick* 80 100000)
