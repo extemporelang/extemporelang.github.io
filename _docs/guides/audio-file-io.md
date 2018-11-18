@@ -9,6 +9,36 @@ files.
 First, load up the required libraries and create an audio file closure with
 `audiofile_c`
 
+`audiofile_c` could look like this:
+~~~~ sourceCode
+(bind-func audiofile_c
+  (lambda (audiofile_path:SNDFILE* offset:i64 samplesToRead:i64)
+    (let ((nchan (convert (sf_channels_from_file audiofile_path)))
+	  (nframes (sf_frames_from_file audiofile_path))
+	  (nsamp (* nchan nframes))
+	  (audio_data:SAMPLE* (zalloc nsamp))
+	  (samples_read (sf_read_file_into_buffer audiofile_path
+						  audio_data
+						  offset
+						  (if (= samplesToRead 0)
+						      nframes
+						      samplesToRead)
+						  #t))
+	  (playhead 0)
+	  (i 0))
+      (if (< samples_read 0)
+	  (printf "audiofile_c: ERROR READING AUDIOFILE\n"))
+      (lambda (chan:i64)
+	(cond ((< chan nchan)
+	       (if (= samplesToRead 0)
+		   (set! playhead (modulo (+ playhead 1) nsamp))
+		   (set! playhead (modulo (+ playhead 1) samplesToRead)))
+	       (* 1.0 (pref audio_data playhead)))
+	      (else 0.0))))))
+~~~~
+This example is taken from from Fabien at https://groups.google.com/forum/#!topic/extemporelang/R0HUFURXdV4.
+Since the `audiofile_c` gets called for every sample of every channel extempore is running on, I extended the code to only advance the counter if the current channelnumber is not higher than the channels in the loaded soundfile. it will still give wrong result if the channel count of the loaded audiofile is larger than the channels extempore is running on.
+
 ~~~~ sourceCode
 (sys:load "libs/external/sndfile.xtm")
 
@@ -16,7 +46,7 @@ First, load up the required libraries and create an audio file closure with
   (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0)))
     (lambda (in time chan dat)
       ;; get the output sample
-      (audiofile))))
+      (audiofile chan))))
 
 (dsp:set! dsp)  
 ~~~~
