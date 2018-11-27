@@ -15,4 +15,11 @@
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
+    <link rel="stylesheet" href="/js/highlight/styles/xtlang.css">
+    <script src="/js/highlight/highlight.js"></script>
+    <script src="/js/highlight/languages/xtlang.js"></script>
+    <script>
+        hljs.registerLanguage('xtlang', window.hljsDefineXtlang);
+        hljs.initHighlightingOnLoad();
+    </script>
 </head>
