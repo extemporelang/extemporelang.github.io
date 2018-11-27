@@ -117,7 +117,7 @@ Once the shared library is compiled, the only thing to do before it's callable
 from xtlang code is to tell xtlang compiler about the type signature of the
 functions in the library. To do this, we use `bind-lib`.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; libfoo.xtm -- an xtm header for libfoo
 
 ;; load the shared lib
@@ -242,7 +242,7 @@ So now we can just go ahead and turn the signature of `kiss_fft` into a
 `bind-lib` and we're done, right? Something like (remembering that xtlang uses
 `i8*` in place of C's `void` type)
 
-~~~~ sourceCode
+~~~~ xtlang
 (define kissfft (bind-dylib "kiss_fft.dylib"))
 
 (bind-lib kissfft kiss_fft [i8*,kiss_fft_cfg,kiss_fft_cpx*,kiss_fft_cpx*]*)
@@ -340,7 +340,7 @@ number.
 Now, finally, we know all the types we need to call `kiss_fft`. We just need to
 tell the xtlang compiler about them.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; in fft.xtm
 
 (bind-type kiss_fft_cpx <float,float>)

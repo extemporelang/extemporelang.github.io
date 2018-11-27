@@ -28,7 +28,7 @@ Here is a starting example of a Scheme function that mutates a Scheme global
 variable. The function includes a *blocking* sleep---it will `println` then
 sleep for one second, test conditional and repeat.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define global-val 0)
 
 (define my-scm-func
@@ -48,7 +48,7 @@ concurrency occurs within this context using cooperative concurrency. So, for
 example, we can happily run this code concurrently. Eval each of the following
 lines in turn using
 
-~~~~ sourceCode
+~~~~ xtlang
 (set! global-val 0)
 (my-scm-func 'a 10)
 (my-scm-func 'b 10)
@@ -69,13 +69,13 @@ of CPU cores.
 
 You can spawn your own process with a name and a network port like this:
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:new "myproc" 7090)
 ~~~~
 
 or you can connect to a remote process like this:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; assuming a host at 192.168.1.1 is running Extempore
 (ipc:connect "192.168.1.1" "myproc" 7099)
 ~~~~
@@ -86,7 +86,7 @@ remote.
 
 You can explicitly call into `my-scm-func` in the primary process like so:
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:call "primary" 'my-scm-func 'a 5)
 ~~~~
 
@@ -97,7 +97,7 @@ make this call into primary no matter what scheme process we are currently
 
 We can try to run `my-scm-func` in the *myproc* process as follows:
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:call "myproc" 'my-scm-func 'a 5)
 ~~~~
 
@@ -106,7 +106,7 @@ matter) do not exist in the memory space of *myproc*. We can fix that using
 Extempore's IPC infrastructure simply enough by defining both `global-val` and
 `my-scm-func` in *myproc*.
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:define "myproc" 'global-val global-val)
 (ipc:define "myproc" 'my-scm-func my-scm-func)
 ~~~~
@@ -119,13 +119,13 @@ was currently bound to in our *connected* process, which in this instance was
 *primary* but could be whatever process our text buffer was connected to. We
 could just as easily have defined a different value into *myproc*, e.g.
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:define "myproc" 'global-val 0)
 ~~~~
 
 So, now try evaluating the next four lines one after the other
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:define "primary" 'global-val 0)
 (ipc:define "myproc" 'global-val 0)
 (ipc:call "primary" 'my-scm-func 'a 5)
@@ -149,7 +149,7 @@ other. Generally this xtlang code will behave as expected with regards to
 concurrency, i.e. will generally behave as if it were just another Scheme call
 inside the Scheme process. As a trivial example, consider the xtlang function:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func times2
    (lambda (x)
        (* x 2)))
@@ -158,7 +158,7 @@ inside the Scheme process. As a trivial example, consider the xtlang function:
 Compiling this xtlang function automatically creates a Scheme binding with
 exactly same name, which allows us to call it like any other scheme call:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; try evaluating this line
 (times2 4)
 ~~~~
@@ -166,7 +166,7 @@ exactly same name, which allows us to call it like any other scheme call:
 Of course, we can incorporate this Scheme wrapper call into our normal Scheme
 code, for example we can modify the `my-scm-func` from above:
 
-~~~~ sourceCode
+~~~~ xtlang
 (define my-scm-func
   (lambda (name x)
     (println name (ipc:get-process-name) (times2 global-val))
@@ -179,7 +179,7 @@ code, for example we can modify the `my-scm-func` from above:
 and all of our existing examples will work just fine. For example, cooperative
 concurrency as before:
 
-~~~~ sourceCode
+~~~~ xtlang
 (define global-val 0)
 (my-scm-func 'a 10)
 (my-scm-func 'b 10)
@@ -190,7 +190,7 @@ because we have changed its definition. Also note that we need to tell *myproc*
 about `times2` (note that `ipc:bind-func` has a slightly different signature
 from `ipc:define`):
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:bind-func "myproc" times2)
 (ipc:define "myproc" 'my-scm-func my-scm-func)
 ~~~~
@@ -198,7 +198,7 @@ from `ipc:define`):
 now we can re-run the same ipc example as earlier (evaluating each line one
 after the other)
 
-~~~~ sourceCode
+~~~~ xtlang
 (ipc:define "primary" 'global-val 0)
 (ipc:define "myproc" 'global-val 0)
 (ipc:call "primary" 'my-scm-func 'a 5)
@@ -221,7 +221,7 @@ every Scheme process).
 
 For example:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func xtlang_inc
   (let ((y 0))
     (lambda (inc)
@@ -241,7 +241,7 @@ performance optimizations etc.
 This also goes for any globally bound xtlang variables. Consider this code for
 example.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-val my_xtlang_global i64 0)
 
 (bind-func get_global
@@ -287,7 +287,7 @@ Here's an xtlang example that completely breaks out of Extempore's "normal
 environment" by managing its own native OS threads using standard fork/join
 semantics.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; sleep for 0-3 seconds
 (bind-func my_os_thread
   (lambda ()

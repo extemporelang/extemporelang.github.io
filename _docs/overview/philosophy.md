@@ -25,7 +25,7 @@ languages.
 
 This is all a bit abstract, so let's look at a couple of examples:
 
-~~~~ sourceCode
+~~~~ xtlang
 (define scheme-closure
   (lambda (a b)
     (let ((result (* a b)))
@@ -83,7 +83,7 @@ design a new language which has aspects of both)? By way of explanation, let's
 do a bit of numerical processing. Say we want to calculate the highest common
 factor of two integers `a` and `b` using a brute-force approach:
 
-~~~~ sourceCode
+~~~~ xtlang
 (define hcf-scheme
   (lambda (a b)
     (letrec ((hcf (lambda (i)
@@ -118,7 +118,7 @@ arguments and returns another `i64`. In more complex functions there may be a
 greater need to specify the types of the variables, but often just a few type
 annonations can unambiguously determine everything in scope.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; first, figure out two large numbers with a common factor (133)
 (println (map (lambda (x) (* x 133)) '(125219 123711))) ;; prints (16654127 16453563)
 

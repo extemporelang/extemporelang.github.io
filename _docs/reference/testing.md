@@ -12,7 +12,7 @@ these is the `xtmtest` macro, which takes (up to) three arguments:
 
 Here's an example:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; note the quote (') mark
 (xtmtest
  '(bind-func add_two_integers
@@ -29,7 +29,7 @@ To test an xtlang function multiple times with different arguments, use
 `xtmtest-result` (call this as many times as you like with different arguments
 and return values).
 
-~~~~ sourceCode
+~~~~ xtlang
 (xtmtest-result (add_two_integers 1 5) 6)
 (xtmtest-result (add_two_integers 10 5000) 5010)
 ~~~~
@@ -52,7 +52,9 @@ The easiest way to run the test suite is using CMake/CTest. By default, there's
 a **test** target created in the Extempore configure process, so that on e.g.
 OSX/Linux, you can run all the tests & examples with:
 
+~~~~ sourceCode
     make test
+~~~~
 
 This will take a while, but will give a full report on what works and what's
 broken.
@@ -62,8 +64,10 @@ process will also generate a `CTestTestfile.cmake` file in your build directory,
 and you can execute `ctest` in that directory with additional arguments. One use
 case of this is to only run tests with a certain label:
 
+~~~~ sourceCode
     cd /path/to/CTestTestfile.cmake
     ctest -L libs-core
+~~~~
 
 The tests are partitioned into the following (hopefully self-explanatory)
 labels:
@@ -76,11 +80,15 @@ labels:
 
 To **include** only the labels matching `<regex>`, use:
 
+~~~~ sourceCode
     ctest -L <regex>
+~~~~
 
 To **exclude** only the labels matching `<regex>`, use:
 
+~~~~ sourceCode
     ctest -LE <regex>
+~~~~
 
 ## Get involved {#get-involved}
 

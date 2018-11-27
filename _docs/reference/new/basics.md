@@ -10,7 +10,7 @@ In this chapter we'll start you slowly by showing you some of the basics of prog
 
 Let's beging with everyone's favourite first program:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (println "Hello World!"))
 ~~~~
 
@@ -23,7 +23,7 @@ The $ form is used to tell Extempore that the code you are sending it is XTLang 
 
 `println` can do more than just print strings:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (println 4)) -- prints 4 to the command line.
 ($ (println 3 "+" 4 "=" (+ 3 4)))
 ~~~~

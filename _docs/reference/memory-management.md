@@ -29,7 +29,7 @@ any references to them) the memory is automatically freed up for re-use.
 Let's do the most basic memory allocation imaginable: just binding a numerical
 value to a symbol.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define a 5)
 
 (println 'a '= a)  ;; prints a = 5
@@ -44,7 +44,7 @@ and binding a reference to the value in the symbol `a`.
 
 We can redefine the symbol `a` to be some other Scheme object, say, a list.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define a '(1 2 3))
 
 (println 'a '= a)  ;; prints a = (1 2 3)
@@ -160,7 +160,7 @@ references and carries them around in its saddlebags.
 
 Well, that's as clear as mud. Let's have an example.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func simple_stack_alloc
   (lambda ()
     (let ((a 2)
@@ -189,7 +189,7 @@ This 'implicit stack allocation' works for int and float literals, but how about
 aggregate and other higher-order types? In those cases, we call `salloc`
 explicitly.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func double_tuple
   (lambda (a:i64)
     (let ((tup:<i64,i64>* (salloc)))
@@ -222,7 +222,7 @@ signature `[<i64,i64>*,i64]*`).
 
 What happens if we try and dereference this returned pointer?
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func double_tuple_test
   (lambda ()
     (let ((tup (double_tuple 6)))
@@ -241,7 +241,7 @@ What happens if we try and dereference this returned pointer?
 Well, that seems to work OK. What about if we call `double_tuple` again in the
 body of the `let`, ignoring its return value?
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func double_tuple_test2
   (lambda ()
     (let ((tup (double_tuple 6)))
@@ -266,7 +266,7 @@ we have a pointer to in `tup`) have been overwritten.
 
 Finally, consider this example:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func double_tuple_test3
   (lambda ()
     (let ((tup (double_tuple 6))
@@ -320,7 +320,7 @@ up to the length of the region (`region_length`). We'll need to allocate the
 memory for this region, and get a pointer to the start of the region. We can do
 this using `zalloc` inside a `memzone`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func fill_buffer_memzone
   (lambda ()
     (memzone 100000  ;; size of memzone (in bytes)
@@ -346,7 +346,7 @@ passed.
 Let's try another version of this code `fill_buffer_memzone2`, but with a much
 longer buffer of `i64` values.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func fill_buffer_memzone2
   (lambda ()
     (memzone 100000  ;; size of memzone (in bytes)
@@ -420,7 +420,7 @@ the time---usually the default zone (unless you're in an enclosing `memzone`).
 As an example, let's revisit our 'fill buffer' examples from earlier. With a
 region length of one thousand:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func fill_buffer_closure_zone
   (let ((region_length 1000)
         (int_buf:i64* (zalloc region_length))
@@ -443,7 +443,7 @@ Leaving a leaky zone can be dangerous ... particularly for concurrency
 
 Let's try it again, but with a 'zone size' argument to `bind-func`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func fill_buffer_closure_zone2 10000 ;; zone size: 10KB
   (let ((region_length 1000)
         (int_buf:i64* (zalloc region_length))
@@ -480,7 +480,7 @@ give you a pointer to some memory on the heap. So, let's revisit the
 for `tup` on the stack went out of scope when the closure returned. If we
 replace the `salloc` with a `halloc`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func double_tuple_halloc
   (lambda (a:i64)
     (let ((tup:<i64,i64>* (halloc))) ;; halloc instead of salloc
@@ -536,7 +536,7 @@ in a way that's trickier to do in higher-level languages. Remember that memory
 is a finite resource. Don't try and allocate a memory region of 10<sup>15</sup>
 8-byte `i64`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func fill_massive_buffer
   (lambda ()
     (let ((region_length 1000000000000000)
@@ -588,7 +588,7 @@ The `let` form in xtlang (as in Scheme) is a way of binding or assigning
 variables: giving a name to a particular value. If we want to keep track of the
 number of cats you have, then we can create a variable `num_cats`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func print_num_cats
   (lambda ()
     (let ((num_cats:i64 4))
@@ -618,7 +618,7 @@ closure `print_num_cats` is called again).
 
 Once a variable exists, we can change its value with `set!`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func print_num_cats2
   (lambda ()
     (let ((num_cats:i64 4))
@@ -668,7 +668,7 @@ Let's update our code for printing the number of cats to use a pointer to the
 value, rather than the value itself. Notice how the type of `num_cats_ptr` is
 `i64*` (a pointer to an `i64`) rather than just an `i64` like it was before.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func print_num_cats3
   (lambda ()
     (let ((num_cats_ptr:i64* (zalloc)))
@@ -727,7 +727,7 @@ index means in the next section) and a value. The value must be of the right
 type: e.g. if the pointer is a pointer to a double (a `double*`) then the value
 must be a `double`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func print_num_cats4
   (lambda ()
     (let ((num_cats_ptr:i64* (zalloc)))
@@ -766,7 +766,7 @@ in memory, in which we can store *lots* of values. Say we want to be able to
 determine the mean (average) of 3 numbers. One way to do this is to store each
 of the different numbers with its own name.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func mean1
   (lambda ()
     (let ((num1:double 4.5)
@@ -787,7 +787,7 @@ mean of 5, 20 or one million values. What we really want is a way to give *one*
 name to all the values we're interested in, rather than having to refer to all
 the values by name individually. And to do that, we can use a pointer.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func mean2
   (lambda ()
     (let ((num_ptr:double* (zalloc 3)))
@@ -822,7 +822,7 @@ There is a helpful function called `pfill!` for filling multiple values into
 memory (multiple calls to `pset!`) as we did in the above example. Rewriting
 `mean2` to use `pfill!`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func mean3
   (lambda ()
     (let ((num_ptr:double* (zalloc 3)))
@@ -843,7 +843,7 @@ Finally, one more useful way to fill values into a chunk of memory is using a
 index for the loop. This function allocates enough memory for 5 `i64` values,
 and just fills it with ascending numbers:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func ptr_loop
   (lambda ()
     (let ((num_ptr:i64* (zalloc 5))
@@ -882,7 +882,7 @@ would have the type signature `<i64,double>`. Getting and setting tuple elements
 is done with `tref` and `tset!` respectively, which both work exactly like
 `pref=/=pset!` except the first argument has to be a pointer to a tuple.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func print_tuples
   (lambda ()
     ;; step 1: allocate memory for 2 tuples

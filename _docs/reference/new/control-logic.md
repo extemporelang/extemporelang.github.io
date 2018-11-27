@@ -12,20 +12,20 @@ In this chapter we'll discuss some of your options in xtlang for control logic a
 
 The `begin` form allows you to combine multiple expressions. The final expression in the block is the return value (all other return values are ignored.)
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; This won't compile
 ($ ((+ 3 5)
     (- 3 4)))
 
 ;; This will and returns -1
-($ (begin 
+($ (begin
     (+ 3 5)  ;; return value will be ignored.
     (-3 4)))
 ~~~~
 
 This is usually most useful for sequencing expressions with side effects. For example:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (begin
      (println "line 1")
      (println "line 2")))
@@ -33,7 +33,7 @@ This is usually most useful for sequencing expressions with side effects. For ex
 
 Or if you wanted to add logging to a function:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Dumb Logging Code
 (bind-func log-adder
   (lambda (x:i64 y:i64)
@@ -52,7 +52,7 @@ Predicates are functions that either return #t, or #f. These are mostly self-exp
 
 While predicates in xtlang work with many different types, they expect both types to be identical. So for example while both `(< 3 5)` and `(< 3.5 5.6)` are acceptable, `(< 3.5 5)` will throw a compiler error. If you need to compare two variables of different types then you will need to coerce one of them using either `convert`, or one of the more specific coercion functions. When doing this always be careful to coerce to a datatype that can hold more information, unless you _really_ know what you're doing. For example:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (= 3.1 (convert 3))) ;; returns #f
 
 ($ (= (convert 3.1) 3)) ;; returns #t, NOT #f
@@ -60,7 +60,7 @@ While predicates in xtlang work with many different types, they expect both type
 
 The second expression results in a subtle bug. If you want to 'demote' a variable to a datatype that holds less information, always be explicit about how you want the information to be removed. E.g. if converting a float to an integer, use `ceil`, `floor`, `round`, etc to make explict the type of conversion you are expecting:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (= (convert (abs 2.9)) 3)) ;; returns #t, which is what we are expecting.
 ~~~~
 
@@ -69,7 +69,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `>`
 + __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
 
-~~~~ source Code
+~~~~ xtlang
 ($ (> 3 4))  ;; #f
 ($ (> 4 3))  ;; #t
 ~~~~
@@ -79,7 +79,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `>=`
 + __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
 
-~~~~ source Code
+~~~~ xtlang
 ($ (>= 3 4))  ;; #f
 ($ (>= 4 3))  ;; #t
 ($ (>= 4 4))  ;; #t
@@ -91,7 +91,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `<`
 + __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
 
-~~~~ source Code
+~~~~ xtlang
 ($ (< 3 4))  ;; #t
 ($ (< 4 3))  ;; #f
 ~~~~
@@ -101,7 +101,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `<=`
 + __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
 
-~~~~ source Code
+~~~~ xtlang
 ($ (<= 3 4))  ;; #t
 ($ (<= 4 3))  ;; #f
 ($ (<= 4 4))  ;; #t
@@ -112,7 +112,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `=`
 + __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
 
-~~~~ source Code
+~~~~ xtlang
 ($ (= 3 4))  ;; #f
 ($ (= 4 4))  ;; #t
 ~~~~
@@ -122,7 +122,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `<>`
 + __Supported Types:__ `i32`, `i64`, `float`, `double`, `i8`, pointers?
 
-~~~~ source Code
+~~~~ xtlang
 ($ (<> 3 4))  ;; #t
 ($ (<> 4 4))  ;; #f
 ~~~~
@@ -132,7 +132,7 @@ The second expression results in a subtle bug. If you want to 'demote' a variabl
 + __Function:__ `null?`
 + __Supported Types:__ pointers?
 
-~~~~ source Code
+~~~~ xtlang
 TODO
 ~~~~
 
@@ -145,7 +145,7 @@ Returns true if the value passed to it is not a number (e.g. infinity).
 
 Might need to be implemented...
 
-~~~~ source Code
+~~~~ xtlang
 TODO
 ~~~~
 
@@ -156,7 +156,7 @@ Takes two predicates and applies 'OR' to their values.
 + __Function:__ `or`
 + __Supported Types:__ `i1`
 
-~~~~ source Code
+~~~~ xtlang
 ($ (or #t #f )) ;; #t
 ($ (or (< 3 4) (= 3 4))) ;; #t
 ~~~~
@@ -168,7 +168,7 @@ Takes two predicates and applies 'OR' to their values.
 + __Function:__ `and`
 + __Supported Types:__ `i1`
 
-~~~~ source Code
+~~~~ xtlang
 ($ (and #t #f )) ;; #f
 ($ (and #t #t )) ;; #t
 ($ (and (< 3 4) (= 3 4))) ;; #f
@@ -181,7 +181,7 @@ Takes a predicate and inverts its value.
 + __Function:__ `not`
 + __Supported Types:__ `i1`
 
-~~~~ source Code
+~~~~ xtlang
 ($ (not #t )) ;; #f
 ($ (not #f )) ;; #t
 ($ (not (< 3 4)) ;; #f
@@ -197,7 +197,7 @@ You have already seen `if` used already, and so we'll just formally describe her
 1. The branch to evaluate if the comparison is true.
 1. The branch to evaluate if the comparison is false (e.g. the 'else' statement). This expression must have the same return type as the other branch. This return type can of course be `void`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func simple-if
   (lambda (x:i1)
     (if (x)
@@ -210,7 +210,7 @@ You have already seen `if` used already, and so we'll just formally describe her
 
 Remember that both parts of the if statement must have the same return type:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; This won't compile as 5:i64 and 6.5:double
 (bind-func return-if
   (lambda (x:i1)
@@ -226,7 +226,7 @@ Remember that both parts of the if statement must have the same return type:
 
 Where `if` only allows two branches, `cond` supports multiple branches, with an optional default. It takes the form:
 
-~~~~ sourceCode
+~~~~ xtlang
 (cond
  ((comparison-1) (branch-1))   ;; this is the first branch
  ((comparison-2) (branch-2))   ;; this is the second branch
@@ -242,7 +242,7 @@ Each branch must return the same type, otherwise the compiler will complain (the
 
 So let's look at a couple of examples. First a version that returns default:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (cond
     ((= 5 4) (println "never reached"))
     ((= 4 4) (println "4 equals 4"))
@@ -251,7 +251,7 @@ So let's look at a couple of examples. First a version that returns default:
 
 If we were to modify this code slightly then nothing will happen:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Nothing will be printed to the terminal
 ($ (cond
     ((= 5 4) (println "never reached"))
@@ -265,7 +265,7 @@ If your return type is void then not providing an `else` branch often makes sens
 
 If we add and `else` statement we can add defaults:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; prints 7 to the terminal
 ($ (println
      (cond
@@ -283,7 +283,7 @@ If we add and `else` statement we can add defaults:
 1. An expression, or function, that returns true or false (e.g. an `i1` type).
 1. The expression to evaluate while the predicate is `true`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func simple-while
   (lambda (x:i64)
     (let ((count 0))
@@ -312,37 +312,37 @@ The parameters block consists of:
 2. __REQUIRED:__ The number of times to loop.
 3. __OPTIONAL:__ The starting value for the variable. The default for this value is `0`.
 
-~~~~ sourceCode
-;; defining i so we can use it in dotimes. 
+~~~~ xtlang
+;; defining i so we can use it in dotimes.
 ;; Note that the value we set it to is unimportant.
-($ (let ((i 0)) 
+($ (let ((i 0))
   (dotimes (i 2) (println i "iteration")))) ;; i is set to the default of 0
 ~~~~
 
 will print:
-~~~~ sourceCode
+~~~~ xtlang
 0 iteration
 1 iteration
 ~~~~
 
 The value that we set `i` to in the `let` statement is unimportant. The code below will give us the same output:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Doesn't matter what we set i to.
-($ (let ((i 1000000)) 
+($ (let ((i 1000000))
   (dotimes (i 2) (println i "iteration")))) ;; i is set to the default of 0
 ~~~~
 
 If we want to change the value that our counter starts on then we can do the following:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (let ((i 0)) ;; again the value here is unimportant
   (dotimes (i 2 1) (println i "iteration"))))
 ~~~~
 
 will print:
 
-~~~~ sourceCode
+~~~~ xtlang
 1 iteration
 2 iteration
 ~~~~
@@ -351,7 +351,7 @@ will print:
 
 Sometimes using a let statement in this way can be a little unwieldy and so `doloop` is provided as syntatic sugar for dotimes. Whenever you use `doloop` the compiler automatically creates the let-binding for your "counter" variable and creates a `dotimes` loop for you:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (doloop (i 2) (println i "iteration")))
 
 ;; this is identical to the doloop code above.
@@ -361,7 +361,7 @@ Sometimes using a let statement in this way can be a little unwieldy and so `dol
 
 __WARNING:__ While doloop is convenient, it can make your code inefficient:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; inner loops
 (doloop (i inum)
   (doloop (j jnum)

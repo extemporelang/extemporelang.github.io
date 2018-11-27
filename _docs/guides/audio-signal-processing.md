@@ -10,7 +10,7 @@ audio driver and output as sound through the computer speakers. Every audio
 sample (that is, at a rate of 44100Hz) this function is called with a few
 arguments:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp
   (lambda (in:SAMPLE time:i64 chan:i64 data:SAMPLE*)
     (* .1 (sin (/ (* 2.0 3.1415               ;; 2pi(ish)
@@ -18,7 +18,7 @@ arguments:
                      (i64tof (% time 44100))) ;; time mod samplerate
                   44100.0)))))
 
-;; to let Extempore know that this function is the one 
+;; to let Extempore know that this function is the one
 ;; it should call to get the output audio samples
 (dsp:set! dsp)
 ~~~~
@@ -35,7 +35,7 @@ This `dsp` function takes as input:
 
 By default, the type of `SAMPLE` is `float`, it's just a type alias:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-alias SAMPLE float)
 ~~~~
 
@@ -48,7 +48,7 @@ type `SAMPLE` is. But the cool thing is that like all functions in Extempore,
 this `dsp` function can be redefined on-the-fly, as long as the type signature
 stays the same. So, if I change the `dsp` function to
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp
   (lambda (in:SAMPLE time:i64 chan:i64 data:SAMPLE*)
     (* (convert 0.1 SAMPLE) (random))))
@@ -65,7 +65,7 @@ together.
 
 Let's create some oscillators:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func osc_c
   (lambda (phase)
     (lambda (amp freq:SAMPLE)
@@ -82,14 +82,16 @@ closure which returns another closure a `_c` suffix.
 
 The type message printed by the compiler when we evaluate `osc_c` is:
 
+~~~~ sourceCode
     Compiled osc_c >>> [[float,float,float]*,float]*
+~~~~
 
 See that the return type of the `osc_c` function is `[float,float,float]*`: a
 pointer to a closure which takes two `float` arguments and returns a `float`.
 This is our oscillator, and we can use our `osc_c` function to create as many
 oscillators as we need:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp
   (let ((osc1 (osc_c 0.0))
         (osc2 (osc_c 0.0)))
@@ -127,7 +129,7 @@ Playing a single sine tone is boring. Now, instead of just using the *one*
 oscillator, let's use a few of them to generate a whole bunch of sine tones of
 different frequencies:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func osc_c ; osc_c is the same as last time
   (lambda (phase)
     (lambda (amp freq)
@@ -144,7 +146,7 @@ different frequencies:
         (osc2 (osc_c 0.0))
         (osc3 (osc_c 0.0)))
     (lambda (in time channel data)
-      (cond ((= channel 1) 
+      (cond ((= channel 1)
              (+ (osc1 0.5 220.0)
                 (osc2 0.5 350.0)))
             ((= channel 0)
@@ -173,7 +175,7 @@ When programming in xtlang you don't really ever deal with tuples
 directly---you deal with them by *reference* through pointers. There are
 no 'literals' for tuples either---you can't just go
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func tuple_maker
   (lambda (a:i64)
     (let ((tup:<i64,i64> <a,a>))
@@ -185,7 +187,7 @@ no 'literals' for tuples either---you can't just go
 Instead, this time in the `let` we get a pointer to a tuple through a
 call to `alloc`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func tuple_maker
   (lambda (a:i64)
     (let ((tup:<i64,i64>* (alloc)))
@@ -213,7 +215,7 @@ a pointer to a tuple of two `i64` values.
 Just to check that everything's working properly, let's write a little
 `test` function
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test
     (lambda (a:i64)
       (let ((tup (tuple_maker a)))
@@ -229,14 +231,14 @@ Tuples come in handy in lots of places, for instance we can use them to
 rewrite one of the `dsp` functions from earlier (the one with the three
 oscs)
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-alias osc_t [SAMPLE,SAMPLE,SAMPLE]*)
 
 (bind-func dsp:DSP
   (let ((osc_tuple:<osc_t,osc_t,osc_t>* (alloc)))
     (tfill! osc_tuple (osc_c 0.0) (osc_c 0.0) (osc_c 0.0))
     (lambda (in time channel data)
-      (cond ((= channel 1) 
+      (cond ((= channel 1)
              (+ ((tref osc_tuple 0) 0.5 300.0)
                 ((tref osc_tuple 1) 0.5 420.0)))
             ((= channel 0)
@@ -277,7 +279,7 @@ some additive synthesis. We'll make an array `osc_array`, and then two
 more arrays (`amp_array` and `freq_array`) to keep track of the
 amplitude and frequency values.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((osc_array:|30,[SAMPLE,SAMPLE,SAMPLE]*|* (alloc))
         (amp_array:|30,SAMPLE|* (alloc))
@@ -329,7 +331,7 @@ systematic way. In our last example, we'll play only the *even*
 harmonics of a given base frequency (I've also simplified the output to
 one channel for clarity).
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((osc_array:|30,[SAMPLE,SAMPLE,SAMPLE]*|* (alloc))
         (amp_array:|30,SAMPLE|* (alloc))
@@ -398,7 +400,7 @@ arguments, and returns another closure which takes two arguments:
 The *returned* closure will be called to provide the basic audio signal
 for the note, so that's where we put our code to generate the saw wave.
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/core/instruments.xtm")
 
 (bind-func saw_synth_note
@@ -456,7 +458,7 @@ the nth output channel (the number of output channels you have will
 depend on your audio device). It's therefore easy to generalise our note
 kernel to multiple channels, so let's make it a stereo note kernel
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func saw_synth_note
   (lambda ()
     (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
@@ -496,7 +498,7 @@ which represents the (dry) input signal that you want to process. It
 *is* necessary to have an fx closure in your Extempore instrument,
 although it may just pass its input through untouched:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func saw_synth_fx
   (lambda ()
     (let ((notekernel:NOTE_KERNEL null))
@@ -509,7 +511,7 @@ although it may just pass its input through untouched:
 
 Let's add a stereo delay to make things a bit more interesting
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func saw_synth_fx 200000 ; extra memory for the delay lines
   (lambda ()
     (let ((notekernel:NOTE_KERNEL null)
@@ -531,7 +533,7 @@ Nice one. Also, remember that you change the fx closure at any time
 Finally, to complete the instrument, we use a special `make-instrument`
 macro
 
-~~~~ sourceCode
+~~~~ xtlang
 (make-instrument saw_synth saw_synth)
 ~~~~
 
@@ -552,7 +554,7 @@ got to *play* our instrument yet! Don't worry, we'll use our `saw_synth`
 instrument in <span role="doc">note-level-music</span>. Here's a sneak
 peek so you can hear it now though:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (lambda (in time chan dat)
     (if (< chan 2)

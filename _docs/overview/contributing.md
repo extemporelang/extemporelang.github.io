@@ -33,13 +33,17 @@ no pull request is too small to be appreciated :)
 To generate these docs, you'll need a working ruby install & a few packages. The
 best way to get started is to use [bundler](http://bundler.io/), then it's:
 
+~~~~ sourceCode
     bundle install # to get all the packages
     bundle exec jekyll build # to build the docs website
+~~~~
 
 If you want to see your changes locally (which of course you do!) then you can
 run a local 'live' test server with
 
+~~~~ sourceCode
     bundle exec jekyll serve
+~~~~
 
 ### Hosting
 

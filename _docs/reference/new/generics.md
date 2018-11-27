@@ -10,7 +10,7 @@ Add something about alloc/zalloc etc with generics.
 
 In an earlier chapter we saw how you could overload functions so that they could handle different types appropriately:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func sum:[i64,i64,i64]*
   (lambda (x y)
     (+ x y) ))
@@ -28,14 +28,14 @@ NOTE: Currently the generics implementation in xtlang has slow compile times. Th
 
 When writing a generic function we use generic types, where a generic type is a placeholder for our eventual concrete type. We write a generic type using `!`. So for example:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func gsum:[!a,!a,!a]*
   (lambda (x y) (+ x y)))
 ~~~~
 
 This function can take any type, the only restriction is that both parameters and the return type _must share that type_. For example:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (gsum 3 4)) ;; OK
 ($ (gsum 3.4 5.3)) ;; OK
 
@@ -46,7 +46,7 @@ This function can take any type, the only restriction is that both parameters an
 
 We could even make this function even more generic by using convert [fn::in real code this particular example is best avoided. It's usually better to explicitly cast in this situations to prevent unexpected errors]:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func rgsum:[!b,!a,!a]*
   (lambda (x y) (convert (+ x y))))
 
@@ -66,7 +66,7 @@ but the following will result in compiler errors:
 
 We can also create functions that mix abstract and concrete types:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func my-func:[i64,!a,!a]*
   (lambda (x y) (convert (+ x y))))
 
@@ -76,7 +76,7 @@ We can also create functions that mix abstract and concrete types:
 
 Returning to our `gsum` function - what happens if we pass in a type that is not supported by the function `+`?
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (gsum 'c' 'd')) ;; This won't compile
 ~~~~
 
@@ -91,7 +91,7 @@ When we create a generic function the compiler doesn't actually generate a funct
 
 So for example:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; No functions are generated when you evaluate this
 (bind-func gen-sum:[!a,!a,!a]
   (lambda x y) (+ x y))
@@ -99,7 +99,7 @@ So for example:
 
 no functions have been compiled yet. Let's call gen-sum with a concrete i64 type: `($ (gen-sum 3 4))`. The compiler looks to see if the function `gen-sum:[i64,i64,i64]*` exists. It can't find it, so now it uses the `gen-sum` _template_ to compile it. Once `gen-sum:[i64,i64,i64]*` has been compiled, the call can be evaluated.
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (gen-sum 3 4)) ;; This concrete instance has already been compiled.
 
 ($ (gen-sum 3.3 4.4)) ;; This concrete instance needs to be compiled first before we can use it
@@ -109,9 +109,9 @@ This means that the first time you call a generic function with a new type signa
 
 This means that generic functions aren't quite like concrete functions:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; the compiler will complain that it cannot find 'summy'
-(bind-func sumf:[i64,i64,i64]* 
+(bind-func sumf:[i64,i64,i64]*
   (lambda (x y) (summy x y)))
 
 ;; the compiler has no problems with this
@@ -128,7 +128,7 @@ The compiler has no problem with you referencing undefined functions and variabl
 
 Let's suppose we want to create a list, but we don't care what the list contains:
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/base/adt.xtm")
 
 (bind-data MyList{!a}
@@ -138,7 +138,7 @@ Let's suppose we want to create a list, but we don't care what the list contains
 
 Note that this is exactly like an ADT with concrete types, but instead we're specifying our abstract type using `!a`. Now let's do some useful with this list. First of all we need to be able to see what's in a list:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func toString_help:[String*,MyList{!a}*,String*]*
   (lambda (lst s)
     (MyCons$ lst (x xs)
@@ -169,7 +169,7 @@ Now let's do something a little bit more exciting, we're going to write a `fmap`
 
 A `fmap` function is a higher order function that allows us to apply a function to every element in our list. So for example:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (map (lambda (x) (+ x 3)) a-list)) ;; this will add 3 to every member of a-list
 ~~~~
 
@@ -183,7 +183,7 @@ In other words we take a list of type `MyList{!a}`, a function of type `[!b,!a]*
 
 So let's write this function:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func fmap:[MyList{!b}*,[!b,!a]*,MyList{!a}*]*
   (lambda (f lst)
     (MyCons$ lst (x xs) (MyCons (f x) (fmap f xs)) (MyNil))))
@@ -196,7 +196,7 @@ This allows us to very succintly write a library of generic data types with usef
 
 One more note about generics and complex data types. You can of course mix concrete and generic types in your type definitions:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-data EitherT{!a}
            (LeftT String)
            (RightT !a))
@@ -212,7 +212,7 @@ Often when we're writing a function we want it to be generic, but not too generi
 
 One thing that we can do is use a type constraint:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func square:[!a,!a]* -> (lambda (ret x) (t:number? x))
   (lambda (x)
     (* x x)))
@@ -221,7 +221,7 @@ One thing that we can do is use a type constraint:
 The function that comes after the `->` is the constraint. Let's look at it a bit more closely:
 `(lambda (ret x) (t:number? x))`. When you call a generic function with types that the compiler hasn't seen before, the compiler will call this constraint to see if this function can be generalized to the new type. Let's look at this in operation:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (square 4))
 
 ;; the compiler hasn't seen square:[i64,i64]* before
@@ -244,7 +244,7 @@ The function that comes after the `->` is the constraint. Let's look at it a bit
 
 ($ (square 'c'))
 ;; square:[i8,i8]* needs to be compiled so the constraint is checked
-;; t:number? returns #f when it is passed an i8 (or character) so compilation fails 
+;; t:number? returns #f when it is passed an i8 (or character) so compilation fails
 ;; and we get the following error:
 
 Constraint Error square failed constraint (lambda (ret x) (t:number? x))
@@ -254,7 +254,7 @@ ast: (square (String##15 "c"))
 
 So our constraint is a predicate which is passed type information and returns true or false. And we can do this for other functions. Here's gSum from earlier:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func gSum:[!a,!a,!a]* -> (lambda (ret x y) (t:number? x))
   (lambda (x y)
     (+ x y)))
@@ -266,7 +266,7 @@ So our constraint is a predicate which is passed type information and returns tr
 
 And we can make it even more generic (note this is only for the sake of having an example. This would be a bad idea in practice):
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func vgSum:[!b,!a,!b]* -> (lambda (ret x y) (and (t:number? x) (t:number? y)))
   (lambda (x y)
     (+ (convert x) (convert y))))
@@ -300,7 +300,7 @@ Currently the type predicates are still a work in progress. But soon you will be
 
 Let's say that we have an overloaded function `sqr`:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; define two sqr polys (i32 and i64)
 (bind-func sqr (lambda (x:i32) (* x x)))
 (bind-func sqr (lambda (x:i64) (* x x)))
@@ -308,7 +308,7 @@ Let's say that we have an overloaded function `sqr`:
 
 and we want to write a generic function that works for any type that supports this function. We can do this using the `t:poly-exists?` function:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func sqr2:[!a,!a]* -> (lambda (r x) (t:poly-exists? 'sqr `(,x ,x)))
   (lambda (x)
     (sqr (sqr x))))
@@ -320,7 +320,7 @@ t:poly-exists? takes two parameters. A symbol or string for the function name an
 
 When the compiler tries to find the function that matches your call it starts by looking for the most specific match. So if you call `(my-func 3 4)` it will begin by looking for a compiled function with the signature `my-func:[i64,i64,i64]*`. If it can't find a matching function it will then try to generate it using any generic functions that it knows about. We can use this fact, along with constraints, to build functions that are overloaded based upon the type of the parameters:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func silly-func:[!a,!a]* -> (lambda (ret x) (t:integer? x))
   (lambda (x)
     (* x x)))
@@ -336,4 +336,3 @@ When the compiler tries to find the function that matches your call it starts by
 ~~~~
 
 So here we have a function that will square integers (`i8`,`i16`,`i32`,`i64`), get the square root of floating point types (`float`,`double`) and to otherwise print the address of a pointer type.
-

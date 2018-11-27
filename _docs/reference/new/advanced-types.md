@@ -41,7 +41,7 @@ So for example given the array `a:|4,double|*` we can access it in serial order 
 
 or use it in a function like this:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func get-member2
   (lambda (v:|4,i64|*)
     (aref v 2)))
@@ -51,7 +51,7 @@ But `(aref a 4)` won't compile as `a` only has 4 elements.
 
 You can also get the memory location of a member array using `aref-ptr`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func get-member2:[i64*,|4,i64|*]*
   (lambda (v:|4,i64|*)
     (aref-ptr v 2)))
@@ -72,7 +72,7 @@ So for example given the array `a:|4,double|*` we can set each value to 0 like t
 
 and we can use it in a function like this:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Set every member of the array to 0
 (bind-func zero-set
   (lambda (v:|4,i64|*)
@@ -88,7 +88,7 @@ We could also do the same thing more succinctly using `afill!`:
 
 and redefining the function above we get this:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Set every member of the array to 0
 (bind-func zero-set
   (lambda (v:|4,i64|*)
@@ -97,7 +97,7 @@ and redefining the function above we get this:
 
 You can also initialize arrays directly using array_ref:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Initialize and create an array
 (bind-func test-array
   (lambda ()
@@ -147,7 +147,7 @@ There are two ways to define a custom type: `bind-type` and `bind-alias`.
 
 Examples:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-alias my_type_1 <i64,double>)
 (bind-type my_type_2 <float,[i64,i32]*,|3,double|*>)
 ~~~~
@@ -160,7 +160,7 @@ tricky debugging.
 As an example, let's make a 2D 'point' type, and a function for calculating the
 euclidean distance between two points.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-type point <double,double>)
 
 (bind-func euclid_distance
@@ -176,7 +176,7 @@ euclidean distance between two points.
 To test this out, we can check the diagonal length of the unit square, which
 should be `sqrt(2) = 1.41`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test_unit_square_diagonal
   (lambda ()
     (let ((bot_left:point* (alloc))
@@ -196,7 +196,7 @@ Now, what happens if we change this testing example to make `top_right` and
 `bot_left` just plain tuples of type `<double,double>` instead of being our new
 `point` type.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test_unit_square_diagonal_2
   (lambda ()
     (let ((bot_left:<double,double>* (alloc))
@@ -243,7 +243,7 @@ While Algebraic Data Types work, they are currently slow to compile and have bad
 
 Imagine that you have a shape type that can either be a circle, or a square: In Extempore we could create a type for this as follows:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; load the adt library
 (sys:load "libs/base/adt.xtm")
 
@@ -258,7 +258,7 @@ Note that ADTs are not part of the core library so you have to load the ADT libr
 
 Now that we've defined this ADT what can we do with it. Lets create a simple function that returns a circle:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func make-shape:[Shape*,point,double]*
   (lambda (pos:point rad:double)
     (Circle pos rad)))
@@ -271,24 +271,24 @@ There are two things to note here:
 
 Now that we have a `Shape` type, how do we use it? Let's create a function that prints a shape:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func print-shape
   (lambda (shape:Shape*)
-    (Circle$ shape (pos rad) 
+    (Circle$ shape (pos rad)
              (println "x: %f, y: %f, Radius: %f" (tref pos 0) (tref pos 1) rad)
              (Rect$ shape (point1 point2)
-                    (println "x1: %f, y1: %f\nx2: %f, y2: %f" 
+                    (println "x1: %f, y1: %f\nx2: %f, y2: %f"
                              (tref point1 0) (tref point1 1)
                              (tref point2 0) (tref point2 1))
                     void))))
 ~~~~
 
-The important functions here are `Circle$` and `Rect$`. So where did they come from? When you create a new ADT with `bind-data` the xtlang compiler creates a macro for each sub-type that allows you to access the data. The macro name is the name of the sub-type followed by the '$' sign. So for the Shape type we have the macros: `Circle$` and `Rect$`. 
+The important functions here are `Circle$` and `Rect$`. So where did they come from? When you create a new ADT with `bind-data` the xtlang compiler creates a macro for each sub-type that allows you to access the data. The macro name is the name of the sub-type followed by the '$' sign. So for the Shape type we have the macros: `Circle$` and `Rect$`.
 
 So let's examine the `Circle$` macro more closely. This takes four arguments:
 
 1. A variable of type `Shape`.
-1. Two variables inside brackets: `pos` and `rad`. These variables are the two member variables for the `Rect` sub-type in the same order that are declared in the `bind-data` declaration above. 
+1. Two variables inside brackets: `pos` and `rad`. These variables are the two member variables for the `Rect` sub-type in the same order that are declared in the `bind-data` declaration above.
   1. `pos` has type `point`.
   1. `rad` has type `double`.
 1. A form of type `[!a]*`. Where `!a` just means that this function can return any type.
