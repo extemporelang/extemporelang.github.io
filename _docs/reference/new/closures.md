@@ -10,14 +10,14 @@ Like Scheme xtlang is a functional language. As you might expect, that functions
 
 In xtlang functions are defined using `lambda`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (lambda (x)
   (+ x 1))
 ~~~~
 
 The function above takes a single variable `x` and adds `1` to it. The result of the expression ```(+ x 1)``` is returned by the function. Functions in xtlang _always_ return a value. The value returned is the last expression in the function:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; A function that always returns 1
 (lambda (x)
   1))
@@ -25,7 +25,7 @@ The function above takes a single variable `x` and adds `1` to it. The result of
 
 When you evaluated the code above you probably saw something like the following: ``#<<CLOSURE: 0x123543345>`` appear in your editor. This message telling you that you created a function. If want to be able to call this function then we need to **bind** it to a function name using `bind-func`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func add1
   (lambda (x)
     (+ x 1)))
@@ -33,14 +33,14 @@ When you evaluated the code above you probably saw something like the following:
 
 now we can call this function like so (remembering to use the `$` form as we're calling an xtlang function):
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (add1 4)) ;; this returns 5
 ($ (add1 5)) ;; this returns 6
 ~~~~
 
 and we can call this function from other functions as well:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func advanced-math
   (lambda (y)
     (* y (add1 y))))
@@ -50,7 +50,7 @@ and we can call this function from other functions as well:
 
 Like Scheme you can define local variables using the `let` form:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func boring
   (lambda ()
     (let ((x 5)
@@ -62,7 +62,7 @@ Like Scheme you can define local variables using the `let` form:
 
 You can also define local functions this way:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func adder
   (lambda (x)
     (let ((f (lambda (a)
@@ -74,7 +74,7 @@ You can also define local functions this way:
 
 Once you've created a variable you can change it's value using `set!`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func silly-func
   (lambda (y)
     (let ((i 0))
@@ -92,14 +92,14 @@ If you have a Scheme background it is worth noting that xtlang does not need the
 
 Local variables live only while they are in scope. As soon as they leave scope the variable can no longer be accessed.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func scope-func
   (lambda (y)               ;; y is in scope
     (let ((i 0))            ;; i and y are in scope
       (let (v (+ i 1))      ;; v, i and y are in scope
         (set! i (+ v 1)))   ;; v, i and y are in scope
       (set! i (+ y v)))     ;; i and y are in scope.
-                            ;;   You can no longer access `i` 
+                            ;;   You can no longer access `i`
     (+ y 1)))               ;; y is in scope.
                             ;;   You can no longer access `i` or `y`
 ~~~~
@@ -118,7 +118,7 @@ A program when it is running has two blocks of memory: the stack, and the heap. 
 
 Similarly whenever you allocate local variables in a let block, those variables are pushed onto the stack - when your code leaves the block that data is popped off the stack.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func f
   (lambda (x)
     (+ (g x) x)))
@@ -144,7 +144,7 @@ So let's step through what happens when we call ```($ (f 4))```:
 
 A recursive function is a function that calls itself:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func adder
   (lambda (x)
     (if (<= x 0) 0
@@ -171,7 +171,7 @@ For more information on recursion and how to use it see the Scheme tutorial [Whe
 
 Every time your function recurses it uses a little more stack space. While this is fine with small functions, with larger functions you can quickly run out of stack space. If your program uses up the stack then Extempore will crash:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Don't run this!!
 ($ (println(adder 1000000)))
 ~~~~
@@ -182,7 +182,7 @@ Fortunately it is possible to rewrite our function so it doesn't use any stack s
 
 A function is tail recursive when the recursive call is the last thing executed by the function:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func boring
   (lambda (x)
     (if (<= x 0) 0
@@ -217,7 +217,7 @@ In other words when a tail recursive function stops recursing there is no more w
 
 Resulting in extremely fast code that will never abuse your stack [fn:: The resulting code is equivalent to a C while loop]. So how would we take advantage of this for the `adder` function above. The trick to making that function tail recursive is to realize that we need to pass the answer in as a second parameter:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func adder-tail
   (lambda (x res)
     (if (<= x 0) res
@@ -232,7 +232,7 @@ Resulting in extremely fast code that will never abuse your stack [fn:: The resu
 
 This is a slightly ugly interface, so we wrap adder-tail in another function:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func better-adder
   (lambda (x)
     (let ((fn (lambda (x res)
@@ -247,7 +247,7 @@ And now we can run ```($ (println(better-adder 100000000)))``` with absolutely n
 
 Like with Scheme, all functions in xtlang are lexical closures. This means that any variable referenced in the scope of the function is captured along with the function, even if that variable was not passed in as an argument.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; this function returns another function that has access to the original x parameter
 (bind-func test-closure
   (lambda (x)
@@ -260,7 +260,7 @@ The inner function has access to all the variables defined in the outer function
 
 We can also do this:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-closure2
   (let ((x 4))
     (lambda (y)
@@ -270,4 +270,3 @@ We can also do this:
 ~~~~
 
 By using the `let` form before we define the function bound to `test-closure`, we create a closure that contains the variable x the function can access (or to use the correct terminology, it _closes over_ `x`).
-

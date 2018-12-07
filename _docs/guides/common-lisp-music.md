@@ -6,7 +6,7 @@ Here's an example of how to do
 [CLM](https://ccrma.stanford.edu/software/clm/)-style musicmaking in Extempore.
 First, we load in the DSP library:
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/core/audio_dsp.xtm")
 ~~~~
 
@@ -14,7 +14,7 @@ We need a *master* DSP callback. We can call it whatever we like, but by
 convention we call it `dsp`. It's type **must** be
 `[float,float,i64,i64,float*]*`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp
   (let ((oscil (osc_c 0.0))) ;; instantiates an oscilator with phase 0.0
     (lambda (in:float time:i64 chan:i64 dat:float*)
@@ -27,13 +27,13 @@ We need to tell extempore what we called our DSP callback function using
 `dsp:set!`. We only call `dsp:set!` once per session---from that point until the
 end of the session this function is the audio callback
 
-~~~~ sourceCode
+~~~~ xtlang
 (dsp:set! dsp)
 ~~~~
 
 We can of course recompile `dsp` on-the-fly:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp
   (let ((oscil (osc_c 0.0)))
     (lambda (in:float time:i64 chan:i64 dat:float*)
@@ -45,7 +45,7 @@ We can of course recompile `dsp` on-the-fly:
 Now we have two oscillators, one for the left channel and one for the right. We
 also introduce `DSP`, a type alias for `[float,float,i64,i64,float*]*`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((oscil_left (osc_c 0.0))
         (oscil_right (osc_c 0.0)))
@@ -61,7 +61,7 @@ also introduce `DSP`, a type alias for `[float,float,i64,i64,float*]*`
 Equivalently, Extempore's audio DSP library has multi-channel oscillators, so we
 can clean up our code a bit:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((oscil (osc_mc_c 0.0)))
     (lambda (in time chan dat)
@@ -71,7 +71,7 @@ can clean up our code a bit:
 Let's add a frequency sweep. `SRf` is a global variable which holds the audio
 sample rate (f for `float`)
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((oscil (osc_mc_c 0.0))
         (duration (* SRf 1.0))      ;; samplerate * 1.0 seconds
@@ -84,7 +84,7 @@ sample rate (f for `float`)
 Now, we can "granulate" the rising oscillator. With the default settings, the
 the granulator will have little effect on the original signal.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((oscil (osc_mc_c 0.0))
         (duration (* SRf 1.0))      ;; samplerate * 1.0 seconds
@@ -100,12 +100,12 @@ Extempore's granulator is stochastic and supports lo and hi ranges for most
 parameters, making a stochastic choice for each grain in that range. You can get
 determinstic behaviour by making lo and hi the same value.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (let ((oscil (osc_mc_c 0.0))
         (duration (* SRf 1.0))
         (range (/ 440.0 duration))
-        (grains (granulator_c 2))) 
+        (grains (granulator_c 2)))
     ;; set some initial values
     (grains.iot 500)     ;; inter-offset time (time between grains in samples)
     (grains.dlo 1000.0)  ;; shortest (i.e. low)  duration (in samples)

@@ -15,7 +15,7 @@ of the variables. Look at the code for `xt_add` above---in the argument list
 `(a:i64 b:i64)` both arguments are identified as `i64`. What happens, though, if
 we take out just one of these type annotations?
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func xt_add2
   (lambda (a:i64 b)
     (+ a b)))
@@ -37,7 +37,7 @@ only acceptable type signature for the closure pointer is `[i64,i64,i64]*`.
 
 How about if we try removing the `a` type annotation as well?
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func xt_add3
   (lambda (a b)
     (+ a b)))
@@ -57,7 +57,7 @@ rather than guess, it throws a compile error.
 It's also worth mentioning that we could have specified the closure's type
 directly with the definition of the `xt_add3` symbol
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func xt_add4:[i64,i64,i64]*
   (lambda (a b)
     (+ a b)))
@@ -84,7 +84,7 @@ Scheme.
 
 Here's an example to make things a bit clearer:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; tuple-maker returns a pointer to a tuple and tuple-taker takes
 ;; a pointer to a tuple as an argument.
 

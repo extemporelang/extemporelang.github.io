@@ -18,7 +18,7 @@ In the chapter on functions we saw that there are two types of memory accessible
 
 The stack is a special region of your computer's RAM that stores temporary variables. Each time you call a function and stack variables created in that function are pushed onto the top of the stack. When the function returns, those variables are deleted (freeing the memory that they occupied).
 
-There are two advantages to using stack memory. Firstly you don't need to worry about freeing these variables as the OS takes care of this for you. The other advantage is that read/write access to stack variables is typically very fast. 
+There are two advantages to using stack memory. Firstly you don't need to worry about freeing these variables as the OS takes care of this for you. The other advantage is that read/write access to stack variables is typically very fast.
 
 Unfortunately stack memory is usually quite limited and if you run out of stack space your program will crash. So stack memory is not suitable if you need a lot of memory (e.g. an audio buffer). Stack data is also unsuitable if you have data that needs to persist after a function has returned. In these situations you need to store data on the heap.
 
@@ -42,7 +42,7 @@ The advantages of using the stack for this kind of data are:
 
 For core types, such as integers and floats, stack allocation happens by default. Every time you've written code that looks like:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func simple_stack_alloc
   (lambda ()
     (let ((a 2) ;; stack allocated
@@ -52,7 +52,7 @@ For core types, such as integers and floats, stack allocation happens by default
 
 you have put data on the stack. However in the following example `point` is allocated on the heap:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-type Point <double,double>)
 
 (bind-func test-point
@@ -63,7 +63,7 @@ you have put data on the stack. However in the following example `point` is allo
 
 In general if a constructor returns a _pointer_ to an object then that object is allocated on the heap. If you want to allocate a custom datatype on the stack you need to add '_val' to the end of the constructor function. In the example below we use `Point_val` to create a point datatype on the stack:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-point
   (lambda ()
     (let ((point:Point (Point_val 3.0 3.5))) ;; Allocating on the stack
@@ -74,11 +74,11 @@ In general if a constructor returns a _pointer_ to an object then that object is
 
 We can also reserve space on the stack for multiple points using `salloc`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-point
   (lambda ()
     (let ((points:Point* (salloc 3))) ;; Allocating space on the stack
-      (begin 
+      (begin
         (doloop (i 3)
           (let ((point (tref points i)))
             (tref point 0 (*i 10))
@@ -94,7 +94,7 @@ Once the program has left the `let` form the OS frees the memory used by `points
 
 We can also use `salloc` to allocate memory blocks that can store primitive data types such as floats, or integers:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func buffer_stack_alloc
   (lambda ()
     (let ((buf:float* (salloc 16)))  ;; buffer of 16 float objects
@@ -113,7 +113,7 @@ A zone is a special region of the heap that can be freed as a single block. A me
 
 You allocate memory to a zone in XTLang using `alloc` (this is actually an alias for `zalloc`):
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-type Point <double,double>)
 
 (bind-func test-zalloc
@@ -122,9 +122,9 @@ You allocate memory to a zone in XTLang using `alloc` (this is actually an alias
       a)))
 ~~~~
 
-Here we create a block of 4 doubles and store a pointer to it in `a`. But where does `a` live? Each thread of execution in xtlang [fn:: A thread is what is calling your functions] has a stack of memory zones, with a default memory zone at the bottom. If you not explicitly told xtlang which memory zone to use, then xtlang will use the default zone. In the next example we'll use the function `peek-zone` to look at this: 
+Here we create a block of 4 doubles and store a pointer to it in `a`. But where does `a` live? Each thread of execution in xtlang [fn:: A thread is what is calling your functions] has a stack of memory zones, with a default memory zone at the bottom. If you not explicitly told xtlang which memory zone to use, then xtlang will use the default zone. In the next example we'll use the function `peek-zone` to look at this:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-zalloc2
   (lambda ()
     (println (peek_zone))
@@ -135,7 +135,7 @@ Here we create a block of 4 doubles and store a pointer to it in `a`. But where 
 
 If you call `test-zalloc2` then you will see that the zone is getting smaller by 64 bytes each time that you call it (with each double requiring 16 bytes). We have no way to reclaim this memory so we are effectively leaking memory. If we want to be able to reclaim this memory, then we need to call `test-zalloc` from within a new zone and then destroy the zone at the end:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-zalloc2
   (lambda ()
     (println (peek_zone))
@@ -154,10 +154,10 @@ If you run this new function you'll see that we've patched the leak.
 
 For convenience we can rewrite the above function into a much simpler form:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-zalloc2
   (lambda ()
-    (println (peek_zone)) ;; in the 
+    (println (peek_zone)) ;; in the
     (beginz 32000;; enter a new zone
      (println (peek_zone))
      (test-zalloc)  ;; test-zalloc is now allocating memory in our new zone
@@ -169,7 +169,7 @@ For convenience we can rewrite the above function into a much simpler form:
 
 Now we don't have to worry about managing our zone, it's taken care of for us by the `beginz` code block. As soon as we leave the block the zone is destroyed. We can even return values from our `beginz` block to the zone above:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test1
   (lambda ()
     (let ((a:double* (alloc 1000000))
@@ -194,7 +194,7 @@ In other words, you can safely return values from a `beginz` by placing them on 
 
 Another form that you will use a lot with zones is `letz`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func letz_example
   (lambda ()
     (letz ((a:double* (alloc 5))  ;; letz creates a new zone and creates these variables
@@ -208,7 +208,7 @@ Another form that you will use a lot with zones is `letz`
 
 The `letz` block above could equally be rewritten:
 
-~~~~ sourceCode
+~~~~ xtlang
 (beginz
   (let ((a:double* (alloc 5))  ;; letz creates a new zone and creates these variables
         (b:double* (alloc 6000)))
@@ -221,7 +221,7 @@ but this is just a slightly cleaner way of writing the same thing.
 
 So far we've just been creating blocks of primtive types in a zone, but we can also create more complex user defined types there as well:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-type Point <double,double>)
 
 (bind-func test-point
@@ -255,7 +255,7 @@ You can copy a piece of data from one zone to another using `zcopy`. `zcopy` tak
 
 The function returns a pointer to the value in the destination zone. So for example:
 
-~~~~ sourceCode
+~~~~ xtlang
 (let ((destData (zcopy srcData sourceZone destZone)))
   .... ;; do something exciting with destData)
 ~~~~
@@ -264,7 +264,7 @@ The function returns a pointer to the value in the destination zone. So for exam
 
 Sometimes you don't just memory allocated with a zone, but also other resources that need to be cleaned up. For example you might have file handles, or network sockets, open. Xt_lang provides a cleanup hook which is run just before the zone is destroyed `zone_cleanup`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func cleanup
   (lambda ()
     (println "Entering 'cleanup' function")
@@ -291,7 +291,7 @@ Whenever you pass `zone_cleanup` a block of code, xtlang registers this block wi
 
 When you create a top level function with `bind-func` xtlang makes use of a special type of zone:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func buf_func
   (let ((buf:double* (alloc 10)))
     (doloop (i 10) (pset! buf i 0.0)) ;; 0 set the buffer
@@ -307,7 +307,7 @@ You should almost never need to use the heap directly, and usually when you're t
 
 To explicitly create an object in the heap add '_h' on the end of the constructor like so:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-point
   (lambda ()
     (let ((point:Point* (Point_h 3.0 3.5)))
@@ -316,13 +316,13 @@ To explicitly create an object in the heap add '_h' on the end of the constructo
 
 If you want to create a memory block on the heap you can do this using `halloc`:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-type Point <double,double>)
 
 (bind-func test-point
   (lambda ()
     (let ((points:Point* (halloc 3))) ;; Allocating space on the heap
-      (begin 
+      (begin
         (doloop (i 3)
           (let ((point (pref points i)))
             (tref point 0 (* i 10))
@@ -336,11 +336,11 @@ Note that other than the call to `halloc`, this code is identical to the code ab
 
 However there's a big problem with the two functions that we've written above - they leak memory. Every call to the function will use more memory until our program runs out of heap space (which could bring our computer to a halt). We need to clean up after ourselves. We do this with `free`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test-point
   (lambda ()
     (let ((points:Point* (halloc 3))) ;; Allocating space on the heap
-      (begin 
+      (begin
         (doloop (i 3)
           (let ((point (pref points i)))
             (tref point 0 (* i 10))

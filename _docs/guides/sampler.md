@@ -93,7 +93,7 @@ of Extempore's sampler called `drums`. To do this, we use the `make-instrument`
 Scheme macro (once we've loaded it from the `libs/external/instruments_ext.xtm`
 library file).
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/external/instruments_ext.xtm")
 
 ;; define a sampler (called drums) using the default sampler note kernel and effects
@@ -128,7 +128,7 @@ subdirectory called `OH`, which contains the wave files which contain the drum
 sounds. We're going to load (some of) these files into our `drums` sampler one
 at a time using the `set-sampler-index` function.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define drum-path "/Users/ben/Music/sample-libs/drums/salamander/OH/")
 (set-sampler-index drums (string-append drum-path "kick_OH_F_9.wav") *gm-kick* 0 0 0 1)
 (set-sampler-index drums (string-append drum-path "snareStick_OH_F_9.wav") *gm-side-stick* 0 0 0 1)
@@ -169,7 +169,7 @@ could have gone wrong:
 
 Assuming things worked properly, we should be able to play our `drums` sampler.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; evaluate these as you see fit!
 (play-note (now) drums *gm-kick* 80 44100)
 (play-note (now) drums *gm-snare* 80 44100)
@@ -190,7 +190,7 @@ sure you can think of lots of other possibilities—go nuts :)
 
 Ok, drums are loaded, let's add one more sampler---this time a `piano`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (make-instrument piano sampler)
 
 ;; add the piano sampler to the dsp output callback
@@ -212,11 +212,11 @@ wave audio files should be in a `44.1khz16bit` subdirectory. Looking at the
 files in that directory (e.g. with `ls`), we get something like
 
 ~~~~ sourceCode
-A0v1.wav   A5v6.wav   C4v2.wav    D#2v13.wav  F#1v1.wav   F#6v6.wav 
-A0v10.wav  A5v7.wav   C4v3.wav    D#2v14.wav  F#1v10.wav  F#6v7.wav 
-A0v11.wav  A5v8.wav   C4v4.wav    D#2v15.wav  F#1v11.wav  F#6v8.wav 
-A0v12.wav  A5v9.wav   C4v5.wav    D#2v16.wav  F#1v12.wav  F#6v9.wav 
-A0v13.wav  A6v1.wav   C4v6.wav    D#2v2.wav   F#1v13.wav  F#7v1.wav 
+A0v1.wav   A5v6.wav   C4v2.wav    D#2v13.wav  F#1v1.wav   F#6v6.wav
+A0v10.wav  A5v7.wav   C4v3.wav    D#2v14.wav  F#1v10.wav  F#6v7.wav
+A0v11.wav  A5v8.wav   C4v4.wav    D#2v15.wav  F#1v11.wav  F#6v8.wav
+A0v12.wav  A5v9.wav   C4v5.wav    D#2v16.wav  F#1v12.wav  F#6v9.wav
+A0v13.wav  A6v1.wav   C4v6.wav    D#2v2.wav   F#1v13.wav  F#7v1.wav
 A0v14.wav  A6v10.wav  C4v7.wav    D#2v3.wav   F#1v14.wav  F#7v10.wav
 
 ... plus many more files
@@ -281,7 +281,7 @@ file starts playing from the start) and plays for its whole length. Writing a
 Scheme function which can do this parsing isn't too difficult, and would look
 something like this
 
-~~~~ sourceCode
+~~~~ xtlang
 (define parse-salamander-piano
   (lambda (file-list)
     (map (lambda (fname)
@@ -312,7 +312,7 @@ load into bank `0` and forget about it.
 
 And finally, to try it out:
 
-~~~~ sourceCode
+~~~~ xtlang
 (play-note (now) piano (random 40 80) 80 44100)
 ~~~~
 

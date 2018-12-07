@@ -8,10 +8,10 @@ In this chapter we will introduce strings and the functions available to manipul
 
 Strings in xtlang are immutable. Whenever you call a function that manipulates a string it will return a new string leaving the original string unchanged:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (let ((str1 (String "hello world"))
          (str2 (substring str 0 5)))
-        (begin 
+        (begin
             (println str1)  ;; outputs 'hello world'
             (println str2)))) ;; outputs 'hello'
 ~~~~
@@ -34,20 +34,20 @@ Hopefully this state of affairs will be improved in the future, but for the mome
 
 Strings are creating using the `String` function:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (String "My First String))
 
 (bind-val my-string String "My String")
 
 ;; you can also create a new string from an old one. This creates a copy of the original string.
-($ (String (String "hello"))) 
+($ (String (String "hello")))
 ~~~~
 
 You can also use `Str` as an alias for `String` if you prefer.
 
 Strings can be created from other types using the `toString function:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (toString 4))
 
 (bind-val my-string-num2 String* (toString 4))
@@ -57,7 +57,7 @@ Strings can be created from other types using the `toString function:
 
 To get the length of a string use length:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (length (String "hello"))) ;; 5
 ~~~~
 
@@ -67,7 +67,7 @@ To get the length of a string use length:
 
 To compare two strings use equal:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (equal (String "hello") (String "bob"))) ;; #f
 ($ (equal (String "hello") (String "hello"))) ;; #t
 ~~~~
@@ -78,7 +78,7 @@ The Levenstein Distance is the minimum number of single-character edits (inserti
 
 To get the length of a string use equal:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (levenshtein (String "hello") (String "hello"))) ;; 0
 ($ (levenshtein (String "hello") (String "hedo"))) ;; 2
 ~~~~
@@ -92,10 +92,10 @@ XTlang gives you a number of functions for manipulating and accessing parts of s
 You can remove whitespace using the `trim`, `ltrim` and `rtrim` functions. `ltrim` removes white space at the beginning of a string, `rtrim` removes white space at the end of a string and `trim` removes whitespace at both ends of a string:
 
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (ltrim (String "  hello world  "))) ;; 'hello world  '
 ($ (rtrim (String "  hello world  "))) ;; '  hello world'
-($ (trim  (String "  hello world  "))) ;; 'hello world' 
+($ (trim  (String "  hello world  "))) ;; 'hello world'
 ~~~~
 
 TODO Write `rtrim` and `ltrim`.... :)
@@ -104,7 +104,7 @@ TODO Write `rtrim` and `ltrim`.... :)
 
 You can create substrings from existing strings using substring:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Returns "rum"
 ($ (substring (String "Scrumptious") 2 5))
 ~~~~
@@ -123,7 +123,7 @@ NOTE: This may change in the future to something safer.
 
 You can combine strings using `cat` and `cat2`:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; returns "hello world"
 ($ (cat2 (String "hello") (String " world")))
 
@@ -140,7 +140,7 @@ You can combine strings using `cat` and `cat2`:
 
 The functions `replace` and `replace_all` can be used to replace parts of a string with a different string. `replace` replaces the first occurrence that it finds, and then returns the string. `replace_all` replaces every occurrence of the string.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; returns (String "hello your face is my name")
 ($ (replace "hello your name is my name" "name" "face"))
 
@@ -153,7 +153,7 @@ The functions `replace` and `replace_all` can be used to replace parts of a stri
 
 `replace` and `replace_all` can be used with any combination of `String` and String literal that you like:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (replace (String "hello world") "hello" "goodbye"))
 
 ($ (replace "hello world" (String "hello") "goodbye"))

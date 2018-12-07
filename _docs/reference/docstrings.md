@@ -7,7 +7,7 @@ javadoc/jsdoc-style markup for documenting individual parameters, return values,
 providing links to other, related functionality, and even examples. Here's an
 example of a closure with a docstring:
 
-```
+~~~~ xtlang
 (bind-func bens_great_function
   "a (one-line) description of the function: this is Ben's great
     function for adding two numbers together
@@ -27,7 +27,7 @@ bens_great_function (well, as long as the numbers are i64).
 @see bens_other_great_function - another great function to check out"
   (lambda (a:i64 b)
     (+ a b)))
-```
+~~~~
 
 The `@param` lines are just for providing docstrings for each argument:
 the names and types of the arguments will be taken from the actual
@@ -36,7 +36,7 @@ one-line string as the docstring.
 
 You can also add docstrings to other (xtlang) things:
 
-```
+~~~~ xtlang
 (bind-val bens_global_variable i32 42
    "the answer to life, the universe and everything
 
@@ -73,7 +73,7 @@ of BenType\*
    (println bt)) ;; prints &lt;BenType: 3 5.200&gt;
 
 @see BenType")
-```
+~~~~
 
 ## Contributing {#contributing}
 

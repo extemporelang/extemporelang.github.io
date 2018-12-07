@@ -19,7 +19,7 @@ understand any of that to make music in Extempore.
 This is about the simplest program you can write in Extempore. It loads an
 instrument and plays a single note.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; load the instruments file
 (sys:load "libs/core/instruments.xtm")
 
@@ -51,7 +51,7 @@ We can also create Scheme functions to trigger more complex musical structures.
 Evaluate the following expression to define a function `chord` that, when
 called, will play a chord on the `synth` instrument.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define chord
    (lambda ()
       (play-note (now) synth 60 80 *second*)
@@ -62,7 +62,7 @@ called, will play a chord on the `synth` instrument.
 Once `chord` is defined you can then call it as many times as you like by
 evaluating the following expression:
 
-~~~~ sourceCode
+~~~~ xtlang
 (chord)
 ~~~~
 
@@ -78,7 +78,7 @@ instead of printing it to the log.
 
 Following on from the code we evaluated before to set up the `synth`
 
-~~~~ sourceCode
+~~~~ xtlang
 ; hello world as a list of note pitches
 ; transposed down two octaves (24 semitones)
 (define melody (map (lambda (c)
@@ -156,7 +156,7 @@ Before we do that (if you haven't already), you'll have to set up an instrument
 (in this case the built-in `synth`) and put it somewhere in the `dsp` output
 callback:
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/core/instruments.xtm")
 
 ;; define a synth using the provided component fmsynth
@@ -176,7 +176,7 @@ First, let's implement a simple iterative process. Remember that in MIDI note
 numbers (which `play-note` uses) `60` is middle C, `61` is C\#, `62` is D,
 etc...
 
-~~~~ sourceCode
+~~~~ xtlang
 (dotimes (i 8)
   (play-note (+ (now) (* i 5000)) synth (+ 60 i) 80 4000))
 ~~~~
@@ -187,7 +187,7 @@ play a whole tone scale. Let's use recursion to solve this problem. Ok Scheme
 newbies, time find out about
 [named](http://www.scheme.com/tspl3/control.html#g90) `let`!
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; recursive whole-tone scale
 (let loop ((i 0))
   (play-note (+ (now) (* i 2500)) synth (+ 60 i) 80 4000)
@@ -201,7 +201,7 @@ recursion the better :)
 So, linear sequences don't seem to present a problem. How about a major scale?
 Recursion can handle this for us
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; recursive major scale
 (let loop ((scale '(0 2 4 5 7 9 11 12))
            (time 0))
@@ -213,7 +213,7 @@ Recursion can handle this for us
 We also added a second argument to loop: `time`. Let's use the `time` argument
 to add changing durations to our scale.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; recursive major scale with rhythm
 (let loop ((scale '(0 2 4 5 7 9 11 12))
            (dur '(22050 11025 11025 22050 11025 11025 44100 44100))
@@ -227,7 +227,7 @@ Now that we have pitches and rhythms mastered how do we go about playing a
 chord? The new `time` argument from the previous examples should give you a
 pretty good clue---we just ditch the `time` argument!
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; recursive chord
 (let loop ((chord '(0 4 7)))
   (play-note (now) synth (+ 60 (car chord)) 80 44100)
@@ -244,7 +244,7 @@ pretty good clue---we just ditch the `time` argument!
 C Major---nice! We seem to be using lists a lot, so you're probably just dying
 to use `map`, so here goes.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; map calls lambda for each argument of list
 (map (lambda (p)
        (play-note (now) synth p 80 44100))
@@ -256,7 +256,7 @@ always use `map`? There are a couple of reasons why sometimes it's better not to
 use `map` but we'll come to those soon enough. For the moment let's look at how
 we can use `map` to play a broken chord.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; map broken chord
 (map (lambda (p d)
        (play-note (+ (now) d) synth p 80 (- 88200 d)))
@@ -271,7 +271,7 @@ instead designed specifically to trigger side effects (i.e. playing notes in
 this instance). So if you don't need to return a list, use `for-each` instead of
 `map`.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; for-each broken chord with volumes
 (for-each (lambda (p d v)
             (play-note (+ (now) d) synth p v (- 88200 d)))
@@ -292,7 +292,7 @@ various ways to play a sequence of notes, and we're now going to expand on that
 theme. Let's define a function that uses `callback` to temporally recurse
 through a list of pitch values.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; plays a sequence of pitches
 (define play-seq
   (lambda (time plst)
@@ -307,7 +307,7 @@ This should look very similar to the example in the previous section, but there
 are some subtle differences. To demonstrate, let's change `play-seq` so that it
 keeps playing the sequence indefinitely.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; loop over a sequence of pitches indefinitely
 (define play-seq
   (lambda (time plst)
@@ -329,7 +329,7 @@ nothing: `(define play-seq (lambda args))`.
 
 Let's extend `play-seq` to include a rhythm list (`rlst`) as well.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; plays a sequence of pitches
 (define play-seq
   (lambda (time plst rlst)
@@ -363,7 +363,7 @@ but what if we would like to change the list programmatically. No problem, just
 use a function instead of a literal list---of course this is now no longer an
 ostinati!
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; plays a random pentatonic sequence of notes
 (define play-seq
   (lambda (time plst rlst)
@@ -385,7 +385,7 @@ on down beats. We can make a small modification to the previous example to
 demonstrate this simple little cheat. Also we'll shorten the durations a little
 (constant legato gets a touch boring).
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; plays a random pentatonic sequence of notes with a metric pulse
 (define play-seq
   (lambda (time plst rlst)
@@ -426,7 +426,7 @@ Now, the observant reader will note that we can use modulo arithmetic to find
 MIDI pitches of octave equivalence by using mod `12`. Try running this example,
 and check the log for the printed results.
 
-~~~~ sourceCode
+~~~~ xtlang
 (dotimes (i 12)
   (println 'modulo (+ i 60) 12 '=> (modulo (+ i 60) 12)))
 ~~~~
@@ -441,7 +441,7 @@ Let's start with something simple. We can define a pitch class set by creating a
 list of pitch classes that belong to the set. We can then test a pitch against
 that set by using `pc:?`
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/core/pc_ivl.xtm")
 
 ;; four examples tested against the pitch class set representation of a C major chord
@@ -454,7 +454,7 @@ that set by using `pc:?`
 We can also choose a random pitch from a pitch class set between a lower and
 upper bound.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; this chooses a C in any octave
 (pc:random 0 127 '(0))
 
@@ -471,7 +471,7 @@ fifth (you can try both) to supply a harmony. What does this have to do with
 pitch classes? Well, you can't just transpose up a fifth by adding 7 to
 everything:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; up 7 semitones or a perfect fifth
 (map (lambda (p)
        (pc:? (+ p 7) '(0 2 4 5 7 9 11)))
@@ -495,7 +495,7 @@ that we do use map here instead of for-each because we *do* want to return a
 list (of boolean values). So the answer is to use `pc:relative`, which will
 choose a pitch value from the pitch class relative to our current pitch.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; this gives us 62
 (pc:relative 60 1 '(0 2 4 5 7 9 11))
 
@@ -512,7 +512,7 @@ choose a pitch value from the pitch class relative to our current pitch.
 One more rule about an organum: we need our melody and harmony to start and
 finish on the same note (C). Here's one way we could go about the task:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; define a melody
 (define melody (make-list-with-proc 24
                                     (lambda (i)
@@ -555,7 +555,7 @@ also use `pc:relative` to implement a random walk melody. The rest of the code
 can stay the same, but remember to reevaluate everything that the change
 effects---in this case everything to do with creating `melody` and `harmony`.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; define a random walk melody seeded with 60
 ;; (we remove this at the end with cdr)
 (define melody
@@ -584,7 +584,7 @@ chord that starts to evolve. If your machine will handle a higher callback rate
 then go for it, we're after a wash of sound here. Try choosing a sound with a
 delay for extra impact.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define crazy-chord
   (lambda (time)
     (play-note time synth (pc:random 24 97 '(0 4 7 10 2 3 5 9 6 11 1)) 80 500)
@@ -598,7 +598,7 @@ Ok, so we've seen how we can use a pitch class to represent a chord.
 returning a 'random' chord based on a pitch class set. Let's take a look at this
 in action:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; C-major and repeat
 (define chords
   (lambda (time)
@@ -625,7 +625,7 @@ I'm getting a little sick of C-major, so let's add chord `IV` (F major) and `V`
 callbacks. Note that `random` can just as easily choose a *list* from a list as
 an *atom* from a list.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; I IV V
 (define chords
   (lambda (time chord)
@@ -683,7 +683,7 @@ Language](http://www.scheme.com/tspl3/objects.html) is a good online resource).
 For this first effort we're going to assume the key of C major and I'm going to
 limit the example to the `I`, `IV` and `V` chords only.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; markov chord progression I IV V
 (define progression
   (lambda (time chord)
@@ -709,7 +709,7 @@ Scheme symbols are lowercase only we use `i` for `I` `v` for `V`, etc. Because
 means `I` and that `vii` means `viio` in the major key. In minor `i` will be
 minor etc... Let's look at an example that implements our entire matrix.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; markov chord progression I ii iii IV V vi vii
 (define progression
   (lambda (time degree)
@@ -735,7 +735,7 @@ changes:
 1.  we'll randomly add mordants
 2.  we'll make I and IV twice the duration of the other chords
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; create our organ instrument (again, analogue
  ;; is defined in libs/core/instruments.xtm
 (make-instrument organ analogue)
@@ -799,7 +799,7 @@ everywhere). Now to do this, we're going to cheat and use `pc:relative` to move
 from our chord tones on *off beats*---Schoenberg would be most displeased! We'll
 also add an even longer duration option for `I` and `IV`.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Quintet
 (define progression
   (lambda (time degree)
@@ -849,7 +849,7 @@ _docs/guides/sampler.md %}) for details on how to set that up. At the end of
 this page you'll find a list of general MIDI drum numbers which I'll be using in
 this tutorial: `*gm-cowbell*`, etc...
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; assuming you've set up and loaded the drums sampler
 (bind-func dsp:DSP
   (lambda (in time chan dat)
@@ -868,7 +868,7 @@ this tutorial: `*gm-cowbell*`, etc...
 And here's one way that we could go about transforming this into a more abstract
 notion of time.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; beat loop
 (define drum-loop
   (lambda (time dur)
@@ -891,7 +891,7 @@ Let's play back the same example at 120 beats per minute (bpm)---remembering
 that by default the Extempore metronome runs at 60 bpm. We'll also add triplets
 to our quavers and semi-quavers.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; beat loop at 120bpm
 (define drum-loop
   (lambda (time dur)
@@ -906,7 +906,7 @@ to our quavers and semi-quavers.
 Let's try using an oscillator to drift the playback speed back and forth over
 time.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; beat loop with tempo shift
 (define drum-loop
   (lambda (time dur)
@@ -933,7 +933,7 @@ provides a mapping from beats (which are nice to work with) to samples (which
 Extempore needs to work with). This makes more sense as a practical exercise, so
 let me demonstrate.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; create a metronome starting at 120 bpm
 (define *metro* (make-metro 120))
 
@@ -969,7 +969,7 @@ How about those tempo changes? No problem---we just need to use pass another
 message to `*metro*` closure: `set-tempo`, which sets a new tempo in bpm (and
 don't forget to quote the symbol).
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; create a metronome starting at 120 bpm
 (define *metro* (make-metro 120))
 
@@ -991,7 +991,7 @@ argument to the `get-beat` message that asks the metronome to return a beat
 number which is equal to `0` mod `4`. I'm going to play cowbell and triangle
 with a slight `0.25` offset.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; create a metronome starting at 120 bpm
 (define *metro* (make-metro 120))
 
@@ -1042,7 +1042,7 @@ revolving metres. Some examples:
 Let's try using a `make-metre`. We'll only play the first beat of each
 bar.
 
-~~~~ sourceCode
+~~~~ xtlang
 (define *metro* (make-metro 90))
 
 ;; a 2/8 3/8 2/8 cycle
@@ -1062,7 +1062,7 @@ Well, that was easy. Let's complicate things just a little by adding a second
 metre. We'll play the side stick for the first metre and the snare for the
 second metre.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; classic 2 against 3
 (define *metro* (make-metro 180))
 
@@ -1092,7 +1092,7 @@ competing metric structures---both of which will be symmetric `(2/8 3/8 4/8 3/8
 in length we should get some nice phasing effects, *a la* Steve Reich. I'm also
 going to add some hi-hats to give it a constant pulse.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; messiaen drum kit
 (define *metro* (make-metro 140))
 
@@ -1128,7 +1128,7 @@ is fine as long as our time increment has a suitable ratio to both metres.
 Let's keep going with this idea and add some pitched musical content as well,
 using the `synth` and `organ` instruments we were using earlier
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/core/pc_ivl.xtm")
 
 ;; messiaen drum kit

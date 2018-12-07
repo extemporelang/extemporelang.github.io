@@ -115,7 +115,7 @@ for each drawbar), then that's what we need to generate. There are lots of ways
 to do this, but one nice way is to use oscillator closures created by
 Extempore's `osc_c` function.
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/core/instruments.xtm")
 
 (bind-func organ_drone
@@ -188,7 +188,7 @@ are in the memory pointed to by `tonewheel`), you'd be right. Each closure
 'closes over' a state variable called `phase`, which you can see in the source
 for `osc_c` (which is in `libs/core/audio_dsp.xtm`)
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func osc_c
   (lambda (phase)
     (lambda (amp freq)
@@ -208,7 +208,7 @@ the *two* `lambda` forms: the outer one (with one `phase` argument) defines the
 creates the closure which is returned by `osc_c`. *That's* the closure that gets
 stored in the `tonewheel` array when we perform the loop:
 
-~~~~ sourceCode
+~~~~ xtlang
 (dotimes (i num_drawbars)
           (pset! tonewheel i (osc_c 0.0)))
 ~~~~
@@ -294,7 +294,7 @@ maintaining the state of all the notes being played at any given time.
 So, when we finally define our hammond organ instrument, the definition will
 look like this
 
-~~~~ sourceCode
+~~~~ xtlang
 (make-instrument organ organ)
 ~~~~
 
@@ -318,7 +318,7 @@ Extempore instrument is that the instrument needs to be called in the `dsp`
 callback. If we *only* want our organ in the audio output, then that's as simple
 as
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP
   (lambda (in time chan dat)
     ;; call the organ instrument closure
@@ -393,7 +393,7 @@ we've been pursuing since the beginning.
 The 'template' for the note kernel and effects kernel is something like this
 (this is just a skeleton---it won't compile)
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func organ_note_c
   (lambda ()
     (lambda (time:i64 chan:i64 freq:float amp:float)
@@ -424,7 +424,7 @@ multi-channel instruments should be obvious---just use a bigger `cond` form!
 To make the `organ_note_c` kernel, we'll fill in the template from the
 `organ_drone` closure we made earlier.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func organ_note_c
   (let ((num_drawbars:i64 9)
         (freq_ratio:SAMPLE* (zalloc num_drawbars))
@@ -494,7 +494,7 @@ approximation of this effect. In particular, our `organ_fx` kernel will use a
 frequencies between the L and R channels) to simulate the sound of a Leslie
 speaker.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func organ_fx 100000
   (let ((flanl (flanger_c 1.0 0.0 0.6 1.0))
         (flanr (flanger_c 1.0 0.0 0.6 1.0))
@@ -526,7 +526,7 @@ Now, let's see if our instrument works! Having compiled both `organ_note_c` and
 `organ_fx`, we're finally ready to use `make-instrument` to make our xtlang
 hammond organ
 
-~~~~ sourceCode
+~~~~ xtlang
 (make-instrument organ organ_note_c organ_fx)
 
 ;; Compiled organ >>> [float,float,i64,i64,float*]*
@@ -540,7 +540,7 @@ hammond organ
 
 and the moment of truth...
 
-~~~~ sourceCode
+~~~~ xtlang
 (play-note (now)   ;; time
            organ   ;; instrument
            60      ;; pitch (midi note number, middle C = 60)

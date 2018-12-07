@@ -151,7 +151,9 @@ xtlang global variable of type `double`. If you evaluate this with `Alt+S` or
 One difference from the previous (Scheme) example is that the `extempore`
 compiler now prints a message to the console:
 
+~~~~ sourceCode
     Bound myPI >>> double
+~~~~
 
 Evaluating *xtlang* code will always print a message to the log about the name
 and type of the variables. Also, notice how the string that is echoed back is
@@ -169,7 +171,9 @@ representing the radius of a circle and returns the area of that circle (another
 `double`). It also uses the global variable `myPI` which we evaluated earlier.
 The closure compiled successfully, and the compiler prints
 
+~~~~ sourceCode
     Compiled circle_area >>> [double,double]*
+~~~~
 
 to the log. If there was a problem with the compilation, then the compiler would
 have printed a (hopefully helpful) compile error to the log instead.

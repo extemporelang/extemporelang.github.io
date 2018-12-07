@@ -42,7 +42,7 @@ on how to get started hacking Extempore code in your editor of choice.
 
 Hello, World! is pretty straightforward in Extempore
 
-~~~~ sourceCode
+~~~~ xtlang
 (println "Hello, World!")
 ~~~~
 
@@ -51,7 +51,7 @@ Hello, World! is pretty straightforward in Extempore
 Since Extempore has multimedia programming as a core part of its DNA,
 here's "Hello, Sine!"
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func sine:DSP
   (lambda (in time chan dat)
     (* .1 (cos (* (convert time) .04)))))
@@ -63,11 +63,11 @@ here's "Hello, Sine!"
 If you want to turn it off, just re-define the `dsp` function to return
 "silence":
 
-```
+~~~~ xtlang
 (bind-func sine:DSP
   (lambda (in time chan dat)
     0.0))
-```
+~~~~
 
 In the snipped above we've used `0.0`, but any constant value will work (because
 physics).

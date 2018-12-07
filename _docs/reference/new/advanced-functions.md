@@ -17,7 +17,7 @@ In xtlang, closure types are indicated by square brackets ([]), with the first e
 
 Closures can return any valid type including another closure:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func return-fun:[[i64,i64]*,i64]*
   (lambda (inc)
     (lambda (num) (+ num inc))))
@@ -25,7 +25,7 @@ Closures can return any valid type including another closure:
 
 Most of the time you will not need to define the function type as Extempore's type inference engine is pretty good at working it out for you:
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; Extempore works out that `inc` is an i64 because `1` is an i64
 (bind-func simple-inc
   (lambda (inc)
@@ -43,7 +43,7 @@ Often defining the types for one or more parameters will be sufficient and you w
 
 There will be many situations where you want to use the same function on different types. This is very easy in xtlang as you just write a new function with the desired type:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func sum:[i64,i64,i64]*
   (lambda (x y)
     (+ x y)))
@@ -55,7 +55,7 @@ There will be many situations where you want to use the same function on differe
 
 As long as the function type is different each time, you can do this as many times as makes sense. You can even overload functions based upon the return type, which can be occasionally useful:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func sum:[float,i64,i64]*
   (lambda (x y)
     (convert (+ x y) )))
@@ -74,7 +74,7 @@ As long as the function type is different each time, you can do this as many tim
 
 In a previous chapter we noted that you can define an environment for a closure as part of its definition:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func my-closure
   (let ((a:i32 6))
     (lambda ()
@@ -86,7 +86,7 @@ In a previous chapter we noted that you can define an environment for a closure 
 
 It is also possible in xtlang to access that environment directly using a dot operator `closure_name.slot_name:type`. E.g. `(f.a:i32)` to access the value and `(f.a:i32 565)` to set it. So let's see how this works with `my-closure`:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (my-closure.a:i32 8))
 ($ (my-closure)) ;; this should print 8.
 
@@ -95,7 +95,7 @@ It is also possible in xtlang to access that environment directly using a dot op
 
 This will also work for anonymous closures:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func my-closure
   (lambda (x:i64)
     (lambda (y) (+ x y))))
@@ -112,7 +112,7 @@ This will also work for anonymous closures:
 
 And of course the closure's environment can also contain functions (or closures) of its own which you can also access:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func my-closure-with-func
   (let ((f (lambda (x)
              (+ x 1))))

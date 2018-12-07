@@ -12,7 +12,7 @@ environment where programs are modified and extended while they are running. As
 a simple example: type the following code into your editor and
 [evaluate]({{site.baseurl}}{% link _docs/overview/using-extempore.md %}) it:
 
-~~~~ sourceCode
+~~~~ xtlang
 (now)
 ~~~~
 
@@ -52,7 +52,7 @@ execution) for execution in the future is *super handy*. As an example, let's
 load up the default synth instrument and play three notes in sequence (an
 arpeggiated triad).
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; load the instruments file
 (sys:load "libs/core/instruments.xtm")
 
@@ -118,7 +118,7 @@ a temporally recursive callback loop is established. Here is an example
 demonstrating a `foo` function that will play a note and then schedule itself to
 be called back in one second (this loop will continue indefinitely).
 
-~~~~ sourceCode
+~~~~ xtlang
 (define foo
   (lambda ()
     (play-note (now) synth 60 80 *second*)
@@ -144,7 +144,7 @@ functionality on the fly (provided that the signature of the method does not
 change, i.e. same arguments and same name). Try evaluating the code below while
 the old version of foo is running.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; re-define foo
 (define foo
   (lambda ()
@@ -157,7 +157,7 @@ One-off anonymous functions can also be scheduled for future evaluation. The
 code example below shows a one off anonymous function scheduled for evaluation
 one minute from `(now)`.
 
-~~~~ sourceCode
+~~~~ xtlang
 (callback (+ (now) *minute*)
           (lambda () (play-note (now) synth 60 80 *second*)))
 ~~~~
@@ -168,7 +168,7 @@ below, the two notes *may* be scheduled to play on the same sample, but then
 again, they may not! `(now)` may have moved forward in time between the two
 calls, even if they were evaluated at the same time.
 
-~~~~ sourceCode
+~~~~ xtlang
 (play-note (now) synth 60 80 *second*)
 (play-note (now) synth 72 80 *second*)
 ~~~~
@@ -176,7 +176,7 @@ calls, even if they were evaluated at the same time.
 Often this lack of precision is fine (i.e. too small a change to be noticeable)
 but where absolute accuracy is required a time variable should be used.
 
-~~~~ sourceCode
+~~~~ xtlang
 (let ((time (now)))
   (play-note time synth 60 80 *second*)
   (play-note time synth 72 80 *second*))
@@ -188,7 +188,7 @@ incrementing a `time` value between each recursive callback (note that any
 arguments required by the function being called back must also be passed to
 `callback`).
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; This is bad
 (define loop
   (lambda ()
@@ -212,7 +212,7 @@ note `(now)`, by the time the code is evaluated it will already be late: `(now)`
 will have moved on. You should always try to schedule your code execution
 *ahead* of the scheduled time of your tasks.
 
-~~~~ sourceCode
+~~~~ xtlang
 ;; This is best (callback happens 4100 samples earlier than new time)
 (define loop
   (lambda (time)

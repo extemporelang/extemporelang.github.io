@@ -29,7 +29,7 @@ run the examples, etc.
 ## Option 2: build from source {#build-from-source}
 
 The build-from-source workflow will download and build all the dependencies you
-need (including LLVM). 
+need (including LLVM).
 
 If you've got the requirements:
 
@@ -40,11 +40,13 @@ If you've got the requirements:
 
 then here are some one-liner build commands:
 
+~~~~ sourceCode
     # linux/macOS
     git clone https://github.com/digego/extempore && mkdir extempore/cmake-build && cd extempore/cmake-build && cmake .. && make install
 
     # Windows
     git clone https://github.com/digego/extempore && mkdir extempore/cmake-build && cd extempore/cmake-build && cmake -G"Visual Studio 15 2017 Win64" .. && cmake --build . --target ALL_BUILD --config Release
+~~~~
 
 If you have problems, check out the platform-specific build notes below.
 
@@ -60,7 +62,7 @@ Here are a few of the more interesting CMake options:
   will also download and build the extended libraries (e.g. glfw, libsndfile).
   If you want to get those things through another package manager (or not use
   them at all) then set this to `OFF`.
-  
+
 - `EXTERNAL_SHLIBS_AUDIO`/`EXTERNAL_SHLIBS_GRAPHICS` (boolean, default `ON` for
   both) are useful if you want to build the supporting libs for graphics/audio
   but not both (so you should set the one you *don't* want to `OFF`)
@@ -113,7 +115,9 @@ Fedora, Arch, and also inside a docker container.
 There are a few extra dependencies which you may need to get through
 your package manager. For example, on Ubuntu 16.04 I needed:
 
+~~~~ sourceCode
     sudo apt-get install libasound2-dev xorg-dev libglu1-mesa-dev zlib1g-dev
+~~~~
 
 You'll also need to specify an [ALSA](http://www.alsa-project.org/) backend for
 portaudio. To use the asound portaudio backend (the default) you'll need the
@@ -197,8 +201,10 @@ it yourself, then here's how.
 Grab the [3.8.0 source tarball](http://llvm.org/releases/download.html#3.8.0),
 apply the `extempore-llvm-3.8.0.patch` in `extras/`:
 
+~~~~ sourceCode
     cd /path/to/llvm-3.8.0.src
     patch -p0 < /path/to/extempore/extras/extempore-llvm-3.8.0.patch
+~~~~
 
 On **Windows**, the `<` redirection will work with `cmd.exe`, but not
 PowerShell.
@@ -206,8 +212,10 @@ PowerShell.
 Then build LLVM, moving the libraries into `/path/to/extempore/llvm` as part of
 the `install` step:
 
+~~~~ sourceCode
     mkdir cmake-build && cd cmake-build
     cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_ZLIB=OFF -DCMAKE_INSTALL_PREFIX=c:/path/to/extempore/llvm .. && make && make install
+~~~~
 
 On **Windows**, you'll also need to specify a 64-bit generator e.g. `-G"Visual
 Studio 15 2017 Win64"`
@@ -222,7 +230,9 @@ in there to find `llc`).
 If LLVM complains about not being able to find python, you can specify a path to
 your python executable with the `PYTHON_EXECUTABLE` CMake variable:
 
+~~~~ sourceCode
     cmake -DCMAKE_BUILD_TYPE=Release -DLLVM_TARGETS_TO_BUILD=X86 -DLLVM_ENABLE_TERMINFO=OFF -DLLVM_ENABLE_ZLIB=OFF -DCMAKE_INSTALL_PREFIX=c:/path/to/extempore/llvm -DPYTHON_EXECUTABLE=c:/path/to/python .. && make && make install
+~~~~
 
 If you **do** build your own patched version of LLVM for Extempore, then make
 sure you set the `EXT_LLVM_DIR` environment variable to point to that directory

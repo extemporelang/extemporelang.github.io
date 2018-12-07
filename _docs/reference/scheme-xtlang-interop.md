@@ -15,7 +15,7 @@ than that, it's Scheme code.
 A Scheme function (for example named `scheme-foo`) is created by using the
 `define` keyword and a Scheme `lambda` expression:
 
-~~~~ sourceCode
+~~~~ xtlang
 (define scheme-foo
 (lambda (argument1 argument2)
   ;; do some manipulations of the arguments
@@ -27,7 +27,7 @@ A Scheme function (for example named `scheme-foo`) is created by using the
 An xtlang function (for example named `xtlang_bar`) is created by using the
 `bind-func` keyword and an xtlang `lambda` expression:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func xtlang_bar:[type_of_return_value,type_of_argument1,type_of_argument2]*
   (lambda (argument1:type_of_argument1 argument2:type_of_argument2)
     ;; do some manipulations of the arguments
@@ -67,7 +67,7 @@ discussion.
 Sometimes, the Scheme-xtlang interop stuff can be a bit too tricky for its own
 good. Consider this example:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func make_squarer
   (lambda ()
     (lambda (x:double)
@@ -92,7 +92,7 @@ discussed above, all top level xtlang closures (i.e. anything created with
 `bind-func`) have a Scheme wrapper function automatically bound to the same
 name. So in this example:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func squarer:[double,double]*
   (lambda (x)
     (* x x)))
@@ -109,6 +109,6 @@ actually a Scheme function, not a Scheme cptr. The way around this is to make
 sure the final `test_apply` call is an xtlang one using a `$` form the xtlang
 closure as a cptr:
 
-~~~~ sourceCode
+~~~~ xtlang
 ($ (test_apply squarer 2.0))
 ~~~~

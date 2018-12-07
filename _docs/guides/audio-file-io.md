@@ -9,7 +9,7 @@ files.
 First, load up the required libraries and create an audio file closure with
 `audiofile_c`
 
-~~~~ sourceCode
+~~~~ xtlang
 (sys:load "libs/external/sndfile.xtm")
 
 (bind-func dsp:DSP 1000000000  ;; allocate memory to store the audio file
@@ -49,7 +49,7 @@ the file it wraps to the start, so the file playback will loop on forever.
 To mess with this audio stream, let's add some valve saturation-style distortion
 to both channels:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP 1000000000
   (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0))
         (saturationl (saturation_c))
@@ -70,7 +70,7 @@ samples into. Looking at the file info which was printed out earlier (in
 particular `samples read: 21202944`), we know that there are `21202944` samples
 in the input file, so that's how big we want our output buffer to be.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP 1000000000
   (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0))
         (saturationl (saturation_c))
@@ -110,7 +110,7 @@ takes four arguments:
 
 Let's add a function `write_data` to write the audio file:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func dsp:DSP 1000000000
   (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0))
         (saturationl (saturation_c))

@@ -105,7 +105,7 @@ between `salloc`, `halloc` and `zalloc`) can be found in <span
 role="doc">memory</span>. For now, though, we'll just use `zalloc`, which
 allocates memory from the current zone, which for these examples will work fine.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func ptr_test
   (lambda ()
     (let ((a:double* (zalloc)))
@@ -144,7 +144,7 @@ argument, but it also takes an additional third argument---the value to set into
 that memory location. This must be of the appropriate type: so if the pointer is
 to a double, then the value passed to `pset!` must also be a double.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func ptr_test2
   (lambda ()
     (let ((a:double* (zalloc))) ; allocate some memory for a double, bind
@@ -165,7 +165,7 @@ This is important (and useful) because the call to `zalloc` can (optionally)
 take an integer argument. So, if we know we're going to store 4 doubles, we can
 do this:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func ptr_test3
   (lambda ()
     (let ((a:double* (zalloc 4)))
@@ -185,7 +185,7 @@ multiple values into a byte array. Using `pfill!` is exactly the same as calling
 Finally, one more useful way to fill values into a chunk of memory is using a
 loop.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func ptr_test4
   (lambda ()
     (let ((a:double* (zalloc 10))
@@ -219,7 +219,7 @@ String literals in xtlang are bound globally (allocated on the heap). So you can
 safely set and store pointers to them without worrying about then disappearing
 on you.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func string_literals
   (lambda ()
     (let ((str "Vive le tour!"))
@@ -401,7 +401,7 @@ Sometimes, though, we want to give a closure a name, and that's where
 name to a closure. Here's an example of creating a simple (named) xtlang closure
 using `bind-func`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func xt_add
   (lambda (a:i64 b:i64)
     (+ a b)))
@@ -428,7 +428,7 @@ do the necessary for you.
 As another example, if you want to return a closure from the function it's
 exactly like you would do it in Scheme:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func make_xt_adder
   (lambda (a:i64)
     (lambda (b:i64)
@@ -469,7 +469,7 @@ There are two ways to define a custom type: `bind-type` and `bind-alias`.
 
 Examples:
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-alias my_type_1 <i64,double>)
 (bind-type my_type_2 <float,[i64,i32]*,|3,double|*>)
 ~~~~
@@ -482,14 +482,14 @@ tricky debugging.
 As an example, let's make a 2D 'point' type, and a function for calculating the
 euclidean distance between two points.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-type point <double,double>)
 
 (bind-func euclid_distance
   (lambda (a:point* b:point*)
     (sqrt (+ (pow (- (tref a 0)
-                   (tref b 0))
-                2.0)
+                     (tref b 0))
+                  2.0)
              (pow (- (tref a 1)
                      (tref b 1))
                   2.0)))))
@@ -498,7 +498,7 @@ euclidean distance between two points.
 To test this out, we can check the diagonal length of the unit square, which
 should be `sqrt(2) = 1.41`
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test_unit_square_diagonal
   (lambda ()
     (let ((bot_left:point* (alloc))
@@ -518,7 +518,7 @@ Now, what happens if we change this testing example to make `top_right` and
 `bot_left` just plain tuples of type `<double,double>` instead of being our new
 `point` type.
 
-~~~~ sourceCode
+~~~~ xtlang
 (bind-func test_unit_square_diagonal_2
   (lambda ()
     (let ((bot_left:<double,double>* (alloc))
