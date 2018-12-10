@@ -102,12 +102,12 @@ in xtlang:
 
 These projects are "ecosystem/tooling" projects.
 
-1.  add xtlang support to
+1.  ~~add xtlang support to
     [highlight.js](http://highlightjs.readthedocs.io/en/latest/language-guide.html)
     (shouldn't be *too* difficult, you can basically copy the parsing regexes
-    from the Atom plugin)
-2.  write an extempore plugin for [VS
-    Code](https://code.visualstudio.com/docs/extensions/overview) xtlang
+    from the Atom plugin)~~
+2.  ~~write an extempore plugin for [VS
+    Code](https://code.visualstudio.com/docs/extensions/overview) xtlang~~
 3.  create an xtlang package manager (e.g. CPAN or cargo for Extempore)
 4.  make the CMake build process aware of the xtlang ahead-of-time compilation
     process, so that `make aot` only re-aot-compiles an xtlang library if it has
