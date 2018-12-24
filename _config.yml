@@ -48,3 +48,8 @@ collections:
   posts:
     permalink: /blog/:year/:month/:day/:title/
     output: true
+
+algolia:
+  application_id: "EF62TZY1XC"
+  index_name: "NotIncludeNewDocs"
+  search_only_api_key: "22d2e4ab5393c0512af49a01ab0797ea"
