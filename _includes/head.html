@@ -6,20 +6,19 @@
     <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
     <meta name="description" content="{% if page.excerpt %}{{ page.excerpt | strip_html | strip_newlines | truncate: 160 }}{% else %}{{ site.description }}{% endif %}">
 
-
-    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
     <link rel="stylesheet" href="{{ "/css/font-awesome.min.css" | prepend: site.baseurl }}">
+    <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.6.0/dist/instantsearch-theme-algolia.min.css">
+
+    <!-- Load main.css in last, because main.css override some classes -->
+    <link rel="stylesheet" href="{{ "/css/main.css" | prepend: site.baseurl }}">
 
     <link rel="shortcut icon" href="{{ "/favicon.ico?1" | prepend: site.baseurl }}">
     {% seo %}
 
     <link rel="canonical" href="{{ page.url | replace:'index.html','' | prepend: site.baseurl | prepend: site.url }}">
     <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" />
-    <link rel="stylesheet" href="/js/highlight/styles/xtlang.css">
-    <script src="/js/highlight/highlight.js"></script>
-    <script src="/js/highlight/languages/xtlang.js"></script>
-    <script>
-        hljs.registerLanguage('xtlang', window.hljsDefineXtlang);
-        hljs.initHighlightingOnLoad();
-    </script>
+
+    <link rel="stylesheet" href="{{ "/js/highlight/styles/xtlang.css" | prepend: site.baseurl }}">
 </head>

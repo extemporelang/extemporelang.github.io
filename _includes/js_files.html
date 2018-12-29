@@ -6,3 +6,12 @@
 <script src="{{ "/js/typeahead.bundle.min.js" | prepend: site.baseurl }} "></script>
 
 <script src="{{ "/js/main.js" | prepend: site.baseurl }} "></script>
+
+<script src="{{ "/js/algolia.js" | prepend: site.baseurl }} "></script>
+
+<script src="{{ "/js/highlight/highlight.js" | prepend: site.baseurl }}"></script>
+<script src="{{ "/js/highlight/languages/xtlang.js" | prepend: site.baseurl }}""></script>
+<script>
+    hljs.registerLanguage('xtlang', window.hljsDefineXtlang);
+    hljs.initHighlightingOnLoad();
+</script>

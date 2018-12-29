@@ -51,3 +51,54 @@ $extensionColour: #9b59b6;
     background: lighten($extensionColour, 30%);
     border-color: $extensionColour;
 }
+
+// header
+
+// for search box
+.navbar-form {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+// for "Search by" string
+.navbar-form.navbar-left {
+    line-height: 0;
+}
+
+@media screen and (min-width: 768px) {
+    // for github link
+    .fa {
+        font-size: 35px;
+    }
+    .navbar-nav.github {
+        li > a {
+            padding-top: 15px;
+            padding-bottom: 10px;
+        }
+    }
+}
+
+@media screen and (max-width: 768px) {
+
+    // for "docs" and "blog" link
+    .nav.navbar-nav {
+        margin-top: 0;
+        margin-bottom: 0;
+        li > a {
+            padding-top: 3px;
+            padding-bottom: 3px;
+        }
+    }
+
+    // for serach box
+    .navbar-form.navbar-left {
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom: 0;
+    }
+
+    // for github link
+    .navbar-nav.github {
+        display: none;
+    }
+}
