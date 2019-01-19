@@ -1,0 +1,3 @@
+[submodule "js/highlight/languages/extempore"]
+	path = js/highlight/languages/extempore
+	url = https://github.com/highlightjs/highlightjs-xtlang
