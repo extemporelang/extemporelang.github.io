@@ -489,16 +489,13 @@ doppler-shifting tone colouration. Like with any digital modelling of a physical
 instrument, modelling the speaker's effect really accurately is a difficult
 task, but there are some simple techniques we can use to achieve a serviceable
 approximation of this effect. In particular, our `organ_fx` kernel will use a
-[flanger](http://en.wikipedia.org/wiki/Flanging) and
 [tremolo](http://en.wikipedia.org/wiki/Tremolo) (with subtly different
 frequencies between the L and R channels) to simulate the sound of a Leslie
 speaker.
 
 ~~~~ xtlang
 (bind-func organ_fx 100000
-  (let ((flanl (flanger_c 1.0 0.0 0.6 1.0))
-        (flanr (flanger_c 1.0 0.0 0.6 1.0))
-        (treml (osc_c 0.0))
+  (let ((treml (osc_c 0.0))
         (tremr (osc_c 0.0))
         (trem_amp 0.1)
         (wet 0.5)
@@ -506,19 +503,18 @@ speaker.
         (trem_freq .0))
     (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
       (cond ((= chan 0)
-             (* (flanl in wet fb)
+             (* in
                 (+ 1.0 (treml trem_amp trem_freq))))
             ((= chan 1)
-             (* (flanr in wet fb)
+             (* in 
                 (+ 1.0 (tremr trem_amp (* 1.1 trem_freq)))))
             (else 0.0)))))
 ~~~~
 
-The code is fairly straightforward. The top-level `let` binds a pair of flanger
-closures (`flanl` and `flanr`) and a pair of oscillator closures for the tremolo
-effect (`treml` and `tremr`). In the body of `lambda`, the input sample `in` is
-processed with the flanger and tremolo for the appropriate channel. The source
-code for `flanger_c` can be found in `libs/core/audio_dsp.xtm`.
+The code is fairly straightforward. The top-level `let` binds a pair of
+oscillator closures for the tremolo effect (`treml` and `tremr`). In the body of
+`lambda`, the input sample `in` is multiplied by the tremolo oscillator (it's
+just modulating the amplitude envelope) for the appropriate channel.
 
 ## Playing the instrument {#playing-the-instrument}
 
