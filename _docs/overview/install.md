@@ -96,10 +96,17 @@ come in handy:
 
 ### Platform-specific notes {#platform-specific-notes}
 
-#### OSX {#osx}
+#### macOS {#osx}
 
 Extempore should build with clang or gcc, the easiest way to get these is
 through Xcode or the command line tools.
+
+On **macOS 10.14** (Mojave) Apple removed some of the system OpenGL headers,
+which means that some of Extempore's dependencies (e.g. nanovg) won't build.
+[This blog post](https://silvae86.github.io/sysadmin/mac/osx/mojave/beta/libxml2/2018/07/05/fixing-missing-headers-for-homebrew-in-mac-osx-mojave/)
+has more details, but if you just want a one-liner to fix it, it's
+
+    sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
 
 #### Linux {#linux}
 
