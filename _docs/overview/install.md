@@ -106,7 +106,9 @@ which means that some of Extempore's dependencies (e.g. nanovg) won't build.
 [This blog post](https://silvae86.github.io/sysadmin/mac/osx/mojave/beta/libxml2/2018/07/05/fixing-missing-headers-for-homebrew-in-mac-osx-mojave/)
 has more details, but if you just want a one-liner to fix it, it's
 
+~~~~ sourceCode
     sudo installer -pkg /Library/Developer/CommandLineTools/Packages/macOS_SDK_headers_for_macOS_10.14.pkg -target /
+~~~~
 
 #### Linux {#linux}
 
