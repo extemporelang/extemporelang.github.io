@@ -78,7 +78,7 @@ physics).
 OpenGL state machine requires a bit of boilerplate. See
 `examples/external/shader-tutorials/triangle.xtm` to get started.
 
-## Beyond "Hello..." {#beyond-hello...}
+## Beyond "Hello..." {#beyond-hello}
 
 These simple snippets gloss over some subtleties of what's going on. But
 hey, if you've started quickly(ish), then this page has done its job. To
