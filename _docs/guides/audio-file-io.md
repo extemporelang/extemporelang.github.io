@@ -1,9 +1,9 @@
 ---
-title: Reading & writing audio files in Extempore
+title: Reading audio files in Extempore
 ---
 
 Extempore's `libsndfile` bindings[^1] provide functionality for both reading and
-writing audio files. Here's a short example of how to read write audio files.
+writing audio files. Here's a short example of how to read audio files.
 
 First, load up the required libraries and create an audio file closure with
 `audiofile_c`
