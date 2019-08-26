@@ -3,8 +3,7 @@ title: Reading & writing audio files in Extempore
 ---
 
 Extempore's `libsndfile` bindings[^1] provide functionality for both reading and
-writing audio files. Here's a short example of how to both read and write audio
-files.
+writing audio files. Here's a short example of how to read write audio files.
 
 First, load up the required libraries and create an audio file closure with
 `audiofile_c`
@@ -63,108 +62,7 @@ to both channels:
                (else (convert 0.0 SAMPLE)))))))
 ~~~~
 
-Sounds saturated and messy---great.[^3] Now, we want to write the processed
-audio back to a wav file. To do this, we need to [allocate some
-memory](2012-08-17-memory-management-in-extempore.org) to write the output
-samples into. Looking at the file info which was printed out earlier (in
-particular `samples read: 21202944`), we know that there are `21202944` samples
-in the input file, so that's how big we want our output buffer to be.
-
-~~~~ xtlang
-(bind-func dsp:DSP 1000000000
-  (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0))
-        (saturationl (saturation_c))
-        (saturationr (saturation_c))
-        (filesize 21202944)  ;; number of samples in the input file
-        (out_buffer:double* (halloc filesize)) ;; allocate memory from the heap
-        (index 0))
-    (lambda (in time chan dat)
-      (let ((out_sample
-             (* 0.1 ;; to compensate for saturation boost
-                (cond ((= chan 0.0)
-                       (saturationl (audiofile) 1.0 0.9))
-                      ((= chan 1.0)
-                       (saturationr (audiofile) 1.0 0.9))
-                      (else (convert 0.0 SAMPLE))))))
-        ;; if it's not full, write the out_sample to the output buffer
-        (if (< index filesize)
-            (pset! out_buffer index out_sample))
-        ;; notify us when it's done
-        (if (= index filesize)
-            (printf "Audio buffer full.\n"))
-        ;; increment our index
-        (set! index (+ index 1))
-        ;; (optional) return the out sample for playback
-        out_sample))))
-~~~~
-
-Once we get the "Audio buffer full" notification, it's time to write the output
-buffer to a file. To do this, we use the `write_audio_file` function, which
-takes four arguments:
-
--   the filename
--   the number of frames (a frame is a full set of samples---one for each
-    channel)
--   the number of channels
--   a pointer to the buffer of audio samples
-
-Let's add a function `write_data` to write the audio file:
-
-~~~~ xtlang
-(bind-func dsp:DSP 1000000000
-  (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0))
-        (saturationl (saturation_c))
-        (saturationr (saturation_c))
-        (filesize 21202944)  ;; number of samples in the input file
-        (out_buffer:double* (halloc filesize))
-        (index 0)
-        (write_file (lambda (buffer)
-                      (write_audio_data "/Users/ben/Desktop/xtm-assets/peg-processed.wav"
-                                        (/ filesize 2) ;; num frames
-                                        2              ;; num channels
-                                        buffer)))) ;; audio data
-    (lambda (in time chan dat)
-      (let ((out_sample
-             (* 0.1 ;; to compensate for saturation boost
-                (cond ((= chan 0.0)
-                       (saturationl (audiofile) 1.0 0.9))
-                      ((= chan 1.0)
-                       (saturationr (audiofile) 1.0 0.9))
-                      (else (convert 0.0 SAMPLE)))))
-        ;; if it's not full, write the out_sample to the output buffer
-        (if (< index filesize)
-            (pset! out_buffer index out_sample))
-        ;; notify us when it's done
-        (if (= index filesize)
-            (begin (printf "Audio buffer full.\n")
-                   (write_file out_buffer)))
-        ;; increment our index
-        (set! index (+ index 1))
-        ;; (optional) return the out sample for playback
-        out_sample))))
-~~~~
-
-After the recording has played through, the index will have counted up to
-`filesize`: the number of samples in the file, and the `write_file` closure will
-be called with the output data pointer. Sure enough, I hear the processed
-(saturated) output file when I listen to the `peg-processed.wav` file.
-
-There are lots of alternate ways to do this.
-
--   the sound can be processed offline (rather than in real-time inside the
-    `dsp` callback)
--   you can use the similar `audiofile_ptr_c` to return pointers into the audio
-    file buffer rather than the values themselves
--   you can write your own functions to either simplify or make the process more
-    flexible.
-
-You can see the low-level libsndfile functions involved if you look in
-`libs/external/sndfile.xtm`.
-
-But the primary workflow for writing audio files with Extempore is
-
-1.  write the audio samples to a buffer
-2.  write that buffer to a file using `write_audio_data`
+Sounds saturated and messy---great.[^3]
 
 [^1]: The `libsndfile` library can be found at `libs/external/sndfile.xtm`.
 
