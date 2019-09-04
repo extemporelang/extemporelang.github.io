@@ -114,8 +114,9 @@ Now that we have
 
 we can open up the TCP connection. In Emacs, this is done with `M-x
 extempore-connect`. In VSCode, it's `cmd+enter` (macOS)/`ctrl+enter`
-(Win/Linux). In Atom, with `Alt+O`. In ST2, use the menu item `Tools > Extempore
-> Connect...`. The default host and port arguments will be `localhost` and
+(Win/Linux). In Atom, with `Alt+O`. 
+In ST2, use the menu item `Tools > Extempore > Connect...`. 
+The default host and port arguments will be `localhost` and
 `7099` respectively. If the connection is made successfully, then Extempore will
 echo back the string "Welcome to extempore!".
 
