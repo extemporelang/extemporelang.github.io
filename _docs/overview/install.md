@@ -22,9 +22,15 @@ Download a [binary
 release](https://github.com/digego/extempore/releases), unzip it and run
 `extempore.exe` from inside the `extempore` folder.
 
+If you want the latest version, you can try a nightly build---these are usually
+_fairly_ stable[^stable], but you can get the older "stable" release if the
+nightly doesn't work for you.
+
 If you're not planning to make changes to Extempore itself, then downloading a
 binary is probably the best option. You can still write your own xtlang code,
 run the examples, etc.
+
+[^stable]: except when they're not
 
 ## Option 2: build from source {#build-from-source}
 
