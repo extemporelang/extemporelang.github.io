@@ -21,16 +21,11 @@ it up and submit a pull request.
 
 ## Getting help
 
-Learning a new programming language is hard, so don't despair if you get
-stuck and need help. The [mailing
-list](mailto:extemporelang@googlegroups.com) and [google
-group](https://groups.google.com/group/extemporelang) are good places to
-start, or you could see if we're on the **\#extempore** IRC channel on
-freenode.
+Learning a new programming language is hard, so don't despair if you get stuck
+and need help. The [mailing list](mailto:extemporelang@googlegroups.com)
+(powered by [google groups](https://groups.google.com/group/extemporelang)) is a
+good place to start.
 
-For discussions about the docs themselves, there's a new **extempore-docs**
-channel on the [livecode lurk server (a slack
-equivalent)](https://talk.lurk.org/) where you can discuss
-issues/comments/suggestions for the docs. Contributing to the docs [really is
-pretty easy]({{site.baseurl}}{% link _docs/overview/contributing.md
+If you find any issues with these docs, let us know---contributing to the docs
+[really is pretty easy]({{site.baseurl}}{% link _docs/overview/contributing.md
 %}#documentation), so don't be afraid to pipe up if you've got ideas.
