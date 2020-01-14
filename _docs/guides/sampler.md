@@ -10,12 +10,10 @@ MIDI keyboard) or they can be used to play and manipulate non-acoustic sounds.
 
 Since samplers are so useful, Extempore provides a built-in sampler in
 `libs/external/instruments_ext.xtm`. This sampler basically works like any other
-Extempore instrument, such as those described in [making an
-instrument]({{site.baseurl}}{% link _docs/guides/making-an-instrument.md %})),
-except that the note kernel closure is already set up for you---you just have to
-load the sampler with sound files. There is also a slight difference in the way
-we set a sampler up: using the Scheme macro `make-instrument`.
-The Extempore sampler is still an xtlang closure, and can be
+Extempore instrument, except that the note kernel closure is already set up for
+you---you just have to load the sampler with sound files. There is also a slight
+difference in the way we set a sampler up: using the Scheme macro
+`make-instrument`. The Extempore sampler is still an xtlang closure, and can be
 used in all the same situations (e.g. as the `inst` argument to `play-note` or
 `play`) as an instrument can.
 

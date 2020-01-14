@@ -9,11 +9,6 @@ built-in instruments (which can be found in `libs/core/instruments.xtm`) then
 you can just start at this guide. The note-level approach to music generation
 will be very familiar to Impromptu users.
 
-If you want a deeper understanding of what's going on 'under the hood', see
-[making an instrument]({{site.baseurl}}{% link
-_docs/guides/making-an-instrument.md %}), although it's not necessary to
-understand any of that to make music in Extempore.
-
 ## Setting up an instrument {#setting-up-an-instrument}
 
 This is about the simplest program you can write in Extempore. It loads an
