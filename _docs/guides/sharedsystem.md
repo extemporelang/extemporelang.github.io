@@ -24,6 +24,10 @@ Conceptually, the Extempore shared system is a few things:
   then start with `examples/sharedsystem/pattern_basics.xtm` (perhaps moving on
   to `examples/sharedsystem/drum_synth_basics.xtm` afterwards)
 
+TODO: both of these parts are inter-related, and even if you're more interested
+in one of them it's probably worth learning just enough about the other to help
+you make noise.
+
 {:.info-box}
 
 The "shared system" name is inspired by the [**Make Noise** _Shared
@@ -37,3 +41,32 @@ Extempore shared system is an "curated" take on Extempore's audio/music making
 workflow. Obviously if it's not to your taste then you've still got the full
 power of Extempore under the hood; but if you just want to fire it up and get
 people dancing then this is a good way forward 😁
+
+## Making loops with the pattern language
+
+TODO: provide some presets for the synth to get folks started.
+
+## Playing & tweaking the analogue synth
+
+TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
+folks to loop through (e.g. a cover) while they tweak the synth params.
+
+## Open questions
+
+{:.info-box}
+
+If you've stumbled across this section on the website, then welcome---but these
+are just some notes for me (Ben) as I write these docs. So you probably don't
+need to have answers to these questions.
+
+- how do we write it; "shared system", sharedsystem, SharedSystem, something
+  else? do we want a different name altogether? likewise for the extempore
+  pattern language
+
+- is there a way to specify not rests, but "ties" (option: use the '| character)
+
+- cb as cowbell vs cb as callback? also, do we actually observe the sample
+  indices for even the dlogue
+
+- which of the pc_ivl ones to give "epl-friendly shortcuts" to? currently quantize
+  and relative, but we could do e.g. random (not really necessary)
