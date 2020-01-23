@@ -9,6 +9,9 @@ To run these examples you **must** be running an up-to-date version of Extempore
 GitHub releases---if you'd like one then get in touch with
 [Ben](mailto:ben.swift@anu.edu.au).
 
+- TOC
+{:toc}
+
 The Extempore pattern language is a
 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for specifying
 repeating patterns and musical transformations (beats & loops).
@@ -23,9 +26,9 @@ towards doing just that.
 
 ## Before you start
 
-### Connecting your exitor
+### Connecting your editor
 
-TODO add links to other docs
+TODO add links to other relevant docs
 
 This guide assumes that you've got Extempore up and running (either from a
 binary or built it yourself) and you've set up and connected your text editor to
@@ -102,6 +105,63 @@ Trying to connect to 'localhost' on port 7099
 Loading <span class="custom">xtmbase</span><span class="custom-4"> library... </span><span class="custom-1">done</span><span class="custom-4"> in 1.578728 seconds
 </span><span class="custom-2">New Client Connection
 </span></pre>
+
+### Setting up an audio signal chain
+
+Extempore's audio signal chain is highly flexible, so you can set up your
+noisemaking infrastructure in a way which suits you. However, if you're new to
+all this and just want to load up a few synths and samplers, then the best way
+to do this is to load the Extmpore sharedsystem. There's a separate guide on
+this, but for now you can load it by copy-pasting the following `sys:load`
+expression into your editor and evaluating it:
+
+```extempore
+(sys:load "examples/sharedsystem/setup.xtm")
+```
+
+Depending on your machine it might take a little while, but hang tight---you'll
+get there in the end. When you see something like this:
+
+<pre>
+<span class="custom-5"><span class="region"><span class="region">SetValue:  </span></span></span><span class="custom-6"><span class="region"><span class="region">syn1</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="region"><span class="region">New instrument bound as </span></span><span class="custom-6"><span class="region"><span class="region">syn1 </span></span></span><span class="region"><span class="region">in both scheme and xtlang
+</span></span><span class="custom-5"><span class="region"><span class="region">SetValue:  </span></span></span><span class="custom-6"><span class="region"><span class="region">syn2</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="region"><span class="region">New instrument bound as </span></span><span class="custom-6"><span class="region"><span class="region">syn2 </span></span></span><span class="region"><span class="region">in both scheme and xtlang
+</span></span><span class="custom-5"><span class="region"><span class="region">SetValue:  </span></span></span><span class="custom-6"><span class="region"><span class="region">syn3</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="region"><span class="region">New instrument bound as </span></span><span class="custom-6"><span class="region"><span class="region">syn3 </span></span></span><span class="region"><span class="region">in both scheme and xtlang
+</span></span><span class="custom-5"><span class="region"><span class="region">SetValue:  </span></span></span><span class="custom-6"><span class="region"><span class="region">kit</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="region"><span class="region">New instrument bound as </span></span><span class="custom-6"><span class="region"><span class="region">kit </span></span></span><span class="region"><span class="region">in both scheme and xtlang
+</span></span><span class="custom-5"><span class="region"><span class="region">SetValue:  </span></span></span><span class="custom-6"><span class="region"><span class="region">samp1</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="region"><span class="region">New instrument bound as </span></span><span class="custom-6"><span class="region"><span class="region">samp1 </span></span></span><span class="region"><span class="region">in both scheme and xtlang
+</span></span><span class="custom-5"><span class="region"><span class="region">"load samples"
+</span></span></span><span class="custom-3"><span class="region"><span class="region">Loaded 29 files into bank#: 0</span></span></span><span class="custom-5"><span class="region"><span class="region">
+"loaded samples"
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dsp1</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dsp2</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dsp3</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dsp4</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dsp5</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dspmt</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float*,i64,i64,float*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+IR:(3.1 seconds) Partitions(size:4096 num:33)
+IR:(3.1 seconds) Partitions(size:4096 num:33)
+zerolatency: #f
+Starting RT Audio process with SIG CNT: 0
+Starting RT Audio process with SIG CNT: 0
+Starting RT Audio process with SIG CNT: 0
+Starting RT Audio process with SIG CNT: 0
+Starting RT Audio process with SIG CNT: 0
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">active_notes</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[i32,i8*]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">dsp_load</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[void]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">main_reverb</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[void,i64,float]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">main_gain</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[float,float]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="custom-2"><span class="region"><span class="region">pattern </span></span></span><span class="custom-1"><span class="region"><span class="region">starting  </span></span></span><span class="custom-5"><span class="region"><span class="region">DSP_LOAD
+</span></span></span><span class="custom-6"><span class="region"><span class="region">sharedsystem audio setup complete
+</span></span></span><span class="custom-5"><span class="region"><span class="region">Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">get_analogue_synth_cc_name</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[i8*,i32]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+Compiled:  </span></span></span><span class="custom-6"><span class="region"><span class="region">midi_cc</span></span></span><span class="custom-5"><span class="region"><span class="region"> &gt;&gt;&gt; </span></span></span><span class="custom-4"><span class="region"><span class="region">[void,i32,i32,i32,i32]*</span></span></span><span class="custom-5"><span class="region"><span class="region">
+</span></span></span><span class="custom"><span class="region"><span class="region">shared system successfully loaded
+</span></span></span></pre>
+
+then you're ready to go.
 
 ## Making loops with the pattern language
 
