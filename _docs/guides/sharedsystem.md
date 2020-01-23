@@ -60,7 +60,15 @@ people dancing then this is a good way forward 😁
 
 ## Making loops with the pattern language
 
-TODO: provide some presets for the synth to get folks started.
+
+loop length always based on the length of first list
+- if other list is shorter, they'll be recycled (but still reset to the
+beginning once the first loop completes)
+- if other list is longer, the "extra" ones won't be used
+
+### TODOs
+
+provide some presets for the synth to get folks started.
 
 ## Playing & tweaking the analogue synth
 
