@@ -3,20 +3,21 @@ title: The Extempore pattern language
 hidden: true
 ---
 
-{:.warn-box}
-To run these examples you **must** be running an up-to-date version of Extempore
-(`0.8.1` or newer). Binary builds are available but not currently hosted on
-GitHub releases---if you'd like one then get in touch with
+Note: To run these examples you **must** be running an up-to-date version of
+Extempore (`0.8.1` or newer). Binary builds are available but not currently
+hosted on GitHub releases---if you'd like one then get in touch with
 [Ben](mailto:ben.swift@anu.edu.au).
+
+## Table of contents
 
 - TOC
 {:toc}
 
+## Introduction
+
 The Extempore pattern language is a
 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) for specifying
 repeating patterns and musical transformations (beats & loops).
-
-{:.info-box}
 
 The pattern language is not actually tied to music-making; it's really just a
 convenient scaffold for writing code which will (repeatedly) be executed with
@@ -24,7 +25,8 @@ specific timings and arguments. However, making music is a pretty significant
 motivator for the whole thing, so there are lots of helper functions geared
 towards doing just that.
 
-## Before you start
+Before you start making music with the pattern language, there are a couple of
+things you need to do.
 
 ### Connecting your editor
 
