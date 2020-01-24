@@ -242,7 +242,7 @@ you'll hear blessed silence 😉 This small `:>` -> `:|` change means that it's
 easy to stop a pattern and re-start it again; just change back to `:>` and
 re-eval the code.
 
-### How does timing work?
+### How does the timing work?
 
 Try re-starting the loop (note the `:>`) and changing the values in the list at
 the end, e.g.
@@ -272,7 +272,7 @@ values are different.
 
 ```extempore
 (:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
-(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
+(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 36 65))
 ```
 
 When there are more than one pattern playing simultaneously we can see the
@@ -280,14 +280,14 @@ effect of modifying the offset parameter. Compare
 
 ```extempore
 (:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
-(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
+(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 36 65))
 ```
 
 with (hint: the only change is to `pat-2`)
 
 ```extempore
 (:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
-(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
+(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 36 65))
 ```
 
 There are a couple of special symbols in the which are helpful in understanding
@@ -316,6 +316,25 @@ these can even "stack", just like musical ties
 ```extempore
 (:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 | | 65))
 ```
+
+### Sublists for sub-dividing the beats
+
+These patterns aren't very rhythmically interesting; you might be wondering how
+you move be wondering how to move beyond these plodding equal-duration loops.
+The pattern language allows you to sub-divide the beats using sub-lists in the
+pattern list.
+
+```extempore
+(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 36 (61 65)))
+```
+
+
+
+
+
+Triplets are awesome; science says so.
+
+
 
 ### Multiple pattern lists
 
@@ -360,7 +379,7 @@ lists. Play around and have fun!
 
 ### What can I put in the pattern expression?
 
-
+So far we've been 
 
 ### TODOs
 
