@@ -324,18 +324,80 @@ you move be wondering how to move beyond these plodding equal-duration loops.
 The pattern language allows you to sub-divide the beats using sub-lists in the
 pattern list.
 
+Assuming that `pat-1` is running as before, change `pat-2` to:
+
 ```extempore
 (:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 36 (61 65)))
 ```
 
+Note that the final two notes are "half" duration, because they're in a sublist.
+This can go on recursively:
 
+```extempore
+(:> pat-3 4 0 (play syn1 @1 80 dur) `(48 (46 (49 46))))
+```
 
+The none of the lists in the pattern language have to have nice round (or even)
+numbers of elements: you can have triplets.
 
+```extempore
+(:> pat-3 4 0 (play syn1 @1 80 dur) `(48 (54 _ 46)))
+```
 
-Triplets are awesome; science says so.
+Or even lists and sublists of length 7, or 15, or 115. Go wild. It also means
+that there are multiple ways of specifying any one sequence of pitches &
+durations---these two will sound identical:
 
+```extempore
+(:> option-1 4 0 (play syn1 @1 80 dur) `(60 | 48 61))
+(:> option-2 4 0 (play syn1 @1 80 dur) `(60 (48 61)))
+```
 
+Which one you prefer is up to you. My advice; don't agonise over optimality in the pattern
+stuff, just make some noise which sounds good 😉
 
+### Playing multiple notes at once
+
+Finally, you probably want to play multiple notes simultaneously---harmony's
+pretty cool, after all. You already know one way to do this: just have multiple
+patterns with the same (or even different) lengths and run them simultaneously.
+
+```extempore
+(:> chord-l 4 0 (play syn1 @1 80 dur) `(60))
+(:> chord-m 4 0 (play syn1 @1 80 dur) `(63))
+(:> chord-h 4 0 (play syn1 @1 80 dur) `(67))
+```
+
+However, since this is such a common thing (from a musical perspective) the
+pattern language has one more trick up it's sleeve: using
+vectors[^scheme-vectors] (instead of lists) to specify events/values which are
+to be triggered simultaneously. Here's the same C-minor chord from the previous example:
+
+```extempore
+(:> chord-all 4 0 (play syn1 @1 80 dur) `(#(60 63 67)))
+```
+
+Again, that one "minor chord" vector counts as just one element in the pattern
+list for duration purposes. In that example the `chord-all` pattern just has one
+value in the pattern list (the vector `#(60 63 67)`), and since it's a 4-beat
+pattern then the chord will play for 4 beats before re-triggering.
+
+Like with all this stuff, you can in general combine the different features of
+the pattern language together.
+
+```extempore
+(:> chord-progression 16 0 (play syn1 @1 80 dur) `(#(60 63 67)))
+```
+
+[^scheme-vectors]:
+    Scheme---the programming language that we're using here---considers
+    [lists](https://www.scheme.com/tspl4/objects.html#./objects:h3) and
+    [vectors](https://www.scheme.com/tspl4/objects.html#./objects:h9) to be
+    different types of collections. However, if you don't care about the
+    subtleties and just want to make bangers remember that lists will either
+    look like e.g. this `(list 1 2 3)` or this `\`(1 2 3)` or this `''(1 2 3)`,
+    while vectors will have a `#` at the front like e.g. this `#(1 2 3)`.
+	
 ### Multiple pattern lists
 
 Sometimes you want to have more than one value in your pattern expression vary
@@ -368,14 +430,14 @@ interesting change to make).
 (:> pat-1 2 0 (play syn1 @2 @1 dur) `(70 70 100 70) `(60 58 60 63))
 ```
 
-One caveat with this multiple lists stuff: the note duration length always based
-on the length of first list (as described above). If another pattern list is
-shorter than the first one the values will be recycled (but the pattern list
-will still be reset to the beginning once the pattern completes). If the other
-pattern list is longer than the first one, the "extra" values at the end won't
-be used. This behaviour can be used to your advantage, allowing you to have
-interesting 4-against-3 or 17-against-6 interactions between the values of your
-lists. Play around and have fun!
+One caveat with this multiple lists stuff: the note duration is always based on
+the length of first list (as described above). If a second (or third...) pattern
+list is shorter than the first one the values will be recycled, but the pattern
+list position will still be reset to the beginning once the first pattern
+completes. If the other pattern list is longer than the first one, the "extra"
+values at the end won't be used. This behaviour can be used to your advantage,
+allowing you to have interesting 4-against-3 or 17-against-6 interactions
+between the values of your lists. Play around and have fun!
 
 ### What can I put in the pattern expression?
 
@@ -385,6 +447,10 @@ So far we've been
 
 provide some presets for the synth to get folks started.
 
+## Helpers for common musical tasks
+
+
+
 ## Gotchas
 
 ## Pattern cookbook
@@ -392,33 +458,3 @@ provide some presets for the synth to get folks started.
 There's heaps more you can do, and to go through it all in the level of detail
 in the previous section might be a bit boring. Instead, here's a cookbook of
 "recipes" for achieving some of the things you might like to do.
-
-## Playing & tweaking the analogue synth
-
-TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
-folks to loop through (e.g. a cover) while they tweak the synth params.
-
-## Open questions
-
-{:.info-box}
-
-If you've stumbled across this section on the website, then welcome---but these
-are just some notes for me (Ben) as I write these docs. So you probably don't
-need to have answers to these questions.
-
-- how do we write it; "shared system", sharedsystem, SharedSystem, something
-else? do we want a different name altogether? likewise for the extempore
-pattern language
-
-- is there a way to specify not rests, but "ties" (option: use the '| character)
-
-- cb as cowbell vs cb as callback? also, do we actually observe the sample
-indices for even the dlogue (cbl?) - flesh out the drum kit & associated example
-
-- have a look at the piano preset (simple wavetable) and the keys preset (more
-complex wavetable)
-
-- o2, ableton link (can we implement?) MIDI-sync *is* implemented?
-
-- to get the most out of the filters, you want a cold signal (oscillators under
-0.5)
