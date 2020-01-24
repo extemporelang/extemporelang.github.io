@@ -1,5 +1,5 @@
 ---
-title: The Extempore pattern language
+title: Pattern language
 hidden: true
 ---
 
@@ -10,8 +10,8 @@ hosted on GitHub releases---if you'd like one then get in touch with
 
 ## Table of contents
 
-- TOC
 {:toc}
+- TOC
 
 ## Introduction
 
@@ -163,9 +163,88 @@ Compiled:  </span></span></span><span class="custom-6"><span class="region"><spa
 </span></span></span><span class="custom"><span class="region"><span class="region">shared system successfully loaded
 </span></span></span></pre>
 
-then you're ready to go.
+then you're ready to go. You've just loaded
 
-## Making loops with the pattern language
+- three analogue synths (`syn1`, `syn2` and `syn3`)
+- a synth drum kit (`kit`)
+- a piano sampler (`samp1`)
+
+Don't worry about how to use them just yet, you'll see how in a minute.
+
+**Note**: if you _don't_ load the sharedsystem, then make sure you at least
+load:
+
+```
+(sys:load "libs/core/looper.xtm")
+```
+
+because that's the actual file where the important functions and macros
+associated with the pattern language live.
+
+## Pattern basics
+
+A pattern looks like this:
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+```
+
+the parts of this pattern are:
+
+- the `:>` macro, which tells Extempore that the rest of this expression is a
+  pattern
+
+- the name of the pattern (in this case `pat-1` but any valid scheme variable
+  name is ok)
+
+- the total length (in beats) of the pattern (in this case `2`)
+
+- the offset (again in beats) of the pattern (in this case `0`)
+
+- the "pattern expression" (in this case `(play syn1 @1 80 dur)`) which is the
+  expression which is evaluated at each "triggering" of the pattern
+
+- a list (in this case `\`(60 58 60 63)`) of arguments which the pattern will
+  loop through
+
+If you eval the above pattern in Extempore, you'll hear a repeated[^repeated]
+synth line.
+
+[^repeated]:
+	"Repeated" is an understatement---it's really gonna drive you crazy if you
+	leave it running. Sorry about that.
+
+Soon, you'll wonder how you stop the pattern. The answer is that you change the
+`:>` macro into a `:|`. As long as the name is the same as the one you gave it
+when you _started_ the pattern (e.g. `pat-1`) you can leave the rest of the
+expression the same, so when you evaluate this:
+
+```extempore
+(:| pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+```
+
+you'll hear blessed silence 😉 This small `:>` -> `:|` change means that it's
+easy to stop a pattern and re-start it again; just change back to `:>` and
+re-eval the code.
+
+### How does timing work?
+
+Try re-starting the loop (note the `:>`) and changing the values in the list at
+the end, e.g.
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+```
+
+Remember, all these changes won't take effect until you re-evaluate the
+expression, but it'll get boring if we remind you _every time_, so if it's not
+working remember to check that you've evaluated it.
+
+Notice that the duration of the individual notes gets shorter, so that the
+overall loop takes the same length of time. Previously, the loop length was 2
+beats and there were 4 values in the list, so each note was 2 divided by 4 = 1/2
+a beat long (i.e. a quaver). Now there's 6 notes over 2 beats... can you figure
+out what duration each note is?
 
 
 loop length always based on the length of first list
