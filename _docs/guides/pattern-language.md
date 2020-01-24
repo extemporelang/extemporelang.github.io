@@ -216,9 +216,9 @@ changing one of the numbers in the pattern list and see what happens.
 	leave it running. Sorry about that.
 
 [^re-eval]:
-    Remember, any change won't take effect until you re-evaluate the expression.
-    But it gets boring if we remind you _every time_, so if they change you're
-    trying to make isn't working remember to check that you've evaluated it.
+	Remember, any change won't take effect until you re-evaluate the expression.
+	But it gets boring if we remind you _every time_, so if they change you're
+	trying to make isn't working remember to check that you've evaluated it.
 
 For now you don't have to understand exactly what every part of the pattern
 expression `(play syn1 @1 80 dur)` means (in short, the arguments represent
@@ -228,6 +228,15 @@ each time the pattern expression is triggered the `@1` will be replaced by
 successive values from the pattern list. First `60`, then `58`, then `60`, then
 `63`, then back to the beginning---in fact it will keep cycling through that
 list forever.
+
+One more note about timing: there's a global metronome in Extmpore (which
+defaults to 120bpm at startup). But you can change it at any time (changing the
+global tempo will affect the playback rate of _every_ pattern). To set the tempo
+to 72bpm:
+
+```extempore
+(*metro* 'set-tempo bpm)
+```
 
 Soon, you'll wonder how you stop the pattern. The answer is that you change the
 `:>` macro into a `:|`. As long as the name is the same as the one you gave it
@@ -244,7 +253,7 @@ re-eval the code.
 
 ### How does the timing work?
 
-Try re-starting the loop (note the `:>`) and changing the values in the list at
+If you want Try re-starting the loop (note the `:>`) and changing the values in the list at
 the end, e.g.
 
 ```extempore
@@ -377,27 +386,30 @@ to be triggered simultaneously. Here's the same C-minor chord from the previous 
 (:> chord-all 4 0 (play syn1 @1 80 dur) `(#(60 63 67)))
 ```
 
+[^scheme-vectors]:
+	Scheme---the programming language that we're using here---considers
+	[lists](https://www.scheme.com/tspl4/objects.html#./objects:h3) and
+	[vectors](https://www.scheme.com/tspl4/objects.html#./objects:h9) to be
+	different types of collections. However, if you don't care about the
+	subtleties and just want to make bangers remember that lists will either
+	look like e.g. this `(list 1 2 3)` or this `\`(1 2 3)` or this `''(1 2 3)`,
+	while vectors will have a `#` at the front like e.g. this `#(1 2 3)`.
+
 Again, that one "minor chord" vector counts as just one element in the pattern
 list for duration purposes. In that example the `chord-all` pattern just has one
 value in the pattern list (the vector `#(60 63 67)`), and since it's a 4-beat
 pattern then the chord will play for 4 beats before re-triggering.
 
 Like with all this stuff, you can in general combine the different features of
-the pattern language together.
+the pattern language together to play classic vi-IV-I-Vsus4-V pop anthems.
 
 ```extempore
-(:> chord-progression 16 0 (play syn1 @1 80 dur) `(#(60 63 67)))
+(:> chord-progression 16 0 (play syn1 @1 80 dur)
+	`(#(60 63 67) #(60 63 68) #(58 63 67) (#(58 63 65) #(58 62 65))))
 ```
 
-[^scheme-vectors]:
-    Scheme---the programming language that we're using here---considers
-    [lists](https://www.scheme.com/tspl4/objects.html#./objects:h3) and
-    [vectors](https://www.scheme.com/tspl4/objects.html#./objects:h9) to be
-    different types of collections. However, if you don't care about the
-    subtleties and just want to make bangers remember that lists will either
-    look like e.g. this `(list 1 2 3)` or this `\`(1 2 3)` or this `''(1 2 3)`,
-    while vectors will have a `#` at the front like e.g. this `#(1 2 3)`.
-	
+Or, y'know, do other stuff. Extempore's not judgemental.
+
 ### Multiple pattern lists
 
 Sometimes you want to have more than one value in your pattern expression vary
@@ -439,22 +451,40 @@ values at the end won't be used. This behaviour can be used to your advantage,
 allowing you to have interesting 4-against-3 or 17-against-6 interactions
 between the values of your lists. Play around and have fun!
 
-### What can I put in the pattern expression?
+## What can I put in the pattern expression?
 
-So far we've been 
+So far we've seen a few different examples of how to control what values get
+"looped" through our pattern expression (which was `(play syn1 @1 80 dur)`
+pretty much the whole time). Why do we even bother putting that in there if it's
+not going to change? Well, there are sometimes good reasons to mix it up with
+our pattern expression.
 
-### TODOs
+The key concept here is that the pattern expression can be arbitrary Scheme
+code, so you can do _anything_ in there. Sure, a lot of the time you'll just
+play through the "standard" pattern lists of pitches, velocities and maybe
+durations. But sometimes you need more flexibility than that, and you've got the
+power of a whole programming language to do it.
 
-provide some presets for the synth to get folks started.
+TODO give examples.
 
-## Helpers for common musical tasks
+Also, explain the magic "hidden" variables `beat`, `dur`, `LC`, `LL`, `LP`.
 
+## I'm a musician and I wanna take shortcuts
 
+### Using note names instead of midi note numbers
+
+### Scales, roots, chords
+
+TODO explain pitch class stuff and *scale*,
+
+### Common musical patterns & forms
+
+Show `orbit`, `cycle`. Also, some really useful functions like `zip`, `pedal`,
+`jumble`.
+
+Also maybe put "holders" here.
 
 ## Gotchas
 
-## Pattern cookbook
-
-There's heaps more you can do, and to go through it all in the level of detail
-in the previous section might be a bit boring. Instead, here's a cookbook of
-"recipes" for achieving some of the things you might like to do.
+- how to debug a broken pattern?
+- list quoting
