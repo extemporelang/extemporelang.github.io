@@ -8,11 +8,6 @@ Extempore (`0.8.1` or newer). Binary builds are available but not currently
 hosted on GitHub releases---if you'd like one then get in touch with
 [Ben](mailto:ben.swift@anu.edu.au).
 
-## Table of contents
-
-{:toc}
-- TOC
-
 ## Introduction
 
 The Extempore pattern language is a
