@@ -189,7 +189,7 @@ A pattern looks like this:
 (:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
 ```
 
-the parts of this pattern are:
+The parts of this pattern are:
 
 - the `:>` macro, which tells Extempore that the rest of this expression is a
   pattern
@@ -208,7 +208,7 @@ the parts of this pattern are:
   lists of values which the pattern will loop through
 
 If you eval the above pattern in Extempore, you'll hear a repeated[^repeated]
-synth line. You can modify & re-evaluate[^reeval] it and hear it change---try
+synth line. You can modify & re-evaluate[^re eval] it and hear it change---try
 changing one of the numbers in the pattern list and see what happens.
 
 [^repeated]:
@@ -216,13 +216,14 @@ changing one of the numbers in the pattern list and see what happens.
 	leave it running. Sorry about that.
 
 [^re-eval]:
-    Remember, all these changes won't take effect until you re-evaluate the
-    expression, but it'll get boring if we remind you _every time_, so if it's
-    not working remember to check that you've evaluated it.
+    Remember, any change won't take effect until you re-evaluate the expression.
+    But it gets boring if we remind you _every time_, so if they change you're
+    trying to make isn't working remember to check that you've evaluated it.
 
 For now you don't have to understand exactly what every part of the pattern
-expression `(play syn1 @1 80 dur)` means (although there are [other
-guides](#TODO) which will explain it in detail). The main thing to know is that
+expression `(play syn1 @1 80 dur)` means (in short, the arguments represent
+_instrument_, _pitch_, _velocity_ and _duration_; there are [other
+guides](#TODO) which explain it in much detail). The main thing to know is that
 each time the pattern expression is triggered the `@1` will be replaced by
 successive values from the pattern list. First `60`, then `58`, then `60`, then
 `63`, then back to the beginning---in fact it will keep cycling through that
@@ -289,12 +290,47 @@ with (hint: the only change is to `pat-2`)
 (:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
 ```
 
-There are a couple of special symbols in the  which are helpful in
-understanding how the timing (i.e. when the `play` function actually makes the
-noise) works.
+There are a couple of special symbols in the which are helpful in understanding
+how the timing works (i.e. when the pattern expression is actually called to
+play the note).
 
-One
+If an element of the list is the underscore symbol (`_`) then the pattern will
+"skip" that execution (in musical terms, it's a _rest_). Try replacing one (or
+more) of the numeric values in the pattern list, e.g.
 
+```extempore
+(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 _ 63 65))
+```
+
+If an element of the list is the pipe/vertical bar symbol (`|`) then the pattern
+will also "skip" that execution, but the duration of that slot in the pattern
+list will be added to the _previous_ value (in musical terms, it's a _tie_). Try
+replacing one (or more) of the numeric values in the pattern list, e.g.
+
+```extempore
+(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 | 63 65))
+```
+
+these can even "stack", just like musical ties
+
+```extempore
+(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 | | 65))
+```
+
+### Multiple pattern lists
+
+Sometimes you want to have more than one value in your pattern expression vary
+over time, and the `:>` pattern macro allows _multiple_ pattern lists for this
+purpose. Let's go back to the original example:
+
+```extempore
+(:| pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+```
+
+If we want to add accents
+
+### 
+### What can I put in
 
 loop length always based on the length of first list
 - if other list is shorter, they'll be recycled (but still reset to the
@@ -304,6 +340,14 @@ beginning once the first loop completes)
 ### TODOs
 
 provide some presets for the synth to get folks started.
+
+## Gotchas
+
+## Pattern cookbook
+
+There's heaps more you can do, and to go through it all in the level of detail
+in the previous section might be a bit boring. Instead, here's a cookbook of
+"recipes" for achieving some of the things you might like to do.
 
 ## Playing & tweaking the analogue synth
 
