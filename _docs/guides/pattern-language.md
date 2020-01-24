@@ -204,15 +204,29 @@ the parts of this pattern are:
 - the "pattern expression" (in this case `(play syn1 @1 80 dur)`) which is the
   expression which is evaluated at each "triggering" of the pattern
 
-- a list (in this case `\`(60 58 60 63)`) of arguments which the pattern will
-  loop through
+- one (or more) "pattern lists" (in this case `\`(60 58 60 63)`); these are
+  lists of values which the pattern will loop through
 
 If you eval the above pattern in Extempore, you'll hear a repeated[^repeated]
-synth line.
+synth line. You can modify & re-evaluate[^reeval] it and hear it change---try
+changing one of the numbers in the pattern list and see what happens.
 
 [^repeated]:
 	"Repeated" is an understatement---it's really gonna drive you crazy if you
 	leave it running. Sorry about that.
+
+[^re-eval]:
+    Remember, all these changes won't take effect until you re-evaluate the
+    expression, but it'll get boring if we remind you _every time_, so if it's
+    not working remember to check that you've evaluated it.
+
+For now you don't have to understand exactly what every part of the pattern
+expression `(play syn1 @1 80 dur)` means (although there are [other
+guides](#TODO) which will explain it in detail). The main thing to know is that
+each time the pattern expression is triggered the `@1` will be replaced by
+successive values from the pattern list. First `60`, then `58`, then `60`, then
+`63`, then back to the beginning---in fact it will keep cycling through that
+list forever.
 
 Soon, you'll wonder how you stop the pattern. The answer is that you change the
 `:>` macro into a `:|`. As long as the name is the same as the one you gave it
@@ -236,15 +250,50 @@ the end, e.g.
 (:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
 ```
 
-Remember, all these changes won't take effect until you re-evaluate the
-expression, but it'll get boring if we remind you _every time_, so if it's not
-working remember to check that you've evaluated it.
-
 Notice that the duration of the individual notes gets shorter, so that the
 overall loop takes the same length of time. Previously, the loop length was 2
 beats and there were 4 values in the list, so each note was 2 divided by 4 = 1/2
-a beat long (i.e. a quaver). Now there's 6 notes over 2 beats... can you figure
-out what duration each note is?
+a beat long (i.e. a quaver). Now there are four numbers in the list, so that's 6
+notes over 2 beats. The list goes through a full "loop" in the same amount of
+time, so each note must be shorter.
+
+To achieve the opposite---notes are the same length as before, but the total
+length of the loop is longer---we need to update the total length argument (the
+one after the pattern name) as well:
+
+```extempore
+(:> pat-1 3 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+```
+
+Here are two different patterns with different loop durations. They're both
+still playing their notes on the same instrument (`syn1`) but the list of pitch
+values are different.
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
+```
+
+When there are more than one pattern playing simultaneously we can see the
+effect of modifying the offset parameter. Compare
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
+```
+
+with (hint: the only change is to `pat-2`)
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 63 65))
+```
+
+There are a couple of special symbols in the  which are helpful in
+understanding how the timing (i.e. when the `play` function actually makes the
+noise) works.
+
+One
 
 
 loop length always based on the length of first list
