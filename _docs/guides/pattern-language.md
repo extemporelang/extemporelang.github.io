@@ -77,7 +77,7 @@ andrew@moso.com.au, @digego
 
 <span class="custom-4">ARCH           : </span><span class="custom-5">x86_64-apple-darwin18.7.0
 </span><span class="custom-4">CPU            : </span><span class="custom-5">broadwell
-</span><span class="custom-4">ATTRS          : </span>
+</span><span class="custom-4">ATTRS          : </span><span class="custom-5">
 </span><span class="custom-4">LLVM           : </span><span class="custom-5">3.8.0 MCJIT
 </span><span class="custom-4">Output Device  : </span><span class="custom-5">MacBook Pro Speakers
 </span><span class="custom-4">Input Device   : </span><span class="custom-5">
