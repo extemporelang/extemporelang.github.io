@@ -324,18 +324,43 @@ over time, and the `:>` pattern macro allows _multiple_ pattern lists for this
 purpose. Let's go back to the original example:
 
 ```extempore
-(:| pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
 ```
 
-If we want to add accents
+If we want to add accents to the third (`60`) note, we could add another list of
+velocities (loudnesses) for the pattern language would loop through.
 
-### 
-### What can I put in
+```extempore
+(:> pat-1 2 0 (play syn1 @1 @2 dur) `(60 58 60 63) `(70 70 100 70))
+```
 
-loop length always based on the length of first list
-- if other list is shorter, they'll be recycled (but still reset to the
-beginning once the first loop completes)
-- if other list is longer, the "extra" ones won't be used
+Note that there's nothing which says that this second list has to be a list of
+velocities, just like there's nothing which says that this first list has to be
+a list of pitches. Each time through the pattern the current value from the
+_first_ pattern list replaces the `@1` in the pattern expression, the current
+value from the _second_ pattern list replaces the `@2` in the pattern
+expression, and so on.
+
+So we can switch the pattern lists around as long as we switch the `@1` and the
+`@2` around---this will be exactly the same as before (so it's not a very
+interesting change to make).
+
+```extempore
+(:> pat-1 2 0 (play syn1 @2 @1 dur) `(70 70 100 70) `(60 58 60 63))
+```
+
+One caveat with this multiple lists stuff: the note duration length always based
+on the length of first list (as described above). If another pattern list is
+shorter than the first one the values will be recycled (but the pattern list
+will still be reset to the beginning once the pattern completes). If the other
+pattern list is longer than the first one, the "extra" values at the end won't
+be used. This behaviour can be used to your advantage, allowing you to have
+interesting 4-against-3 or 17-against-6 interactions between the values of your
+lists. Play around and have fun!
+
+### What can I put in the pattern expression?
+
+
 
 ### TODOs
 
