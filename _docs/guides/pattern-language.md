@@ -3,7 +3,8 @@ title: Pattern language
 hidden: true
 ---
 
-Note: To run these examples you **must** be running an up-to-date version of
+{:.note-box}
+To run these examples you **must** be running an up-to-date version of
 Extempore (`0.8.1` or newer). Binary builds are available but not currently
 hosted on GitHub releases---if you'd like one then get in touch with
 [Ben](mailto:ben.swift@anu.edu.au).
@@ -23,7 +24,7 @@ towards doing just that.
 Before you start making music with the pattern language, there are a couple of
 things you need to do.
 
-<div class="info-box" markdown="1">
+<div class="note-box" markdown="1">
 
 Loading the `examples/sharedsystem/setup.xtm` library will also load up
 Extempore sharedsystem, a default configuration of synths & samplers which is

@@ -3,7 +3,7 @@ title: The sharedsystem
 hidden: true
 ---
 
-{:.warn-box}
+{:.note-box}
 To run these examples you **must** be running an up-to-date version of Extempore
 (`0.8.1` or newer). Binary builds are available but not currently hosted on
 GitHub releases---if you'd like one then get in touch with
@@ -17,7 +17,7 @@ Conceptually, the Extempore sharedsystem is a few things:
 - a MIDI setup (both in & out) for working with other software instruments &
   hardware controllers
 
-<div class="info-box" markdown="1">
+<div class="note-box" markdown="1">
 
 Loading the `examples/sharedsystem/setup.xtm` library will also load up the
 Extempore pattern language stuff, which is covered in more detail in [this
