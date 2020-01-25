@@ -44,11 +44,10 @@ _docs/guides/sharedsystem.md %}) to go deeper.
 
 ### Connecting your editor
 
-TODO add links to other relevant docs
-
-This guide assumes that you've got Extempore up and running (either from a
-binary or built it yourself) and you've set up and connected your text editor to
-an Extempore process. If not, follow those links until you're looking at
+This guide assumes that you've [got Extempore up and running]({{site.baseurl}}{%
+link _docs/overview/using-extempore.md %}) (either from a binary or built it
+yourself) and you've set up and connected your text editor to an Extempore
+process. If not, follow the instructions at above link until you're looking at
 something like this---the details will be different, but the third (and final)
 _New Client Connection_ is the sign that your text editor is connected and ready
 to send code to Extempore.
