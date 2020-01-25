@@ -23,6 +23,25 @@ towards doing just that.
 Before you start making music with the pattern language, there are a couple of
 things you need to do.
 
+<div class="info-box" markdown="1">
+
+Loading the `examples/sharedsystem/setup.xtm` library will also load up
+Extempore sharedsystem, a default configuration of synths & samplers which is
+covered in more detail in [this guide]({{site.baseurl}}{% link
+_docs/guides/sharedsystem.md %}). These two things are conceptually
+independent---you certainly don't have to understand the pattern language in
+depth if you just want to make weird & awesome noises on the synths (or vice
+versa).
+
+However, even if you're mostly interested in the pattern language it's still
+handy to understand a bit about the sharedsystem for e.g. using loops to change
+synth parameters with musically meaningful timings. That's the approach we'll
+take in this guide---we won't necessarily explain the sharedsystem stuff, but
+you can always jump over to the [sharedsystem docs]({{site.baseurl}}{% link
+_docs/guides/sharedsystem.md %}) to go deeper.
+
+</div>
+
 ### Connecting your editor
 
 TODO add links to other relevant docs

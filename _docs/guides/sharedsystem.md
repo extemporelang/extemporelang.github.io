@@ -1,5 +1,5 @@
 ---
-title: The shared system
+title: The sharedsystem
 hidden: true
 ---
 
@@ -9,7 +9,7 @@ To run these examples you **must** be running an up-to-date version of Extempore
 GitHub releases---if you'd like one then get in touch with
 [Ben](mailto:ben.swift@anu.edu.au).
 
-Conceptually, the Extempore shared system is a few things:
+Conceptually, the Extempore sharedsystem is a few things:
 
 - an easy-to-set-up signal chain with three configurable analogue synth
   instruments (including the ability to load & store presets)
@@ -17,17 +17,23 @@ Conceptually, the Extempore shared system is a few things:
 - a MIDI setup (both in & out) for working with other software instruments &
   hardware controllers
 
-- a pattern language (a
-  pseudo-[DSL](https://en.wikipedia.org/wiki/Domain-specific_language)) for
-  specifying repeating patterns and musical transformations (beats & loops)
+<div class="info-box" markdown="1">
 
-{:.info-box}
+Loading the `examples/sharedsystem/setup.xtm` library will also load up the
+Extempore pattern language stuff, which is covered in more detail in [this
+guide]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}). These two
+things are conceptually independent---you certainly don't have to understand the
+sharedsystem's analogue synths in depth if you just want to make bangin' loops
+with the pattern language (or vice versa).
 
-These parts are _mostly_ conceptually independent---you certainly don't have to
-understand the analogue synth in depth if you just want to make bangin' loops
-with the pattern language or vice versa. However, even if you're mostly
-interested in one aspect it's probably worth learning just enough about the
-other to help you make noise. This guide will help you do that.
+However, even if you're mostly interested in the sharedsystem it's still handy
+to understand a bit about the pattern language for making noise with your synths
+& samplers. That's the approach we'll take in this guide---we won't necessarily
+explain the pattern language stuff, but you can always jump over to the [pattern
+language docs]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}) to
+go deeper.
+
+</div>
 
 ## Relevant example files
 
@@ -46,14 +52,14 @@ other to help you make noise. This guide will help you do that.
 
 {:.info-box}
 
-The "shared system" name is inspired by the [**Make Noise** _Shared
+The "sharedsystem" name is inspired by the [**Make Noise** _Shared
 System_](http://www.makenoisemusic.com/synthesizers/black-and-gold-shared-system-plus)
 series of modular synths. It's
 [Eurorack](https://en.wikipedia.org/wiki/Eurorack)-based, so _in principle_ it
 could have any/all sorts of different components, but they've chosen a standard
 set of modules so that people can share tips/patches/ideas directly because
 they're using the _same_ configurable set of modules. In the same way, the
-Extempore shared system is an "curated" take on Extempore's audio/music making
+Extempore sharedsystem is an "curated" take on Extempore's audio/music making
 workflow. Obviously if it's not to your taste then you've still got the full
 power of Extempore under the hood; but if you just want to fire it up and get
 people dancing then this is a good way forward 😁
