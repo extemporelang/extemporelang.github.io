@@ -66,12 +66,59 @@ If you *do* want to restart the Extempore process, just `ctrl+c` in the terminal
 where `extempore` is running to kill it, then start it up again (you'll have to
 re-connect VSCode to the new Extempore process as well).
 
+## Emacs {#emacs}
+
+### Installation {#installation-1}
+
+`extempore-mode` is available from [MELPA](http://melpa.org/) - just `M-x
+package-install RET extempore-mode RET` and you're done.
+
+If you don't want to get it from MELPA, just [download the
+file](https://github.com/extemporelang/extempore-emacs-mode/blob/master/extempore-mode.el)
+and `(package-install-file "/path/to/extempore-mode.el")`
+
+Finally, Ben's[^third-person] a spacemacs user these days, and has created [an
+Extempore
+layer](https://github.com/benswift/.dotfiles/blob/master/spacemacs-layers/extempore/packages.el)
+(although he hasn't got around to getting it accepted in the main spacemacs
+layer repo or however that works, so you'll need to do a bit of downloading &
+manual setup stuff to get it working).
+
+[^third-person]:
+    It's weird talking about oneself in the third person.
+
+### Writing Extempore code {#writing-extempore-code-1}
+
+1.  start Emacs (if it isn't running already)
+2.  open up an Emacs buffer with an Extempore file (`extempore-mode`
+    should be loaded automatically when Emacs sees the `.xtm` file
+    extension, assuming you added code above to your `.emacs`)
+3.  call `M-x switch-to-extempore` (`C-c C-z`), and if Extempore isn't
+    already running you'll can add (optional) command line args for
+    Extempore here, such as which audio device to use (e.g.
+    `./extempore --device 2`)
+4.  connect to the running Extempore process: `C-c C-j` (this needs to
+    be done for *every* `.xtm` buffer)
+
+Then, to evaluate Extempore code, use either
+
+-   evaluate enclosing s-expression: `C-c C-c` or `C-M-x`
+-   evaluate region: `C-c C-r`
+-   evaluate whole buffer: `C-c C-b`
+
+To restart the Extempore process, just `C-c C-c` in the `*extempore*`
+buffer where `extempore` is running to kill it, then start it up again
+with `M-x switch-to-extempore` (`C-c C-z`).
+
 ## Atom {#atom}
 
-{:.note-box}
+{:.help-wanted-box}
 
 In the past, we've recommended Atom for new Extempore users without a text
-editor preference, but these days [VSCode](#vscode) is probably a better choice.
+editor preference, but these the Atom plugin is unmaintained, and
+[VSCode](#vscode) is probably a better choice if you don't have other reasons to
+stick with Atom. However, let us know if you're an Atom person and want to help
+bring this plugin up to feature parity with VSCode.
 
 [Atom](https://atom.io/) is a cross-platform text editor which runs on
 OS X, Linux and Windows. It was originally created by GitHub, but it's
@@ -130,41 +177,14 @@ If you *do* want to restart the Extempore process, just `ctrl+c` in the
 terminal where `extempore` is running to kill it, then start it up
 again.
 
-## Emacs {#emacs}
-
-### Installation {#installation-1}
-
-`extempore-mode` is available from [MELPA](http://melpa.org/) - just
-`M-x package-install RET extempore-mode RET` and you're done.
-
-If you don't want to get it from MELPA, just [download the
-file](https://github.com/extemporelang/extempore-emacs-mode/blob/master/extempore-mode.el)
-and `(package-install-file "/path/to/extempore-mode.el")`
-
-### Writing Extempore code {#writing-extempore-code-1}
-
-1.  start Emacs (if it isn't running already)
-2.  open up an Emacs buffer with an Extempore file (`extempore-mode`
-    should be loaded automatically when Emacs sees the `.xtm` file
-    extension, assuming you added code above to your `.emacs`)
-3.  call `M-x switch-to-extempore` (`C-c C-z`), and if Extempore isn't
-    already running you'll can add (optional) command line args for
-    Extempore here, such as which audio device to use (e.g.
-    `./extempore --device 2`)
-4.  connect to the running Extempore process: `C-c C-j` (this needs to
-    be done for *every* `.xtm` buffer)
-
-Then, to evaluate Extempore code, use either
-
--   evaluate enclosing s-expression: `C-c C-c` or `C-M-x`
--   evaluate region: `C-c C-r`
--   evaluate whole buffer: `C-c C-b`
-
-To restart the Extempore process, just `C-c C-c` in the `*extempore*`
-buffer where `extempore` is running to kill it, then start it up again
-with `M-x switch-to-extempore` (`C-c C-z`).
-
 ## Sublime Text 2 {#sublime-text-2}
+
+{:.help-wanted-box}
+
+Like Atom, the ST plugin is unmaintained, and [VSCode](#vscode) is probably a
+better choice if you don't have other reasons to choose ST. However, let us know
+if you're an ST person and want to help bring this plugin up to feature parity
+with VSCode.
 
 [Sublime Text 2](http://www.sublimetext.com) (ST2) is a cross-platform
 text editor which runs on OS X, Linux and Windows. It's the 'spiritual
@@ -226,8 +246,12 @@ tricky to add if you know a bit about how ST2 works.
 
 ## Vim {#vim}
 
+{:.help-wanted-box}
+
 Extempore's [vim plugin](https://github.com/timburgess/extempore.vim) is
-maintained by Tim Burgess.
+maintained by Tim Burgess, although doesn't have all of the features of some of
+the others (e.g. VSCode). If you're a vim hacker and you want to contribute,
+I',m sure Tim would be happy to accept a pull request 😊
 
 Remember to have your terminal (where Extempore is running) somewhere
 you can see it, since Extempore's `stdout` will show up there (and not
