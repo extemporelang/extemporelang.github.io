@@ -195,6 +195,14 @@ load:
 because that's the actual file where the important functions and macros
 associated with the pattern language live.
 
+{:.note-box}
+
+The specific pattern examples given in this guide will probably get pretty
+boring, looping hundreds/thousands of times as you read through this content.
+Feel free to change any of the details (e.g. the lists of pitch values) as you
+go---the more you play around with things, the deeper your understanding will
+be.
+
 ## Pattern basics
 
 A pattern looks like this:
@@ -264,6 +272,16 @@ expression the same, so when you evaluate this:
 you'll hear blessed silence 😉 This small `:>` -> `:|` change means that it's
 easy to stop a pattern and re-start it again; just change back to `:>` and
 re-eval the code.
+
+{:.note-box}
+
+If you're familiar with MIDI note numbers those numbers are probably pretty
+familiar (60 for middle C, etc). If you're more familiar with 12-tone note
+names, [a little later on in this
+guide](#using-note-names-instead-of-midi-note-numbers) you'll see that you can
+use the symbols `bb3`, `b`, `c4`, `c#4`, `d4` instead (corresponding to 58, 59,
+60, 61). But for now let's stick with the note numbers and get our head around
+the timing stuff.
 
 ### How does the timing work?
 
@@ -479,13 +497,132 @@ play through the "standard" pattern lists of pitches, velocities and maybe
 durations. But sometimes you need more flexibility than that, and you've got the
 power of a whole programming language to do it.
 
-TODO give examples.
+### Special pattern expression symbols
 
-Also, explain the magic "hidden" variables `beat`, `dur`, `LC`, `LL`, `LP`.
+Consider the examples we've been looking at all along, e.g.
 
-## I'm a musician and I wanna take shortcuts
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+```
 
-### Using note names instead of midi note numbers
+Notice the final `dur` argument to the `play` function. If we do something like
+this, you can hear the result[^long-release]:
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 (* dur 0.5)) `(60 58 60 63))
+```
+
+[^long-release]: unless your `syn1` patch has a long release time
+
+The value of the `dur` argument will be the current length (in beats, as always)
+of the current "note"[^note-length]. It's bound (i.e. has a value) only inside the pattern
+expression. It's there because it's really convenient to know how long the
+current note is.
+
+[^note-length]:
+    Remember that there's no reason that your pattern expression _has_ to
+    trigger a musical note; it could print to the log or just evaluate to a
+    number (although this "return value" doesn't go anywhere, so that's not so
+    useful). Still, it's often convenient to refer to it as the "note
+    expression", "note duration", etc. so in this guide sometimes we'll use that
+    language. Just remember that your expression doesn't have to be triggering a
+    musical note in the traditional sense.
+
+There are a couple of other variables which are bound inside the pattern
+expression:
+
+- `beat` is a number which represents the number of beats (since the start of
+  your extempore session)
+- `dur` is the length of the current note
+- `LC` is another number which represents the _loop count_ (while `beat` goes up
+  every beat---including half & quarter beats, etc.---`LC` only goes up by whole
+  numbers, and only once a full loop through the first pattern list is
+  completed)
+- `LL` is just the _loop length_ in beats (i.e. it's the value after the name of
+  the loop in the `:>` expression)
+- `LP` is the _loop position_ in beats (the difference between `beat` and `LP`
+  is that beat keeps counting up forever, but `LP` resets to zero each time
+  through the loop)
+
+All of these variables can be super-useful for making interesting musical
+patterns. For example, say you want to (for a particular part of the pattern)
+alternate between two notes each time through the pattern. You could do a modulo
+arithmetic checks on the `LC` (loop count) variable like so:
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(if (= (% LC 2) 0) 66 63)))
+```
+
+{:.info-box}
+
+There's one other thing to note here: the `,` (comma) operator preceding the
+`(if ...)` expression. In Extempore[^comma-operator] that's called the _unquote_
+operator and it evaluates an subexpression inside a larger expression
+(quasi)quoted with the `\`` backtick operator. You can [do whole courses on this
+stuff](https://courses.cs.washington.edu/courses/cse341/04wi/lectures/14-scheme-quote.html).
+
+[^comma-operator]: Well, in any Scheme, and some other lisps as well.
+
+Anyway, that's cool, but it's such a common thing to want to do that there's a
+function called `orbit` (the shortened version `orb` also works) which does the
+same thing, so the previous pattern is equivalent to
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(orb LC 2 66 63)))
+```
+
+You don't have to do it every _second_ time through the loop, either; you can do
+it every 3rd (or 4th, or 5th...)
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(orb LC 3 66 63)))
+```
+
+The orbit function has one more nice property; if you leave off the final
+argument (i.e. the note to play when it's _not_ the 2nd/3rd/4th time through the
+pattern or whatever) then it'll return a `_` behind the scenes, so your pattern
+won't play anything.
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(orb LC 3 66)))
+```
+
+`orb` is great when you want to alternate a subset of your pattern list; what
+about when you want to cycle through two different pattern lists? In some cases
+you could append (join) the lists together and just double the loop length and
+you'd get the desired effect. But what about if you want to go 3 times through
+the first pattern list, then 3 times through a second one? Your list is going to
+get pretty long and unweildy.
+
+That's where the `cycle` function comes in. Again, it uses the `LC` loop count
+variable to "slow down" the rate of going through multiple pattern lists. Here's
+an example:
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(cycle LC 1 `(72 67) `(73 72))))
+```
+
+Note how the pattern alternates between `(72 67)` and `(73 72)` for the final
+two notes of each pattern? Also, remember that because these are sublists of the
+bigger pattern they're only half the duration of the other notes in the pattern
+(60, 58 and 60).
+
+If you want to not alternate, but do 2 of one then 2 of the other, then change
+the second argument of the `cycle` function:
+
+```extempore
+(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(cycle LC 2 `(72 67) `(73 72))))
+```
+
+Through all this, you're putting tools in your tool-belt for making interesting
+musical patterns.
+
+### Using note names instead of midi note numbers {#using-note-names-instead-of-midi-note-numbers}
+
+
+As mentioned earlier in this guide, in your pattern expression you can use the you can replace the 
+a.k.a _I'm a musician and I wanna take shortcuts_.
+
 
 ### Scales, roots, chords
 
