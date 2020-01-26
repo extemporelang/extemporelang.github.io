@@ -273,7 +273,7 @@ you'll hear blessed silence 😉 This small `:>` -> `:|` change means that it's
 easy to stop a pattern and re-start it again; just change back to `:>` and
 re-eval the code.
 
-{:.note-box}
+{:.note-box id="midi-note-number-teaser-box"}
 
 If you're familiar with MIDI note numbers those numbers are probably pretty
 familiar (60 for middle C, etc). If you're more familiar with 12-tone note
@@ -497,7 +497,7 @@ play through the "standard" pattern lists of pitches, velocities and maybe
 durations. But sometimes you need more flexibility than that, and you've got the
 power of a whole programming language to do it.
 
-### Special pattern expression symbols
+### Special pattern expression variables {#special-pattern-expression-variables}
 
 Consider the examples we've been looking at all along, e.g.
 
@@ -619,19 +619,82 @@ musical patterns.
 
 ### Using note names instead of midi note numbers {#using-note-names-instead-of-midi-note-numbers}
 
+As mentioned [earlier in this guide](#midi-note-number-teaser-box), in your
+pattern expression you can use symbols like `c4` (which evaluates to 60; it's
+middle C) to specify notes. These special pitch variables are all 2 or 3
+characters long:
 
-As mentioned earlier in this guide, in your pattern expression you can use the you can replace the 
-a.k.a _I'm a musician and I wanna take shortcuts_.
+1. the first character is the note letter (pitch class), e.g. `a`--`g`
+2. the middle (optional) character is the accidental modifier, either `#` for
+   sharps and `b` for flats
+3. the final character is a number representing the octave, with `4` being the
+   octave of middle C
 
+A couple of examples:
+
+- `c#4` is one semitone above middle C
+- `a4` is the A above middle C ([A440](https://en.wikipedia.org/wiki/A440_(pitch_standard)))
+- `bb5` is a Bb nearly 2 octaves above middle C
+- `c2` is a C two octaves below middle C
+
+The only real "gotcha" is that the index number goes up in octaves that are
+"C-based", so e.g. `a3` is pitched _above_ `c3`. But if you're used to thinking
+with this stuff you're probably used to that anyway.
+
+Again, these are special variables which are only bound in the context of a
+pattern expression (just like `beat`, `dur`, `LC` etc). But if you want to put
+them in your pattern lists then they can be really handy. One more quick example:
+
+```extempore
+(:> cello-suites 4 0 (play syn1 @1 80 dur) `(c3 e3 g3 c4 e4 g3 c4 e4))
+```
+
+Using our `cycle` function from earlier we can even go further:
+
+```extempore
+(:> cello-suites 4 0 (play syn1 @1 80 dur)
+    (cycle LC 2
+           `(c3 e3 g3 c4 e4 g3 c4 e4)
+           `(c3 d3 a3 d4 f4 a3 d4 f4)))
+```
+
+Also, this is a reminder that there's no reason you have to have your whole
+pattern on one line in your text editor---split it up if it makes it easier for
+you (or your audience) to see & work with.
 
 ### Scales, roots, chords
 
-TODO explain pitch class stuff and *scale*,
+The previous pattern has (hopefully) whet your appetite for working with scales,
+notes, chords, melody, harmony, and all those things[^eurocentric].
 
-### Common musical patterns & forms
+[^eurocentric]:
+    The eurocentric nature of all these music theory helper functions and
+    variables isn't lost on me; if you'd like to discuss how to build a set of
+    post-colonial extensions to the pattern language then [get in
+    touch](mailto:ben.swift@anu.edu.au).
 
-Show `orbit`, `cycle`. Also, some really useful functions like `zip`, `pedal`,
-`jumble`.
+First, there are three more "special" variables to talk about: `*root*`,
+`*chord*` and `*scale*`, which are [initialised to the following values at
+start-up](https://github.com/digego/extempore/blob/master/libs/core/looper.xtm#L191):
+
+```extempore
+(define *root* 0)
+(define *chord* '(36 60 63 67))
+(define *scale* (pc:scale 0 'aeolian))
+```
+
+These are almost like the [previous special
+variables](#special-pattern-expression-variables) (`dur`, `LC` etc.) with the
+exception that these ones _do_ exist (and can be modified) outside a pattern
+expression. This is because while `dur` (potentially) changes every time through
+the pattern list, things like chords, roots and scales _usually_ are held
+consistent on slightly larger timescales (bars, etc.) and so we define them
+outside an indivitual pattern expression. But if you want to use them and change
+the root/chord/scale for every note, then feel free :)
+
+### A few more useful functions
+
+`zip`, `pedal`, `jumble`
 
 Also maybe put "holders" here.
 
@@ -639,3 +702,4 @@ Also maybe put "holders" here.
 
 - how to debug a broken pattern?
 - list quoting
+- going further
