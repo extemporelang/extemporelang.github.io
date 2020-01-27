@@ -127,7 +127,7 @@ Loading <span class="custom">xtmbase</span><span class="custom-4"> library... </
 Extempore's audio signal chain is highly flexible, so you can set up your
 noisemaking infrastructure in a way which suits you. However, if you're new to
 all this and just want to load up a few synths and samplers, then the best way
-to do this is to load the Extmpore sharedsystem. There's a separate guide on
+to do this is to load the Extempore sharedsystem. There's a separate guide on
 this, but for now you can load it by copy-pasting the following `sys:load`
 expression into your editor and evaluating it:
 
@@ -185,7 +185,10 @@ then you're ready to go. You've just loaded
 
 Don't worry about how to use them just yet, you'll see how in a minute.
 
-**Note**: if you _don't_ load the sharedsystem, then make sure you at least
+
+<div class="note-box" markdown="1">
+
+If you _don't_ load the sharedsystem, then make sure you at least
 load:
 
 ```
@@ -195,13 +198,13 @@ load:
 because that's the actual file where the important functions and macros
 associated with the pattern language live.
 
-{:.note-box}
+</div>
 
-The specific pattern examples given in this guide will probably get pretty
-boring, looping hundreds/thousands of times as you read through this content.
-Feel free to change any of the details (e.g. the lists of pitch values) as you
-go---the more you play around with things, the deeper your understanding will
-be.
+Just a heads up: the specific pattern examples given in this guide will probably
+get pretty boring, looping hundreds/thousands of times as you read through this
+content. Feel free to change any of the details (e.g. the lists of pitch values)
+as you go---the more you play around with things, the deeper your understanding
+will be.
 
 ## Pattern basics
 
@@ -219,28 +222,23 @@ The parts of this pattern are:
 - the name of the pattern (in this case `pat-1` but any valid scheme variable
   name is ok)
 
-- the total length (in beats) of the pattern (in this case `2`)
+- the total length in beats of the pattern (in this case `2`)
 
-- the offset (again in beats) of the pattern (in this case `0`)
+- the offset in beats of the pattern (in this case `0`)
 
 - the "pattern expression" (in this case `(play syn1 @1 80 dur)`) which is the
   expression which is evaluated at each "triggering" of the pattern
 
-- one (or more) "pattern lists" (in this case `\`(60 58 60 63)`); these are
+- one (or more) "pattern lists" (in this case `` `(60 58 60 63)``); these are
   lists of values which the pattern will loop through
 
-If you eval the above pattern in Extempore, you'll hear a repeated[^repeated]
-synth line. You can modify & re-evaluate[^re eval] it and hear it change---try
-changing one of the numbers in the pattern list and see what happens.
+If you eval the above pattern in Extempore, you'll hear a repeated synth line.
+You can modify & re-evaluate it and hear it change---try changing one of the
+numbers in the pattern list and see what happens.
 
-[^repeated]:
-	"Repeated" is an understatement---it's really gonna drive you crazy if you
-	leave it running. Sorry about that.
-
-[^re-eval]:
-	Remember, any change won't take effect until you re-evaluate the expression.
-	But it gets boring if we remind you _every time_, so if they change you're
-	trying to make isn't working remember to check that you've evaluated it.
+Remember, any change won't take effect until you re-evaluate the expression. But
+it gets boring if we remind you _every time_, so if they change you're trying to
+make isn't working remember to check that you've evaluated it.
 
 For now you don't have to understand exactly what every part of the pattern
 expression `(play syn1 @1 80 dur)` means (in short, the arguments represent
@@ -251,7 +249,7 @@ successive values from the pattern list. First `60`, then `58`, then `60`, then
 `63`, then back to the beginning---in fact it will keep cycling through that
 list forever.
 
-One more note about timing: there's a global metronome in Extmpore (which
+One more note about timing: there's a global metronome in Extempore (which
 defaults to 120bpm at startup). But you can change it at any time (changing the
 global tempo will affect the playback rate of _every_ pattern). To set the tempo
 to 72bpm:
@@ -279,13 +277,12 @@ If you're familiar with MIDI note numbers those numbers are probably pretty
 familiar (60 for middle C, etc). If you're more familiar with 12-tone note
 names, [a little later on in this
 guide](#using-note-names-instead-of-midi-note-numbers) you'll see that you can
-use the symbols `bb3`, `b`, `c4`, `c#4`, `d4` instead (corresponding to 58, 59,
-60, 61). But for now let's stick with the note numbers and get our head around
-the timing stuff.
+use symbols like `bb3`, `b`, `c4`, `c#4`, `d4` instead. But for now let's stick
+with the note numbers and get our head around the timing stuff.
 
 ### How does the timing work?
 
-If you want Try re-starting the loop (note the `:>`) and changing the values in the list at
+Try re-starting the loop (note the `:>`) and changing the values in the list at
 the end, e.g.
 
 ```extempore
@@ -295,9 +292,9 @@ the end, e.g.
 Notice that the duration of the individual notes gets shorter, so that the
 overall loop takes the same length of time. Previously, the loop length was 2
 beats and there were 4 values in the list, so each note was 2 divided by 4 = 1/2
-a beat long (i.e. a quaver). Now there are four numbers in the list, so that's 6
-notes over 2 beats. The list goes through a full "loop" in the same amount of
-time, so each note must be shorter.
+a beat long (i.e. a quaver or eighth note). Now there are four numbers in the
+list, so that's 6 notes over 2 beats. The list goes through a full "loop" in the
+same amount of time, so each note must be shorter.
 
 To achieve the opposite---notes are the same length as before, but the total
 length of the loop is longer---we need to update the total length argument (the
@@ -410,22 +407,23 @@ patterns with the same (or even different) lengths and run them simultaneously.
 ```
 
 However, since this is such a common thing (from a musical perspective) the
-pattern language has one more trick up it's sleeve: using
-vectors[^scheme-vectors] (instead of lists) to specify events/values which are
-to be triggered simultaneously. Here's the same C-minor chord from the previous example:
+pattern language has one more trick up it's sleeve: using vectors (instead of
+lists) to specify events/values which are to be triggered simultaneously. Here's
+the same C-minor chord from the previous example:
 
 ```extempore
 (:> chord-all 4 0 (play syn1 @1 80 dur) `(#(60 63 67)))
 ```
 
-[^scheme-vectors]:
-	Scheme---the programming language that we're using here---considers
-	[lists](https://www.scheme.com/tspl4/objects.html#./objects:h3) and
-	[vectors](https://www.scheme.com/tspl4/objects.html#./objects:h9) to be
-	different types of collections. However, if you don't care about the
-	subtleties and just want to make bangers remember that lists will either
-	look like e.g. this `(list 1 2 3)` or this `\`(1 2 3)` or this `''(1 2 3)`,
-	while vectors will have a `#` at the front like e.g. this `#(1 2 3)`.
+{:.note-box}
+
+Scheme---the programming language that we're using here---considers
+[lists](https://www.scheme.com/tspl4/objects.html#./objects:h3) and
+[vectors](https://www.scheme.com/tspl4/objects.html#./objects:h9) to be
+different types of collections. However, if you don't care about the subtleties
+and just want to make bangers remember that lists will either look like e.g.
+this `(list 1 2 3)` or this `` `(1 2 3)`` or this `'(1 2 3)`, while vectors will
+have a `#` at the front like e.g. this `#(1 2 3)`.
 
 Again, that one "minor chord" vector counts as just one element in the pattern
 list for duration purposes. In that example the `chord-all` pattern just has one
@@ -433,7 +431,8 @@ value in the pattern list (the vector `#(60 63 67)`), and since it's a 4-beat
 pattern then the chord will play for 4 beats before re-triggering.
 
 Like with all this stuff, you can in general combine the different features of
-the pattern language together to play classic vi-IV-I-Vsus4-V pop anthems.
+the pattern language together to play classic vi-IV-I-V pop anthems (including a
+nice suspended 4th---and resolution---on chord V).
 
 ```extempore
 (:> chord-progression 16 0 (play syn1 @1 80 dur)
@@ -506,27 +505,25 @@ Consider the examples we've been looking at all along, e.g.
 ```
 
 Notice the final `dur` argument to the `play` function. If we do something like
-this, you can hear the result[^long-release]:
+this, you can hear the result (unless your `syn1` patch has a long release
+time):
 
 ```extempore
 (:> pat-1 2 0 (play syn1 @1 80 (* dur 0.5)) `(60 58 60 63))
 ```
 
-[^long-release]: unless your `syn1` patch has a long release time
-
 The value of the `dur` argument will be the current length (in beats, as always)
-of the current "note"[^note-length]. It's bound (i.e. has a value) only inside the pattern
+of the current "note". It's bound (i.e. has a value) only inside the pattern
 expression. It's there because it's really convenient to know how long the
 current note is.
 
-[^note-length]:
-    Remember that there's no reason that your pattern expression _has_ to
-    trigger a musical note; it could print to the log or just evaluate to a
-    number (although this "return value" doesn't go anywhere, so that's not so
-    useful). Still, it's often convenient to refer to it as the "note
-    expression", "note duration", etc. so in this guide sometimes we'll use that
-    language. Just remember that your expression doesn't have to be triggering a
-    musical note in the traditional sense.
+Remember that there's no reason that your pattern expression _has_ to trigger a
+musical note; it could print to the log or just evaluate to a number (although
+this "return value" doesn't go anywhere, so that's not so useful). Still, it's
+often convenient to refer to it as the "note expression", "note duration", etc.
+so in this guide sometimes we'll use that language. Just remember that your
+expression doesn't have to be triggering a musical note in the traditional
+sense.
 
 There are a couple of other variables which are bound inside the pattern
 expression:
@@ -556,12 +553,11 @@ arithmetic checks on the `LC` (loop count) variable like so:
 {:.info-box}
 
 There's one other thing to note here: the `,` (comma) operator preceding the
-`(if ...)` expression. In Extempore[^comma-operator] that's called the _unquote_
-operator and it evaluates an subexpression inside a larger expression
-(quasi)quoted with the `\`` backtick operator. You can [do whole courses on this
+`(if ...)` expression. In Extempore (and other lisps) that's called the
+_unquote_ operator and it evaluates an subexpression inside a larger expression
+(quasi)quoted with the `` ` `` backtick operator. You can [do whole courses on
+this
 stuff](https://courses.cs.washington.edu/courses/cse341/04wi/lectures/14-scheme-quote.html).
-
-[^comma-operator]: Well, in any Scheme, and some other lisps as well.
 
 Anyway, that's cool, but it's such a common thing to want to do that there's a
 function called `orbit` (the shortened version `orb` also works) which does the
