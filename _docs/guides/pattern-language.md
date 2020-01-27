@@ -192,7 +192,7 @@ If you _don't_ load the sharedsystem, then make sure you at least
 load:
 
 ```
-(sys:load "libs/core/looper.xtm")
+(sys:load "libs/core/pattern-language.xtm")
 ```
 
 because that's the actual file where the important functions and macros
@@ -671,7 +671,7 @@ notes, chords, melody, harmony, and all those things[^eurocentric].
 
 First, there are three more "special" variables to talk about: `*root*`,
 `*chord*` and `*scale*`, which are [initialised to the following values at
-start-up](https://github.com/digego/extempore/blob/master/libs/core/looper.xtm#L191):
+start-up](https://github.com/digego/extempore/blob/master/libs/core/pattern-language.xtm):
 
 ```extempore
 (define *root* 0)
