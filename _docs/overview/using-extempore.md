@@ -26,7 +26,7 @@ So, to do anything in Extempore you need a text editor which can
 2.  create a string which represents a valid chunk of Scheme or xtlang code
 3.  send that string over the TCP connection
 
-There are already Extempore modes/plugins for VSCode, Atom, Emacs, vim and
+There are already Extempore modes/plugins for VSCode, Emacs, Atom, vim and
 Sublime Text 2 (see [editor support]({{site.baseurl}}{% link
 _docs/overview/editor-support.md %})). If you already have a favourite text
 editor, then you'll probably want to use that one. If you don't, then VSCode is
