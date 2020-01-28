@@ -669,15 +669,41 @@ notes, chords, melody, harmony, and all those things[^eurocentric].
     post-colonial extensions to the pattern language then [get in
     touch](mailto:ben.swift@anu.edu.au).
 
-First, there are three more "special" variables to talk about: `*root*`,
-`*chord*` and `*scale*`, which are [initialised to the following values at
+To generate a pattern list which plays a scale, there's a `scale` function. For
+example, to play a scale which starts in the 3rd octave and goes for 8 notes, use:
+
+```extempore
+(:> asc-scale 2 0 (play syn1 @1 80 dur) (scale 3 8))
+```
+
+You'll hear an ascending natural minor (i.e. the [aeolian
+mode](https://en.wikipedia.org/wiki/Aeolian_mode)) scale starting on `'c3`.
+
+You can see the pattern list directly by evaluating something like this
+_outside_ a pattern expression
+
+```extempore
+(println (scale 3 8))
+```
+
+which will print `(48 50 51 53 55 56 58 60)` to the log view---these are the
+midi pitch numbers of the minor scale starting one octave below middle C. In
+other words, the `scale` function returns a list which can be directly used as
+the pattern list, and (as always) that pattern will loop forever.
+
+If you're wondering why it plays that specific scale---and how you could play a
+_different_ scale---then the reason is that there are two more "special"
+variables, `*root*` and `*scale*`, which are [initialised to the following
+values at
 start-up](https://github.com/digego/extempore/blob/master/libs/core/pattern-language.xtm):
 
 ```extempore
 (define *root* 0)
 (define *chord* '(36 60 63 67))
-(define *scale* (pc:scale 0 'aeolian))
+(define *scale* (pc:scale 0 'aeolian)) ;; 0 for the C pitch class (C# would be 1, etc.)
 ```
+
+{:.note-box}
 
 These are almost like the [previous special
 variables](#special-pattern-expression-variables) (`dur`, `LC` etc.) with the
@@ -688,9 +714,53 @@ consistent on slightly larger timescales (bars, etc.) and so we define them
 outside an indivitual pattern expression. But if you want to use them and change
 the root/chord/scale for every note, then feel free :)
 
+By default, `scale` (and the related `qnt` and `rel` functions we'll look at
+shortly) use the value of the `*scale*` variable. If you want to use a different
+scale, you can change the value of the `*scale*` variable:
+
+```extempore
+(set! *scale* (pc:scale 0 'phrygian))
+```
+
+This will take effect immediately for all patterns which use the `*scale*`
+variable under the hood---if you've still got the `asc-scale` pattern running
+you'll hear it straight away.
+
+There are a couple of other functions which make use of this: `rel` for
+calculating relative pitch values according to a scale and `qnt` for
+"quantizing" (i.e. "snap-to-grid") a pitch to the current scale. 
+
+Here's an example of using relative intervals relative to middle C (`60`) rather
+than absolute pitch numbers to play the start of a familiar melody:
+
+```extempore
+(:> got 4 0 (play syn1 (rel 60 @1) 80 dur) `(4 0 (2 3)))
+```
+
+For `rel` and `qnt`, if you want to have a _specific_ pattern use a different
+scale (i.e. not the current value of the global `*scale*` variable) you can
+provide an optional third argument function. So if the previous pattern has too
+dark a vibe for you, you can play it in a major key:
+
+```extempore
+(:> got 4 0 (play syn1 (rel 60 @1 (pc:scale 0 'ionian)) 80 dur) `(4 0 (2 3)))
+```
+
+The `qnt` function works the same way, except that instead of calculating a
+relative pitch it just takes a pitch value as input and finds the nearest note
+within the given scale. Compare:
+
+```extempore
+(:> asc-scale 4 0 (play syn1 @1 80 dur) (range 60 72))
+(:> asc-scale 4 0 (play syn1 (qnt @1) 80 dur) (range 60 72))
+```
+
+Obviously these simple examples just scracth the surface of the possibilities
+here---make some noise and experiment with what sounds good to you.
+
 ### A few more useful functions
 
-`zip`, `pedal`, `jumble`
+`zip`, `pedal`, `jumble`, `range`, `euclid`
 
 Also maybe put "holders" here.
 
