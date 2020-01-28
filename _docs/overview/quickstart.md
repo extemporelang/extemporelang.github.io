@@ -53,7 +53,7 @@ Then, type the command `extempore` (or `extempore.exe` if you're on Windows) and
 hit `enter`. If you see something like this, everything's working---nice one.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
-<span style="color: #7E8A90; background-color: #444155;">------------- Extempore -------------- 
+<span style="color: #7E8A90; background-color: #444155;">------------- Extempore --------------
 </span><span style="background-color: #444155;">Andrew Sorensen (c) 2010-2019
 andrew@moso.com.au, @digego
 
@@ -145,7 +145,7 @@ here's "Hello, Sine!"
 ~~~~ xtlang
 (bind-func sine:DSP
   (lambda (in time chan dat)
-    (* .1 (cos (* (convert time) .04)))))
+	(* .1 (cos (* (convert time) .04)))))
 
 ;; tell Extempore to use `sine` as the audio output sink
 (dsp:set! sine)
@@ -157,7 +157,7 @@ If you want to turn it off, just re-define the `dsp` function to return
 ~~~~ xtlang
 (bind-func sine:DSP
   (lambda (in time chan dat)
-    0.0))
+	0.0))
 ~~~~
 
 In the snipped above we've used `0.0`, but any constant value will work (because
