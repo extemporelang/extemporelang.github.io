@@ -77,15 +77,12 @@ If you don't want to get it from MELPA, just [download the
 file](https://github.com/extemporelang/extempore-emacs-mode/blob/master/extempore-mode.el)
 and `(package-install-file "/path/to/extempore-mode.el")`
 
-Finally, Ben's[^third-person] a spacemacs user these days, and has created [an
-Extempore
+Finally, [Ben's](https://benswift.me) a Spacemacs user these days, and has
+created [an Extempore
 layer](https://github.com/benswift/.dotfiles/blob/master/spacemacs-layers/extempore/packages.el)
 (although he hasn't got around to getting it accepted in the main spacemacs
 layer repo or however that works, so you'll need to do a bit of downloading &
 manual setup stuff to get it working).
-
-[^third-person]:
-    It's weird talking about oneself in the third person.
 
 ### Writing Extempore code {#writing-extempore-code-1}
 
