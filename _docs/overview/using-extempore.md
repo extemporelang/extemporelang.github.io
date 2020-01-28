@@ -2,6 +2,12 @@
 title: Using Extempore
 ---
 
+{:.note-box}
+
+This document is kindof a deep dive on how this stuff works; if you're just
+after the quick version then the [quickstart guide]({{site.baseurl}}{% link
+_docs/overview/quickstart.md %}) might be what you're after.
+
 The best way to think about programming and evaluating code in Extempore is to
 think of it as a *compiler-as-a-service* (CaaS). The compiler (provided by the
 `extempore` executable) runs in a shell console, and you connect to it via a TCP
