@@ -129,11 +129,11 @@ will be.
 For now you don't have to understand exactly what every part of the pattern
 expression `(play syn1 @1 80 dur)` means (in short, the arguments represent
 _instrument_, _pitch_, _velocity_ and _duration_; there are [other
-guides](#TODO) which explain it in much detail). The main thing to know is that
-each time the pattern expression is triggered the `@1` will be replaced by
-successive values from the pattern list. First `60`, then `58`, then `60`, then
-`63`, then back to the beginning---in fact it will keep cycling through that
-list forever.
+guides]({{site.baseurl}}{% link _docs/guides/note-level-music.md %}) which
+explain it in much detail). The main thing to know is that each time the pattern
+expression is triggered the `@1` will be replaced by successive values from the
+pattern list. First `60`, then `58`, then `60`, then `63`, then back to the
+beginning---in fact it will keep cycling through that list forever.
 
 One more note about timing: there's a global metronome in Extempore (which
 defaults to 120bpm at startup). But you can change it at any time (changing the
