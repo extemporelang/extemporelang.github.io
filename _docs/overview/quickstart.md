@@ -2,8 +2,9 @@
 title: Quickstart
 ---
 
-I get it, you're impatient---here's the bare minimum required to get from zero
-to running Extempore code.
+{:.note-box}
+I get it, you're impatient. Here's the bare minimum required to get from zero
+to running Extempore code 😊
 
 ## Setup
 
