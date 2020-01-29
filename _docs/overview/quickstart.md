@@ -23,17 +23,17 @@ well]({{site.baseurl}}{% link _docs/guides/install.md %}).
 
 To write Extempore code you need a text editor, and there are Extempore
 "plugins" for [several text editors]({{site.baseurl}}{% link
-_docs/overview/editor-support.md %})---VSCode, Emacs, Sublime Text and Vim.
+_docs/guides/editor-support.md %})---VSCode, Emacs, Sublime Text and Vim.
 
 If you don't have a favourite text editor, then [VSCode]({% link
-_docs/overview/editor-support.md %}#vscode) is probably a good choice---it's
+_docs/guides/editor-support.md %}#vscode) is probably a good choice---it's
 free, available on all platforms and doesn't have as steep a learning curve as
 some other editors.
 
 For this reason for the rest of this quickstart guide we'll occasionally give
 specific tips (e.g. keyboard shortcuts) for VSCode users. If you're using one of
 the [other editors with Extempore support]({{site.baseurl}}{% link
-_docs/overview/editor-support.md %}) the concepts are the same, but e.g. the
+_docs/guides/editor-support.md %}) the concepts are the same, but e.g. the
 keyboard shortcuts might be different---I'm sure you'll manage 😉
 
 ## Using Extempore

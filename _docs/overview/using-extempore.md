@@ -34,7 +34,7 @@ So, to do anything in Extempore you need a text editor which can
 
 There are already Extempore modes/plugins for VSCode, Emacs, Atom, vim and
 Sublime Text 2 (see [editor support]({{site.baseurl}}{% link
-_docs/overview/editor-support.md %})). If you already have a favourite text
+_docs/guides/editor-support.md %})). If you already have a favourite text
 editor, then you'll probably want to use that one. If you don't, then VSCode is
 probably a good choice. In the end it doesn't matter too much which editor you
 use, so pick the one that makes you happiest.
@@ -100,7 +100,7 @@ waiting to be given some code to evaluate. That's where the text editor part of
 the equation comes in.
 
 When you open up a file ending in `.xtm` (Extempore's default file extension),
-your [editor]({{site.baseurl}}{% link _docs/overview/editor-support.md %})
+your [editor]({{site.baseurl}}{% link _docs/guides/editor-support.md %})
 should detect that you're editing Extempore source code, and load the
 appropriate Extempore plugin. Here's a (short) example file containing some
 Extempore code:

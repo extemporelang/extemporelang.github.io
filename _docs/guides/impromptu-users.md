@@ -30,7 +30,7 @@ There are some obvious 'big picture' differences:
 -   Extempore is [open source](https://github.com/digego/extempore)
 -   Extempore is now just an executable, it no longer has a built in editor &
     log view (so [you can use your favourite editor]({{site.baseurl}}{% link
-    _docs/overview/editor-support.md %}))
+    _docs/guides/editor-support.md %}))
 
 The biggest difference, though, is the addition of *xtlang*: a new programming
 language (and compiler). Whereas Scheme was the *only* language supported in
