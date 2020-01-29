@@ -97,7 +97,7 @@ associated with the pattern language live.
 A pattern looks like this:
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 63))
 ```
 
 The parts of this pattern are:
@@ -115,7 +115,7 @@ The parts of this pattern are:
 - the "pattern expression" (in this case `(play syn1 @1 80 dur)`) which is the
   expression which is evaluated at each "triggering" of the pattern
 
-- one (or more) "pattern lists" (in this case `` `(60 58 60 63)``); these are
+- one (or more) "pattern lists" (in this case ``(list 60 58 60 63)``); these are
   lists of values which the pattern will loop through
 
 If you eval the above pattern in Extempore, you'll hear a repeated synth line.
@@ -156,7 +156,7 @@ when you _started_ the pattern (e.g. `pat-1`) you can leave the rest of the
 expression the same, so when you evaluate this:
 
 ```extempore
-(:| pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+(:| pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 63))
 ```
 
 you'll hear blessed silence 😉 This small `:>` -> `:|` change means that it's
@@ -178,7 +178,7 @@ Try re-starting the loop (note the `:>`) and changing the values in the list at
 the end, e.g.
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 63 60 61))
 ```
 
 Notice that the duration of the individual notes gets shorter, so that the
@@ -193,7 +193,7 @@ length of the loop is longer---we need to update the total length argument (the
 one after the pattern name) as well:
 
 ```extempore
-(:> pat-1 3 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
+(:> pat-1 3 0 (play syn1 @1 80 dur) (list 60 58 60 63 60 61))
 ```
 
 Here are two different patterns with different loop durations. They're both
@@ -201,23 +201,23 @@ still playing their notes on the same instrument (`syn1`) but the list of pitch
 values are different.
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
-(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 36 65))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 63 60 61))
+(:> pat-2 4 0 (play syn1 @1 80 dur) (list 67 67 67 48 36 65))
 ```
 
 When there are more than one pattern playing simultaneously we can see the
 effect of modifying the offset parameter. Compare
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
-(:> pat-2 4 0 (play syn1 @1 80 dur) `(67 67 67 48 36 65))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 63 60 61))
+(:> pat-2 4 0 (play syn1 @1 80 dur) (list 67 67 67 48 36 65))
 ```
 
 with (hint: the only change is to `pat-2`)
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63 60 61))
-(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 36 65))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 63 60 61))
+(:> pat-2 4 1 (play syn1 @1 80 dur) (list 67 67 67 48 36 65))
 ```
 
 There are a couple of special symbols in the which are helpful in understanding
@@ -229,8 +229,40 @@ If an element of the list is the underscore symbol (`_`) then the pattern will
 more) of the numeric values in the pattern list, e.g.
 
 ```extempore
-(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 _ 63 65))
+(:> pat-2 4 1 (play syn1 @1 80 dur) (list 67 67 67 '_ 63 65))
 ```
+
+Note that the underscore actually has a tick/apostrophe `'` before it. This is
+called "quoting" the expression, and it's just a way of telling Extempore that
+the `_` character isn't the name of a variable (which should be evaluated to a
+value). Try running the above pattern without the `'` and you'll get an error:
+
+<pre style="color: #b2b2b2; background-color: #292b2e;">
+<span style="color: #63B4F6; background-color: #444155;">pattern </span><span style="color: #59963A; background-color: #444155;">starting  </span><span style="color: #7E8A90; background-color: #444155;">pat-2
+eval: unbound variable: _
+Trace: pat-2
+</span></pre>
+
+There's some subtlety here (especially because even though `_` is a weird name
+for a variable compared to say `x`, `y` or `pitch`, it _is_ a valid symbol name
+in Scheme). But the main point with _quoting_ the `_` is to tell Scheme to just
+treat it like a symbol (kindof like a name) rather than to evaluate it to get
+the symbol's value.
+
+This is relevant because the quote `'` operator can actually apply to a whole
+list (everything inside a balanced pair of parens `(` `)`) like so:
+
+```extempore
+(:> pat-2 4 1 (play syn1 @1 80 dur) '(67 67 67 _ 63 65))
+```
+
+Note that the `list` isn't reqired at the start anymore---everything inside the
+brackets (i.e. `67`, `67`, `67`, `_`, `63` and `65`) is just treated as the
+elements of the list (no further evaluation is done). Don't stress about the
+details too much right now, but just remember that you have to quote the `_` and
+any other symbols in the pattern list (unlike numbers, which are special and
+don't need to be quoted). We'll use that quote symbol a fair bit from here in
+this guide.
 
 If an element of the list is the pipe/vertical bar symbol (`|`) then the pattern
 will also "skip" that execution, but the duration of that slot in the pattern
@@ -238,13 +270,13 @@ list will be added to the _previous_ value (in musical terms, it's a _tie_). Try
 replacing one (or more) of the numeric values in the pattern list, e.g.
 
 ```extempore
-(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 | 63 65))
+(:> pat-2 4 1 (play syn1 @1 80 dur) '(67 67 67 | 63 65))
 ```
 
 these can even "stack", just like musical ties
 
 ```extempore
-(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 | | 65))
+(:> pat-2 4 1 (play syn1 @1 80 dur) '(67 67 67 | | 65))
 ```
 
 ### Sublists for sub-dividing the beats
@@ -257,21 +289,21 @@ pattern list.
 Assuming that `pat-1` is running as before, change `pat-2` to:
 
 ```extempore
-(:> pat-2 4 1 (play syn1 @1 80 dur) `(67 67 67 48 36 (61 65)))
+(:> pat-2 4 1 (play syn1 @1 80 dur) '(67 67 67 48 36 (61 65)))
 ```
 
 Note that the final two notes are "half" duration, because they're in a sublist.
 This can go on recursively:
 
 ```extempore
-(:> pat-3 4 0 (play syn1 @1 80 dur) `(48 (46 (49 46))))
+(:> pat-3 4 0 (play syn1 @1 80 dur) '(48 (46 (49 46))))
 ```
 
 The none of the lists in the pattern language have to have nice round (or even)
 numbers of elements: you can have triplets.
 
 ```extempore
-(:> pat-3 4 0 (play syn1 @1 80 dur) `(48 (54 _ 46)))
+(:> pat-3 4 0 (play syn1 @1 80 dur) '(48 (54 _ 46)))
 ```
 
 Or even lists and sublists of length 7, or 15, or 115. Go wild. It also means
@@ -279,8 +311,8 @@ that there are multiple ways of specifying any one sequence of pitches &
 durations---these two will sound identical:
 
 ```extempore
-(:> option-1 4 0 (play syn1 @1 80 dur) `(60 | 48 61))
-(:> option-2 4 0 (play syn1 @1 80 dur) `(60 (48 61)))
+(:> option-1 4 0 (play syn1 @1 80 dur) '(60 | 48 61))
+(:> option-2 4 0 (play syn1 @1 80 dur) '(60 (48 61)))
 ```
 
 Which one you prefer is up to you. My advice; don't agonise over optimality in the pattern
@@ -293,9 +325,9 @@ pretty cool, after all. You already know one way to do this: just have multiple
 patterns with the same (or even different) lengths and run them simultaneously.
 
 ```extempore
-(:> chord-l 4 0 (play syn1 @1 80 dur) `(60))
-(:> chord-m 4 0 (play syn1 @1 80 dur) `(63))
-(:> chord-h 4 0 (play syn1 @1 80 dur) `(67))
+(:> chord-l 4 0 (play syn1 @1 80 dur) '(60))
+(:> chord-m 4 0 (play syn1 @1 80 dur) '(63))
+(:> chord-h 4 0 (play syn1 @1 80 dur) '(67))
 ```
 
 However, since this is such a common thing (from a musical perspective) the
@@ -304,18 +336,18 @@ lists) to specify events/values which are to be triggered simultaneously. Here's
 the same C-minor chord from the previous example:
 
 ```extempore
-(:> chord-all 4 0 (play syn1 @1 80 dur) `(#(60 63 67)))
+(:> chord-all 4 0 (play syn1 @1 80 dur) '(#(60 63 67)))
 ```
 
 {:.note-box}
 
-Scheme---the programming language that we're using here---considers
+Again, Scheme---the programming language that we're using here---considers
 [lists](https://www.scheme.com/tspl4/objects.html#./objects:h3) and
 [vectors](https://www.scheme.com/tspl4/objects.html#./objects:h9) to be
 different types of collections. However, if you don't care about the subtleties
 and just want to make bangers remember that lists will either look like e.g.
-this `(list 1 2 3)` or this `` `(1 2 3)`` or this `'(1 2 3)`, while vectors will
-have a `#` at the front like e.g. this `#(1 2 3)`.
+this `(list 1 2 3)` or this `'(1 2 3)` (or occasionally this `` `(1 2 3)``),
+while vectors look like this `(vector 1 2 3)` or this `#(1 2 3)`.
 
 Again, that one "minor chord" vector counts as just one element in the pattern
 list for duration purposes. In that example the `chord-all` pattern just has one
@@ -328,7 +360,7 @@ nice suspended 4th---and resolution---on chord V).
 
 ```extempore
 (:> chord-progression 16 0 (play syn1 @1 80 dur)
-	`(#(60 63 67) #(60 63 68) #(58 63 67) (#(58 63 65) #(58 62 65))))
+	'(#(60 63 67) #(60 63 68) #(58 63 67) (#(58 63 65) #(58 62 65))))
 ```
 
 Or, y'know, do other stuff. Extempore's not judgemental.
@@ -340,14 +372,14 @@ over time, and the `:>` pattern macro allows _multiple_ pattern lists for this
 purpose. Let's go back to the original example:
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+(:> pat-1 2 0 (play syn1 @1 80 dur) '(60 58 60 63))
 ```
 
 If we want to add accents to the third (`60`) note, we could add another list of
 velocities (loudnesses) for the pattern language would loop through.
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 @2 dur) `(60 58 60 63) `(70 70 100 70))
+(:> pat-1 2 0 (play syn1 @1 @2 dur) '(60 58 60 63) '(70 70 100 70))
 ```
 
 Note that there's nothing which says that this second list has to be a list of
@@ -362,7 +394,7 @@ So we can switch the pattern lists around as long as we switch the `@1` and the
 interesting change to make).
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @2 @1 dur) `(70 70 100 70) `(60 58 60 63))
+(:> pat-1 2 0 (play syn1 @2 @1 dur) '(70 70 100 70) '(60 58 60 63))
 ```
 
 One caveat with this multiple lists stuff: the note duration is always based on
@@ -393,7 +425,7 @@ power of a whole programming language to do it.
 Consider the examples we've been looking at all along, e.g.
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 63))
+(:> pat-1 2 0 (play syn1 @1 80 dur) '(60 58 60 63))
 ```
 
 Notice the final `dur` argument to the `play` function. If we do something like
@@ -401,7 +433,7 @@ this, you can hear the result (unless your `syn1` patch has a long release
 time):
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 (* dur 0.5)) `(60 58 60 63))
+(:> pat-1 2 0 (play syn1 @1 80 (* dur 0.5)) '(60 58 60 63))
 ```
 
 The value of the `dur` argument will be the current length (in beats, as always)
@@ -439,31 +471,32 @@ alternate between two notes each time through the pattern. You could do a modulo
 arithmetic checks on the `LC` (loop count) variable like so:
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(if (= (% LC 2) 0) 66 63)))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 (if (= (% LC 2) 0) 66 63)))
 ```
-
-{:.info-box}
-
-There's one other thing to note here: the `,` (comma) operator preceding the
-`(if ...)` expression. In Extempore (and other lisps) that's called the
-_unquote_ operator and it evaluates an subexpression inside a larger expression
-(quasi)quoted with the `` ` `` backtick operator. You can [do whole courses on
-this
-stuff](https://courses.cs.washington.edu/courses/cse341/04wi/lectures/14-scheme-quote.html).
 
 Anyway, that's cool, but it's such a common thing to want to do that there's a
 function called `orbit` (the shortened version `orb` also works) which does the
 same thing, so the previous pattern is equivalent to
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(orb LC 2 66 63)))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 (orb LC 2 66 63)))
 ```
+
+{:.note-box}
+
+Note that we've gone back to using `(list ...)` rather than the quote operator
+`'`. This is because with an expression like `(list 1 2 (orb LC 2 66))` you
+_don't_ want the `orb` function to just be "quoted" as-is, you want it to be
+evaluated (so that the pitch orbit actually happens). Sometimes it'll be more
+convenient to use `(list ...)`, and sometimes to quote things `'(... )`. You can
+[do whole courses on this
+stuff](https://courses.cs.washington.edu/courses/cse341/04wi/lectures/14-scheme-quote.html).
 
 You don't have to do it every _second_ time through the loop, either; you can do
 it every 3rd (or 4th, or 5th...)
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(orb LC 3 66 63)))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 (orb LC 3 66 63)))
 ```
 
 The orbit function has one more nice property; if you leave off the final
@@ -472,7 +505,7 @@ pattern or whatever) then it'll return a `_` behind the scenes, so your pattern
 won't play anything.
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(orb LC 3 66)))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 (orb LC 3 66)))
 ```
 
 `orb` is great when you want to alternate a subset of your pattern list; what
@@ -487,7 +520,7 @@ variable to "slow down" the rate of going through multiple pattern lists. Here's
 an example:
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(cycle LC 1 `(72 67) `(73 72))))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 (cycle LC 1 '(72 67) '(73 72))))
 ```
 
 Note how the pattern alternates between `(72 67)` and `(73 72)` for the final
@@ -499,7 +532,7 @@ If you want to not alternate, but do 2 of one then 2 of the other, then change
 the second argument of the `cycle` function:
 
 ```extempore
-(:> pat-1 2 0 (play syn1 @1 80 dur) `(60 58 60 ,(cycle LC 2 `(72 67) `(73 72))))
+(:> pat-1 2 0 (play syn1 @1 80 dur) (list 60 58 60 (cycle LC 2 '(72 67) '(73 72))))
 ```
 
 Through all this, you're putting tools in your tool-belt for making interesting
@@ -534,7 +567,7 @@ pattern expression (just like `beat`, `dur`, `LC` etc). But if you want to put
 them in your pattern lists then they can be really handy. One more quick example:
 
 ```extempore
-(:> cello-suites 4 0 (play syn1 @1 80 dur) `(c3 e3 g3 c4 e4 g3 c4 e4))
+(:> cello-suites 4 0 (play syn1 @1 80 dur) '(c3 e3 g3 c4 e4 g3 c4 e4))
 ```
 
 Using our `cycle` function from earlier we can even go further:
@@ -542,8 +575,8 @@ Using our `cycle` function from earlier we can even go further:
 ```extempore
 (:> cello-suites 4 0 (play syn1 @1 80 dur)
     (cycle LC 2
-           `(c3 e3 g3 c4 e4 g3 c4 e4)
-           `(c3 d3 a3 d4 f4 a3 d4 f4)))
+           '(c3 e3 g3 c4 e4 g3 c4 e4)
+           '(c3 d3 a3 d4 f4 a3 d4 f4)))
 ```
 
 Also, this is a reminder that there's no reason you have to have your whole
@@ -626,7 +659,7 @@ Here's an example of using relative intervals relative to middle C (`60`) rather
 than absolute pitch numbers to play the start of a familiar melody:
 
 ```extempore
-(:> got 4 0 (play syn1 (rel 60 @1) 80 dur) `(4 0 (2 3)))
+(:> got 4 0 (play syn1 (rel 60 @1) 80 dur) '(4 0 (2 3)))
 ```
 
 For `rel` and `qnt`, if you want to have a _specific_ pattern use a different
@@ -635,7 +668,7 @@ provide an optional third argument function. So if the previous pattern has too
 dark a vibe for you, you can play it in a major key:
 
 ```extempore
-(:> got 4 0 (play syn1 (rel 60 @1 (pc:scale 0 'ionian)) 80 dur) `(4 0 (2 3)))
+(:> got 4 0 (play syn1 (rel 60 @1 (pc:scale 0 'ionian)) 80 dur) '(4 0 (2 3)))
 ```
 
 The `qnt` function works the same way, except that instead of calculating a
@@ -655,6 +688,17 @@ here---make some noise and experiment with what sounds good to you.
 `zip`, `pedal`, `jumble`, `range`, `euclid`
 
 Also maybe put "holders" here.
+
+## The pattern language is so inexpressive---why can't it do _x_?
+
+## TODO
+
+- remove quasiquote
+- add holders to this one
+- re-jig scale stuff
+- show how it's all really just Scheme
+- find piano & drum samples
+- add extra (drum) synth
 
 ## Gotchas
 
