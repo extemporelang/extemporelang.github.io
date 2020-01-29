@@ -49,13 +49,6 @@ outermost brackets) of code you want to evaluate and hit `cmd+enter` (macOS) or
 it---the code is live, so you can change and re-evaluate things without having
 to re-start Extempore.
 
-{:.note-box}
-
-We're working on improving the VSCode plugin so that you don't have to be so
-careful about where the cursor is, e.g. so that you could just have it anywhere
-in an xtlang function and `ctrl+enter` would re-evaluate that function. Stay
-tuned!
-
 If you *do* want to restart the Extempore process, just `ctrl+c` in the terminal
 where `extempore` is running to kill it, then start it up again (you'll have to
 re-connect VSCode to the new Extempore process as well).
