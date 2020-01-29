@@ -6,27 +6,21 @@ title: Editor support
 If you don't have a favourite text editor, or don't really know what a text
 editor is, then that's ok! [VSCode](#vscode) is probably the text editor for you.
 
-## VSCode
+## VSCode {#vscode}
 
-[Visual Studio Code](https://code.visualstudio.com/) or VSCode is a
-cross-platform text editor from Microsoft. For a general introduction to VSCode,
-check out the excellent [docs](https://code.visualstudio.com/docs).
+[Visual Studio Code](https://code.visualstudio.com/), which is usually referred
+to as just **VSCode**, is a cross-platform text editor from Microsoft. For a
+general introduction to VSCode, check out the excellent
+[docs](https://code.visualstudio.com/docs).
 
 ### Installation {#installation}
 
 To install VSCode, go to the [Visual Studio Code
 homepage](https://code.visualstudio.com/) and hit the big green "Download"
-button. Installing VSCode is a piece of cake---go to the and hit the big red
-"Download" button. Easy.
-
-Once you've got it up and running, you need to install the [VSCode Extempore
-extension](https://github.com/extemporelang/vscode-extempore)---this tells
-Install it through the Extensions view (`View > Extensions`) and search for
-"Extempore".
-
-If you want to run Extempore in a terminal *inside* Atom, then you can
-get the `term` package as well, search for it in the same window as
-before.
+button. Once you've got it up and running, you need to install the [VSCode
+Extempore extension](https://github.com/extemporelang/vscode-extempore)---this
+tells VSCode how to deal with Extempore code. Install it through the Extensions
+view (`View > Extensions`) and search for "Extempore".
 
 The main way to do things in VSCode is through the "command palette", which you
 can bring up with `Ctrl+Shift+P` on Windows/Linux or `Cmd+Shift+P` on OSX. Type
@@ -41,7 +35,7 @@ quicker than
 1.  start VSCode
 2.  in the built-in terminal window, move into your Extempore directory
     (wherever you [downloaded or built Extempore]({{site.baseurl}}{% link
-    _docs/overview/install.md %})) and start `extempore` (just type `extempore`
+    _docs/guides/install.md %})) and start `extempore` (just type `extempore`
     and hit `return`) and you should see it print out some info about your
     system, then just sit there waiting for input
 4.  open (`File > Open`) an existing Extempore file such as

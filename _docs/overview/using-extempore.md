@@ -41,9 +41,10 @@ use, so pick the one that makes you happiest.
 
 ## Running Extempore {#running-extempore}
 
-Once you've [installed]({{site.baseurl}}{% link _docs/overview/install.md %})
-Extempore you'll have an [executable](https://en.wikipedia.org/wiki/Executable),
-which will be called `extempore` on OSX/Linux or `extempore.exe` on Windows.
+Once you've [set Extempore up on your machine]({% link
+_docs/overview/quickstart.md %}#setup) you'll have an
+[executable](https://en.wikipedia.org/wiki/Executable), which will be called
+`extempore` on OSX/Linux or `extempore.exe` on Windows.
 
 When you start Extempore, you need to specify an audio device. This is necessary
 even if you're not planning to do any audio processing or output, because

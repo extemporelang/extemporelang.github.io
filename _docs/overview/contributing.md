@@ -6,13 +6,13 @@ There are heaps of ways you can contribute to Extempore---whether you've been
 hacking Extempore code for a long time or whether you're just starting out. If
 you're in the latter category then you can especially help out with the
 docs---take notes as you learn, write down (& suggest) fixes for anything that's
-missing or unclear. It's hard for Andy & Ben to remember what it's like to start
-out, but that doesn't mean that others should have to fight through like we did
-:)
+missing or unclear. It's hard for [Andrew](https://twitter.com/digego) &
+[Ben](https://twitter.com/benswift) to remember what it's like to start out, but
+that doesn't mean that others should have to fight through like we did :)
 
-If you've got questions, or want to bounce around some ideas for
-improvements before you go ahead and make big changes then get in touch
-on the [mailing list](mailto:extemporelang@googlegroups.com).
+If you've got questions, or want to bounce around some ideas for improvements
+before you go ahead and make big changes then get in touch on the [mailing
+list](mailto:extemporelang@googlegroups.com).
 
 ## Documentation
 
@@ -83,32 +83,26 @@ really nice---if you think you'd like to contribute, give us a shout out on the
 
 These projects involve hacking on the Extempore executable itself:
 
-1.  upgrade to LLVM 5.0 & ORCJIT
-2.  port Extempore to 64-bit ARM (`aarch64`)
+1. upgrade to latest LLVM with ORCJIT
+2. port Extempore to 64-bit ARM (`aarch64`)
 
 ### xtlang {#xtlang}
 
 These projects (mostly) involve adding/improving libraries for doing cool things
 in xtlang:
 
-1.  add animation to the graphics pipeline
-2.  a 2D/3D hardware-accelerated data visualisation library (e.g. a
-    vega-lite for Extempore)
-3.  add TensorFlow C bindings for (at least) inference, & an example of how to
-    run a cool deep-learning-powered image processing model
-4.  add DirectX (or perhaps Vulkan) support
+1. a 2D/3D hardware-accelerated data visualisation library (e.g. a vega-lite
+   for Extempore)
+2. add TensorFlow C bindings for (at least) inference, & an example of how to
+   run a cool deep-learning-powered image processing model
+3. add DirectX (or perhaps Vulkan) support
+4. implement [Godot](https://godotengine.org)/Extempore integration
 
 ### Ecosystem {#ecosystem}
 
 These projects are "ecosystem/tooling" projects.
 
-1.  ~~add xtlang support to
-    [highlight.js](http://highlightjs.readthedocs.io/en/latest/language-guide.html)
-    (shouldn't be *too* difficult, you can basically copy the parsing regexes
-    from the Atom plugin)~~
-2.  ~~write an extempore plugin for [VS
-    Code](https://code.visualstudio.com/docs/extensions/overview) xtlang~~
-3.  create an xtlang package manager (e.g. CPAN or cargo for Extempore)
-4.  make the CMake build process aware of the xtlang ahead-of-time compilation
-    process, so that `make aot` only re-aot-compiles an xtlang library if it has
-    changed
+1. create an xtlang package manager (e.g. CPAN or cargo for Extempore)
+2. make the CMake build process aware of the xtlang ahead-of-time compilation
+   process, so that `make aot` only re-aot-compiles an xtlang library if it has
+   changed

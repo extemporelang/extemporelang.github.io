@@ -1,7 +1,6 @@
 - title: Overview
   docs:
   - overview/quickstart
-  - overview/install
   - overview/editor-support
   - overview/using-extempore
   - overview/philosophy
@@ -22,6 +21,7 @@
 
 - title: Guides
   docs:
+  - guides/install
   - guides/audio-signal-processing
   - guides/audio-file-io
   - guides/making-an-instrument
