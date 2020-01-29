@@ -48,17 +48,57 @@ support guide]({{site.baseurl}}{% link _docs/guides/editor-support.md %}).
 
 Here's the stuff you need to do every time you want to work with Extempore.
 
-### Step 1: start Extempore {#step-1}
+### Step 0: check your audio devices {#step-0}
+
+{:.note-box}
+
+This step is optional---most of the time Extempore will guess the correct audio
+device anyway---so unless you're having trouble with your audio you can probably
+skip straight to [step 1](#step-1).
 
 Open a terminal (conveniently, VSCode has a built-in terminal which you can
-bring up with `ctrl`+`` ` ``) and `cd` into your extempore folder.
+bring up with `ctrl`+`` ` ``) and `cd` into your extempore folder. If you open
+the Extmpore folder in VSCode (`File > Open` or `cmd`+`O`/`ctrl`+`O`) then when
+you open the terminal it'll already be in the correct directory.
 
-If you open the Extmpore folder in VSCode (`File > Open` or
-`cmd`+`O`/`ctrl`+`O`) then when you open the terminal it'll already be in the
-correct directory.
+To print the list of audio devices that Extempore can "see", type the command
+`extempore --print-devices` (or `extempore.exe --print-devices` if you're on
+Windows) and hit `enter`. On my machine right now it says this, but yours will
+(almost certainly) be different.
 
-Then, type the command `extempore` (or `extempore.exe` if you're on Windows) and
-hit `enter`. If you see something like this, everything's working---nice one.
+<pre style="color: #b2b2b2; background-color: #292b2e;">
+<span style="color: #7E8A90; background-color: #444155;">-----Available Audio Devices-----------------------------
+</span><span style="background-color: #444155;">audio device[0]:DisplayPort api[0]:Core Audio inchan[0] outchan[2]
+audio device[1]:HD Webcam C615 api[0]:Core Audio inchan[1] outchan[0]
+audio device[2]:MacBook Pro Microphone api[0]:Core Audio inchan[1] outchan[0]
+audio device[3]:MacBook Pro Speakers api[0]:Core Audio inchan[0] outchan[2]
+</span><span style="color: #7E8A90; background-color: #444155;">----------------------------------------------------------
+
+</span><span style="background-color: #444155;">
+Process extempore finished
+</span></pre>
+
+If you do want Extempore to use a particular audio device, you can pass either
+the device index or the device name through an additional option. For example,
+if you want Extempore to use the _MacBook Pro Speakers_, either of these would
+work (again, remember to use `extempore.exe` if you're on Windows):
+
+```
+extempore --device 3
+extempore --device-name "MacBook Pro Speakers"
+```
+
+### Step 1: start Extempore {#step-1}
+
+If you didn't do it already in the [previous step](#step-0), open a terminal
+(conveniently, VSCode has a built-in terminal which you can bring up with
+`ctrl`+`` ` ``) and `cd` into your extempore folder. If you open the Extmpore
+folder in VSCode (`File > Open` or `cmd`+`O`/`ctrl`+`O`) then when you open the
+terminal it'll already be in the correct directory.
+
+To start Extempore, type the command `extempore` (or `extempore.exe` if you're
+on Windows) and hit `enter`. If you see something like this, everything's
+working---nice one.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="color: #7E8A90; background-color: #444155;">------------- Extempore --------------
