@@ -77,7 +77,7 @@ provide some presets for the synth to get folks started.
 TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
 folks to loop through (e.g. a cover) while they tweak the synth params.
 
-## Open questions
+## TODOs
 
 {:.info-box}
 
@@ -85,19 +85,11 @@ If you've stumbled across this section on the website, then welcome---but these
 are just some notes for me (Ben) as I write these docs. So you probably don't
 need to have answers to these questions.
 
-- how do we write it; "shared system", sharedsystem, SharedSystem, something
-  else? do we want a different name altogether? likewise for the extempore
-  pattern language
-
-- is there a way to specify not rests, but "ties" (option: use the '| character)
-
-- cb as cowbell vs cb as callback? also, do we actually observe the sample
-  indices for even the dlogue (cbl?) - flesh out the drum kit & associated example
-
 - have a look at the piano preset (simple wavetable) and the keys preset (more
   complex wavetable)
 
-- o2, ableton link (can we implement?) MIDI-sync *is* implemented?
-
 - to get the most out of the filters, you want a cold signal (oscillators under
   0.5)
+
+- TODO new sample libs
+- 
