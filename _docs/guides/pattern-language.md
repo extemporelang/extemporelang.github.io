@@ -602,7 +602,7 @@ example, to play a scale which starts in the 3rd octave and goes for 8 notes, us
 ```
 
 You'll hear an ascending natural minor (i.e. the [aeolian
-mode](https://en.wikipedia.org/wiki/Aeolian_mode)) scale starting on `'c3`.
+mode](https://en.wikipedia.org/wiki/Aeolian_mode)) scale starting on `c3`.
 
 You can see the pattern list directly by evaluating something like this
 _outside_ a pattern expression
@@ -636,8 +636,8 @@ exception that these ones _do_ exist (and can be modified) outside a pattern
 expression. This is because while `dur` (potentially) changes every time through
 the pattern list, things like chords, roots and scales _usually_ are held
 consistent on slightly larger timescales (bars, etc.) and so we define them
-outside an indivitual pattern expression. But if you want to use them and change
-the root/chord/scale for every note, then feel free :)
+outside an indivitual pattern expression, and can also change them outside the
+expression with `set!`.
 
 By default, `scale` (and the related `qnt` and `rel` functions we'll look at
 shortly) use the value of the `*scale*` variable. If you want to use a different
@@ -653,7 +653,7 @@ you'll hear it straight away.
 
 There are a couple of other functions which make use of this: `rel` for
 calculating relative pitch values according to a scale and `qnt` for
-"quantizing" (i.e. "snap-to-grid") a pitch to the current scale. 
+"quantizing" (i.e. "snap-to-grid") a pitch to the current scale.
 
 Here's an example of using relative intervals relative to middle C (`60`) rather
 than absolute pitch numbers to play the start of a familiar melody:
@@ -662,10 +662,10 @@ than absolute pitch numbers to play the start of a familiar melody:
 (:> got 4 0 (play syn1 (rel 60 @1) 80 dur) '(4 0 (2 3)))
 ```
 
-For `rel` and `qnt`, if you want to have a _specific_ pattern use a different
-scale (i.e. not the current value of the global `*scale*` variable) you can
-provide an optional third argument function. So if the previous pattern has too
-dark a vibe for you, you can play it in a major key:
+However, if you want a pattern which uses `scale`, `rel` and `qnt` to use a
+different scale (i.e. not the current value of the global `*scale*` variable)
+you can provide an optional third argument function. So if the previous pattern
+has too dark a vibe for you, you can play it in a major key:
 
 ```extempore
 (:> got 4 0 (play syn1 (rel 60 @1 (pc:scale 0 'ionian)) 80 dur) '(4 0 (2 3)))
@@ -683,7 +683,7 @@ within the given scale. Compare:
 Obviously these simple examples just scratch the surface of the possibilities
 here---make some noise and experiment with what sounds good to you.
 
-### A few more useful functions
+### Holding on to random patterns
 
 `zip`, `pedal`, `jumble`, `range`, `euclid`
 
@@ -691,14 +691,20 @@ Also maybe put "holders" here.
 
 ## The pattern language is so inexpressive---why can't it do _x_?
 
-## TODO
+This section of the guide is down the bottom, but it's probably a question that
+occurred to you earlier---why can't the pattern language do _x_? The answer is
+that it's because Extempore's pattern language is deliberately designed to work
+with regular Scheme lists. You can use all the rest of the Extempore "world"
+inside these patterns---you can pass higher-order functions, you can define and
+call your own library code (as long as it returns lists), you can call
+[xtlang]({{site.baseurl}}{% link _docs/reference/scheme-xtlang-interop.md
+%})---there's nothing you can do in Extmpore that you can't do inside a pattern.
 
-- remove quasiquote
-- add holders to this one
-- re-jig scale stuff
-- show how it's all really just Scheme
-- find piano & drum samples
-- add extra (drum) synth
+So Extempore's pattern language isn't really a
+[DSL](https://en.wikipedia.org/wiki/Domain-specific_language), it's more of a
+pseudo-DSL, another example in the long LISP tradition of sneaking DSLs into a
+full-fledged language environment. There are pros and cons to this (of which
+songs have been sung and wars fought) but that's the reason it's the way is is.
 
 ## Gotchas
 
