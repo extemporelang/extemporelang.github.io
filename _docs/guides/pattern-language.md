@@ -680,7 +680,7 @@ within the given scale. Compare:
 (:> asc-scale 4 0 (play syn1 (qnt @1) 80 dur) (range 60 72))
 ```
 
-Obviously these simple examples just scracth the surface of the possibilities
+Obviously these simple examples just scratch the surface of the possibilities
 here---make some noise and experiment with what sounds good to you.
 
 ### A few more useful functions
