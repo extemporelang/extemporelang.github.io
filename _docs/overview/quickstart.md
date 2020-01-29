@@ -43,12 +43,11 @@ Here's the stuff you need to do every time you want to work with Extempore.
 ### Step 1: start Extempore
 
 Open a terminal (conveniently, VSCode has a built-in terminal which you can
-bring up with `ctrl`+`` ` `` and `cd` into your extempore folder (wherever
-you've put it).
+bring up with `ctrl`+`` ` ``) and `cd` into your extempore folder.
 
 If you open the Extmpore folder in VSCode (`File > Open` or
-`cmd`+`O`/`ctrl`+`O`) then when you bring up the terminal it'll already be in
-the correct directory.
+`cmd`+`O`/`ctrl`+`O`) then when you open the terminal it'll already be in the
+correct directory.
 
 Then, type the command `extempore` (or `extempore.exe` if you're on Windows) and
 hit `enter`. If you see something like this, everything's working---nice one.
@@ -94,8 +93,8 @@ running Extempore session.
 In VSCode, you do this with the _Extempore Connect_ command; open up the command
 palette (with `ctrl`+`shift`+`P`, or `cmd`+`shift`+`P` if you're on macOS) and
 type in a few characters of "Extempore Connect" until it shows up, then hit
-`enter`. You'll be asked to specify a hostname & port, the defaults are probably
-ok, so you can just hit `enter` two more times.
+`enter`. You'll be asked to specify a hostname & port---the defaults are
+probably ok, so you can just hit `enter` two more times.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
@@ -146,7 +145,7 @@ here's "Hello, Sine!"
 ~~~~ xtlang
 (bind-func sine:DSP
   (lambda (in time chan dat)
-	(* .1 (cos (* (convert time) .04)))))
+    (* .1 (cos (* (convert time) .04)))))
 
 ;; tell Extempore to use `sine` as the audio output sink
 (dsp:set! sine)
@@ -158,10 +157,10 @@ If you want to turn it off, just re-define the `dsp` function to return
 ~~~~ xtlang
 (bind-func sine:DSP
   (lambda (in time chan dat)
-	0.0))
+    0.0))
 ~~~~
 
-In the snipped above we've used `0.0`, but any constant value will work (because
+In the code above we've used `0.0`, but any constant value will work (because
 physics).
 
 ### Hello scale {#hello-scale}
@@ -188,6 +187,7 @@ _docs/guides/pattern-language.md %}) guide.
 
 ## Beyond "Hello..." {#beyond-hello}
 
-These simple snippets gloss over some subtleties of what's going on. But hey, if
-you've started quickly(ish), then this page has done its job. To understand the
-subtleties, read the rest of the documentation :)
+These simple code examples gloss over some subtleties of what's going on. But
+hey, if you've managed to get started quickly(ish), then this _Quickstart_page
+has done its job. To understand the subtleties, well, that's what the rest of the
+documentation is for 😊
