@@ -449,6 +449,13 @@ so in this guide sometimes we'll use that language. Just remember that your
 expression doesn't have to be triggering a musical note in the traditional
 sense.
 
+{:.note-box}
+
+We can use this to our advantage for debugging: if you replace the `(play ...)`
+pattern expression with something like `(println @1)` you can see what the value
+of `@1` (i.e. the component of the first pattern list) is printed to the log
+each time through the list.
+
 There are a couple of other variables which are bound inside the pattern
 expression:
 
@@ -683,11 +690,61 @@ within the given scale. Compare:
 Obviously these simple examples just scratch the surface of the possibilities
 here---make some noise and experiment with what sounds good to you.
 
-### Holding on to random patterns
+### Holders
 
-`zip`, `pedal`, `jumble`, `range`, `euclid`
+Everything so far has been determinstic---the pattern list(s) are always the
+same, so the sequence of pitches is always the same each time through the loop.
+Sometimes you want a bit of randomness, though---here's one way to do it.
 
-Also maybe put "holders" here.
+```extempore
+(:> rand-pat 2 0 (play syn1 @1 80 dur) (list (random '(60 67 70))
+                                             (random '(60 67 70))
+                                             (random '(60 67 70))
+                                             (random '(60 67 77))))
+```
+
+These four calls to `random` choose from the same three piches (`60`, `67` and
+`70`). There's a nice shortcut for this sort of thing called `nof` (i.e. give me
+_n_ of this thing):
+
+```extempore
+(:> rand-pat 2 0 (play syn1 @1 80 dur) (list (nof 4 (random '(60 67 70)))))
+```
+
+We can even fake a "weighted" random sample by duplicating elements.
+
+```extempore
+(:> rand-pat 2 0 (play syn1 @1 80 dur) (list (nof 4 (random '(60 60 60 67 70)))))
+```
+
+However, having the 4 pitches change _every_ time through the pattern is a bit
+jarring; we'd really prefer some sort of balance---pick four pitches at random,
+loop through them a few times, then pick a new set of four pitches at random,
+then loop through them a few times, etc.
+
+This is where pattern holders come in handy. Unlike all the other things we've
+looked at in the pattern language, to use a holder we need to define it
+_outside_ the pattern first. Other than that, they look pretty similar to the
+`cycle` function we saw before
+
+```extempore
+(define h1 (holder))
+(:> rand-pat 2 0 (play syn1 @1 80 dur) (list (hold h1 4 (nof 4 (random '(60 60 60 61 67 70))))))
+```
+
+Note that we just wrapped the `(nof 4 ...)` expression in a `(hold h1 4 ...)`
+one; so the "generate 4 new pitches for the pattern expression" thing will only
+happen once every four loops.
+
+You can define & use as many holders as you like, just make sure they all have
+distinct names (e.g. `h1`, `h2`).
+
+## Pattern language cookbook
+
+Ok, enough prose; you're getting the hang of things now. Here's a cookbook of a
+few other things you might be interested in trying.
+
+TODO
 
 ## The pattern language is so inexpressive---why can't it do _x_?
 
@@ -705,9 +762,3 @@ So Extempore's pattern language isn't really a
 pseudo-DSL, another example in the long LISP tradition of sneaking DSLs into a
 full-fledged language environment. There are pros and cons to this (of which
 songs have been sung and wars fought) but that's the reason it's the way is is.
-
-## Gotchas
-
-- how to debug a broken pattern?
-- list quoting
-- going further
