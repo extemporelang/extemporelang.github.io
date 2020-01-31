@@ -10,10 +10,9 @@ at ICLC '20 (Feb 6). So if there are a couple of bits which are currently
 broken/don't make sense then [let me know](mailto:ben.swift@anu.edu.au), but
 please be kind until the workshop actually arrives :)
 
-To run these examples you **must** be running an up-to-date version of
-Extempore (`0.8.1` or newer). Binary builds are available but not currently
-hosted on GitHub releases---if you'd like one then get in touch with
-[Ben](mailto:ben.swift@anu.edu.au).
+To run these examples you **must** be running an up-to-date version of Extempore
+(`0.8.1` or newer). Binary builds are [available on
+GitHub](https://github.com/digego/extempore/releases).
 
 Before we start, make sure you've read at least the [quickstart
 guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) and you can set

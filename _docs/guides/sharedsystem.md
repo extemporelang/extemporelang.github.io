@@ -11,9 +11,8 @@ broken/don't make sense then [let me know](mailto:ben.swift@anu.edu.au), but
 please be kind until the workshop actually arrives :)
 
 To run these examples you **must** be running an up-to-date version of Extempore
-(`0.8.1` or newer). Binary builds are available but not currently hosted on
-GitHub releases---if you'd like one then get in touch with
-[Ben](mailto:ben.swift@anu.edu.au).
+(`0.8.1` or newer). Binary builds are [available on
+GitHub](https://github.com/digego/extempore/releases).
 
 Conceptually, the Extempore sharedsystem is a few things:
 
