@@ -178,12 +178,6 @@ Cool, seems to work fine. For a tutorial on how to generate beats and drum
 patterns, check out [note-level music]({{site.baseurl}}{% link
 _docs/guides/note-level-music.md %}).
 
-## Doing cool things with samplers {#doing-cool-things-with-samplers}
-
-There are lots of possibilities at this stage. If you're interested in
-seeing how to make vaguely 'conventional' musical material, then <span
-role="doc">note-level-music</span> is a good place to start. And I'm
-sure you can think of lots of other possibilities—go nuts :)
 ## Creating a piano sampler {#creating-a-piano-sampler}
 
 Ok, drums are loaded, let's add one more sampler---this time a `piano`.
@@ -315,3 +309,10 @@ And finally, to try it out:
 ~~~~
 
 Awesome, we've got a piano. Success!
+
+## Doing cool things with samplers {#doing-cool-things-with-samplers}
+
+There are lots of possibilities at this stage. If you're interested in
+seeing how to make vaguely 'conventional' musical material, then <span
+role="doc">note-level-music</span> is a good place to start. And I'm
+sure you can think of lots of other possibilities—go nuts :)
