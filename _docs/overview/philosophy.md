@@ -157,20 +157,21 @@ dog slow.
 
 You may now be thinking that this pretty much rules Scheme out for anything
 computationally intensive in Extempore, such as audio and graphics. Well, late
-one night in about 2010 Andrew (Extempore's creator) had pretty much the same
-realisation. At the time he was working on Impromptu, Extempore's predecessor,
-which had the same Scheme interpreter. And he realised that the Scheme
-interpreter would need some *serious* work to bring it up to speed if it was
-going to be used for any number-crunching. At that point, he figured that he
-might as well write a new language, leveraging the LLVM compiler. And lo, xtlang
-was born (although it wasn't called that straight away).
+one night in about 2010 [Andrew](https://twitter.com/digego) (Extempore's
+creator) had pretty much the same realisation. At the time he was working on
+Impromptu, Extempore's predecessor, which had the same Scheme interpreter. And
+he realised that the Scheme interpreter would need some *serious* work to bring
+it up to speed if it was going to be used for any number-crunching. At that
+point, he figured that he might as well write a new language, leveraging the
+LLVM compiler. And lo, xtlang was born (although it wasn't called that straight
+away).
 
 After working on xtlang inside of Impromptu for a while, it became clear that
 introducing a whole new language to a programming environment is kindof a big
 change. So he decided to fork the project, give it a new name, and also make a
 couple of other fundamental changes (open source and cross-platform) as well.
-Impromptu is still supported, and some of the improvements to Extempore are
-back-ported, but Extempore is the future. And that's the history of Extempore
+[Ben](https://benswift.me) (an Impromptu user who had known Andrew for several
+years at that point) came on board in 2012. And that's the history of Extempore
 and the genesis of xtlang in two paragraphs.
 
 xtlang's types include tuples (like C structs), arrays, SIMD vectors and
