@@ -184,7 +184,7 @@ the end, e.g.
 Notice that the duration of the individual notes gets shorter, so that the
 overall loop takes the same length of time. Previously, the loop length was 2
 beats and there were 4 values in the list, so each note was 2 divided by 4 = 1/2
-a beat long (i.e. a quaver or eighth note). Now there are four numbers in the
+a beat long (i.e. a quaver or eighth note). Now there are six numbers in the
 list, so that's 6 notes over 2 beats. The list goes through a full "loop" in the
 same amount of time, so each note must be shorter.
 
