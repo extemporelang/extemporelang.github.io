@@ -2,12 +2,10 @@
 title: Note-level music
 ---
 
-Extempore (like [Impromptu](http://impromptu.moso.com.au) before it) supports
-playing 'instruments' at a note-level. This guide covers the basics of how to
-play instruments in Extempore. If you're satisfied with just playing Extempore's
-built-in instruments (which can be found in `libs/core/instruments.xtm`) then
-you can just start at this guide. The note-level approach to music generation
-will be very familiar to Impromptu users.
+This guide covers the basics of how to play instruments at a "note-level" (e.g.
+play the G above middle C for 2 beats) in Extempore. If you're satisfied with
+just playing Extempore's built-in instruments (which can be found in
+`libs/core/instruments.xtm`) then you can just start at this guide.
 
 ## Setting up an instrument {#setting-up-an-instrument}
 

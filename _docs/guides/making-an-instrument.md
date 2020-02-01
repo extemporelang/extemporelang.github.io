@@ -269,11 +269,10 @@ read this far then I can probably assume you have at least some interest :)
 Making this `organ_drone` closure has really just been a prelude to the real
 business of making an *instrument* in Extempore. An Extempore instrument can be
 played like a midi soft-synth. Individual notes can be triggered with an
-amplitude, a pitch and a duration. Impromptu users will be pretty familiar with
-this---it's the same as how you would play AU synths in Impromptu. The only
-difference is that the whole signal chain is now written in xtlang and
-dynamically compiled at run-time. You can have a look at it in
-`libs/core/audio_dsp.xtm` if you want to see the nuts and bolts of how it works.
+amplitude, a pitch and a duration. The only difference is that the whole signal
+chain is now written in xtlang and dynamically compiled at run-time. You can
+have a look at it in `libs/core/audio_dsp.xtm` if you want to see the nuts and
+bolts of how it works.
 
 This notion of *note-level* control is the key difference between an Extempore
 *instrument* and the type of audio DSP covered in <span
