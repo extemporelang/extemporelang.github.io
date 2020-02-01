@@ -14,6 +14,12 @@ To run these examples you **must** be running an up-to-date version of Extempore
 (`0.8.0` or newer). Binary builds are [available on
 GitHub](https://github.com/digego/extempore/releases).
 
+Before we start, make sure you've read at least the [quickstart
+guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) and you can set
+up & evaluate Extempore code on your machine.
+
+## Introductrion
+
 Conceptually, the Extempore sharedsystem is a few things:
 
 - an easy-to-set-up signal chain with three configurable analogue synth
@@ -21,6 +27,49 @@ Conceptually, the Extempore sharedsystem is a few things:
 
 - a MIDI setup (both in & out) for working with other software instruments &
   hardware controllers
+
+The "sharedsystem" name is inspired by the [**Make Noise** _Shared
+System_](http://www.makenoisemusic.com/synthesizers/black-and-gold-shared-system-plus)
+series of modular synths. _That_ synth is
+[Eurorack](https://en.wikipedia.org/wiki/Eurorack)-based, so _in principle_ it
+could have any/all sorts of different components, but Make Noise chose a
+standard set of modules so that people can share tips/patches/ideas directly
+because they're using the _same_ configurable set of modules. In the same way,
+the Extempore sharedsystem is an "curated" take on Extempore's audio/music
+making workflow. Obviously if it's not to your taste then you've still got the
+full power of Extempore under the hood; but if you just want to fire it up and
+get people dancing then the Extempore sharedsystem is a good way forward, and
+it's what we'll cover in this guide 😁
+
+### Loading the sharedsystem
+
+First, let's load up the Extempore sharedsystem with:
+
+```extempore
+(sys:load "examples/sharedsystem/setup.xtm")
+```
+
+Depending on your machine it might take a little while, but hang tight---you'll
+get there in the end. When you see something like this then you're ready to go.
+
+<pre style="color: #b2b2b2; background-color: #292b2e;">
+<span style="color: #7E8A90; background-color: #444155;">Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">active_notes</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[i32,i8*]*</span><span style="color: #7E8A90; background-color: #444155;">
+Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">dsp_load</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[void]*</span><span style="color: #7E8A90; background-color: #444155;">
+Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">main_reverb</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[void,i64,float]*</span><span style="color: #7E8A90; background-color: #444155;">
+Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">main_gain</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[float,float]*</span><span style="color: #7E8A90; background-color: #444155;">
+</span><span style="color: #ADCF44; background-color: #444155;">sharedsystem audio setup complete
+</span><span style="color: #7E8A90; background-color: #444155;">Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">get_analogue_synth_cc_name</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[i8*,i32]*</span><span style="color: #7E8A90; background-color: #444155;">
+Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">midi_cc</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[void,i32,i32,i32,i32]*</span><span style="color: #7E8A90; background-color: #444155;">
+</span><span style="color: #D3D2D1; background-color: #444155;">shared system successfully loaded
+</span></pre>
+
+You've just loaded
+
+- three analogue synths (`syn1`, `syn2` and `syn3`)
+- a synth drum kit (`kit`)
+- a piano sampler (`samp1`)
+
+Don't worry about how to use them just yet, you'll see how in a minute.
 
 <div class="note-box" markdown="1">
 
@@ -40,6 +89,47 @@ go deeper.
 
 </div>
 
+The interface for configuring the synths and the samplers is a bit different, so
+we'll look a them individually. Like all things in music-making, different folks
+want to explore different things, so if you don't care about samplers at all
+then you can skip straight to the [synths](#playing-the-synth) part (or vice
+versa).
+
+Finally, as mentioned earlier this guide will use the [pattern
+language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}) to play
+some loops on your samplers & synths (so that you can actually hear them make
+noise). So if you're curious about how that works then check out that guide as
+well.
+
+## Configuring & playing the sampler {#playing-the-sampler}
+
+loading things up (slots & banks)
+extra params to play (offset, etc)
+comments on use
+
+## Configuring & playing the synth {#playing-the-synth}
+
+perhaps start with start sound & stop sound before switching to the PL stuff?
+
+also, look at analogue_reset in `analogue.xtm` for inspo about which params to
+discuss & explore
+
+main params
+oscillators
+filters
+other fx
+LFOs
+envelopes
+polyphony
+load/save
+
+other stuff (noise, wavetable)
+
+TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
+folks to loop through (e.g. a cover) while they tweak the synth params.
+
+## TODOs
+
 ## Relevant example files
 
 - if you want to dive into playing & configuring the analogue synth stuff first,
@@ -54,29 +144,6 @@ go deeper.
   of using `(play ...)` (as in the example files) you'll need to use `(mplay
   *mout* ... <channel_number>)` with the same pitch/velocity/duration arguments
   and an extra midi channel number argument at the end
-
-{:.info-box}
-
-The "sharedsystem" name is inspired by the [**Make Noise** _Shared
-System_](http://www.makenoisemusic.com/synthesizers/black-and-gold-shared-system-plus)
-series of modular synths. It's
-[Eurorack](https://en.wikipedia.org/wiki/Eurorack)-based, so _in principle_ it
-could have any/all sorts of different components, but they've chosen a standard
-set of modules so that people can share tips/patches/ideas directly because
-they're using the _same_ configurable set of modules. In the same way, the
-Extempore sharedsystem is an "curated" take on Extempore's audio/music making
-workflow. Obviously if it's not to your taste then you've still got the full
-power of Extempore under the hood; but if you just want to fire it up and get
-people dancing then this is a good way forward 😁
-
-provide some presets for the synth to get folks started.
-
-## Playing & tweaking the analogue synth
-
-TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
-folks to loop through (e.g. a cover) while they tweak the synth params.
-
-## TODOs
 
 {:.info-box}
 
