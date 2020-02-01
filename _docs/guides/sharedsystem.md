@@ -103,6 +103,9 @@ well.
 
 ## Configuring & playing the sampler {#playing-the-sampler}
 
+actually, just update the sampler doc, then link to the part when we're setting
+it up (but make note of the sampler name)
+
 loading things up (slots & banks)
 extra params to play (offset, etc)
 comments on use
@@ -128,24 +131,18 @@ other stuff (noise, wavetable)
 TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
 folks to loop through (e.g. a cover) while they tweak the synth params.
 
+tips:
+
+- to get the most out of the filters, you want a cold signal (oscillators under
+  0.5)
+
+### moar things
+
+then, a note about the drum synth, and the wavetable synth
+
 ## TODOs
 
-## Relevant example files
-
-- if you want to dive into playing & configuring the analogue synth stuff first,
-  then start with `examples/sharedsystem/analogue_synth_basics.xtm`
-
-- if you want to dive into making loops & beats with the pattern language first,
-  then start with `examples/sharedsystem/pattern_basics.xtm` (perhaps moving on
-  to `examples/sharedsystem/drum_synth_basics.xtm` afterwards)
-
-- if you want to play patterns on MIDI devices outside of Extempore, the start
-  with the pattern language stuff example (as in the previous point) but instead
-  of using `(play ...)` (as in the example files) you'll need to use `(mplay
-  *mout* ... <channel_number>)` with the same pitch/velocity/duration arguments
-  and an extra midi channel number argument at the end
-
-{:.info-box}
+{:.note-box}
 
 If you've stumbled across this section on the website, then welcome---but these
 are just some notes for me (Ben) as I write these docs. So you probably don't
@@ -153,9 +150,6 @@ need to have answers to these questions.
 
 - have a look at the piano preset (simple wavetable) and the keys preset (more
   complex wavetable)
-
-- to get the most out of the filters, you want a cold signal (oscillators under
-  0.5)
 
 - TODO new sample libs
 - 
