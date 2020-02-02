@@ -172,7 +172,7 @@ As a quick test, try and evaluate something like:
 ```
 
 If you can see `"Hello, World!"` at the bottom of the terminal, then you've just
-evaluated your first Extempore code! 🙌🎉🥳 🙌
+evaluated your first Extempore code! 🙌 🎉 🥳 🙌
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
@@ -186,6 +186,24 @@ Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase<
 
 Try modifying the code and re-evaluating it---the code is live, so you can
 change and re-evaluate things without having to re-start Extempore.
+
+<div class="note-box" markdown="1">
+
+One "gotcha" if you're new to this sort of thing is the difference between the
+_return value_ of a function and any _side effects_ that it triggers. In the
+above example, the "Hello, World!" which you saw in the terminal is a side
+effect (making a sound through the speakers would be a side effect as well). The
+actual return value of the `println` function is the value "true" (which looks
+like `#t` in Extempore). This is just a quickstart, so we won't go down the
+rabbit hole, but one rule of thumb is that when you're evaluating Extempore code
+that if you call a print function (e.g. `println`) it will show up in the
+terminal, while the _return value_ of the function will be shown (temporarily)
+at the bottom of your VSCode window like so (notice the little white `#t` on the
+blue background---I've added an orange arrow to point it out).
+
+![Extempore return value as shown in VSCode]({{site.baseurl}}{% link images/vscode-hello-world-echo-area.png %})
+
+</div>
 
 ### Step 4: stopping Extempore
 
