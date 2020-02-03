@@ -4,13 +4,14 @@ title: Using Extempore
 
 {:.note-box}
 
-This document is kindof a deep dive on how this stuff works; if you're just
-after the quick version then the [quickstart guide]({{site.baseurl}}{% link
-_docs/overview/quickstart.md %}) might be what you're after.
+This document is a deeper dive on what's going on when you use Extempore; if
+you're just after the quick version then the [quickstart
+guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) might be what
+you're after.
 
 The best way to think about programming and evaluating code in Extempore is to
 think of it as a *compiler-as-a-service* (CaaS). The compiler (provided by the
-`extempore` executable) runs in a shell console, and you connect to it via a TCP
+`extempore` executable) runs in a terminal, and you connect to it via a TCP
 socket connection. When the compiler receives any code over this connection it
 compiles and executes it. The general term for this is 'evaluating' the code.
 There are some nuances to this process, but in general the programmer interacts
@@ -94,7 +95,7 @@ multiple processes, just connect and interact with the `primary` process.
 
 ## Connecting to the Extempore compiler {#connecting-to-the-extempore-compiler}
 
-So far, all the stuff we've done has been in a shell console. The `extempore`
+So far, all the stuff we've done has been in a terminal. The `extempore`
 process, which provides the Extempore compiler, is just sitting there idle,
 waiting to be given some code to evaluate. That's where the text editor part of
 the equation comes in.
@@ -147,7 +148,7 @@ sends it (as a string) to the running `extempore` compiler.
 The orange 'box' in the diagram indicates code that has been sent for
 evaluation. See how the code string (in grey) is sent over the connection, and
 the result is sent back (also as a string) and displayed in the echo area.
-Nothing is printed in the console where `extempore` is running.
+Nothing is printed in the terminal where `extempore` is running.
 Congratulations---you've just evaluated your first Extempore code!
 
 We can write some more code to `bind-val` a global variable `myPI`, which is an
@@ -157,7 +158,7 @@ xtlang global variable of type `double`. If you evaluate this with `Alt+S` or
 ![image](/images/interacting-with-compiler/xtlang-eval-1.png)
 
 One difference from the previous (Scheme) example is that the `extempore`
-compiler now prints a message to the console:
+compiler now prints a message to the terminal:
 
 ~~~~ sourceCode
     Bound myPI >>> double
