@@ -158,7 +158,7 @@ If everything's gone to plan, you'll see one more "New Client Connection"
 message at the very bottom of the terminal (as shown). Congrats, you're connected... and
 almost there.
 
-### Step 3: evaluate some code
+### Step 3: evaluate some code {#step-3}
 
 To evaluate some code, move your cursor into a particular bit of code and hit
 `ctrl`+`enter` (again, `cmd`+`enter` on macOS). The code should flash orange,

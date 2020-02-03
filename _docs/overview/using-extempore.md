@@ -1,5 +1,5 @@
 ---
-title: Using Extempore
+title: Extempore's Compiler-as-a-Service
 ---
 
 {:.note-box}
