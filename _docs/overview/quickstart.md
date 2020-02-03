@@ -44,7 +44,7 @@ of the commands or the keyboard shortcuts might be different---I'm sure you'll
 manage 😉, and you can find the specific details for your editor in the [editor
 support guide]({{site.baseurl}}{% link _docs/guides/editor-support.md %}).
 
-## Using Extempore
+## Using Extempore {#using-extempore}
 
 Here's the stuff you need to do every time you want to work with Extempore.
 

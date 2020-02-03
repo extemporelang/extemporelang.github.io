@@ -34,64 +34,27 @@ So, to do anything in Extempore you need a text editor which can
 3.  send that string over the TCP connection
 
 There are already Extempore modes/plugins for VSCode, Emacs, Atom, vim and
-Sublime Text 2 (see [editor support]({{site.baseurl}}{% link
+Sublime Text (see [editor support]({{site.baseurl}}{% link
 _docs/guides/editor-support.md %})). If you already have a favourite text
 editor, then you'll probably want to use that one. If you don't, then VSCode is
-probably a good choice. In the end it doesn't matter too much which editor you
-use, so pick the one that makes you happiest.
+a good choice. In the end it doesn't matter too much which editor you use, so
+pick the one that makes you happiest.
 
-## Running Extempore {#running-extempore}
+## Starting Extempore {#running-extempore}
 
-Once you've [set Extempore up on your machine]({% link
-_docs/overview/quickstart.md %}#setup) you'll have an
-[executable](https://en.wikipedia.org/wiki/Executable), which will be called
-`extempore` on OSX/Linux or `extempore.exe` on Windows.
+The instructions for starting an Extempore "session" are listed on the
+[quickstart]({% link _docs/overview/quickstart.md %}#using-extempore) page, so
+we won't duplicate them here.
 
-When you start Extempore, you need to specify an audio device. This is necessary
-even if you're not planning to do any audio processing or output, because
-Extempore's internal clock is driven by the audio device's clock. This is a good
-thing: the audio clock will usually be more stable and accurate than your
-computer's default system clock, especially if you're using a dedicated external
-audio interface.
-
-But how do we know what audio device to select? Well, the `extempore` executable
-takes a command-line argument called `--print-devices`. At a shell prompt, `cd`
-into the extempore source directory (where the executable will be) and run
-
-![image](/images/interacting-with-compiler/extempore-print-devices.png)
-
-As you can see, running `extempore` with the `--print-devices` argument prints a
-list of all the audio devices (input, output and duplex) that
-[PortAudio](http://www.portaudio.com/) can find on the system. For example, in
-the image there are five devices. Three devices (device index 0 to 2) are for
-the built-in soundcard, and two more (device index 3 and 4) are for
-[Soundflower](http://code.google.com/p/soundflower/), which is a utility for
-routing audio between different applications. Different computers will print
-different devices---that's ok.
-
-In this example, you probably want to use the default laptop output, which is
-`audio device[2]`. When you run `extempore`, then, I want to pass this device
-index with the `--device` argument. The `--device` argument is optional, if it's
-not supplied then Extempore will default to using whatever device is found at
-index 0. But it doesn't hurt to specify it explicitly, just to avoid any
-surprises.
-
-![image](/images/interacting-with-compiler/extempore-start.png)
-
-After running `extempore` with `--device 2`, it prints some information to
-`stdout` (sometimes referred to as the *log*) about the device that it's using.
-As you can see, it all looks ok: 2 channels out, samplerate of 44100Hz. At this
-point, the `extempore` process is running, and will keep doing so until you kill
-it.
-
-Also, the compiler prints some information about "starting up some processes",
-namely a `primary` process on port `7099` and a `utility` process on port
-`7098`. These are the TCP ports we'll send our code to. A running Extempore
-binary can provide *multiple* Extempore processes (*kindof* like POSIX threads)
-as well as connecting to multiple other Extempore processes, potentially running
-on remote hosts. This forms the basis for Extempore's powerful distributed
-processing capability. For the moment, though, you don't have to worry about
-multiple processes, just connect and interact with the `primary` process.
+One thing about the Extempore startup process which is relevant here is the way
+the compiler prints some information about starting up some processes, namely a
+`primary` process on port `7099` and a `utility` process on port `7098`. These
+are the TCP ports we'll send our code to. A running Extempore binary can provide
+*multiple* Extempore processes (kindof like threads) as well as connecting to
+multiple other Extempore processes, potentially running on remote hosts. This
+forms the basis for Extempore's powerful distributed processing capability. For
+the moment, though, you don't have to worry about multiple processes, just
+connect and interact with the `primary` process.
 
 ## Connecting to the Extempore compiler {#connecting-to-the-extempore-compiler}
 
