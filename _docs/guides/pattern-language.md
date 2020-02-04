@@ -146,7 +146,7 @@ global tempo will affect the playback rate of _every_ pattern). To set the tempo
 to 72bpm:
 
 ```extempore
-(*metro* 'set-tempo bpm)
+(*metro* 'set-tempo 72)
 ```
 
 Soon, you'll wonder how you stop the pattern. The answer is that you change the
@@ -663,10 +663,11 @@ calculating relative pitch values according to a scale and `qnt` for
 "quantizing" (i.e. "snap-to-grid") a pitch to the current scale.
 
 Here's an example of using relative intervals relative to middle C (`60`) rather
-than absolute pitch numbers to play the start of a familiar melody:
+than absolute pitch numbers to play the start of a familiar melody (feel free to
+set the tempo to your liking).
 
 ```extempore
-(:> got 4 0 (play syn1 (rel 60 @1) 80 dur) '(4 0 (2 3)))
+(:> got 3 0 (play syn1 (rel 60 @1) 80 dur) '(4 0 (2 3)))
 ```
 
 However, if you want a pattern which uses `scale`, `rel` and `qnt` to use a
@@ -675,7 +676,7 @@ you can provide an optional third argument function. So if the previous pattern
 has too dark a vibe for you, you can play it in a major key:
 
 ```extempore
-(:> got 4 0 (play syn1 (rel 60 @1 (pc:scale 0 'ionian)) 80 dur) '(4 0 (2 3)))
+(:> got 3 0 (play syn1 (rel 60 @1 (pc:scale 0 'ionian)) 80 dur) '(4 0 (2 3)))
 ```
 
 The `qnt` function works the same way, except that instead of calculating a
@@ -734,12 +735,15 @@ _outside_ the pattern first. Other than that, they look pretty similar to the
 
 Note that we just wrapped the `(nof 4 ...)` expression in a `(hold h1 4 ...)`
 one; so the "generate 4 new pitches for the pattern expression" thing will only
-happen once every four loops.
+happen once every four loops. And obviously this is handy when you put it
+against a 
 
 You can define & use as many holders as you like, just make sure they all have
 distinct names (e.g. `h1`, `h2`).
 
-## Where can I see more examples?
+## FAQ
+
+### Where can I see more examples?
 
 Extempore ships with a bunch of examples of this stuff in use. There's the
 `examples/sharedsystem/pattern_basics.xtm` file to start with (which covers
@@ -748,7 +752,61 @@ similar ground to this guide). But there's also a (growing) collection of
 action. You've already got them on your system, so open up that folder and take
 a look 😉
 
-## The pattern language is so inexpressive---why can't it do _x_?
+### Why isn't my pattern working?
+
+First, if it's not working you should check the terminal where Extempore is
+running---this is where any errors will be logged. You might have a syntax
+error, or be trying to use a variable which isn't defined, or any of the usual
+frustrating programming errors. Don't lose heart, this stuff happens to
+everyone.
+
+However, there could also be a problem with the "musical" aspect of the pattern,
+e.g. your're passing in pitches which are too low for your speakers to reproduce
+(or for a human to hear) like `1`, `2`, `3`, etc. This is tricky because from a
+"programming" perspective everything's working fine, but from a musical
+perspective it's totally broken (unless you're into subsonic sound art, which is
+totally fine).
+
+If you want to inspect the values as they pass through the pattern list, the key
+is to remember that the pattern expression is just a regular expression, so you
+can use e.g. print statements with your special variables like this.
+
+```xtlang
+(:> test-pattern 4 0 (println LC LP @1 @2) '(1 2 3 4) '(10 20 30))
+```
+
+### I'm so sick of the default chiptune synth sound, how do I change it?
+
+This is covered in the [sharedsystem tutorial]({{site.baseurl}}{% link
+_docs/guides/sharedsystem.md %}), but if you can load a synth preset with
+`analogue-load-preset` like so:
+
+```xtlang
+(analogue-load-preset syn1 "examples/sharedsystem/presets/organ1.xtmpreset")
+```
+
+Currently Extempore ships with the following presets (all in the
+`extempore/sharedsystem/presets/` folder).
+
+- `arp1.xtmpreset`
+- `blade1.xtmpreset`
+- `dr_bass.xtmpreset`
+- `dr_fx.xtmpreset`
+- `dr_fx2.xtmpreset`
+- `dr_fx3.xtmpreset`
+- `dr_lead.xtmpreset`
+- `dr_lead2.xtmpreset`
+- `dr_lead3.xtmpreset`
+- `keys1.xtmpreset`
+- `keys2.xtmpreset`
+- `organ1.xtmpreset`
+- `oxyarp.xtmpreset`
+- `oxybass.xtmpreset`
+- `oxylead.xtmpreset`
+- `pad1.xtmpreset`
+- `piano.xtmpreset`
+
+### The pattern language is so inexpressive---why can't it do _x_?
 
 This section of the guide is down the bottom, but it's probably a question that
 occurred to you earlier---why can't the pattern language do _x_? The answer is
