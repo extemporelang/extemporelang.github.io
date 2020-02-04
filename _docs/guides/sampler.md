@@ -86,28 +86,38 @@ important, use fewer slots and let the sampler interpolate in the gaps.
 
 ## Creating a drum sampler {#creating-a-drum-sampler}
 
+{:.note-box}
+
+If you've loaded the [sharedsystem]({{site.baseurl}}{% link
+_docs/guides/sharedsystem.md %}) (i.e. with `(sys:load
+"examples/sharedsystem/setup.xtm")`) then you don't have to do any of the "DSP"
+signal chain setup stuff (i.e. you don't have to load the `instruments_ext.xtm`
+file, create the sampler `samp1`, evaluate the `dsp` closure, or call
+`dsp:set!`). Basically you can just ignore the following code block, although
+the ones after that are still relevant---we'll try and make it clear 😜
+
 Ok, enough background material---let's make some noise. We'll create an instance
-of Extempore's sampler called `drums`. To do this, we use the `make-instrument`
+of Extempore's sampler called `samp1`. To do this, we use the `make-instrument`
 Scheme macro (once we've loaded it from the `libs/external/instruments_ext.xtm`
 library file).
 
 ~~~~ xtlang
 (sys:load "libs/external/instruments_ext.xtm")
 
-;; define a sampler (called drums) using the default sampler note kernel and effects
-(make-instrument drums sampler)
+;; define a sampler (called samp1) using the default sampler note kernel and effects
+(make-instrument samp1 sampler)
 
 ;; add the sampler to the dsp output callback
 (bind-func dsp:DSP
   (lambda (in time chan dat)
     (cond ((< chan 2)
-           (drums in time chan dat))
+           (samp1 in time chan dat))
           (else 0.0))))
 
 (dsp:set! dsp)
 ~~~~
 
-But we're not done yet: the xtlang closure `drums` has been compiled, but it
+But we're not done yet: the xtlang closure `samp1` has been compiled, but it
 hasn't had any samples loaded into it's slots yet. So we need some drum samples,
 then. Extempore (by default) ships with a set of
 [808](https://en.wikipedia.org/wiki/Roland_TR-808) samples (in the
@@ -120,50 +130,50 @@ drumkit](http://download.linuxaudio.org/musical-instrument-libraries/sfz/salaman
 then it shouldn't be too hard to modify these steps---although obviously the
 filenames will be different.
 
-I'm going to load those samples into my `drums` sampler. First, download the
+Let's load those samples into the `samp1` sampler. First, download the
 Salamander drum kit samples, unzip and untar them and put the files somewhere.
 On my computer, I've put them into
 `/Users/ben/Music/sample-libs/drums/salamander`, but you can put them wherever
 you like. Just make sure that you set the right path in your code if you're
 following along.
 
-We're going to load (some of) these files into our `drums` sampler one at a time
+We're going to load (some of) these files into our `samp1` sampler one at a time
 using the `set-sampler-index` function (note that the path to each `.aif` file
 is relative to your Extempore folder---if you're loading samples from somewhere
 else you'll need to include the full path).
 
 ~~~~ xtlang
-(set-sampler-index drums "assets/samples/808/36.aif" *gm-kick-2* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/37.aif" *gm-side-stick* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/38.aif" *gm-snare* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/39.aif" *gm-hand-clap* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/40.aif" *gm-snare-2* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/41.aif" *gm-low-floor-tom* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/42.aif" *gm-closed-hi-hat* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/43.aif" *gm-hi-floor-tom* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/44.aif" *gm-pedal-hi-hat* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/45.aif" *gm-low-tom* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/46.aif" *gm-open-hi-hat* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/47.aif" *gm-low-mid-tom* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/48.aif" *gm-hi-mid-tom* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/49.aif" *gm-crash* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/50.aif" *gm-hi-tom* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/51.aif" *gm-ride* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/52.aif" *gm-chinese* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/53.aif" *gm-ride-bell* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/54.aif" *gm-tambourine* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/55.aif" *gm-splash* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/56.aif" *gm-cowbell* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/57.aif" *gm-crash-2* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/58.aif" *gm-vibraslap* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/59.aif" *gm-ride-2* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/60.aif" *gm-hi-bongo* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/61.aif" *gm-low-bongo* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/62.aif" *gm-mute-hi-conga* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/63.aif" *gm-hi-conga* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/64.aif" *gm-low-conga* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/65.aif" *gm-hi-timbale* 0 0 0 1)
-(set-sampler-index drums "assets/samples/808/66.aif" *gm-low-timbale* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/36.aif" *gm-kick-2* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/37.aif" *gm-side-stick* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/38.aif" *gm-snare* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/39.aif" *gm-hand-clap* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/40.aif" *gm-snare-2* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/41.aif" *gm-low-floor-tom* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/42.aif" *gm-closed-hi-hat* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/43.aif" *gm-hi-floor-tom* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/44.aif" *gm-pedal-hi-hat* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/45.aif" *gm-low-tom* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/46.aif" *gm-open-hi-hat* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/47.aif" *gm-low-mid-tom* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/48.aif" *gm-hi-mid-tom* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/49.aif" *gm-crash* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/50.aif" *gm-hi-tom* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/51.aif" *gm-ride* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/52.aif" *gm-chinese* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/53.aif" *gm-ride-bell* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/54.aif" *gm-tambourine* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/55.aif" *gm-splash* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/56.aif" *gm-cowbell* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/57.aif" *gm-crash-2* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/58.aif" *gm-vibraslap* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/59.aif" *gm-ride-2* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/60.aif" *gm-hi-bongo* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/61.aif" *gm-low-bongo* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/62.aif" *gm-mute-hi-conga* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/63.aif" *gm-hi-conga* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/64.aif" *gm-low-conga* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/65.aif" *gm-hi-timbale* 0 0 0 1)
+(set-sampler-index samp1 "assets/samples/808/66.aif" *gm-low-timbale* 0 0 0 1)
 ~~~~
 
 If that works properly, some info will be printed to the log about the audio
@@ -192,15 +202,15 @@ could have gone wrong:
 
 -   have you set up `libsndfile` properly on your system?
 -   are the pathnames to to samples correct?
--   did you define the `drums` sampler and did it compile properly?
+-   did you define the `samp1` sampler and did it compile properly?
 
-Assuming things worked properly, we should be able to play our `drums` sampler.
+Assuming things worked properly, we should be able to play our `samp1` sampler.
 
 ~~~~ xtlang
 ;; evaluate these as you see fit!
-(play-note (now) drums *gm-kick-2* 80 44100)
-(play-note (now) drums *gm-snare* 80 44100)
-(play-note (now) drums *gm-closed-hi-hat* 80 44100)
+(play-note (now) samp1 *gm-kick-2* 80 44100)
+(play-note (now) samp1 *gm-snare* 80 44100)
+(play-note (now) samp1 *gm-closed-hi-hat* 80 44100)
 ~~~~
 
 Using the extempore [pattern language]({{site.baseurl}}{% link
@@ -211,8 +221,8 @@ if you just want a teaser here's a standard back-beat pattern.
 
 ```xtlang
 (sys:load "libs/core/pattern-language.xtm")
-(:> backbeat 4 0 (play drums @1 80 dur) (list *gm-kick-2* *gm-snare* *gm-kick-2* *gm-snare*))
-(:> backbeat-hats 1 1/2 (play drums @1 80 dur) (list *gm-closed-hi-hat*))
+(:> backbeat 4 0 (play samp1 @1 80 dur) (list *gm-kick-2* *gm-snare* *gm-kick-2* *gm-snare*))
+(:> backbeat-hats 1 1/2 (play samp1 @1 80 dur) (list *gm-closed-hi-hat*))
 ```
 
 If you want to turn it off, just change the `:>`s to `:|` and re-evaluate.
@@ -235,23 +245,23 @@ features of the sampler which are relevant here:
 
 If you want to see how this might work, try loading just _one_ of the drum
 samples above into bank 1 (a new bank---in the previous section we loaded them
-all into bank 0) of our `drums` sampler:
+all into bank 0) of our `samp1` sampler:
 
 ```xtlang
-(set-sampler-index drums "assets/samples/808/38.aif" *gm-snare* 0 0 1 1)
+(set-sampler-index samp1 "assets/samples/808/38.aif" *gm-snare* 0 0 1 1)
 ```
 
 Then, we can mess around with the playback:
    
 ```xtlang
 ;; this is just "normal" playback
-(play-note (now) drums *gm-snare* 80 44100 1 0.5 0 0)
+(play-note (now) samp1 *gm-snare* 80 44100 1 0.5 0 0)
 
 ;; random offset (not so interesting with such a short sample)
-(play-note (now) drums *gm-snare* 80 44100 1 0.5 (random 100) 0)
+(play-note (now) samp1 *gm-snare* 80 44100 1 0.5 (random 100) 0)
 
 ;; playback sample in reverse
-(play-note (now) drums *gm-snare* 80 44100 1 0.5 0 1)
+(play-note (now) samp1 *gm-snare* 80 44100 1 0.5 0 1)
 ```
 
 Of course, these examples are still pretty limited when we've only got the
@@ -260,33 +270,42 @@ fun if you load & manipulate your own samples.
 
 ## Creating a piano sampler {#creating-a-piano-sampler}
 
+{:.note-box}
+
 Note: Extempore actually ships with a bunch of piano samples in
 `assets/samples/piano/`, which are loaded by default as part of the
 [sharedsystem]({{site.baseurl}}{% link _docs/guides/sharedsystem.md %}). But
 this example is instructive if you want to load some other samples.
 
-Let's add one more sampler---this time a `piano`.
+Let's add one more sampler---this time a `samp2`.
 
 ~~~~ xtlang
-(make-instrument piano sampler)
+(make-instrument samp2 sampler)
 
-;; add the piano sampler to the dsp output callback
-;; note how the drums is still there from before
+;; add the samp2 sampler to the dsp output callback
+;; note how the samp1 is still there from before
 (bind-func dsp:DSP
   (lambda (in time chan dat)
     (cond ((< chan 2.0)
-           (+ (drums in time chan dat)
-              (piano in time chan dat)))
+           (+ (samp1 in time chan dat)
+              (samp2 in time chan dat)))
           (else 0.0))))
 ~~~~
 
-Luckily, there's a [Salamander
-piano](http://download.linuxaudio.org/lau/SalamanderGrandPianoV2/SalamanderGrandPianoV2_44.1khz16bit.tar.bz2)
-as well, which will do just fine for today. Go ahead and download that (you'll
-want the version called `SalamanderGrandPianoV2_44.1khz16bit.tar.bz2`). Again,
-unzip and untar the files to wherever you put that sort of thing. This time, the
-wave audio files should be in a `44.1khz16bit` subdirectory. Looking at the
-files in that directory (e.g. with `ls`), we get something like
+You might be wondering why we need another sampler (`samp2`) when we could just
+use the next available bank from `samp1` (each sampler has 16 banks in total,
+indexed from `0` to `15`). Sometimes that _is_ the best option, although the
+main reason that you'd use a new one is to set different envelopes and/or
+effects for each (since they're set on a per-sampler basis).
+
+The Salamander piano is freely available from <linuxaudio.org> (direct download
+link
+[here](http://download.linuxaudio.org/lau/SalamanderGrandPianoV2/SalamanderGrandPianoV2_44.1khz16bit.tar.bz2))
+which will do just fine for today, so ahead and download that (pretty big
+though---around half a gigabyte). Again, unzip and untar the files to wherever
+you put that sort of thing. This time, the wave audio files should be in a
+`44.1khz16bit` subdirectory. Looking at the files in that directory (e.g. with
+`ls`), we get something like
 
 ~~~~ sourceCode
 A0v1.wav   A5v6.wav   C4v2.wav    D#2v13.wav  F#1v1.wav   F#6v6.wav
@@ -381,18 +400,18 @@ something like this
                      #f))))
          file-list)))
 
-(load-sampler piano
+(load-sampler samp2
               "/Users/ben/Music/sample-libs/piano/salamander/44.1khz16bit"
               0 ;; 'sound bank' index
               parse-salamander-piano)
 ~~~~
 
 When you call `load-sampler` at the bottom of that code chunk, it should load
-all the 4th velocity layers into bank `0` of the `piano` sampler. Then try it
+all the 4th velocity layers into bank `0` of the `samp2` sampler. Then try it
 out:
 
 ~~~~ xtlang
-(play-note (now) piano (random 40 80) 80 44100)
+(play-note (now) samp2 (random 40 80) 80 44100)
 ~~~~
 
 Awesome, we've got a piano. Success!
