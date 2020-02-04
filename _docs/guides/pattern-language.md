@@ -255,7 +255,7 @@ list (everything inside a balanced pair of parens `(` `)`) like so:
 (:> pat-2 4 1 (play syn1 @1 80 dur) '(67 67 67 _ 63 65))
 ```
 
-Note that the `list` isn't reqired at the start anymore---everything inside the
+Note that the `list` isn't required at the start anymore---everything inside the
 brackets (i.e. `67`, `67`, `67`, `_`, `63` and `65`) is just treated as the
 elements of the list (no further evaluation is done). Don't stress about the
 details too much right now, but just remember that you have to quote the `_` and
