@@ -548,8 +548,9 @@ musical patterns.
 
 As mentioned [earlier in this guide](#midi-note-number-teaser-box), in your
 pattern expression you can use symbols like `c4` (which evaluates to 60; it's
-middle C) to specify notes. These special pitch variables are all 2 or 3
-characters long:
+middle C) to specify notes (so-called [scientific pitch
+notation](https://en.wikipedia.org/wiki/Scientific_pitch_notation)). These
+special pitch variables are all 2 or 3 characters long:
 
 1. the first character is the note letter (pitch class), e.g. `a`--`g`
 2. the middle (optional) character is the accidental modifier, either `#` for
@@ -738,12 +739,14 @@ happen once every four loops.
 You can define & use as many holders as you like, just make sure they all have
 distinct names (e.g. `h1`, `h2`).
 
-## Pattern language cookbook
+## Where can I see more examples?
 
-Ok, enough prose; you're getting the hang of things now. Here's a cookbook of a
-few other things you might be interested in trying.
-
-TODO
+Extempore ships with a bunch of examples of this stuff in use. There's the
+`examples/sharedsystem/pattern_basics.xtm` file to start with (which covers
+similar ground to this guide). But there's also a (growing) collection of
+"covers" in `examples/sharedsystem/covers/` which show the pattern language in
+action. You've already got them on your system, so open up that folder and take
+a look 😉
 
 ## The pattern language is so inexpressive---why can't it do _x_?
 

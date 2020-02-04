@@ -109,39 +109,61 @@ library file).
 
 But we're not done yet: the xtlang closure `drums` has been compiled, but it
 hasn't had any samples loaded into it's slots yet. So we need some drum samples,
-then. Extempore doesn't ship with any samples, you'll have to provide your own.
-The [Salamander
-drumkit](https://archive.org/download/SalamanderDrumkit/salamanderDrumkit.tar.bz2)
-is pretty cool–and also free, which is nice :) So I'm going to load those
-samples into my `drums` sampler.
+then. Extempore (by default) ships with a set of
+[808](https://en.wikipedia.org/wiki/Roland_TR-808) samples (in the
+`assets/samples/808` folder) which will do the job nicely.
 
-First, download the Salamander drum kit samples, unzip and untar them and put
-the files somewhere. On my computer, I've put them into
+{:.note-box}
+
+If you want to use other drum samples, e.g. the [Salamander
+drumkit](http://download.linuxaudio.org/musical-instrument-libraries/sfz/salamander_drumkit_v1.tar.7z)
+then it shouldn't be too hard to modify these steps---although obviously the
+filenames will be different.
+
+I'm going to load those samples into my `drums` sampler. First, download the
+Salamander drum kit samples, unzip and untar them and put the files somewhere.
+On my computer, I've put them into
 `/Users/ben/Music/sample-libs/drums/salamander`, but you can put them wherever
 you like. Just make sure that you set the right path in your code if you're
 following along.
 
-When you unzip and untar `salamanderDrumkit.tar.bz2`, it will have a
-subdirectory called `OH`, which contains the wave files which contain the drum
-sounds. We're going to load (some of) these files into our `drums` sampler one
-at a time using the `set-sampler-index` function.
+We're going to load (some of) these files into our `drums` sampler one at a time
+using the `set-sampler-index` function (note that the path to each `.aif` file
+is relative to your Extempore folder---if you're loading samples from somewhere
+else you'll need to include the full path).
 
 ~~~~ xtlang
-(define drum-path "/Users/ben/Music/sample-libs/drums/salamander/OH/")
-(set-sampler-index drums (string-append drum-path "kick_OH_F_9.wav") *gm-kick* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "snareStick_OH_F_9.wav") *gm-side-stick* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "snare_OH_FF_9.wav") *gm-snare* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "hihatClosed_OH_F_20.wav") *gm-closed-hi-hat* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "hihatFoot_OH_MP_12.wav") *gm-pedal-hi-hat* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "hihatOpen_OH_FF_6.wav") *gm-open-hi-hat* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "loTom_OH_FF_8.wav") *gm-low-floor-tom* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "hiTom_OH_FF_9.wav") *gm-hi-floor-tom* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "crash1_OH_FF_6.wav") *gm-crash* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "ride1_OH_FF_4.wav") *gm-ride* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "china1_OH_FF_8.wav") *gm-chinese* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "cowbell_FF_9.wav") *gm-cowbell* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "bellchime_F_3.wav") *gm-open-triangle* 0 0 0 1)
-(set-sampler-index drums (string-append drum-path "ride1Bell_OH_F_6.wav") *gm-ride-bell* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/36.aif" *gm-kick-2* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/37.aif" *gm-side-stick* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/38.aif" *gm-snare* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/39.aif" *gm-hand-clap* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/40.aif" *gm-snare-2* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/41.aif" *gm-low-floor-tom* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/42.aif" *gm-closed-hi-hat* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/43.aif" *gm-hi-floor-tom* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/44.aif" *gm-pedal-hi-hat* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/45.aif" *gm-low-tom* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/46.aif" *gm-open-hi-hat* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/47.aif" *gm-low-mid-tom* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/48.aif" *gm-hi-mid-tom* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/49.aif" *gm-crash* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/50.aif" *gm-hi-tom* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/51.aif" *gm-ride* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/52.aif" *gm-chinese* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/53.aif" *gm-ride-bell* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/54.aif" *gm-tambourine* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/55.aif" *gm-splash* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/56.aif" *gm-cowbell* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/57.aif" *gm-crash-2* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/58.aif" *gm-vibraslap* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/59.aif" *gm-ride-2* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/60.aif" *gm-hi-bongo* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/61.aif" *gm-low-bongo* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/62.aif" *gm-mute-hi-conga* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/63.aif" *gm-hi-conga* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/64.aif" *gm-low-conga* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/65.aif" *gm-hi-timbale* 0 0 0 1)
+(set-sampler-index drums "assets/samples/808/66.aif" *gm-low-timbale* 0 0 0 1)
 ~~~~
 
 If that works properly, some info will be printed to the log about the audio
@@ -149,13 +171,20 @@ files which have been loaded into the sampler. They should look something like
 this:
 
 ~~~~ sourceCode
-file name:     /Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav
-samplerate:    48000
+file name:     assets/samples/808/36.aif
+samplerate:    44100
 channels:      2
-samples read:  45796
-45796 samples
-read/Users/ben/Music/sample-libs/drums/salamander/OH/kick_OH_F_9.wav:
-2(channels) 22898(frames):357.781250(k)     into index:35
+frames:        11473
+samples read:  22946
+---------------
+file name:     assets/samples/808/37.aif
+samplerate:    44100
+channels:      2
+frames:        1739
+samples read:  3478
+---------------
+
+and lots more like this ...
 ~~~~
 
 If the log doesn't show something like that, then there are a few things which
@@ -169,18 +198,74 @@ Assuming things worked properly, we should be able to play our `drums` sampler.
 
 ~~~~ xtlang
 ;; evaluate these as you see fit!
-(play-note (now) drums *gm-kick* 80 44100)
+(play-note (now) drums *gm-kick-2* 80 44100)
 (play-note (now) drums *gm-snare* 80 44100)
 (play-note (now) drums *gm-closed-hi-hat* 80 44100)
 ~~~~
 
-Cool, seems to work fine. For a tutorial on how to generate beats and drum
-patterns, check out [note-level music]({{site.baseurl}}{% link
-_docs/guides/note-level-music.md %}).
+Using the extempore [pattern language]({{site.baseurl}}{% link
+_docs/guides/pattern-language.md %}) you can make loops really easily. The
+[pattern language guide]({{site.baseurl}}{% link
+_docs/guides/pattern-language.md %}) has much more info on how it all works, but
+if you just want a teaser here's a standard back-beat pattern.
+
+```xtlang
+(sys:load "libs/core/pattern-language.xtm")
+(:> backbeat 4 0 (play drums @1 80 dur) (list *gm-kick-2* *gm-snare* *gm-kick-2* *gm-snare*))
+(:> backbeat-hats 1 1/2 (play drums @1 80 dur) (list *gm-closed-hi-hat*))
+```
+
+If you want to turn it off, just change the `:>`s to `:|` and re-evaluate.
+
+## Play-note parameters for the Extempore sampler
+
+Triggering a series of drum samples like this is just one use-case for a
+sampler, and (arguably) not even the most interesting one. There are a couple of
+features of the sampler which are relevant here:
+
+1. the sampler supports interpolating (with pitch-shifting) from the nearest
+   slot, so you can load as little as one sample into the slot and then
+   re-trigger it at lots of different pitches
+
+2. during playback, you can provide three _extra_ arguments to
+   `play`/`play-note` (i.e. after the `dur` argument):
+   1. pan (0--1)
+   2. offset (in samples) to specify how far into the audio file to start playback
+   3. reverse? (yes for value > 0) to reverse playback
+
+If you want to see how this might work, try loading just _one_ of the drum
+samples above into bank 1 (a new bank---in the previous section we loaded them
+all into bank 0) of our `drums` sampler:
+
+```xtlang
+(set-sampler-index drums "assets/samples/808/38.aif" *gm-snare* 0 0 1 1)
+```
+
+Then, we can mess around with the playback:
+   
+```xtlang
+;; this is just "normal" playback
+(play-note (now) drums *gm-snare* 80 44100 1 0.5 0 0)
+
+;; random offset (not so interesting with such a short sample)
+(play-note (now) drums *gm-snare* 80 44100 1 0.5 (random 100) 0)
+
+;; playback sample in reverse
+(play-note (now) drums *gm-snare* 80 44100 1 0.5 0 1)
+```
+
+Of course, these examples are still pretty limited when we've only got the
+(short) 808 samples to work with---you can imagine that you can have much more
+fun if you load & manipulate your own samples.
 
 ## Creating a piano sampler {#creating-a-piano-sampler}
 
-Ok, drums are loaded, let's add one more sampler---this time a `piano`.
+Note: Extempore actually ships with a bunch of piano samples in
+`assets/samples/piano/`, which are loaded by default as part of the
+[sharedsystem]({{site.baseurl}}{% link _docs/guides/sharedsystem.md %}). But
+this example is instructive if you want to load some other samples.
+
+Let's add one more sampler---this time a `piano`.
 
 ~~~~ xtlang
 (make-instrument piano sampler)
@@ -218,7 +303,7 @@ So it looks like the files are named with a simple naming convention, which
 makes use of scientific pitch notation. For example, `C4v5.wav` looks like it's
 a recording of C4 (middle C) on the piano, and the `v5` part probably means that
 it's the 5th velocity layer for the note C4. This means that there are multiple
-sound files (called *layers*) for each note, and the sampler will choose which
+sound files (called _layers_) for each note, and the sampler will choose which
 one to play based on the velocity argument in the triggering call. Not all
 sample libraries will have multiple velocity layers, but they're a way of
 capturing the differences in sound between soft notes and loud
@@ -226,16 +311,22 @@ notes---particularly on instruments where the difference between soft and loud
 is in more than just volume (such as a [Fender
 Rhodes](http://en.wikipedia.org/wiki/Rhodes_piano)).
 
-Extempore's built-in sampler **does not** support layers, although if you wanted
-to add that functionality in you could easily hack the sampler source code in
-`external/instruments.xtm`. So, what we want to do is choose just one of the
-layer files for each note to load into the sampler. We could choose the loudest
-layer, or the softest layer, or a random layer for each note (although this
-would lead to uneven loudness when playing the sampler with `play-note`). The
-main point is that we can only load *one* of the layers by default.
+Extempore's built-in sampler doesn't support layers, in that you can't load up a
+bunch of sound files (with multiple layer files per note) and have it
+automatically pick the correct "layer" based on the velocity. However it does
+support multiple "banks" of samplers per sampler, so you could always load each
+layer into a separate bank and then write your own code to trigger the correct
+bank (based on velocity, or on whatever criteria you like---it's your sampler).
 
-So if the audio files are named according to a meaninful convention, is there a
-way to make use of that? Loading each audio file individually can be pretty
+The default bank is bank `0`, so if you don't want to use multiple sound banks
+just load into bank `0` and forget about it. Let's take that approach for now,
+so we'll choose just one of the layer files for each note to load into the
+sampler. We could choose the loudest layer, or the softest layer, or a random
+layer for each note (although this would lead to uneven loudness when playing
+the sampler with `play-note`).
+
+If the audio files are named according to a meaninful convention, is there a way
+to make use of that? Loading each audio file individually can be pretty
 time-consuming---not to mention error-prone! How do we take a list of files
 (such as the output of `ls` above) and tell our sampler which files to load into
 which slots?
@@ -297,12 +388,8 @@ something like this
 ~~~~
 
 When you call `load-sampler` at the bottom of that code chunk, it should load
-all the 4th velocity layers into bank `0` of the `piano` sampler. The bank
-argument is necessary because each sampler can have multiple sound banks. The
-default bank is bank `0`, so if you don't want to use multiple sound banks just
-load into bank `0` and forget about it.
-
-And finally, to try it out:
+all the 4th velocity layers into bank `0` of the `piano` sampler. Then try it
+out:
 
 ~~~~ xtlang
 (play-note (now) piano (random 40 80) 80 44100)
@@ -312,7 +399,10 @@ Awesome, we've got a piano. Success!
 
 ## Doing cool things with samplers {#doing-cool-things-with-samplers}
 
-There are lots of possibilities at this stage. If you're interested in
-seeing how to make vaguely 'conventional' musical material, then <span
-role="doc">note-level-music</span> is a good place to start. And I'm
-sure you can think of lots of other possibilities—go nuts :)
+There are lots of possibilities at this stage. If you're interested in seeing
+how to make vaguely 'conventional' musical material, then learning about the
+[pattern language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %})
+or [note-level music]({{site.baseurl}}{% link _docs/guides/note-level-music.md
+%}) would be good next steps. And if you'd like to see all this in an example
+code file, see `examples/external/sampler.xtm` and other files in that
+directory.
