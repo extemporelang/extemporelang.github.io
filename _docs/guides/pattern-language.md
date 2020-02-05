@@ -775,7 +775,7 @@ can use e.g. print statements with your special variables like this.
 (:> test-pattern 4 0 (println LC LP @1 @2) '(1 2 3 4) '(10 20 30))
 ```
 
-### I'm so sick of the default chiptune synth sound, how do I change it?
+### I'm so sick of the default chiptune synth sound, how do I change it? {#changing-the-sound}
 
 This is covered in the [sharedsystem tutorial]({{site.baseurl}}{% link
 _docs/guides/sharedsystem.md %}), but if you can load a synth preset with
@@ -822,3 +822,37 @@ So Extempore's pattern language isn't really a
 pseudo-DSL, another example in the long LISP tradition of sneaking DSLs into a
 full-fledged language environment. There are pros and cons to this (of which
 songs have been sung and wars fought) but that's the reason it's the way is is.
+
+### I see `cosr` in a lot of Andrew/Ben's Extempore performances---what's that about? {#what-is-cosr}
+
+`cosr` (and cousins `sinr`, `trir`, `rectr` and `rampr`) are macros which
+provide a beat-based LFO to modulate parameters. For example, to generate a
+series of values centred at 50 which oscillate (sinusoidally) between 30 and 70,
+over a period of 2 beats, you could use the following `cosr`:
+
+```xtlang
+(cosr 50 20 1/2)
+```
+
+`cosr` and friends are macros rather than functions because they rely on the
+`beat` variable being defined in the enclosing environment. The `cosr` example
+above actually expands out to:
+
+```xtlang
+(+ 50 (* 20 (cos (* TWOPI beat 1/2))))
+```
+
+If you use it inside either a pattern (or a [temporal recursion]({% link
+_docs/overview/time.md %}#temporal-recursion)) then this will be fine, because
+`beat` will be defined to be the current beat (as a rational number). If you
+want to use it _outside_ of one of those contexts, make sure that you've bound
+`beat` to a sensible value for your purposes. Otherwise, you'll get an error
+message like:
+
+```
+stack-catch: ()
+eval: unbound variable: beat
+```
+
+As to why there's a trailing `r` on all of the macro names, that knowledge has
+been lost to the mists of time.
