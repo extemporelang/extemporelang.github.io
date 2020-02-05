@@ -11,7 +11,7 @@ broken/don't make sense then [let me know](mailto:ben.swift@anu.edu.au), but
 please be kind until the workshop actually arrives :)
 
 To run these examples you **must** be running an up-to-date version of Extempore
-(`0.8.0` or newer). Binary builds are [available on
+(`0.8.1` or newer). Binary builds are [available on
 GitHub](https://github.com/digego/extempore/releases).
 
 Before we start, make sure you've read at least the [quickstart
@@ -67,7 +67,7 @@ You've just loaded
 
 - three analogue synths (`syn1`, `syn2` and `syn3`)
 - a synth drum kit (`kit`)
-- a piano sampler (`samp1`)
+- a sampler (`samp1`) which is initially loaded with piano samples
 
 Don't worry about how to use them just yet, you'll see how in a minute.
 
@@ -108,7 +108,18 @@ instead]({{site.baseurl}}{% link _docs/guides/sampler.md %}).
 
 ## Configuring & playing the synth {#playing-the-synth}
 
-perhaps start with start sound & stop sound before switching to the PL stuff?
+The "analogue" synth is the real workhorse of the sharedsystem audio signal
+chain. It's an xtlang implementation of a flexible, modular analogue synth.
+
+, so if you're perhaps start with start sound & stop sound before switching
+to the PL stuff?
+
+{:.note-box}
+
+As you've probably figured out, it's not actually an _analogue_ synth, it's
+purely software---you can see (and modify) the source code for the whole
+thing in the `libs/core/instruments/analogue.xtm` file. But it's conceptually
+the same as an a
 
 also, look at analogue_reset in `analogue.xtm` for inspo about which params to
 discuss & explore
@@ -129,6 +140,9 @@ then, a note about the drum synth, and the wavetable synth
 TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
 folks to loop through (e.g. a cover) while they tweak the synth params.
 
-### moar things
+## FAQ
+
+### Why aren't there more presets?
+
 
 
