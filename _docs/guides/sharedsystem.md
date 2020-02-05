@@ -1,14 +1,6 @@
 ---
 title: The sharedsystem
-hidden: true
 ---
-
-{:.note-box}
-This particular guide is under active development for an upcoming [Extempore
-workshop](https://benswift.me/blog/2020/01/28/extempore-workshop-iclc-20-feb-6-limerick-ie/)
-at ICLC '20 (Feb 6). So if there are a couple of bits which are currently
-broken/don't make sense then [let me know](mailto:ben.swift@anu.edu.au), but
-please be kind until the workshop actually arrives :)
 
 To run these examples you **must** be running an up-to-date version of Extempore
 (`0.8.1` or newer). Binary builds are [available on
@@ -106,34 +98,25 @@ well.
 The "analogue" synth is the real workhorse of the sharedsystem audio signal
 chain. It's an xtlang implementation of a flexible, modular analogue synth.
 
-, so if you're perhaps start with start sound & stop sound before switching
-to the PL stuff?
-
 {:.note-box}
 
 As you've probably figured out, it's not actually an _analogue_ synth, it's
-purely software---you can see (and modify) the source code for the whole
-thing in the `libs/core/instruments/analogue.xtm` file. But it's conceptually
-the same as an a
+purely software---you can see (and modify) the source code for the whole thing
+in the `libs/core/instruments/analogue.xtm` file. But it's conceptually the same
+as an analogue modular synth, with multiple oscillators, filters, LFOS, etc.
+Furthermore, the oscillators are designed to faithfully replicate the
+oscillators of an analogue synth; the saw wave has messy "corners", there's slop
+in the oscillator frequency, and lots of other things like that. So that's why
+it's called `analogue`.
 
-also, look at analogue_reset in `analogue.xtm` for inspo about which params to
-discuss & explore
+Since you've already loaded the sharedsystem, you've already got three analogue
+synth instruments (`syn1`, `syn2` and `syn3`) connected and ready to play notes
+on. Each has four oscillators, four LFOs, amplitude & filter envelopes,
+delay/reverb/flange effects, and lots more.
 
-main params
-oscillators
-filters
-other fx
-LFOs
-envelopes
-polyphony
-load/save
-
-other stuff (noise, wavetable)
-
-then, a note about the drum synth, and the wavetable synth
-
-TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
-folks to loop through (e.g. a cover) while they tweak the synth params.
+The next phase of this guide is in the example file
+`examples/sharedsystem/analogue_synth_basics.xtm`, so open that up in your text
+editor. Play around and see what noises you can make 😊
 
 ## Configuring & playing the sampler {#playing-the-sampler}
 
@@ -146,3 +129,27 @@ instead]({{site.baseurl}}{% link _docs/guides/sampler.md %}).
 
 This comes up a bit---it's discussed in the [pattern language FAQ]({% link
 _docs/guides/pattern-language.md %}#changing-the-sound).
+
+### Are there any more example files which are helpful for learning about instruments in Extempore?
+
+Yep, you could have a look at `examples/core/synth.xtm`. In addition, all of the
+covers in `examples/sharedsystem/covers/` use the synth, although in most cases
+they just load a preset (as you've already seen in
+`examples/sharedsystem/audio_synth_basics.xtm`). Finally, the instruments
+themselves are defined in the `.xtm` files in the `libs/core/instruments/`
+folder.
+
+### It feels like the analogue synth can do lots of stuff that isn't well documented.
+
+Well, that's not a question. But it _is_ a fair statement at the moment---although fleshing
+out the analogue synth docs is high on the priority list.
+
+If you don't mind doing a bit of code spelunking, then here are the best places
+to see the full range of configuration options for the analogue synth:
+
+- the "api" is documented in `libs/core/instruments/instrument_params.xtm`
+
+- the analogue instrument itself is in `libs/core/instruments/analogue.xtm`, and
+  while it's pretty dense in the actual implementation part there's a useful
+  function down the bottom of the file (`analogue_reset`) which shows more
+  examples of setting the various analogue synth parameters

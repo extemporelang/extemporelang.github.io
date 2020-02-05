@@ -1,6 +1,5 @@
 ---
 title: Pattern language
-hidden: true
 ---
 
 {:.note-box}
@@ -818,23 +817,6 @@ Currently Extempore ships with the following presets (all in the
 - `pad1.xtmpreset`
 - `piano.xtmpreset`
 
-### The pattern language is so inexpressive---why can't it do _x_?
-
-This section of the guide is down the bottom, but it's probably a question that
-occurred to you earlier---why can't the pattern language do _x_? The answer is
-that it's because Extempore's pattern language is deliberately designed to work
-with regular Scheme lists. You can use all the rest of the Extempore "world"
-inside these patterns---you can pass higher-order functions, you can define and
-call your own library code (as long as it returns lists), you can call
-[xtlang]({{site.baseurl}}{% link _docs/reference/scheme-xtlang-interop.md
-%})---there's nothing you can do in Extmpore that you can't do inside a pattern.
-
-So Extempore's pattern language isn't really a
-[DSL](https://en.wikipedia.org/wiki/Domain-specific_language), it's more of a
-pseudo-DSL, another example in the long LISP tradition of sneaking DSLs into a
-full-fledged language environment. There are pros and cons to this (of which
-songs have been sung and wars fought) but that's the reason it's the way is is.
-
 ### I see `cosr` in a lot of Andrew/Ben's Extempore performances---what's that about? {#what-is-cosr}
 
 `cosr` (and cousins `sinr`, `trir`, `rectr` and `rampr`) are macros which
@@ -868,3 +850,20 @@ eval: unbound variable: beat
 
 As to why there's a trailing `r` on all of the macro names, that knowledge has
 been lost to the mists of time.
+
+### The pattern language is so inexpressive---why can't it do _x_?
+
+This section of the guide is down the bottom, but it's probably a question that
+occurred to you earlier---why can't the pattern language do _x_? The answer is
+that it's because Extempore's pattern language is deliberately designed to work
+with regular Scheme lists. You can use all the rest of the Extempore "world"
+inside these patterns---you can pass higher-order functions, you can define and
+call your own library code (as long as it returns lists), you can call
+[xtlang]({{site.baseurl}}{% link _docs/reference/scheme-xtlang-interop.md
+%})---there's nothing you can do in Extmpore that you can't do inside a pattern.
+
+So Extempore's pattern language isn't really a
+[DSL](https://en.wikipedia.org/wiki/Domain-specific_language), it's more of a
+pseudo-DSL, another example in the long LISP tradition of sneaking DSLs into a
+full-fledged language environment. There are pros and cons to this (of which
+songs have been sung and wars fought) but that's the reason it's the way is is.
