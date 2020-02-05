@@ -3,12 +3,6 @@ title: Pattern language
 ---
 
 {:.note-box}
-This particular guide is under active development for an upcoming [Extempore
-workshop](https://benswift.me/blog/2020/01/28/extempore-workshop-iclc-20-feb-6-limerick-ie/)
-at ICLC '20 (Feb 6). So if there are a couple of bits which are currently
-broken/don't make sense then [let me know](mailto:ben.swift@anu.edu.au), but
-please be kind until the workshop actually arrives :)
-
 To run these examples you **must** be running an up-to-date version of Extempore
 (`0.8.1` or newer). Binary builds are [available on
 GitHub](https://github.com/digego/extempore/releases).

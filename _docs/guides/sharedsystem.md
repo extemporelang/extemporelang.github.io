@@ -2,6 +2,7 @@
 title: The sharedsystem
 ---
 
+{:.note-box}
 To run these examples you **must** be running an up-to-date version of Extempore
 (`0.8.1` or newer). Binary builds are [available on
 GitHub](https://github.com/digego/extempore/releases).
