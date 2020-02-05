@@ -101,11 +101,6 @@ some loops on your samplers & synths (so that you can actually hear them make
 noise). So if you're curious about how that works then check out that guide as
 well.
 
-## Configuring & playing the sampler {#playing-the-sampler}
-
-There's actually a separate guide on the sampler, so just [read that
-instead]({{site.baseurl}}{% link _docs/guides/sampler.md %}).
-
 ## Configuring & playing the synth {#playing-the-synth}
 
 The "analogue" synth is the real workhorse of the sharedsystem audio signal
@@ -140,9 +135,14 @@ then, a note about the drum synth, and the wavetable synth
 TODO: provide some half-decent-sounding (but not _too_ complicated) loops for
 folks to loop through (e.g. a cover) while they tweak the synth params.
 
+## Configuring & playing the sampler {#playing-the-sampler}
+
+There's actually a separate guide on the sampler, so just [read that
+instead]({{site.baseurl}}{% link _docs/guides/sampler.md %}).
+
 ## FAQ
 
 ### Why aren't there more presets?
 
-
-
+This comes up a bit---it's discussed in the [pattern language FAQ]({% link
+_docs/guides/pattern-language.md %}#changing-the-sound).
