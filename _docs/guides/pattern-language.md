@@ -775,6 +775,18 @@ can use e.g. print statements with your special variables like this.
 (:> test-pattern 4 0 (println LC LP @1 @2) '(1 2 3 4) '(10 20 30))
 ```
 
+### I'm bored of my pattern(s), what can I do to make the more interesting?
+
+Here are a few other list-processing functions which come in handy for
+generating pattern lists---try them out and see what they sound like.
+
+- `jumble`: randomize a list, e.g. `(jumble '(1 2 3 4))`
+- `rotate`: cycle elements from the front of the list to the end, or vice versa, e.g. `(rotate '(1 2 3 4) 1)` => `(4 1 2 3)`, `(rotate '(1 2 3 4) -1)` => `(2 3 4 1)`
+- `zip`: interleave two lists, e.g. `(zip '(1 2) '(3 4))` => `(1 3 2 4)`
+- `pedal`: similar to zip, but insert a "pedal point" into a second list , e.g. `(pedal 1 '(2 3))` => `(1 2 1 3)`
+- `take`: get just the first `n` elements of a list, e.g. `(take 2 '(1 2 3 4))` => `(1 2)`
+- `flatten`: flatten a nested list e.g. `(flatten '((1) (2 ((3))) 4))` => `(1 2 3 4)`
+
 ### I'm so sick of the default chiptune synth sound, how do I change it? {#changing-the-sound}
 
 This is covered in the [sharedsystem tutorial]({{site.baseurl}}{% link
