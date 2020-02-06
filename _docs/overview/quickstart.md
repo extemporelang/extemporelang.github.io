@@ -257,12 +257,12 @@ language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %})) of how t
 (sys:load "examples/sharedsystem/setup.xtm")
 
 ;; then, this will trigger an 8-note "ascending scale" loop starting at middle C
-(:> scale 4 0 (play syn1 @1 80 dur) (scale 4 8))
+(:> ascending-scale 4 0 (play syn1 @1 80 dur) (scale 4 8))
 ```
 
 Feel free to play around with (and re-evaluate) some of the parameters in that
-`asc-scale` and try and figure out how it all fits together, and when you want
-to go further check out the [pattern language]({{site.baseurl}}{% link
+`ascending-scale` and try and figure out how it all fits together, and when you
+want to go further check out the [pattern language]({{site.baseurl}}{% link
 _docs/guides/pattern-language.md %}) guide.
 
 ## Beyond "Hello..." {#beyond-hello}
