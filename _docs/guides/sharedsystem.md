@@ -154,3 +154,10 @@ to see the full range of configuration options for the analogue synth:
   while it's pretty dense in the actual implementation part there's a useful
   function down the bottom of the file (`analogue_reset`) which shows more
   examples of setting the various analogue synth parameters
+
+### You mentioned a synth drum kit earlier---where's that at?
+
+The synth drum kit is currently under development---it currently only supports
+kick, snare and HH. However, you can try it out by looking at the
+`examples/sharedsystem/drum_synth_basics.xtm` example file, or even look at the
+implementation of the drum synth in `libs/core/instruments/dlogue.xtm`.
