@@ -7,15 +7,8 @@ A sampler is an instrument which stores chunks of audio which can be
 providing digital simulations of acoustic instruments (e.g. a piano sampler
 which plays recorded samples of a *real* piano when triggered by messages from a
 MIDI keyboard) or they can be used to play and manipulate non-acoustic sounds.
-
 Since samplers are so useful, Extempore provides a built-in sampler in
-`libs/external/instruments_ext.xtm`. This sampler basically works like any other
-Extempore instrument, except that the note kernel closure is already set up for
-you---you just have to load the sampler with sound files. There is also a slight
-difference in the way we set a sampler up: using the Scheme macro
-`make-instrument`. The Extempore sampler is still an xtlang closure, and can be
-used in all the same situations (e.g. as the `inst` argument to `play-note` or
-`play`) as an instrument can.
+`libs/external/instruments_ext.xtm`.
 
 ## Samplers 101 {#samplers-101}
 
@@ -50,17 +43,17 @@ The Extempore sampler doesn't *have* to be full---there can be empty slots.
 
 ![image](/images/sampler/piano-gaps.png)
 
-In this situation, when the sampler gets a `play-note` message corresponding to
-an empty slot, looks for the closest 'filled' slot, grabs that audio data, and
-linearly pitch-shifts it to play at the required pitch.
+In this situation, when the sampler is told to play a pitch value corresponding
+to an empty slot, looks for the closest 'filled' slot, grabs that audio data,
+and linearly pitch-shifts it to play at the required pitch.
 
-For example, say a message came in to play sample `72` (one octave above middle
-C). If the closest filled slot was middle C (slot `60`), then the sampler would
-play the middle C audio file pitch-shifted up one octave. If you've ever looked
-into the maths behind musical notes, you'll know that for every octave increase
-in pitch, the frequency of the waveform doubles. So, to play a sample *up an
-octave*, we play it back at double speed. In practice, because the audio sample
-rate is constant, we only play every second sample, which has the same
+For example, say the sampler is told to play sample `72` (one octave above
+middle C). If the closest filled slot was middle C (slot `60`), then the sampler
+would play the middle C audio file pitch-shifted up one octave. If you've ever
+looked into the maths behind musical notes, you'll know that for every octave
+increase in pitch, the frequency of the waveform doubles. So, to play a sample
+*up an octave*, we play it back at double speed. In practice, because the audio
+sample rate is constant, we only play every second sample, which has the same
 effect---we're progressing through the audio data twice as fast. This is the
 same reason that when you hit fast-forward on a tape player (do people still
 remember tape players) while it's playing then you get a hilarious chipmunk
