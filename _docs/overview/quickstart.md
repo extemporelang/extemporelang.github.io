@@ -193,13 +193,16 @@ One "gotcha" if you're new to this sort of thing is the difference between the
 _return value_ of a function and any _side effects_ that it triggers. In the
 above example, the "Hello, World!" which you saw in the terminal is a side
 effect (making a sound through the speakers would be a side effect as well). The
-actual return value of the `println` function is the value "true" (which looks
-like `#t` in Extempore). This is just a quickstart, so we won't go down the
-rabbit hole, but one rule of thumb is that when you're evaluating Extempore code
-that if you call a print function (e.g. `println`) it will show up in the
-terminal, while the _return value_ of the function will be shown (temporarily)
-at the bottom of your VSCode window like so (notice the little white `#t` on the
-blue background---I've added an orange arrow to point it out).
+actual return value of the `println` function is the value "true" (which is
+represented as `#t` in Extempore).
+
+This is just a quickstart, so we won't go down the rabbit hole, but the rule of
+thumb is that when you call a print function (e.g. `println`)
+
+- the printed output will show up in the terminal
+- the _return value_ of the function will be shown (temporarily) at the bottom
+  of your VSCode window like so (notice the little white `#t` on the blue
+  background---I've added an orange arrow to point it out).
 
 ![Extempore return value as shown in VSCode]({{site.baseurl}}{% link images/vscode-hello-world-echo-area.png %})
 
@@ -265,6 +268,6 @@ _docs/guides/pattern-language.md %}) guide.
 ## Beyond "Hello..." {#beyond-hello}
 
 These simple code examples gloss over some subtleties of what's going on. But
-hey, if you've managed to get started quickly(ish), then this _Quickstart_page
-has done its job. To understand the subtleties, well, that's what the rest of the
-documentation is for 😊
+hey, if you've managed to get started quickly(ish), then this _Quickstart_ page
+has done its job. To understand the subtleties, well, that's what the rest of
+the documentation is for 😊
