@@ -22,6 +22,7 @@
   docs:
   - guides/install
   - guides/editor-support
+  - guides/pattern-language
   - guides/audio-signal-processing
   - guides/audio-file-io
   - guides/making-an-instrument
