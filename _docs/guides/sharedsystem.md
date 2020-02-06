@@ -84,8 +84,8 @@ go deeper.
 
 The interface for configuring the synths and the samplers is a bit different, so
 we'll look a them individually. Like all things in music-making, different folks
-want to explore different things, so if you don't care about samplers at all
-then you can skip straight to the [synths](#playing-the-synth) part (or vice
+want to explore different things, so if you don't care about synths at all then
+you can skip straight to the [sampler](#playing-the-sampler) part (or vice
 versa).
 
 Finally, as mentioned earlier this guide will use the [pattern
@@ -142,8 +142,8 @@ folder.
 
 ### It feels like the analogue synth can do lots of stuff that isn't well documented.
 
-Well, that's not a question. But it _is_ a fair statement at the moment---although fleshing
-out the analogue synth docs is high on the priority list.
+Well, that's not a question. But it _is_ a fair statement at the
+moment---fleshing out the analogue synth docs is high on the priority list.
 
 If you don't mind doing a bit of code spelunking, then here are the best places
 to see the full range of configuration options for the analogue synth:
