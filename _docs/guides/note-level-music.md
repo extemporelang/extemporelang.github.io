@@ -5,7 +5,10 @@ title: Note-level music
 This guide covers the basics of how to play instruments at a "note-level" (e.g.
 play the G above middle C for 2 beats) in Extempore. If you're satisfied with
 just playing Extempore's built-in instruments (which can be found in
-`libs/core/instruments.xtm`) then you can just start at this guide.
+`libs/core/instruments.xtm`) then you can just start at this guide. Finally,
+this guide complements the [pattern language]({{site.baseurl}}{% link
+_docs/guides/pattern-language.md %}) one (an alternate way of triggering notes,
+loops & patterns) and you can mix and match both approaches.
 
 ## Setting up an instrument {#setting-up-an-instrument}
 
