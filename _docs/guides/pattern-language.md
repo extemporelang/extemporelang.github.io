@@ -861,3 +861,12 @@ So Extempore's pattern language isn't really a
 pseudo-DSL, another example in the long LISP tradition of sneaking DSLs into a
 full-fledged language environment. There are pros and cons to this (of which
 songs have been sung and wars fought) but that's the reason it's the way is is.
+
+### How can I learn Scheme properly?
+
+There are lots of good (free) online resources for learning Scheme. One good
+option is _The Scheme Programming Language_ by R. Kent Dybvig, which is [freely
+available online](https://www.scheme.com/tspl4/). You could also work through
+the famous _Structure and Interpretation of Computer Programs, by Abelson,
+Sussman, and Sussman_ (often referred to as SICP), again [freely available
+online](https://mitpress.mit.edu/sites/default/files/sicp/full-text/book/book.html).
