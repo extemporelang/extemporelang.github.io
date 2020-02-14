@@ -47,16 +47,16 @@ manual setup stuff to get it working).
 
 | command                                                         | keybinding                                                                                                                                                   |
 |-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `switch-to-extempore` (or start Extermpore if it's not running) | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>Z</kbd>                                                                  |
-| `extempore-connect-or-disconnect` ()                            | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>J</kbd>                                                                  |
-| `extempore-send-definition` (to evaluate current sexp)          | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> or <kbd class="nopretty">ctrl</kbd>+<kbd>META</kbd>+<kbd>X</kbd> |
-| `extempore-send-region`                                         | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>R</kbd>                                                                  |
-| `extempore-send-buffer`                                         | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>B</kbd>                                                                  |
+| `switch-to-extempore` (or start Extermpore if it's not running) | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>Z</kbd>                                                                  |
+| `extempore-connect-or-disconnect` ()                            | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>J</kbd>                                                                  |
+| `extempore-send-definition` (to evaluate current sexp)          | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> or <kbd class="nopretty">CTRL</kbd>+<kbd>META</kbd>+<kbd>X</kbd> |
+| `extempore-send-region`                                         | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>R</kbd>                                                                  |
+| `extempore-send-buffer`                                         | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>B</kbd>                                                                  |
 |                                                                 |                                                                                                                                                              |
 
 To restart the Extempore process, just <kbd
-class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd
-class="nopretty">ctrl</kbd>+<kbd>C</kbd> in the `*extempore*` buffer where
+class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd
+class="nopretty">CTRL</kbd>+<kbd>C</kbd> in the `*extempore*` buffer where
 `extempore` is running to kill it, then start it up again with
 `switch-to-extempore`.
 

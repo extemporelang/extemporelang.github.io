@@ -57,7 +57,7 @@ device anyway---so unless you're having trouble with your audio you can probably
 skip straight to [step 1](#step-1).
 
 Open a terminal (conveniently, VSCode has a built-in terminal which you can
-bring up with <kbd class="nopretty">ctrl</kbd>+<kbd>`</kbd>) and `cd` into your
+bring up with <kbd class="nopretty">CTRL</kbd>+<kbd>`</kbd>) and `cd` into your
 extempore folder. If you open the Extmpore folder in VSCode (`File > Open` or
 <kbd>ctrl</kbd> +<kbd>O</kbd>) then when you open the terminal it'll already be
 in the correct directory.
@@ -93,7 +93,7 @@ extempore --device-name "MacBook Pro Speakers"
 
 If you didn't do it already in the [previous step](#step-0), open a terminal
 (conveniently, VSCode has a built-in terminal which you can bring up with <kbd
-class="nopretty">ctrl</kbd>+<kbd>`</kbd>) and `cd` into your extempore folder.
+class="nopretty">CTRL</kbd>+<kbd>`</kbd>) and `cd` into your extempore folder.
 If you open the Extmpore folder in VSCode (`File > Open` or
 <kbd>ctrl</kbd>+<kbd>O</kbd>) then when you open the terminal it'll already be
 in the correct directory.
