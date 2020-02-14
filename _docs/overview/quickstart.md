@@ -57,14 +57,15 @@ device anyway---so unless you're having trouble with your audio you can probably
 skip straight to [step 1](#step-1).
 
 Open a terminal (conveniently, VSCode has a built-in terminal which you can
-bring up with `ctrl`+`` ` ``) and `cd` into your extempore folder. If you open
-the Extmpore folder in VSCode (`File > Open` or `cmd`+`O`/`ctrl`+`O`) then when
-you open the terminal it'll already be in the correct directory.
+bring up with <kbd class="nopretty">ctrl</kbd>+<kbd>`</kbd>) and `cd` into your
+extempore folder. If you open the Extmpore folder in VSCode (`File > Open` or
+<kbd>ctrl</kbd> +<kbd>O</kbd>) then when you open the terminal it'll already be
+in the correct directory.
 
 To print the list of audio devices that Extempore can "see", type the command
 `extempore --print-devices` (or `extempore.exe --print-devices` if you're on
-Windows) and hit `enter`. On my machine right now it says this, but yours will
-(almost certainly) be different.
+Windows) and hit <kbd>return</kbd>. On my machine right now it says this, but
+yours will (almost certainly) be different.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="color: #7E8A90; background-color: #444155;">-----Available Audio Devices-----------------------------
@@ -91,14 +92,15 @@ extempore --device-name "MacBook Pro Speakers"
 ### Step 1: start Extempore {#step-1}
 
 If you didn't do it already in the [previous step](#step-0), open a terminal
-(conveniently, VSCode has a built-in terminal which you can bring up with
-`ctrl`+`` ` ``) and `cd` into your extempore folder. If you open the Extmpore
-folder in VSCode (`File > Open` or `cmd`+`O`/`ctrl`+`O`) then when you open the
-terminal it'll already be in the correct directory.
+(conveniently, VSCode has a built-in terminal which you can bring up with <kbd
+class="nopretty">ctrl</kbd>+<kbd>`</kbd>) and `cd` into your extempore folder.
+If you open the Extmpore folder in VSCode (`File > Open` or
+<kbd>ctrl</kbd>+<kbd>O</kbd>) then when you open the terminal it'll already be
+in the correct directory.
 
 To start Extempore, type the command `extempore` (or `extempore.exe` if you're
-on Windows) and hit `enter`. If you see something like this, everything's
-working---nice one.
+on Windows) and hit <kbd>return</kbd>. If you see something like this,
+everything's working---nice one.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="color: #7E8A90; background-color: #444155;">------------- Extempore --------------
@@ -140,10 +142,11 @@ running Extempore session.
 
 In VSCode, you do this with the _Extempore Connect_ command. The main way to do
 things in VSCode is through the "command palette", which you can open up with
-`ctrl`+`shift`+`P`, or `cmd`+`shift`+`P` if you're on macOS (or through the menu
-`View > Command Palette...`). Type in a few characters of "Extempore Connect"
-until it shows up, then hit `enter`. You'll be asked to specify a hostname &
-port---the defaults are probably ok, so you can just hit `enter` two more times.
+<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
+Command Palette...`). Type in a few characters of "Extempore Connect" until it
+shows up, then hit <kbd>return</kbd>. You'll be asked to specify a hostname &
+port---the defaults are probably ok, so you can just hit <kbd>return</kbd> two
+more times.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
@@ -161,9 +164,9 @@ almost there.
 ### Step 3: evaluate some code {#step-3}
 
 To evaluate some code, move your cursor into a particular bit of code and hit
-`ctrl`+`enter` (again, `cmd`+`enter` on macOS). The code should flash orange,
-and you should see/hear the results (assuming that the code actually made some
-noise or printed the result somewhere).
+<kbd>ctrl</kbd>+<kbd>return</kbd>. The code should flash orange, and you should
+see/hear the results (assuming that the code actually made some noise or printed
+the result somewhere).
 
 As a quick test, try and evaluate something like:
 
@@ -210,10 +213,10 @@ thumb is that when you call a print function (e.g. `println`)
 
 ### Step 4: stopping Extempore
 
-If you want to stop the Extempore process, just `ctrl`+`c` in the terminal where
-`extempore` is running to kill it. If you want to start it up again, then go
-back to [step 1](#step-1) (you'll have to re-connect VSCode to the new Extempore
-process again as well).
+If you want to stop the Extempore process, just <kbd>ctrl</kbd>+<kbd>c</kbd> in
+the terminal where `extempore` is running to kill it. If you want to start it up
+again, then go back to [step 1](#step-1) (you'll have to re-connect VSCode to
+the new Extempore process again as well).
 
 ## Simple examples
 

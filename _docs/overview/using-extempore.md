@@ -83,13 +83,12 @@ Now that we have
 -   an Extempore (editor) plugin loaded
 -   the `extempore` process still running
 
-we can open up the TCP connection. In Emacs, this is done with `M-x
-extempore-connect`. In VSCode, it's `cmd+enter` (macOS)/`ctrl+enter`
-(Win/Linux). In Atom, with `Alt+O`. 
-In ST2, use the menu item `Tools > Extempore > Connect...`. 
-The default host and port arguments will be `localhost` and
-`7099` respectively. If the connection is made successfully, then Extempore will
-echo back the string "Welcome to extempore!".
+we can open up the TCP connection. In Emacs, this is done with <kbd>M-x</kbd>
+`extempore-connect`. In VSCode, it's <kbd>ctrl</kbd>+<kbd>return</kbd>. In Atom,
+with <kbd>alt</kbd>+<kbd>O</kbd>. In ST2, use the menu item `Tools > Extempore >
+Connect...`. The default host and port arguments will be `localhost` and `7099`
+respectively. If the connection is made successfully, then Extempore will echo
+back the string "Welcome to extempore!".
 
 ## Evaluating code {#evaluating-code}
 
@@ -101,10 +100,12 @@ with some basic Scheme arithmetic. If you're playing along, you can write `(+ 1
 This is where the 'Compiler as a Service' (CaaS) thing starts to get real.
 Currently, the code `(+ 1 2)` is just text sitting in your editor. It won't get
 compiled until you send it for evaluation. The easiest way to do this is to move
-your cursor somewhere inside the code `(+ 1 2)` and hit `cmd/ctrl+enter` (in
-VSCode) or `C-M-x` (in Emacs). In ST2, you have to highlight the code you want
-to evaluate and hit `Ctrl+e`. This takes the whole expression `(+ 1 2)` and
-sends it (as a string) to the running `extempore` compiler.
+your cursor somewhere inside the code `(+ 1 2)` and hit
+<kbd>ctrl</kbd>+<kbd>return</kbd> (in VSCode) or
+<kbd>C</kbd>-<kbd>M</kbd>-<kbd>x</kbd> (in Emacs). In ST2, you have to highlight
+the code you want to evaluate and hit <kbd>Ctrl</kbd>+<kbd>E</kbd>. This takes
+the whole expression `(+ 1 2)` and sends it (as a string) to the running
+`extempore` compiler.
 
 ![image](/images/interacting-with-compiler/scheme-eval.png)
 
@@ -115,8 +116,7 @@ Nothing is printed in the terminal where `extempore` is running.
 Congratulations---you've just evaluated your first Extempore code!
 
 We can write some more code to `bind-val` a global variable `myPI`, which is an
-xtlang global variable of type `double`. If you evaluate this with `Alt+S` or
-`C-M-x` (or whatever the command is in your editor) then what happens is
+xtlang global variable of type `double`. If you evaluate this what happens is
 
 ![image](/images/interacting-with-compiler/xtlang-eval-1.png)
 

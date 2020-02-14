@@ -20,9 +20,11 @@ to as just **VSCode**, is a cross-platform text editor from Microsoft. For a
 general introduction to VSCode, check out the excellent
 [docs](https://code.visualstudio.com/docs).
 
-The VSCode setup instructions are actually listed in the [quickstart]({% link
-_docs/overview/quickstart.md %}#editor-setup) guide already, so you should head
-over there and get started.
+VSCode has an [Extempore
+extension](https://github.com/extemporelang/vscode-extempore), so it knows how
+to work with Extempore code. The VSCode setup instructions are actually listed
+in the [quickstart]({% link _docs/overview/quickstart.md %}#editor-setup) guide
+already, so you should head over there and get started.
 
 ## Emacs {#emacs}
 
@@ -43,16 +45,19 @@ layer](https://github.com/benswift/.dotfiles/blob/master/spacemacs-layers/extemp
 layer repo or however that works, so you'll need to do a bit of downloading &
 manual setup stuff to get it working).
 
-| command                                                         | keybinding             |
-|-----------------------------------------------------------------|------------------------|
-| `switch-to-extempore` (or start Extermpore if it's not running) | `C-c` `C-z`            |
-| `extempore-connect-or-disconnect` ()                            | `C-c` `C-j`            |
-| `extempore-send-definition` (to evaluate current sexp)          | `C-c` `C-c` or `C-M-x` |
-| `extempore-send-region`                                         | `C-c` `C-r`            |
-| `extempore-send-buffer`                                         | `C-c` `C-b`            |
+| command                                                         | keybinding                                                                                                                                                   |
+|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `switch-to-extempore` (or start Extermpore if it's not running) | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>Z</kbd>                                                                  |
+| `extempore-connect-or-disconnect` ()                            | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>J</kbd>                                                                  |
+| `extempore-send-definition` (to evaluate current sexp)          | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> or <kbd class="nopretty">ctrl</kbd>+<kbd>META</kbd>+<kbd>X</kbd> |
+| `extempore-send-region`                                         | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>R</kbd>                                                                  |
+| `extempore-send-buffer`                                         | <kbd class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd class="nopretty">ctrl</kbd>+<kbd>B</kbd>                                                                  |
+|                                                                 |                                                                                                                                                              |
 
-To restart the Extempore process, just `C-c` `C-c` in the `*extempore*` buffer
-where `extempore` is running to kill it, then start it up again with
+To restart the Extempore process, just <kbd
+class="nopretty">ctrl</kbd>+<kbd>C</kbd> <kbd
+class="nopretty">ctrl</kbd>+<kbd>C</kbd> in the `*extempore*` buffer where
+`extempore` is running to kill it, then start it up again with
 `switch-to-extempore`.
 
 ## Atom {#atom}
@@ -60,11 +65,11 @@ where `extempore` is running to kill it, then start it up again with
 Extempore's [Atom](https://atom.io) package is available from
 [GitHub](https://github.com/noiach/extempore-atom).
 
-| command                | keybinding |
-|------------------------|------------|
-| `Extempore Connect`    | `alt`+`O`  |
-| `Extempore Disconnect` | `alt`+`X`  |
-| `Extempore Evaluate`   | `alt`+`S`  |
+| command                | keybinding                  |
+|------------------------|-----------------------------|
+| `Extempore Connect`    | <kbd>ALT</kbd>+<kbd>O</kbd> |
+| `Extempore Disconnect` | <kbd>ALT</kbd>+<kbd>X</kbd> |
+| `Extempore Evaluate`   | <kbd>ALT</kbd>+<kbd>S</kbd> |
 
 ## Sublime Text {#sublime-text}
 
@@ -90,11 +95,11 @@ by Tim Burgess.
 
 | command                           | keybinding    |
 |-----------------------------------|---------------|
-| open connection to Extempore      | `<Leader>``o` |
-| close connection to Extempore     | `<Leader>``x` |
-| send enclosing block to Extempore | `<Leader>``w` |
-| send selection to Extempore       | `<Leader>``s` |
-| send entire file to Extempore     | `<Leader>``a` |
+| open connection to Extempore      | <kbd>LEADER</kbd><kbd>o</kbd> |
+| close connection to Extempore     | <kbd>LEADER</kbd><kbd>x</kbd> |
+| send enclosing block to Extempore | <kbd>LEADER</kbd><kbd>w</kbd> |
+| send selection to Extempore       | <kbd>LEADER</kbd><kbd>s</kbd> |
+| send entire file to Extempore     | <kbd>LEADER</kbd><kbd>a</kbd> |
 
 The vim mode doesn't yet support multiple connections or user-specified
 host/port, but pull requests are welcome.
