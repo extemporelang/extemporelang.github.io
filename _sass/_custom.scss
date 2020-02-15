@@ -34,8 +34,8 @@ $extensionColour: #9b59b6;
     @include lab-content-box("note", $noteColour);
     background: lighten($noteColour, 25%);
 }
-.help-wanted-box {
-    @include lab-content-box("help wanted", $helpWantedColour);
+.non-vscode-box {
+    @include lab-content-box("non-VSCode users", $helpWantedColour);
     background: lighten($helpWantedColour, 30%);
 }
 .future-box {
