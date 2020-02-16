@@ -2,6 +2,9 @@
 title: VSCode Quickstart
 ---
 
+- TOC
+{:toc}
+
 Welcome, Extempore traveller. If you don't have a favourite text editor or don't
 usually [build things from source]({{site.baseurl}}{% link
 _docs/guides/install.md %}) (or don't know what those things even _mean_) then
