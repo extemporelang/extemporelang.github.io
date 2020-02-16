@@ -105,12 +105,14 @@ $extensionColour: #9b59b6;
 
 // because we're now using these for keyboard shortcuts
 kbd {
+	// size & shape
+	font-size: 0.95em;
+	padding: 0.1em 0.15em;
+	border-radius: 0.2em;
+	// colours
 	color: #222;
-	background: #eee;
 	border: 1px solid #666;
-	border-radius: 4px;
-	box-shadow: 2px 2px #888;
-	padding: 3px 5px;
-	margin: 2px;
+	box-shadow: 0.15em 0.15em #888;
+	background: #eee;
 	text-decoration: none;
 }
