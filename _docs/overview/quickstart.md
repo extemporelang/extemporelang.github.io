@@ -29,8 +29,8 @@ it and put it wherever you like (e.g. in your _Documents_ folder).
 
 **VSCode** (a.k.a. Visual Studio Code) is freely available on all the operating
 systems that Extempore runs on (macOS, Windows & Linux). To install VSCode, go
-to the [homepage](https://code.visualstudio.com/) and hit the big green
-"Download" button.
+to the [homepage](https://code.visualstudio.com/) and hit the big "Download"
+button (you can't miss it).
 
 Once you've installed VSCode, you need to install the [VSCode Extempore
 extension](https://github.com/extemporelang/vscode-extempore)---this tells
