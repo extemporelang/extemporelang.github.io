@@ -1,5 +1,5 @@
 ---
-title: Install
+title: Building Extempore from Source
 ---
 
 When we talk about *installing* extempore, we mean:

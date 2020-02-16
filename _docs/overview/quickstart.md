@@ -1,48 +1,38 @@
 ---
-title: Quickstart
+title: VSCode Quickstart
 ---
 
-{:.note-box}
-I get it, you're impatient. Here's the bare minimum required to get from zero
-to running Extempore code 😊
+Welcome, Extempore traveller. If you don't have a favourite text editor or don't
+usually [build things from source]({{site.baseurl}}{% link
+_docs/guides/install.md %}) (or don't know what those things even _mean_) then
+these instructions will get you up & running asap.
+
+{:.non-vscode-box}
+
+If you'd prefer to use another editor (e.g. Emacs, Atom, ST, Vim) then that's
+fine as well---these boxes will explain how your setup process will be
+different.
 
 ## Setup
 
 Here's the stuff you only need to do once.
 
-### Download or build Extempore
+### Download Extempore
 
-The quickest way to get started is to download a [binary
-release](https://github.com/digego/extempore/releases), unzip it and run
-`extempore.exe` from inside the `extempore` folder.
+Download a [binary release](https://github.com/digego/extempore/releases), unzip
+it and put it wherever you like (e.g. in your _Documents_ folder).
 
-If you're more of a build-from-source type, then [that's pretty easy as
-well]({{site.baseurl}}{% link _docs/guides/install.md %}).
+### Download & set up VSCode {#editor-setup}
 
-### Set up a text editor {#editor-setup}
+**VSCode** (a.k.a. Visual Studio Code) is freely available on all the operating
+systems that Extempore runs on (macOS, Windows & Linux). To install VSCode, go
+to the [homepage](https://code.visualstudio.com/) and hit the big green
+"Download" button.
 
-To write Extempore code you need a text editor, and there are Extempore
-"plugins" for [several text editors]({{site.baseurl}}{% link
-_docs/guides/editor-support.md %})---VSCode, Emacs, Sublime Text and Vim. If you
-don't have a favourite text editor, then [**VSCode**]({% link
-_docs/guides/editor-support.md %}#vscode) **is probably a good choice**---it's
-free, available on all platforms and doesn't have as steep a learning curve as
-some other editors.
-
-To install VSCode, go to the [Visual Studio Code
-homepage](https://code.visualstudio.com/) and hit the big green "Download"
-button. Once you've got it up and running, you need to install the [VSCode
-Extempore extension](https://github.com/extemporelang/vscode-extempore)---this
-tells VSCode how to deal with Extempore code. Install it through the Extensions
-view (`View > Extensions`) and search for "Extempore".
-
-For the rest of this quickstart guide we'll occasionally give specific tips
-(e.g. keyboard shortcuts) for VSCode users. If you're using one of the [other
-editors with Extempore support]({{site.baseurl}}{% link
-_docs/guides/editor-support.md %}) the concepts are the same, but e.g. the names
-of the commands or the keyboard shortcuts might be different---I'm sure you'll
-manage 😉, and you can find the specific details for your editor in the [editor
-support guide]({{site.baseurl}}{% link _docs/guides/editor-support.md %}).
+Once you've installed VSCode, you need to install the [VSCode Extempore
+extension](https://github.com/extemporelang/vscode-extempore)---this tells
+VSCode how to deal with Extempore code. Install it through the Extensions view
+(`View > Extensions`) and search for "Extempore".
 
 ## Using Extempore {#using-extempore}
 
@@ -62,8 +52,13 @@ extempore folder. If you open the Extmpore folder in VSCode (`File > Open` or
 <kbd>ctrl</kbd> +<kbd>O</kbd>) then when you open the terminal it'll already be
 in the correct directory.
 
+{:.non-vscode-box}
+
+If you're using a different editor you won't have VSCode's built-in terminal,
+but you probably know how to open a terminal some other way.
+
 To print the list of audio devices that Extempore can "see", type the command
-`extempore --print-devices` (or `extempore.exe --print-devices` if you're on
+`./extempore --print-devices` (or `./extempore.exe --print-devices` if you're on
 Windows) and hit <kbd>return</kbd>. On my machine right now it says this, but
 yours will (almost certainly) be different.
 
@@ -98,8 +93,8 @@ If you open the Extmpore folder in VSCode (`File > Open` or
 <kbd>ctrl</kbd>+<kbd>O</kbd>) then when you open the terminal it'll already be
 in the correct directory.
 
-To start Extempore, type the command `extempore` (or `extempore.exe` if you're
-on Windows) and hit <kbd>return</kbd>. If you see something like this,
+To start Extempore, type the command `./extempore` (or `./extempore.exe` if
+you're on Windows) and hit <kbd>return</kbd>. If you see something like this,
 everything's working---nice one.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
@@ -144,9 +139,7 @@ In VSCode, you do this with the _Extempore Connect_ command. The main way to do
 things in VSCode is through the "command palette", which you can open up with
 <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
 Command Palette...`). Type in a few characters of "Extempore Connect" until it
-shows up, then hit <kbd>return</kbd>. You'll be asked to specify a hostname &
-port---the defaults are probably ok, so you can just hit <kbd>return</kbd> two
-more times.
+shows up, then hit <kbd>return</kbd>.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
@@ -160,6 +153,13 @@ Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase<
 If everything's gone to plan, you'll see one more "New Client Connection"
 message at the very bottom of the terminal (as shown). Congrats, you're connected... and
 almost there.
+
+{:.non-vscode-box}
+
+If you're not using VSCode, all the concepts are the same, but the names of the
+commands or the keyboard shortcuts might be different---I'm sure you'll manage
+😉, and you can find the specific details for your editor in the [editor support
+guide]({{site.baseurl}}{% link _docs/guides/editor-support.md %}).
 
 ### Step 3: evaluate some code {#step-3}
 
