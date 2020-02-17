@@ -56,64 +56,13 @@ for you (as we'll see in the next step).
 
 Here's the stuff you need to do every time you want to work with Extempore.
 
-### Step 0: check your audio devices {#step-0}
-
-{:.note-box}
-
-This step is optional---most of the time Extempore will guess the correct audio
-device anyway---so unless you're having trouble with your audio you can probably
-skip straight to [step 1](#step-1).
-
-Open a terminal (conveniently, VSCode has a built-in terminal which you can
-bring up with <kbd class="nopretty">CTRL</kbd>+<kbd>`</kbd>) and `cd` into your
-extempore folder. If you open the Extmpore folder in VSCode (`File > Open` or
-<kbd>ctrl</kbd> +<kbd>O</kbd>) then when you open the terminal it'll already be
-in the correct directory.
-
-{:.non-vscode-box}
-
-If you're using a different editor you won't have VSCode's built-in terminal,
-but you probably know how to open a terminal some other way.
-
-To print the list of audio devices that Extempore can "see", type the command
-`./extempore --print-devices` (or `./extempore.exe --print-devices` if you're on
-Windows) and hit <kbd>return</kbd>. On my machine right now it says this, but
-yours will (almost certainly) be different.
-
-<pre style="color: #b2b2b2; background-color: #292b2e;">
-<span style="color: #7E8A90; background-color: #444155;">-----Available Audio Devices-----------------------------
-</span><span style="background-color: #444155;">audio device[0]:DisplayPort api[0]:Core Audio inchan[0] outchan[2]
-audio device[1]:HD Webcam C615 api[0]:Core Audio inchan[1] outchan[0]
-audio device[2]:MacBook Pro Microphone api[0]:Core Audio inchan[1] outchan[0]
-audio device[3]:MacBook Pro Speakers api[0]:Core Audio inchan[0] outchan[2]
-</span><span style="color: #7E8A90; background-color: #444155;">----------------------------------------------------------
-
-</span><span style="background-color: #444155;">
-Process extempore finished
-</span></pre>
-
-If you do want Extempore to use a particular audio device, you can pass either
-the device index or the device name through an additional option. For example,
-if you want Extempore to use the _MacBook Pro Speakers_, either of these would
-work (again, remember to use `extempore.exe` if you're on Windows):
-
-```
-extempore --device 3
-extempore --device-name "MacBook Pro Speakers"
-```
-
 ### Step 1: start Extempore {#step-1}
 
-If you didn't do it already in the [previous step](#step-0), open a terminal
-(conveniently, VSCode has a built-in terminal which you can bring up with <kbd
-class="nopretty">CTRL</kbd>+<kbd>`</kbd>) and `cd` into your extempore folder.
-If you open the Extmpore folder in VSCode (`File > Open` or
-<kbd>ctrl</kbd>+<kbd>O</kbd>) then when you open the terminal it'll already be
-in the correct directory.
-
-To start Extempore, type the command `./extempore` (or `./extempore.exe` if
-you're on Windows) and hit <kbd>return</kbd>. If you see something like this,
-everything's working---nice one.
+You can start Extempore using the _Extempore: Start_ command. It'll open up a
+terminal (VSCode has a built-in terminal which you can bring up with <kbd
+class="nopretty">CTRL</kbd>+<kbd>`</kbd>), `cd` into your extempore folder, and
+start the Extempore running. If you see something like this, everything's
+working---nice one.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="color: #7E8A90; background-color: #444155;">------------- Extempore --------------
@@ -147,19 +96,17 @@ Trying to connect to 'localhost' on port 7099
 Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase</span><span style="color: #7E8A90; background-color: #444155;"> library... </span><span style="color: #ADCF44; background-color: #444155;">done</span><span style="color: #7E8A90; background-color: #444155;"> in 1.505913 seconds
 </span></pre>
 
+If you can't (or don't want to) start Extempore using the _Extempore: Start_
+VSCode command, then open a terminal in your Extempore directory and type
+`./extempore` (or `./extempore.exe` if you're on Windows) and hit
+<kbd>return</kbd>.
+
 ### Step 2: connect your text editor
 
 Extempore is now just sitting waiting for you to tell it what code to execute.
 Before you can do this, you first need to connect your text editor to the
-running Extempore session.
-
-In VSCode, you do this with the _Extempore Connect_ command.
-
-The main way to do
-things in VSCode is through the "command palette", which you can open up with
-<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
-Command Palette...`). Type in a few characters of "Extempore Connect" until it
-shows up, then hit <kbd>return</kbd>.
+running Extempore session. In VSCode, you do this with the _Extempore Connect_
+command.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
@@ -171,15 +118,16 @@ Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase<
 </span></pre>
 
 If everything's gone to plan, you'll see one more "New Client Connection"
-message at the very bottom of the terminal (as shown). Congrats, you're connected... and
-almost there.
+message at the very bottom of the terminal (as shown). Congrats, you're
+connected... and almost there.
 
 {:.non-vscode-box}
 
-If you're not using VSCode, all the concepts are the same, but the names of the
-commands or the keyboard shortcuts might be different---I'm sure you'll manage
-😉, and you can find the specific details for your editor in the [editor support
-guide]({{site.baseurl}}{% link _docs/guides/editor-support.md %}).
+Remember, if you're not using VSCode, all the concepts are the same, but the
+names of the commands or the keyboard shortcuts might be different---I'm sure
+you'll manage 😉, and you can find the specific details for your editor in the
+[editor support guide]({{site.baseurl}}{% link _docs/guides/editor-support.md
+%}).
 
 ### Step 3: evaluate some code {#step-3}
 
@@ -237,6 +185,41 @@ If you want to stop the Extempore process, just <kbd>ctrl</kbd>+<kbd>c</kbd> in
 the terminal where `extempore` is running to kill it. If you want to start it up
 again, then go back to [step 1](#step-1) (you'll have to re-connect VSCode to
 the new Extempore process again as well).
+
+### Troubleshooting: check your audio devices
+
+{:.note-box}
+
+This step is optional---most of the time Extempore will guess the correct audio
+device anyway---so unless you're having trouble with your audio you can probably
+skip straight to [step 1](#step-1).
+
+To print the list of audio devices that Extempore can "see", open a terminal and
+type the command `./extempore --print-devices` (or `./extempore.exe
+--print-devices` if you're on Windows) and hit <kbd>return</kbd>. On my machine
+right now it says this, but yours will (almost certainly) be different.
+
+<pre style="color: #b2b2b2; background-color: #292b2e;">
+<span style="color: #7E8A90; background-color: #444155;">-----Available Audio Devices-----------------------------
+</span><span style="background-color: #444155;">audio device[0]:DisplayPort api[0]:Core Audio inchan[0] outchan[2]
+audio device[1]:HD Webcam C615 api[0]:Core Audio inchan[1] outchan[0]
+audio device[2]:MacBook Pro Microphone api[0]:Core Audio inchan[1] outchan[0]
+audio device[3]:MacBook Pro Speakers api[0]:Core Audio inchan[0] outchan[2]
+</span><span style="color: #7E8A90; background-color: #444155;">----------------------------------------------------------
+
+</span><span style="background-color: #444155;">
+Process extempore finished
+</span></pre>
+
+If you do want Extempore to use a particular audio device, you can pass either
+the device index or the device name through an additional option. For example,
+if you want Extempore to use the _MacBook Pro Speakers_, either of these would
+work (again, remember to use `./extempore.exe` if you're on Windows):
+
+```
+./extempore --device 3
+./extempore --device-name "MacBook Pro Speakers"
+```
 
 ## Simple examples
 
