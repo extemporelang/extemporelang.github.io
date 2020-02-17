@@ -20,11 +20,6 @@ different.
 
 Here's the stuff you only need to do once.
 
-### Download Extempore
-
-Download a [binary release](https://github.com/digego/extempore/releases), unzip
-it and put it wherever you like (e.g. in your _Documents_ folder).
-
 ### Download & set up VSCode {#editor-setup}
 
 **VSCode** (a.k.a. Visual Studio Code) is freely available on all the operating
@@ -34,8 +29,25 @@ button (you can't miss it).
 
 Once you've installed VSCode, you need to install the [VSCode Extempore
 extension](https://github.com/extemporelang/vscode-extempore)---this tells
-VSCode how to deal with Extempore code. Install it through the Extensions view
-(`View > Extensions`) and search for "Extempore".
+VSCode how to deal with Extempore code. The main way to do things in VSCode is
+through the "command palette", which you can open up with
+<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
+Command Palette...`). Type in a few characters of the command _Extensions:
+Install Extensions_ until it shows up, then hit <kbd>return</kbd>. Then, search
+for "Extempore" and install the extension.
+
+### Download Extempore
+
+If you're on Windows or macOS then VSCode has an _Extempore: Download binary_
+command which will download & set up Extempore for you (again, access it through
+the command palette with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd>). It's
+about an 80MB download, so it might take a while, but when it's done you're good
+to go.
+
+If you want to download the binary yourself it's also not tricky, just get the
+latest version from the [GitHub releases
+page](https://github.com/digego/extempore/releases), unzip it and put it
+wherever you like (e.g. in your _Documents_ folder).
 
 ## Using Extempore {#using-extempore}
 
@@ -138,7 +150,9 @@ Extempore is now just sitting waiting for you to tell it what code to execute.
 Before you can do this, you first need to connect your text editor to the
 running Extempore session.
 
-In VSCode, you do this with the _Extempore Connect_ command. The main way to do
+In VSCode, you do this with the _Extempore Connect_ command.
+
+The main way to do
 things in VSCode is through the "command palette", which you can open up with
 <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
 Command Palette...`). Type in a few characters of "Extempore Connect" until it
