@@ -47,7 +47,10 @@ to go.
 If you want to download the binary yourself it's also not tricky, just get the
 latest version from the [GitHub releases
 page](https://github.com/digego/extempore/releases), unzip it and put it
-wherever you like (e.g. in your _Documents_ folder).
+wherever you like (e.g. in your _Documents_ folder). It's also a good idea to
+set the _Extempore: Sharedir_ VSCode config setting to point to the place where
+you put your Extempore folder---this will allow VSCode to easily start Extempore
+for you (as we'll see in the next step).
 
 ## Using Extempore {#using-extempore}
 
