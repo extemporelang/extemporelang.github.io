@@ -127,11 +127,11 @@ list](mailto:extemporelang@googlegroups.com) or submit a pull request.
 Extempore is most-often used on Ubuntu, but is also known to work with Debian,
 Fedora, Arch, and also inside a docker container.
 
-There are a few extra dependencies which you may need to get through
-your package manager. For example, on Ubuntu 16.04 I needed:
+There are a few extra dependencies which you may need to get through your
+package manager. For example, on Ubuntu 19.10 I needed:
 
 ~~~~ sourceCode
-    sudo apt-get install libasound2-dev xorg-dev libglu1-mesa-dev zlib1g-dev
+    sudo apt-get install libasound2-dev xorg-dev libglu1-mesa-dev
 ~~~~
 
 You'll also need to specify an [ALSA](http://www.alsa-project.org/) backend for
