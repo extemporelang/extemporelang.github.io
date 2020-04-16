@@ -34,6 +34,14 @@ run the examples, etc.
 
 ## Option 2: build from source {#build-from-source}
 
+{:.note-box}
+
+The [Extempore
+README.md](https://github.com/digego/extempore/blob/master/README.md) gives some
+"one-liner" build-from-source commands for different platforms, so if you just
+want the quick version then just look there. If you want a bit more info, read
+on.
+
 The build-from-source workflow will download and build all the dependencies you
 need (including LLVM).
 
@@ -143,20 +151,16 @@ installed, and then to set the `JACK` CMake option with `-DJACK=ON`.
 
 #### Windows {#windows}
 
-Extempore has been tested on Windows 7 & Windows 10 with [Visual Studio
-Community
-2017](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)
+Extempore is regularly built & tested on Windows 10 with Visual Studio v15
+(2017) and Visual Studio v16 (2019). If you don't already have VS installed, you
+can download the free [Visual Studio
+Community](https://www.visualstudio.com/en-us/products/visual-studio-community-vs.aspx)---that's
+perfectly fine for building Extempore (although the paid versions of VS will
+work as well).
 
 If you don't want to use the the command-line described
 [above](#build-from-source), note that CMake generates a Visual Studio solution
 (`.sln`), so just open that and build the `ALL_BUILD` target.
-
-On Windows, Extempore requires a few components of the **Boost** 1.59 libs for
-TCP/UDP handling. These will be automatically downloaded for you if you've got
-the [nuget command line tool](choco%20install%20nuget.commandline) installed, or
-if you want to build boost yourself (remember to keep the labyrinthine boost
-directory structure intact) just tell the build process where it is using the
-`BOOST_DIR` CMake variable.
 
 If you want to use the **ASIO** audio backend on Windows (which might give you
 lower-latency audio, but is not essential) you need to download the [ASIO
