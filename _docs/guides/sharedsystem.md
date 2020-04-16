@@ -11,7 +11,7 @@ Before we start, make sure you've read at least the [quickstart
 guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) and you can set
 up & evaluate Extempore code on your machine.
 
-## Introductrion
+## Introduction
 
 Conceptually, the Extempore sharedsystem is a few things:
 
