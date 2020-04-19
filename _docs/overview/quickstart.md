@@ -41,7 +41,7 @@ for "Extempore" and install the extension.
 If you're on Windows or macOS then VSCode has an _Extempore: Download binary_
 command which will download & set up Extempore for you (again, access it through
 the command palette with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd>). It's
-about an 80MB download, so it might take a while, but when it's done you're good
+about a 300MB download, so it might take a while, but when it's done you're good
 to go.
 
 If you want to download the binary yourself it's also not tricky, just get the
