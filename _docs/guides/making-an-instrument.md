@@ -396,7 +396,7 @@ The 'template' for the note kernel and effects kernel is something like this
 (bind-func organ_note
   (lambda ()
     (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
-      (lambda (time:i64 chan:i64 freq:float amp:float)
+      (lambda (time:i64 chan:i64)
         (cond ((= chan 0)
                ;; left channel output goes here
                )
@@ -431,11 +431,12 @@ To make the `organ_note` kernel, we'll fill in the template from the
         (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
     (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
     (pfill! drawbar_pos 8. 8. 8. 0. 0. 0. 0. 0. 0.)
-    (lambda (data:NoteInitData* nargs:i64 dargs:SAMPLE*)
+    (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
       (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
             (freq_smudge:SAMPLE* (zalloc num_drawbars))
             (i:i64 0))
-            (st_time (note_starttime data))
+            ;; additional parameters received on play:
+            (start_time (note_starttime data))
             (freq (note_frequency data))
             (amp (note_amplitude data))
             (dur (note_duration data)))
@@ -444,7 +445,7 @@ To make the `organ_note` kernel, we'll fill in the template from the
           (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
           (pset! freq_smudge i (* 3.0 (random))))
         (lambda (time:i64 chan:i64)
-          (if (> (- time st_time) dur) (note_active data #f))
+          (if (> (- time start_time) dur) (note_active data #f)) ;; on note end
           (if (< chan 2)
               (let ((sum 0.0))
                 (dotimes (i num_drawbars)
