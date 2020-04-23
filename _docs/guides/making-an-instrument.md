@@ -462,7 +462,18 @@ To make the `organ_note` kernel, we'll fill in the template from the
 The general shape of the code is basically the same as in `organ_drone`. We
 still allocate a `tonewheel` a buffer of closures to keep track of our
 oscillators, and we still sum them all together with relative amplitudes based
-on the drawbar position. There are just additions:
+on the drawbar position. However, there are noticeable important differences:
+
+-   some parameters specific to each note at its execution are handled. These
+    are `start_time`, `freq`, `amp` and `dur`, which are loaded from the `data`
+    argument used to provide the note with init values.
+-   the note kernel must handle the termination of the note after it has
+    exceeded its duration. This is done in the first row of the most internal
+    closure, where the time delta is compared with the requested duration, and a
+    termination is executed accordingly by changing the active state of the note
+    to `#f`.
+
+Additionally, there are some improvements
 
 -   the instrument is now stereo, so the `tonewheel` buffer is now twice as big
     (`(zalloc (* 2 num_drawbars))`). This gives us two oscillator closures per
@@ -471,11 +482,17 @@ on the drawbar position. There are just additions:
     frequencies. This is to make it sound a bit more 'organic', because
     in a physical instrument the frequency ratios between the tonewheels
     aren't perfect.
+-   `organ_drone` only received frequency as a control argument, but now also
+    amplitude is applied.
 
-The other important difference between `organ_note_c` and `organ_drone` is that
+The other important difference between `organ_note` and `organ_drone` is that
 while `organ_drone` returns a double value (and so can be called directly for
-playback in the `dsp` closure), `organ_note_c` returns a *closure*. A type
+playback in the `dsp` closure), `organ_note` returns a *closure*. A type
 diagram highlights the difference:
+
+{:.note-box}
+
+This diagram is outdated
 
 ![image](/images/making-an-instrument/organ-drone-vs-note.png)
 
