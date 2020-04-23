@@ -518,21 +518,22 @@ frequencies between the L and R channels) to simulate the sound of a Leslie
 speaker.
 
 ~~~~ xtlang
-(bind-func organ_fx 100000
-  (let ((treml (osc_c 0.0))
-        (tremr (osc_c 0.0))
-        (trem_amp 0.1)
-        (wet 0.5)
-        (fb 0.5)
-        (trem_freq .0))
-    (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
-      (cond ((= chan 0)
-             (* in
-                (+ 1.0 (treml trem_amp trem_freq))))
-            ((= chan 1)
-             (* in 
-                (+ 1.0 (tremr trem_amp (* 1.1 trem_freq)))))
-            (else 0.0)))))
+(bind-func organ_fx
+  (lambda ()
+    (let ((treml (osc_c 0.0))
+          (tremr (osc_c 0.0))
+          (trem_amp 0.1)
+          (wet 0.5)
+          (fb 0.5)
+          (trem_freq .0))
+      (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
+        (cond ((= chan 0)
+               (* in
+                  (+ 1.0 (treml trem_amp trem_freq))))
+              ((= chan 1)
+               (* in 
+                  (+ 1.0 (tremr trem_amp (* 1.1 trem_freq)))))
+              (else 0.0))))))
 ~~~~
 
 The code is fairly straightforward. The top-level `let` binds a pair of
