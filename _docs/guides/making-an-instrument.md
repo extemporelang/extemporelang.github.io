@@ -393,16 +393,17 @@ The 'template' for the note kernel and effects kernel is something like this
 (this is just a skeleton---it won't compile)
 
 ~~~~ xtlang
-(bind-func organ_note_c
+(bind-func organ_note
   (lambda ()
-    (lambda (time:i64 chan:i64 freq:float amp:float)
-      (cond ((= chan 0)
-             ;; left channel output goes here
-             )
-            ((= chan 1)
-             ;; right channel output goes here
-             )
-            (else 0.0)))))
+    (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
+      (lambda (time:i64 chan:i64 freq:float amp:float)
+        (cond ((= chan 0)
+               ;; left channel output goes here
+               )
+              ((= chan 1)
+               ;; right channel output goes here
+               )
+              (else 0.0))))))
 
 (bind-func organ_fx
   (lambda (in:float time:i64 chan:i64 dat:float*)
@@ -420,11 +421,11 @@ anything fancier than that we handle the left channel (channel `0`) and the
 right channel (channel `1`) in our `cond` statement. The generalisation to
 multi-channel instruments should be obvious---just use a bigger `cond` form!
 
-To make the `organ_note_c` kernel, we'll fill in the template from the
+To make the `organ_note` kernel, we'll fill in the template from the
 `organ_drone` closure we made earlier.
 
 ~~~~ xtlang
-(bind-func organ_note_c
+(bind-func organ_note
   (let ((num_drawbars:i64 9)
         (freq_ratio:SAMPLE* (zalloc num_drawbars))
         (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
@@ -434,11 +435,16 @@ To make the `organ_note_c` kernel, we'll fill in the template from the
       (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
             (freq_smudge:SAMPLE* (zalloc num_drawbars))
             (i:i64 0))
+            (st_time (note_starttime data))
+            (freq (note_frequency data))
+            (amp (note_amplitude data))
+            (dur (note_duration data)))
         (dotimes (i num_drawbars)
           (pset! tonewheel (* i 2) (osc_c 0.0))       ;; left
           (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
           (pset! freq_smudge i (* 3.0 (random))))
-        (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
+        (lambda (time:i64 chan:i64)
+          (if (> (- time st_time) dur) (note_active data #f))
           (if (< chan 2)
               (let ((sum 0.0))
                 (dotimes (i num_drawbars)
