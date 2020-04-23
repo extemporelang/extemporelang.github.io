@@ -426,37 +426,38 @@ To make the `organ_note` kernel, we'll fill in the template from the
 
 ~~~~ xtlang
 (bind-func organ_note
-  (let ((num_drawbars:i64 9)
-        (freq_ratio:SAMPLE* (zalloc num_drawbars))
-        (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
-    (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
-    (pfill! drawbar_pos 8. 8. 8. 0. 0. 0. 0. 0. 0.)
-    (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
-      (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
-            (freq_smudge:SAMPLE* (zalloc num_drawbars))
-            (i:i64 0))
-            ;; additional parameters received on play:
-            (start_time (note_starttime data))
-            (freq (note_frequency data))
-            (amp (note_amplitude data))
-            (dur (note_duration data)))
-        (dotimes (i num_drawbars)
-          (pset! tonewheel (* i 2) (osc_c 0.0))       ;; left
-          (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
-          (pset! freq_smudge i (* 3.0 (random))))
-        (lambda (time:i64 chan:i64)
-          (if (> (- time start_time) dur) (note_active data #f)) ;; on note end
-          (if (< chan 2)
-              (let ((sum 0.0))
-                (dotimes (i num_drawbars)
-                  ;; (printf "i = %lld" i)
-                  (set! sum (+ sum (* (/ (pref drawbar_pos i) 8.0)
-                                      ((pref tonewheel (+ (* 2 i) chan))
-                                       amp
-                                       (+ (* freq (pref freq_ratio i))
-                                          (pref freq_smudge i)))))))
-                (/ sum (convert num_drawbars)))
-              0.))))))
+  (lambda ()
+    (let ((num_drawbars:i64 9)
+          (freq_ratio:SAMPLE* (zalloc num_drawbars))
+          (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
+      (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
+      (pfill! drawbar_pos 8. 8. 8. 0. 0. 0. 0. 0. 0.)
+      (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
+        (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
+              (freq_smudge:SAMPLE* (zalloc num_drawbars))
+              (i:i64 0)
+              ;; additional parameters received on play:
+              (start_time (note_starttime data))
+              (freq (note_frequency data))
+              (amp (note_amplitude data))
+              (dur (note_duration data)))
+          (dotimes (i num_drawbars)
+            (pset! tonewheel (* i 2) (osc_c 0.0))       ;; left
+            (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
+            (pset! freq_smudge i (* 3.0 (random))))
+          (lambda (time:i64 chan:i64)
+            (if (> (- time start_time) dur) (note_active data #f)) ;; on note end
+            (if (< chan 2)
+                (let ((sum 0.0))
+                  (dotimes (i num_drawbars)
+                    ;; (printf "i = %lld" i)
+                    (set! sum (+ sum (* (/ (pref drawbar_pos i) 8.0)
+                                        ((pref tonewheel (+ (* 2 i) chan))
+                                         amp
+                                         (+ (* freq (pref freq_ratio i))
+                                            (pref freq_smudge i)))))))
+                  (/ sum (convert num_drawbars)))
+                0.)))))))
 ~~~~
 
 The general shape of the code is basically the same as in `organ_drone`. We
