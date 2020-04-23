@@ -543,14 +543,14 @@ just modulating the amplitude envelope) for the appropriate channel.
 
 ## Playing the instrument {#playing-the-instrument}
 
-Now, let's see if our instrument works! Having compiled both `organ_note_c` and
+Now, let's see if our instrument works! Having compiled both `organ_note` and
 `organ_fx`, we're finally ready to use `make-instrument` to make our xtlang
 hammond organ
 
 ~~~~ xtlang
-(make-instrument organ organ_note_c organ_fx)
+(make-instrument organ organ)
 
-;; Compiled organ >>> [float,float,i64,i64,float*]*
+;; New instrument bound as organ in both scheme and xtlang
 
 (bind-func dsp:DSP
   (lambda (in time chan dat)
