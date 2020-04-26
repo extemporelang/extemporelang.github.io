@@ -102,6 +102,16 @@ VSCode command, then open a terminal in your Extempore directory and type
 `./extempore` (or `.\extempore.exe` if you're on Windows---note the backslash
 instead of the forward slash) and hit <kbd>return</kbd>.
 
+{:.warn-box}
+
+**Windows users**: if you ever see the error message _VCRUNTIME140_1.dll was not
+found_, then you'll need to download the x64 `vc_redist.x64.exe`---make sure you
+get it from the official [Windows
+website](https://support.microsoft.com/en-au/help/2977003/the-latest-supported-visual-c-downloads),
+because there are lots of sketchy places on the web which will try and get you
+to download theirs, and who knows what they've done with it?
+
+
 ### Step 2: connect your text editor
 
 Extempore is now just sitting waiting for you to tell it what code to execute.
