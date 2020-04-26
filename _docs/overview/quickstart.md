@@ -6,9 +6,10 @@ title: VSCode Quickstart
 {:toc}
 
 Welcome, Extempore traveller. If you don't have a favourite text editor or don't
-usually [build things from source]({{site.baseurl}}{% link
-_docs/guides/install.md %}) (or don't know what those things even _mean_) then
-these instructions will get you up & running asap.
+usually [build things from
+source](https://github.com/digego/extempore#the-hard-way-build-from-source) (or
+don't know what those things even _mean_) then these instructions will get you
+up & running asap.
 
 {:.non-vscode-box}
 
