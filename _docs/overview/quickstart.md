@@ -7,7 +7,7 @@ title: VSCode Quickstart
 
 Welcome, Extempore traveller. If you don't have a favourite text editor or don't
 usually [build things from
-source](https://github.com/digego/extempore#the-hard-way-build-from-source) (or
+source](https://github.com/digego/extempore/blob/master/BUILDING.md) (or
 don't know what those things even _mean_) then these instructions will get you
 up & running asap.
 
