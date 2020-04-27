@@ -100,7 +100,9 @@ Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase<
 If you can't (or don't want to) start Extempore using the _Extempore: Start_
 VSCode command, then open a terminal in your Extempore directory and type
 `./extempore` (or `.\extempore.exe` if you're on Windows---note the backslash
-instead of the forward slash) and hit <kbd>return</kbd>.
+instead of the forward slash) and hit <kbd>return</kbd>. Extempore supports a
+bunch of command line options---try `./extempore --help`/`.\extempore.exe
+--help` to see the full list.
 
 {:.warn-box}
 
