@@ -34,7 +34,7 @@ it's what we'll cover in this guide 😁
 First, let's load up the Extempore sharedsystem with:
 
 ```extempore
-(sys:load "examples/sharedsystem/setup.xtm")
+(sys:load "examples/sharedsystem/audiosetup.xtm")
 ```
 
 Depending on your machine it might take a little while, but hang tight---you'll
@@ -46,8 +46,6 @@ Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">dsp_l
 Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">main_reverb</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[void,i64,float]*</span><span style="color: #7E8A90; background-color: #444155;">
 Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">main_gain</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[float,float]*</span><span style="color: #7E8A90; background-color: #444155;">
 </span><span style="color: #ADCF44; background-color: #444155;">sharedsystem audio setup complete
-</span><span style="color: #7E8A90; background-color: #444155;">Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">get_analogue_synth_cc_name</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[i8*,i32]*</span><span style="color: #7E8A90; background-color: #444155;">
-Compiled:  </span><span style="color: #ADCF44; background-color: #444155;">midi_cc</span><span style="color: #7E8A90; background-color: #444155;"> &gt;&gt;&gt; </span><span style="color: #BE8A2D; background-color: #444155;">[void,i32,i32,i32,i32]*</span><span style="color: #7E8A90; background-color: #444155;">
 </span><span style="color: #D3D2D1; background-color: #444155;">shared system successfully loaded
 </span></pre>
 
