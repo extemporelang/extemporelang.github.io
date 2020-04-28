@@ -100,17 +100,24 @@ like that. So that's why it's called `analogue`.
 
 Since you've already loaded the sharedsystem, you've already got three analogue
 synth instruments (`syn1`, `syn2` and `syn3`) connected and ready to play notes
-on. Each has four oscillators, four LFOs, amplitude & filter envelopes,
-delay/reverb/flange effects, and lots more.
+on.
 
-The next phase of this guide is in the example file
-`examples/sharedsystem/analogue_synth_basics.xtm`, so open that up in your text
-editor. Play around and see what noises you can make 😊
+Each analogue synth has:
 
-## Configuring & playing the sampler {#playing-the-sampler}
+- 4x oscillators, each of which can be one of several different types
+  (`PARAM_SINE`, `PARAM_SAW`, `PARAM_PULSE`, `PARAM_TRI`, `PARAM_WHITE`,
+  `PARAM_PINK`), and has individual controls for gain, tuning, etc.
 
-There's actually a separate guide on the sampler, so just [read that
-instead]({{site.baseurl}}{% link _docs/guides/sampler.md %}).
+- amplitude & filter envelopes (regular ADSR)
+
+- delay/reverb/flange effects
+
+- four LFOs (low-frequency oscillators) for parameter modulation
+
+Some things are better explained with sample code, so the next phase of this
+guide is in the example file `examples/sharedsystem/analogue_synth_basics.xtm`.
+Open that file up in your text editor, play around, and see what noises you can
+make 😊
 
 ## FAQ
 
