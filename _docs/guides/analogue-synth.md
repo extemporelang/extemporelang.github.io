@@ -1,5 +1,5 @@
 ---
-title: The sharedsystem
+title: The Extempore analogue synth
 ---
 
 Before we start, make sure you've read at least the [quickstart
@@ -8,15 +8,10 @@ up & evaluate Extempore code on your machine.
 
 ## Introduction
 
-Conceptually, the Extempore sharedsystem is a few things:
-
-- an easy-to-set-up signal chain with three configurable analogue synth
-  instruments (including the ability to load & store presets)
-
-- a MIDI setup (both in & out) for working with other software instruments &
-  hardware controllers
-
-The "sharedsystem" name is inspired by the [**Make Noise** _Shared
+The analogue synth is part of the Extempore "sharedsystem", an easy-to-set-up
+signal chain with three configurable analogue synth instruments (including the
+ability to load & store presets). The name is inspired by the [**Make Noise**
+_Shared
 System_](http://www.makenoisemusic.com/synthesizers/black-and-gold-shared-system-plus)
 series of modular synths. _That_ synth is
 [Eurorack](https://en.wikipedia.org/wiki/Eurorack)-based, so _in principle_ it
@@ -59,7 +54,7 @@ Don't worry about how to use them just yet, you'll see how in a minute.
 
 <div class="note-box" markdown="1">
 
-Loading the `examples/sharedsystem/setup.xtm` library will also load up the
+Loading the `examples/sharedsystem/audiosetup.xtm` library will also load up the
 Extempore pattern language stuff, which is covered in more detail in [this
 guide]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}). These two
 things are conceptually independent---you certainly don't have to understand the
@@ -95,13 +90,13 @@ chain. It's an xtlang implementation of a flexible, modular analogue synth.
 {:.note-box}
 
 As you've probably figured out, it's not actually an _analogue_ synth, it's
-purely software---you can see (and modify) the source code for the whole thing
-in the `libs/core/instruments/analogue.xtm` file. But it's conceptually the same
-as an analogue modular synth, with multiple oscillators, filters, LFOS, etc.
-Furthermore, the oscillators are designed to faithfully replicate the
-oscillators of an analogue synth; the saw wave has messy "corners", there's slop
-in the oscillator frequency, and lots of other things like that. So that's why
-it's called `analogue`.
+purely software, and purely digital---you can see (and modify) the source code
+for the whole thing in the `libs/core/instruments/analogue.xtm` file. But it's
+conceptually the same as an analogue modular synth, with multiple oscillators,
+filters, LFOS, etc. Furthermore, the oscillators are designed to faithfully
+replicate the oscillators of an analogue synth; the saw wave has messy
+"corners", there's slop in the oscillator frequency, and lots of other things
+like that. So that's why it's called `analogue`.
 
 Since you've already loaded the sharedsystem, you've already got three analogue
 synth instruments (`syn1`, `syn2` and `syn3`) connected and ready to play notes
