@@ -23,7 +23,7 @@ towards doing just that.
 First, let's load up the necessary audio & pattern language infrastructure:
 
 ```extempore
-(sys:load "examples/sharedsystem/setup.xtm")
+(sys:load "examples/sharedsystem/audiosetup.xtm")
 ```
 
 Depending on your machine it might take a little while, but hang tight---you'll
@@ -53,20 +53,20 @@ Don't worry about how to use them just yet, you'll see how in a minute.
 Extempore's audio signal chain is highly flexible, so you can set up your
 noisemaking infrastructure in a way which suits you. However, if you're new to
 all this and just want to load up a few synths and samplers, then the best way
-to do this is to load the Extempore sharedsystem---a default configuration of
-synths & samplers which is covered in more detail in [this
-guide]({{site.baseurl}}{% link _docs/guides/sharedsystem.md %}).
+to do this is to load the Extempore sharedsystem---including the analogue synth
+& built-in samplers as covered in [this guide]({{site.baseurl}}{% link
+_docs/guides/analogue-synth.md %}).
 
 These pattern language and the sharedsystem are conceptually independent---you
 certainly don't have to understand the pattern language in depth if you just
 want to make weird & awesome noises on the synths (or vice versa).
 
 However, even if you're mostly interested in the pattern language it's still
-handy to understand a bit about the sharedsystem for e.g. using loops to change
-synth parameters with musically meaningful timings. That's the approach we'll
-take in this guide---we won't necessarily explain the sharedsystem stuff, but
-you can always jump over to the [sharedsystem docs]({{site.baseurl}}{% link
-_docs/guides/sharedsystem.md %}) to go deeper.
+handy to understand a bit about the analogue synth for e.g. using loops to
+change synth parameters with musically meaningful timings. That's the approach
+we'll take in this guide---we won't necessarily explain the sharedsystem stuff,
+but you can always jump over to e.g. the [analogue synth
+guide]({{site.baseurl}}{% link _docs/guides/analogue-synth.md %}) to go deeper.
 
 Finally, if you _don't_ load the sharedsystem, then make sure you at least load:
 
@@ -777,8 +777,8 @@ generating pattern lists---try them out and see what they sound like.
 
 ### I'm so sick of the default chiptune synth sound, how do I change it? {#changing-the-sound}
 
-This is covered in the [sharedsystem tutorial]({{site.baseurl}}{% link
-_docs/guides/sharedsystem.md %}), but if you can load a synth preset with
+This is covered in the [analogue-synth tutorial]({{site.baseurl}}{% link
+_docs/guides/analogue-synth.md %}), but if you can load a synth preset with
 `analogue-load-preset` like so:
 
 ```xtlang

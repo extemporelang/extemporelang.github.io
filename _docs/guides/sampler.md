@@ -81,8 +81,7 @@ important, use fewer slots and let the sampler interpolate in the gaps.
 
 {:.note-box}
 
-If you've loaded the [sharedsystem]({{site.baseurl}}{% link
-_docs/guides/sharedsystem.md %}) (i.e. with `(sys:load
+If you've loaded the sharedsystem (i.e. with `(sys:load
 "examples/sharedsystem/setup.xtm")`) then you don't have to do any of the "DSP"
 signal chain setup stuff (i.e. you don't have to load the `instruments_ext.xtm`
 file, create the sampler `samp1`, evaluate the `dsp` closure, or call
@@ -267,8 +266,8 @@ fun if you load & manipulate your own samples.
 
 Note: Extempore actually ships with a bunch of piano samples in
 `assets/samples/piano/`, which are loaded by default as part of the
-[sharedsystem]({{site.baseurl}}{% link _docs/guides/sharedsystem.md %}). But
-this example is instructive if you want to load some other samples.
+sharedsystem. But this example is instructive if you want to load some other
+samples.
 
 Let's add one more sampler---this time a `samp2`.
 

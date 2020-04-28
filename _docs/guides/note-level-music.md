@@ -834,11 +834,10 @@ we're going to need a drum instrument.
 
 {:.note-box}
 
-To set up a drumkit you can either follow the [sampler
-guide]({{site.baseurl}}{% link _docs/guides/sampler.md %}) which shows you how
-can set up your own sampler instrument (and guides you through making a drum
-sampler). Or you could just load the [sharedsystem]({{site.baseurl}}{% link
-_docs/guides/sharedsystem.md %}) and it'll be done for you.
+To set up a drumkit you can either follow the [sampler guide]({{site.baseurl}}{%
+link _docs/guides/sampler.md %}) which shows you how can set up your own sampler
+instrument (and guides you through making a drum sampler). Or you could just
+load `(sys:load "examples/sharedsystem/setup.xtm")` and it'll be done for you.
 
 Got a drum sampler set up? Great. So far we have been using Extempore's default
 time standard---samples per second---to control rhythm and duration information.
