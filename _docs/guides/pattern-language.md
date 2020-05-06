@@ -283,8 +283,8 @@ This can go on recursively:
 (:> pat-3 4 0 (play syn1 @1 80 dur) '(48 (46 (49 46))))
 ```
 
-The none of the lists in the pattern language have to have nice round (or even)
-numbers of elements: you can have triplets.
+The lists (and sub-lists) in the pattern language have to have nice round (or
+even) numbers of elements: you can have triplets.
 
 ```extempore
 (:> pat-3 4 0 (play syn1 @1 80 dur) '(48 (54 _ 46)))
