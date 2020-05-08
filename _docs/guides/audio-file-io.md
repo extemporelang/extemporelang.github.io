@@ -21,10 +21,11 @@ First, load the `audiobuffer.xtm` library and create an `AudioBuffer` variable:
 Once you run the code, you should hear the (long-ish) christmas carol audio file
 start playing (in stereo). Notice that in the body of the `dsp` closure there's
 no explicit mention of where in the file we're up to, because the current
-"playhead" is stored in the `AudioBuffer` type. You can play back from a
-different position in the file by supplying an extra argument to
-`AudioBuffer_read`. For example, this (slightly weird) playback approach will
-only advance the playhead 10% of the time:
+"playhead" is stored in the `AudioBuffer` type.
+
+You can play back from a different position in the file by supplying an extra
+argument to `AudioBuffer_read`. For example, this (slightly weird) playback
+approach will only advance the playhead 10% of the time:
 
 ```xtlang
 (bind-func dsp:DSP
@@ -36,7 +37,7 @@ only advance the playhead 10% of the time:
       (AudioBuffer_read ab pos chan))))
 ```
 
-All the `AudioBuffer_read` functinos will stop playback when they reach the end
+All the `AudioBuffer_read` functions will stop playback when they reach the end
 of the audio data from the file. If you'd like to _loop_ the audio file instead,
 you can use `AudioBuffer_read_looped`
 
