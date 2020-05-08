@@ -20,7 +20,6 @@
 
 - title: Guides
   docs:
-  - guides/install
   - guides/editor-support
   - guides/pattern-language
   - guides/analogue-synth
