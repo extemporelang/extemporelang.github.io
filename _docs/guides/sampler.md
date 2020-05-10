@@ -130,42 +130,42 @@ you like. Just make sure that you set the right path in your code if you're
 following along.
 
 We're going to load (some of) these files into our `samp1` sampler one at a time
-using the `set-sampler-index` function (note that the path to each `.aif` file
+using the `sampler-populate-slot` function (note that the path to each `.aif` file
 is relative to your Extempore folder---if you're loading samples from somewhere
 else you'll need to include the full path).
 
 ~~~~ xtlang
-(set-sampler-index samp1 "assets/samples/808/36.aif" *gm-kick-2* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/37.aif" *gm-side-stick* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/38.aif" *gm-snare* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/39.aif" *gm-hand-clap* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/40.aif" *gm-snare-2* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/41.aif" *gm-low-floor-tom* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/42.aif" *gm-closed-hi-hat* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/43.aif" *gm-hi-floor-tom* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/44.aif" *gm-pedal-hi-hat* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/45.aif" *gm-low-tom* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/46.aif" *gm-open-hi-hat* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/47.aif" *gm-low-mid-tom* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/48.aif" *gm-hi-mid-tom* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/49.aif" *gm-crash* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/50.aif" *gm-hi-tom* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/51.aif" *gm-ride* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/52.aif" *gm-chinese* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/53.aif" *gm-ride-bell* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/54.aif" *gm-tambourine* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/55.aif" *gm-splash* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/56.aif" *gm-cowbell* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/57.aif" *gm-crash-2* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/58.aif" *gm-vibraslap* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/59.aif" *gm-ride-2* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/60.aif" *gm-hi-bongo* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/61.aif" *gm-low-bongo* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/62.aif" *gm-mute-hi-conga* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/63.aif" *gm-hi-conga* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/64.aif" *gm-low-conga* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/65.aif" *gm-hi-timbale* 0 0 0 1)
-(set-sampler-index samp1 "assets/samples/808/66.aif" *gm-low-timbale* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/36.aif" *gm-kick-2* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/37.aif" *gm-side-stick* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/38.aif" *gm-snare* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/39.aif" *gm-hand-clap* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/40.aif" *gm-snare-2* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/41.aif" *gm-low-floor-tom* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/42.aif" *gm-closed-hi-hat* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/43.aif" *gm-hi-floor-tom* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/44.aif" *gm-pedal-hi-hat* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/45.aif" *gm-low-tom* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/46.aif" *gm-open-hi-hat* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/47.aif" *gm-low-mid-tom* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/48.aif" *gm-hi-mid-tom* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/49.aif" *gm-crash* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/50.aif" *gm-hi-tom* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/51.aif" *gm-ride* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/52.aif" *gm-chinese* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/53.aif" *gm-ride-bell* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/54.aif" *gm-tambourine* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/55.aif" *gm-splash* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/56.aif" *gm-cowbell* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/57.aif" *gm-crash-2* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/58.aif" *gm-vibraslap* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/59.aif" *gm-ride-2* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/60.aif" *gm-hi-bongo* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/61.aif" *gm-low-bongo* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/62.aif" *gm-mute-hi-conga* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/63.aif" *gm-hi-conga* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/64.aif" *gm-low-conga* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/65.aif" *gm-hi-timbale* 0 0 0 1)
+(sampler-populate-slot samp1 "assets/samples/808/66.aif" *gm-low-timbale* 0 0 0 1)
 ~~~~
 
 If that works properly, some info will be printed to the log about the audio
@@ -240,7 +240,7 @@ samples above into bank 1 (a new bank---in the previous section we loaded them
 all into bank 0) of our `samp1` sampler:
 
 ```xtlang
-(set-sampler-index samp1 "assets/samples/808/38.aif" *gm-snare* 0 0 1 1)
+(sampler-populate-slot samp1 "assets/samples/808/38.aif" *gm-snare* 0 0 1 1)
 ```
 
 Then, we can mess around with the playback:
