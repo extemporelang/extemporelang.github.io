@@ -290,8 +290,8 @@ indexed from `0` to `15`). Sometimes that _is_ the best option, although the
 main reason that you'd use a new one is to set different envelopes and/or
 effects for each (since they're set on a per-sampler basis).
 
-The Salamander piano is freely available from <linuxaudio.org> (direct download
-link
+The Salamander piano is freely available from <https://linuxaudio.org> (direct
+download link
 [here](http://download.linuxaudio.org/lau/SalamanderGrandPianoV2/SalamanderGrandPianoV2_44.1khz16bit.tar.bz2))
 which will do just fine for today, so ahead and download that (pretty big
 though---around half a gigabyte). Again, unzip and untar the files to wherever
