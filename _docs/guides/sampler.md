@@ -354,12 +354,12 @@ The first two arguments are fairly self-explanatory, but the third one (the
 parser function) is where the magic happens.
 
 `load-sampler` first creates a list of all the files (including hidden files) in
-the `path` directory. This list of filenames is then passed (as the single
-argument) to the function which was passed in as the `parser` argument to
-`load-sampler`. This parser function's job is to take that messy list of
-filenames and return a nice neat 'list of lists', telling the sampler which
-files to load into which slots. Each of the elements of this list returned by
-the parser function has to have four elements:
+the `path` directory. Each filename from this list is then passed to the
+function which was passed in as the `parser` argument to `load-sampler`. This
+parser function's job is to take the sound file name and return a data structure
+(still a list, but with a specific format), telling the sampler which slot to
+load the audio data into. In particular, the parser function should return a
+list with four elements:
 
 1.  the filename
 2.  the slot (midi note number) to load the file into
@@ -377,20 +377,18 @@ something like this
 
 ~~~~ xtlang
 (define parse-salamander-piano
-  (lambda (file-list)
-    (map (lambda (fname)
-           (let ((result (regex:matched fname "^.*([ABCDEFG][#b]?[0-9])v([0-9]+)\.(wav|aif|aiff|ogg)$")))
-             (if (null? result)
-                 (begin (println 'Cannot 'parse 'filename: fname)
-                        #f)
-                 ;; load 4th velocity layer only
-                 (if (= (string->number (caddr result)) 4)
-                     (list fname
-                           (note-name-to-midi-number (cadr result))
-                           0                 
-                           0)
-                     #f))))
-         file-list)))
+  (lambda (fname)
+    (let ((result (regex:matched fname "^.*([ABCDEFG][#b]?[0-9])v([0-9]+)\.(wav|aif|aiff|ogg)$")))
+      (if (null? result)
+          (begin (println 'Cannot 'parse 'filename: fname)
+                 #f)
+          ;; load 4th velocity layer only
+          (if (= (string->number (caddr result)) 4)
+              (list fname
+                    (scientific-pitch-notation-to-midi-number (cadr result))
+                    0
+                    0)
+              #f)))))
 
 (load-sampler samp2
               "/Users/ben/Music/sample-libs/piano/salamander/44.1khz16bit"
