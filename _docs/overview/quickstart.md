@@ -100,9 +100,14 @@ Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase<
 </span><span style="color: #F0C649; background-color: #444155;">New Client Connection
 </span></pre>
 
-If everything's gone to plan, you'll see one more "New Client Connection"
-message at the very bottom of the terminal (as shown). Congrats, you're
-connected... and almost there.
+If everything's gone to plan, you'll see one more message at the very bottom of
+the terminal:
+
+<pre style="color: #f8f8f2; background-color: #282a36;">
+<span style="color: #86D7DB;">INFO:</span> server: accepted new connection to primary process
+</pre>
+
+Congrats, you're connected... and almost there.
 
 {:.non-vscode-box}
 
@@ -128,15 +133,7 @@ As a quick test, try and evaluate something like:
 If you can see `"Hello, World!"` at the bottom of the terminal, then you've just
 evaluated your first Extempore code! 🙌 🎉 🥳 🙌
 
-<pre style="color: #b2b2b2; background-color: #292b2e;">
-<span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
-Trying to connect to 'localhost' on port 7099
-</span><span style="color: #F0C649; background-color: #444155;">New Client Connection
-</span><span style="color: #ADCF44; background-color: #444155;">Successfully</span><span style="background-color: #444155;"> connected to remote process
-Loading </span><span style="color: #63B4F6; background-color: #444155;">xtmbase</span><span style="color: #7E8A90; background-color: #444155;"> library... </span><span style="color: #ADCF44; background-color: #444155;">done</span><span style="color: #7E8A90; background-color: #444155;"> in 1.505913 seconds
-</span><span style="color: #F0C649; background-color: #444155;">New Client Connection
-</span><span style="color: #86dc2f; background-color: #444155; font-weight: bold; text-decoration: underline;">"</span><span style="color: #7E8A90; background-color: #444155;">Hello, World!</span><span style="color: #86dc2f; background-color: #444155; font-weight: bold; text-decoration: underline;">"</span><span style="color: #7E8A90; background-color: #444155;">
-</span></pre>
+{% include extempore-output/hello-world.html %}
 
 Try modifying the code and re-evaluating it---the code is live, so you can
 change and re-evaluate things without having to re-start Extempore.
@@ -182,17 +179,7 @@ type the command `./extempore --print-devices` (or `./extempore.exe
 --print-devices` if you're on Windows) and hit <kbd>return</kbd>. On my machine
 right now it says this, but yours will (almost certainly) be different.
 
-<pre style="color: #b2b2b2; background-color: #292b2e;">
-<span style="color: #7E8A90; background-color: #444155;">-----Available Audio Devices-----------------------------
-</span><span style="background-color: #444155;">audio device[0]:DisplayPort api[0]:Core Audio inchan[0] outchan[2]
-audio device[1]:HD Webcam C615 api[0]:Core Audio inchan[1] outchan[0]
-audio device[2]:MacBook Pro Microphone api[0]:Core Audio inchan[1] outchan[0]
-audio device[3]:MacBook Pro Speakers api[0]:Core Audio inchan[0] outchan[2]
-</span><span style="color: #7E8A90; background-color: #444155;">----------------------------------------------------------
-
-</span><span style="background-color: #444155;">
-Process extempore finished
-</span></pre>
+{% include extempore-output/print-devices.html %}
 
 If you do want Extempore to use a particular audio device, you can pass either
 the device index or the device name through an additional option. For example,
