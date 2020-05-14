@@ -63,7 +63,7 @@ class="nopretty">CTRL</kbd>+<kbd>C</kbd> in the `*extempore*` buffer where
 ## Atom {#atom}
 
 Extempore's [Atom](https://atom.io) package is available from
-[GitHub](https://github.com/noiach/extempore-atom).
+[GitHub](https://github.com/extempore-lang/extempore-atom).
 
 | command                | keybinding                  |
 |------------------------|-----------------------------|
