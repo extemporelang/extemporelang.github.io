@@ -278,7 +278,7 @@ Let's add one more sampler---this time a `samp2`.
 ;; note how the samp1 is still there from before
 (bind-func dsp:DSP
   (lambda (in time chan dat)
-    (cond ((< chan 2.0)
+    (cond ((< chan 2)
            (+ (samp1 in time chan dat)
               (samp2 in time chan dat)))
           (else 0.0))))
