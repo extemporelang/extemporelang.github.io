@@ -74,7 +74,7 @@ instead of the forward slash) and hit <kbd>return</kbd>. Extempore supports a
 bunch of command line options---try `./extempore --help`/`.\extempore.exe
 --help` to see the full list.
 
-{:.warn-box}
+{:.note-box}
 
 **Windows users**: if you ever see the error message _VCRUNTIME140_1.dll was not
 found_, then you'll need to download the x64 `vc_redist.x64.exe`---make sure you
