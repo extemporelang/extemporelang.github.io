@@ -1,5 +1,5 @@
 ---
-title: VSCode Quickstart
+title: Quickstart
 ---
 
 - TOC
@@ -13,9 +13,9 @@ up & running asap.
 
 {:.non-vscode-box}
 
-If you'd prefer to use another editor (e.g. Emacs, Atom, ST, Vim) then that's
-fine as well---these boxes will explain how your setup process will be
-different.
+This quickstart guide is based on VSCode. If you'd prefer to use another editor
+(e.g. Emacs, Atom, ST, Vim) then that's fine as well---these boxes will explain
+how your setup process will be different.
 
 ## Setup
 
