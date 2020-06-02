@@ -34,6 +34,13 @@ the Emacs mode for working with Extempore code, and it's available from
 modern-ish Emacs) then just `M-x package-install RET extempore-mode RET` and
 you're done.
 
+If you encounter an error with `eldoc-beginning-of-sexp`, put this code in
+your init file to bind that name
+```
+(unless (fboundp 'eldoc-beginning-of-sexp)  ;; Hacking to get extempore-mode
+  (defalias 'eldoc-beginning-of-sexp 'elisp--beginning-of-sexp))
+```
+
 If you don't want to get it from MELPA, just [download the
 file](https://github.com/extemporelang/extempore-emacs-mode/blob/master/extempore-mode.el)
 and put it in your load path.
