@@ -266,7 +266,7 @@ these can even "stack", just like musical ties
 ### Sublists for sub-dividing the beats
 
 These patterns aren't very rhythmically interesting; you might be wondering how
-you move be wondering how to move beyond these plodding equal-duration loops.
+you move beyond these plodding equal-duration loops.
 The pattern language allows you to sub-divide the beats using sub-lists in the
 pattern list.
 
