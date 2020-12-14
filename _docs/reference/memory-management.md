@@ -57,7 +57,7 @@ memory to store the new value into, and change the variable `a` to point to that
 new value.
 
 But what happens to the old value of `5` in memory? Well, it sits there
-unmolested, at least for a while. But we can't reach it---the only 'handle' we
+untouched, at least for a while. But we can't reach it---the only 'handle' we
 had to refer to it with was the symbol `a`, and that's now bound to some other
 value instead. The value `5` in memory is 'unreachable'. So there's no point
 having it sitting around, taking up space like some freeloading relative.
