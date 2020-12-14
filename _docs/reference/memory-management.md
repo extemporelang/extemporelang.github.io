@@ -60,7 +60,7 @@ But what happens to the old value of `5` in memory? Well, it sits there
 untouched, at least for a while. But we can't reach it---the only 'handle' we
 had to refer to it with was the symbol `a`, and that's now bound to some other
 value instead. The value `5` in memory is 'unreachable'. So there's no point
-having it sitting around, taking up space like some freeloading relative.
+having it sitting around, taking up space.
 
 That's where the garbage collector comes in. Every now and then the garbage
 collector checks all the Scheme objects in the world, determines which of them
