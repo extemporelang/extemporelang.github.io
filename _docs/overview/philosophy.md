@@ -54,7 +54,7 @@ friends.
 
 `xtlang_closure`, on the other hand, is an xtlang closure. xtlang (unlike
 Scheme) is a *new* language, and the Extempore executable provides the xtlang
-compiler. Like Scheme, xtlang is has an
+compiler. Like Scheme, xtlang has an
 [s-expression](http://en.wikipedia.org/wiki/S-expression) based syntax.
 
 `xtlang_closure` is also a closure which takes two arguments, and xtlang uses
