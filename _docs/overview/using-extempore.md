@@ -1,10 +1,17 @@
 ---
-title: Using Extempore
+title: Extempore's Compiler-as-a-Service
 ---
+
+{:.note-box}
+
+This document is a deeper dive on what's going on when you use Extempore; if
+you're just after the quick version then the [quickstart
+guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) might be what
+you're after.
 
 The best way to think about programming and evaluating code in Extempore is to
 think of it as a *compiler-as-a-service* (CaaS). The compiler (provided by the
-`extempore` executable) runs in a shell console, and you connect to it via a TCP
+`extempore` executable) runs in a terminal, and you connect to it via a TCP
 socket connection. When the compiler receives any code over this connection it
 compiles and executes it. The general term for this is 'evaluating' the code.
 There are some nuances to this process, but in general the programmer interacts
@@ -26,74 +33,38 @@ So, to do anything in Extempore you need a text editor which can
 2.  create a string which represents a valid chunk of Scheme or xtlang code
 3.  send that string over the TCP connection
 
-There are already Extempore modes/plugins for VSCode, Atom, Emacs, vim and
-Sublime Text 2 (see [editor support]({{site.baseurl}}{% link
-_docs/overview/editor-support.md %})). If you already have a favourite text
+There are already Extempore modes/plugins for VSCode, Emacs, Atom, vim and
+Sublime Text (see [editor support]({{site.baseurl}}{% link
+_docs/guides/editor-support.md %})). If you already have a favourite text
 editor, then you'll probably want to use that one. If you don't, then VSCode is
-probably a good choice. In the end it doesn't matter too much which editor you
-use, so pick the one that makes you happiest.
+a good choice. In the end it doesn't matter too much which editor you use, so
+pick the one that makes you happiest.
 
-## Running Extempore {#running-extempore}
+## Starting Extempore {#running-extempore}
 
-Once you've [installed]({{site.baseurl}}{% link _docs/overview/install.md %})
-Extempore you'll have an [executable](https://en.wikipedia.org/wiki/Executable),
-which will be called `extempore` on OSX/Linux or `extempore.exe` on Windows.
+The instructions for starting an Extempore "session" are listed on the
+[quickstart]({% link _docs/overview/quickstart.md %}#using-extempore) page, so
+we won't duplicate them here.
 
-When you start Extempore, you need to specify an audio device. This is necessary
-even if you're not planning to do any audio processing or output, because
-Extempore's internal clock is driven by the audio device's clock. This is a good
-thing: the audio clock will usually be more stable and accurate than your
-computer's default system clock, especially if you're using a dedicated external
-audio interface.
-
-But how do we know what audio device to select? Well, the `extempore` executable
-takes a command-line argument called `--print-devices`. At a shell prompt, `cd`
-into the extempore source directory (where the executable will be) and run
-
-![image](/images/interacting-with-compiler/extempore-print-devices.png)
-
-As you can see, running `extempore` with the `--print-devices` argument prints a
-list of all the audio devices (input, output and duplex) that
-[PortAudio](http://www.portaudio.com/) can find on the system. For example, in
-the image there are five devices. Three devices (device index 0 to 2) are for
-the built-in soundcard, and two more (device index 3 and 4) are for
-[Soundflower](http://code.google.com/p/soundflower/), which is a utility for
-routing audio between different applications. Different computers will print
-different devices---that's ok.
-
-In this example, you probably want to use the default laptop output, which is
-`audio device[2]`. When you run `extempore`, then, I want to pass this device
-index with the `--device` argument. The `--device` argument is optional, if it's
-not supplied then Extempore will default to using whatever device is found at
-index 0. But it doesn't hurt to specify it explicitly, just to avoid any
-surprises.
-
-![image](/images/interacting-with-compiler/extempore-start.png)
-
-After running `extempore` with `--device 2`, it prints some information to
-`stdout` (sometimes referred to as the *log*) about the device that it's using.
-As you can see, it all looks ok: 2 channels out, samplerate of 44100Hz. At this
-point, the `extempore` process is running, and will keep doing so until you kill
-it.
-
-Also, the compiler prints some information about "starting up some processes",
-namely a `primary` process on port `7099` and a `utility` process on port
-`7098`. These are the TCP ports we'll send our code to. A running Extempore
-binary can provide *multiple* Extempore processes (*kindof* like POSIX threads)
-as well as connecting to multiple other Extempore processes, potentially running
-on remote hosts. This forms the basis for Extempore's powerful distributed
-processing capability. For the moment, though, you don't have to worry about
-multiple processes, just connect and interact with the `primary` process.
+One thing about the Extempore startup process which is relevant here is the way
+the compiler prints some information about starting up some processes, namely a
+`primary` process on port `7099` and a `utility` process on port `7098`. These
+are the TCP ports we'll send our code to. A running Extempore binary can provide
+*multiple* Extempore processes (kindof like threads) as well as connecting to
+multiple other Extempore processes, potentially running on remote hosts. This
+forms the basis for Extempore's powerful distributed processing capability. For
+the moment, though, you don't have to worry about multiple processes, just
+connect and interact with the `primary` process.
 
 ## Connecting to the Extempore compiler {#connecting-to-the-extempore-compiler}
 
-So far, all the stuff we've done has been in a shell console. The `extempore`
+So far, all the stuff we've done has been in a terminal. The `extempore`
 process, which provides the Extempore compiler, is just sitting there idle,
 waiting to be given some code to evaluate. That's where the text editor part of
 the equation comes in.
 
 When you open up a file ending in `.xtm` (Extempore's default file extension),
-your [editor]({{site.baseurl}}{% link _docs/overview/editor-support.md %})
+your [editor]({{site.baseurl}}{% link _docs/guides/editor-support.md %})
 should detect that you're editing Extempore source code, and load the
 appropriate Extempore plugin. Here's a (short) example file containing some
 Extempore code:
@@ -112,12 +83,12 @@ Now that we have
 -   an Extempore (editor) plugin loaded
 -   the `extempore` process still running
 
-we can open up the TCP connection. In Emacs, this is done with `M-x
-extempore-connect`. In VSCode, it's `cmd+enter` (macOS)/`ctrl+enter`
-(Win/Linux). In Atom, with `Alt+O`. In ST2, use the menu item `Tools > Extempore
-> Connect...`. The default host and port arguments will be `localhost` and
-`7099` respectively. If the connection is made successfully, then Extempore will
-echo back the string "Welcome to extempore!".
+we can open up the TCP connection. In Emacs, this is done with <kbd>M-x</kbd>
+`extempore-connect`. In VSCode, it's <kbd>ctrl</kbd>+<kbd>return</kbd>. In Atom,
+with <kbd>alt</kbd>+<kbd>O</kbd>. In ST2, use the menu item `Tools > Extempore >
+Connect...`. The default host and port arguments will be `localhost` and `7099`
+respectively. If the connection is made successfully, then Extempore will echo
+back the string "Welcome to extempore!".
 
 ## Evaluating code {#evaluating-code}
 
@@ -129,27 +100,28 @@ with some basic Scheme arithmetic. If you're playing along, you can write `(+ 1
 This is where the 'Compiler as a Service' (CaaS) thing starts to get real.
 Currently, the code `(+ 1 2)` is just text sitting in your editor. It won't get
 compiled until you send it for evaluation. The easiest way to do this is to move
-your cursor somewhere inside the code `(+ 1 2)` and hit `cmd/ctrl+enter` (in
-VSCode) or `C-M-x` (in Emacs). In ST2, you have to highlight the code you want
-to evaluate and hit `Ctrl+e`. This takes the whole expression `(+ 1 2)` and
-sends it (as a string) to the running `extempore` compiler.
+your cursor somewhere inside the code `(+ 1 2)` and hit
+<kbd>ctrl</kbd>+<kbd>return</kbd> (in VSCode) or
+<kbd>C</kbd>-<kbd>M</kbd>-<kbd>x</kbd> (in Emacs). In ST2, you have to highlight
+the code you want to evaluate and hit <kbd>Ctrl</kbd>+<kbd>E</kbd>. This takes
+the whole expression `(+ 1 2)` and sends it (as a string) to the running
+`extempore` compiler.
 
 ![image](/images/interacting-with-compiler/scheme-eval.png)
 
 The orange 'box' in the diagram indicates code that has been sent for
 evaluation. See how the code string (in grey) is sent over the connection, and
 the result is sent back (also as a string) and displayed in the echo area.
-Nothing is printed in the console where `extempore` is running.
+Nothing is printed in the terminal where `extempore` is running.
 Congratulations---you've just evaluated your first Extempore code!
 
 We can write some more code to `bind-val` a global variable `myPI`, which is an
-xtlang global variable of type `double`. If you evaluate this with `Alt+S` or
-`C-M-x` (or whatever the command is in your editor) then what happens is
+xtlang global variable of type `double`. If you evaluate this what happens is
 
 ![image](/images/interacting-with-compiler/xtlang-eval-1.png)
 
 One difference from the previous (Scheme) example is that the `extempore`
-compiler now prints a message to the console:
+compiler now prints a message to the terminal:
 
 ~~~~ sourceCode
     Bound myPI >>> double

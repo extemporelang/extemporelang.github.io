@@ -1,8 +1,6 @@
 - title: Overview
   docs:
   - overview/quickstart
-  - overview/install
-  - overview/editor-support
   - overview/using-extempore
   - overview/philosophy
   - overview/time
@@ -22,6 +20,9 @@
 
 - title: Guides
   docs:
+  - guides/editor-support
+  - guides/pattern-language
+  - guides/analogue-synth
   - guides/audio-signal-processing
   - guides/audio-file-io
   - guides/making-an-instrument

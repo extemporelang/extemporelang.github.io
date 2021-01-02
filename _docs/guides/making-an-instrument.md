@@ -269,11 +269,10 @@ read this far then I can probably assume you have at least some interest :)
 Making this `organ_drone` closure has really just been a prelude to the real
 business of making an *instrument* in Extempore. An Extempore instrument can be
 played like a midi soft-synth. Individual notes can be triggered with an
-amplitude, a pitch and a duration. Impromptu users will be pretty familiar with
-this---it's the same as how you would play AU synths in Impromptu. The only
-difference is that the whole signal chain is now written in xtlang and
-dynamically compiled at run-time. You can have a look at it in
-`libs/core/audio_dsp.xtm` if you want to see the nuts and bolts of how it works.
+amplitude, a pitch and a duration. The only difference is that the whole signal
+chain is now written in xtlang and dynamically compiled at run-time. You can
+have a look at it in `libs/core/audio_dsp.xtm` if you want to see the nuts and
+bolts of how it works.
 
 This notion of *note-level* control is the key difference between an Extempore
 *instrument* and the type of audio DSP covered in <span
@@ -394,16 +393,17 @@ The 'template' for the note kernel and effects kernel is something like this
 (this is just a skeleton---it won't compile)
 
 ~~~~ xtlang
-(bind-func organ_note_c
+(bind-func organ_note
   (lambda ()
-    (lambda (time:i64 chan:i64 freq:float amp:float)
-      (cond ((= chan 0)
-             ;; left channel output goes here
-             )
-            ((= chan 1)
-             ;; right channel output goes here
-             )
-            (else 0.0)))))
+    (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
+      (lambda (time:i64 chan:i64)
+        (cond ((= chan 0)
+               ;; left channel output goes here
+               )
+              ((= chan 1)
+               ;; right channel output goes here
+               )
+              (else 0.0))))))
 
 (bind-func organ_fx
   (lambda (in:float time:i64 chan:i64 dat:float*)
@@ -421,42 +421,60 @@ anything fancier than that we handle the left channel (channel `0`) and the
 right channel (channel `1`) in our `cond` statement. The generalisation to
 multi-channel instruments should be obvious---just use a bigger `cond` form!
 
-To make the `organ_note_c` kernel, we'll fill in the template from the
+To make the `organ_note` kernel, we'll fill in the template from the
 `organ_drone` closure we made earlier.
 
 ~~~~ xtlang
-(bind-func organ_note_c
-  (let ((num_drawbars:i64 9)
-        (freq_ratio:SAMPLE* (zalloc num_drawbars))
-        (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
-    (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
-    (pfill! drawbar_pos 8. 8. 8. 0. 0. 0. 0. 0. 0.)
-    (lambda (data:NoteInitData* nargs:i64 dargs:SAMPLE*)
-      (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
-            (freq_smudge:SAMPLE* (zalloc num_drawbars))
-            (i:i64 0))
-        (dotimes (i num_drawbars)
-          (pset! tonewheel (* i 2) (osc_c 0.0))       ;; left
-          (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
-          (pset! freq_smudge i (* 3.0 (random))))
-        (lambda (time:i64 chan:i64 freq:SAMPLE amp:SAMPLE)
-          (if (< chan 2)
-              (let ((sum 0.0))
-                (dotimes (i num_drawbars)
-                  ;; (printf "i = %lld" i)
-                  (set! sum (+ sum (* (/ (pref drawbar_pos i) 8.0)
-                                      ((pref tonewheel (+ (* 2 i) chan))
-                                       amp
-                                       (+ (* freq (pref freq_ratio i))
-                                          (pref freq_smudge i)))))))
-                (/ sum (convert num_drawbars)))
-              0.))))))
+(bind-func organ_note
+  (lambda ()
+    (let ((num_drawbars:i64 9)
+          (freq_ratio:SAMPLE* (zalloc num_drawbars))
+          (drawbar_pos:SAMPLE* (zalloc num_drawbars)))
+      (pfill! freq_ratio 0.5 1.5 1.0 2.0 3.0 4.0 5.0 6.0 8.0)
+      (pfill! drawbar_pos 8. 8. 8. 0. 0. 0. 0. 0. 0.)
+      (lambda (data:NoteData* nargs:i64 dargs:SAMPLE*)
+        (let ((tonewheel:[SAMPLE,SAMPLE,SAMPLE]** (zalloc (* 2 num_drawbars)))
+              (freq_smudge:SAMPLE* (zalloc num_drawbars))
+              (i:i64 0)
+              ;; additional parameters received on play:
+              (start_time (note_starttime data))
+              (freq (note_frequency data))
+              (amp (note_amplitude data))
+              (dur (note_duration data)))
+          (dotimes (i num_drawbars)
+            (pset! tonewheel (* i 2) (osc_c 0.0))       ;; left
+            (pset! tonewheel (+ (* i 2) 1) (osc_c 0.0)) ;; right
+            (pset! freq_smudge i (* 3.0 (random))))
+          (lambda (time:i64 chan:i64)
+            (if (> (- time start_time) dur) (note_active data #f)) ;; on note end
+            (if (< chan 2)
+                (let ((sum 0.0))
+                  (dotimes (i num_drawbars)
+                    ;; (printf "i = %lld" i)
+                    (set! sum (+ sum (* (/ (pref drawbar_pos i) 8.0)
+                                        ((pref tonewheel (+ (* 2 i) chan))
+                                         amp
+                                         (+ (* freq (pref freq_ratio i))
+                                            (pref freq_smudge i)))))))
+                  (/ sum (convert num_drawbars)))
+                0.)))))))
 ~~~~
 
 The general shape of the code is basically the same as in `organ_drone`. We
 still allocate a `tonewheel` a buffer of closures to keep track of our
 oscillators, and we still sum them all together with relative amplitudes based
-on the drawbar position. There are just additions:
+on the drawbar position. However, there are noticeable important differences:
+
+-   some parameters specific to each note at its execution are handled. These
+    are `start_time`, `freq`, `amp` and `dur`, which are loaded from the `data`
+    argument used to provide the note with init values.
+-   the note kernel must handle the termination of the note after it has
+    exceeded its duration. This is done in the first row of the most internal
+    closure, where the time delta is compared with the requested duration, and a
+    termination is executed accordingly by changing the active state of the note
+    to `#f`.
+
+Additionally, there are some improvements
 
 -   the instrument is now stereo, so the `tonewheel` buffer is now twice as big
     (`(zalloc (* 2 num_drawbars))`). This gives us two oscillator closures per
@@ -465,11 +483,17 @@ on the drawbar position. There are just additions:
     frequencies. This is to make it sound a bit more 'organic', because
     in a physical instrument the frequency ratios between the tonewheels
     aren't perfect.
+-   `organ_drone` only received frequency as a control argument, but now also
+    amplitude is applied.
 
-The other important difference between `organ_note_c` and `organ_drone` is that
+The other important difference between `organ_note` and `organ_drone` is that
 while `organ_drone` returns a double value (and so can be called directly for
-playback in the `dsp` closure), `organ_note_c` returns a *closure*. A type
+playback in the `dsp` closure), `organ_note` returns a *closure*. A type
 diagram highlights the difference:
+
+{:.note-box}
+
+This diagram is outdated
 
 ![image](/images/making-an-instrument/organ-drone-vs-note.png)
 
@@ -494,21 +518,22 @@ frequencies between the L and R channels) to simulate the sound of a Leslie
 speaker.
 
 ~~~~ xtlang
-(bind-func organ_fx 100000
-  (let ((treml (osc_c 0.0))
-        (tremr (osc_c 0.0))
-        (trem_amp 0.1)
-        (wet 0.5)
-        (fb 0.5)
-        (trem_freq .0))
-    (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
-      (cond ((= chan 0)
-             (* in
-                (+ 1.0 (treml trem_amp trem_freq))))
-            ((= chan 1)
-             (* in 
-                (+ 1.0 (tremr trem_amp (* 1.1 trem_freq)))))
-            (else 0.0)))))
+(bind-func organ_fx
+  (lambda ()
+    (let ((treml (osc_c 0.0))
+          (tremr (osc_c 0.0))
+          (trem_amp 0.1)
+          (wet 0.5)
+          (fb 0.5)
+          (trem_freq .0))
+      (lambda (in:SAMPLE time:i64 chan:i64 dat:SAMPLE*)
+        (cond ((= chan 0)
+               (* in
+                  (+ 1.0 (treml trem_amp trem_freq))))
+              ((= chan 1)
+               (* in 
+                  (+ 1.0 (tremr trem_amp (* 1.1 trem_freq)))))
+              (else 0.0))))))
 ~~~~
 
 The code is fairly straightforward. The top-level `let` binds a pair of
@@ -518,14 +543,14 @@ just modulating the amplitude envelope) for the appropriate channel.
 
 ## Playing the instrument {#playing-the-instrument}
 
-Now, let's see if our instrument works! Having compiled both `organ_note_c` and
+Now, let's see if our instrument works! Having compiled both `organ_note` and
 `organ_fx`, we're finally ready to use `make-instrument` to make our xtlang
 hammond organ
 
 ~~~~ xtlang
-(make-instrument organ organ_note_c organ_fx)
+(make-instrument organ organ)
 
-;; Compiled organ >>> [float,float,i64,i64,float*]*
+;; New instrument bound as organ in both scheme and xtlang
 
 (bind-func dsp:DSP
   (lambda (in time chan dat)

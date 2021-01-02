@@ -5,8 +5,8 @@ layout: default
 <div class="header-container jumbotron">
     <div class="container">
         <h1>Extempore</h1>
-        <p>Not your grandfather's audivisual live programming environment.</p>
-        <p><a class="btn btn-primary btn-lg" href="{{ "/docs" | prepend: site.baseurl }}" role="button">Learn more</a></p>
+        <p>An audiovisual live programming environment.</p>
+        <p><a class="btn btn-primary btn-lg" href="{{site.baseurl}}{% link _docs/index.md %}" role="button">Documentation</a></p>
     </div>
 </div>
 
@@ -40,24 +40,23 @@ layout: default
     <div class="row">
         <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-download" aria-hidden="true"></i></h1>
-            <h3 class="text-center">Get Extempore</h3>
+            <h3 class="text-center">Get started</h3>
 
             <p>
               <ul>
-                <li><a href="{{site.baseurl}}{% link _docs/overview/install.md %}#download-a-binary">dowload a binary</a></li>
-                <li><a href="{{site.baseurl}}{% link _docs/overview/editor-support.md %}">set up your editor</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/quickstart.md %}">quickstart</a></li>
               </ul>
             </p>
         </div>
 
         <div class="col-sm-4">
             <h1 class="text-center"><i class="fa fa-code" aria-hidden="true"></i></h1>
-            <h3 class="text-center">Use Extempore</h3>
+            <h3 class="text-center">Extempore concepts</h3>
             <p>
               <ul>
-                <li><a href="{{site.baseurl}}{% link _docs/overview/using-extempore.md %}">evaluate code</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/using-extempore.md %}">compiler-as-a-service</a></li>
                 <li><a href="{{site.baseurl}}{% link _docs/guides/note-level-music.md %}">make music</a></li>
-                <li><a href="{{site.baseurl}}{% link _docs/overview/philosophy.md %}">see the big picture</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/overview/philosophy.md %}">the Extempore philosophy</a></li>
                 <li><a href="{{site.baseurl}}{% link _docs/reference/types.md %}">learn xtlang</a></li>
               </ul>
             </p>
@@ -69,9 +68,8 @@ layout: default
             <h3 class="text-center">Need help?</h3>
             <p>
               <ul>
-                <li><a href="{{site.baseurl}}/docs/">read the docs</a></li>
+                <li><a href="{{site.baseurl}}{% link _docs/index.md %}">read the docs</a></li>
                 <li><a href="mailto:extemporelang@googlegroups.com">mailing list</a></li>
-                <li><a href="https://chat.toplap.org/channel/extempore">chat/forum</a></li>
                 <li><a href="https://openresearch-repository.anu.edu.au/handle/1885/144603">cite Extempore</a></li>
               </ul>
             </p>

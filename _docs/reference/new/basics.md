@@ -14,7 +14,7 @@ Let's beging with everyone's favourite first program:
 ($ (println "Hello World!"))
 ~~~~
 
-If everything went according to plan you should see `Hello World!` appear on the console where you started Extempore. This code consists of two parts:
+If everything went according to plan you should see `Hello World!` appear on the terminal where you started Extempore. This code consists of two parts:
 
 + ```($ ...)```
 + ```(println "string goes here")```

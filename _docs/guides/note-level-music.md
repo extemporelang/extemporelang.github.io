@@ -2,17 +2,13 @@
 title: Note-level music
 ---
 
-Extempore (like [Impromptu](http://impromptu.moso.com.au) before it) supports
-playing 'instruments' at a note-level. This guide covers the basics of how to
-play instruments in Extempore. If you're satisfied with just playing Extempore's
-built-in instruments (which can be found in `libs/core/instruments.xtm`) then
-you can just start at this guide. The note-level approach to music generation
-will be very familiar to Impromptu users.
-
-If you want a deeper understanding of what's going on 'under the hood', see
-[making an instrument]({{site.baseurl}}{% link
-_docs/guides/making-an-instrument.md %}), although it's not necessary to
-understand any of that to make music in Extempore.
+This guide covers the basics of how to play instruments at a "note-level" (e.g.
+play the G above middle C for 2 beats) in Extempore. If you're satisfied with
+just playing Extempore's built-in instruments (which can be found in
+`libs/core/instruments.xtm`) then you can just start at this guide. Finally,
+this guide complements the [pattern language]({{site.baseurl}}{% link
+_docs/guides/pattern-language.md %}) one (an alternate way of triggering notes,
+loops & patterns) and you can mix and match both approaches.
 
 ## Setting up an instrument {#setting-up-an-instrument}
 
@@ -833,21 +829,22 @@ also add an even longer duration option for `I` and `IV`.
 
 ## Beat & tempo {#beat-tempo}
 
-'Bring back the beat' I hear you say. OK, on to beat & tempo. In this section
-we're going to need a drum instrument. What a coincidence---there's [another
-guide]({{site.baseurl}}{% link _docs/guides/making-an-instrument.md %}) which
-shows you how to do exactly that! It'll take a bit of time to set up the first
-time, and you may have to download some samples (all free and legal, of course).
-But don't worry, I'll wait here till you get back.
+"Bring back the beat" I hear you say. OK, on to beat & tempo. In this section
+we're going to need a drum instrument.
+
+{:.note-box}
+
+To set up a drumkit you can either follow the [sampler guide]({{site.baseurl}}{%
+link _docs/guides/sampler.md %}) which shows you how can set up your own sampler
+instrument (and guides you through making a drum sampler). Or you could just
+load `(sys:load "examples/sharedsystem/setup.xtm")` and it'll be done for you.
 
 Got a drum sampler set up? Great. So far we have been using Extempore's default
 time standard---samples per second---to control rhythm and duration information.
 As musicians though, we are more used to working with beats and tempo. Here's a
-simple example working with samples. Note that throughout this tutorial I'm
-using a drum sampler, see [sampler]({{site.baseurl}}{% link
-_docs/guides/sampler.md %}) for details on how to set that up. At the end of
-this page you'll find a list of general MIDI drum numbers which I'll be using in
-this tutorial: `*gm-cowbell*`, etc...
+simple example working with samples. At the end of this page you'll find a list
+of general MIDI drum numbers which I'll be using in this tutorial:
+`*gm-cowbell*`, etc...
 
 ~~~~ xtlang
 ;; assuming you've set up and loaded the drums sampler
@@ -882,8 +879,8 @@ notion of time.
 So what's the advantage here---is it more work for no benefit? Well, there are
 actually two big advantages:
 
-1.  Ratio's are easier to deal with than samples: `0.25` is easier to
-    remember than `11025` (assuming a samplerate of `44100`)
+1.  Ratios are easier to deal with than samples: `0.25` is easier to remember
+    than `11025` (assuming a samplerate of `44100`)
 2.  this system supports alternate tempos, so we can change tempo
     without having to change any rhythm values.
 

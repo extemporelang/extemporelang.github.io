@@ -595,7 +595,7 @@ type: overloaded
 + [void,Symbol*]*
 
 ### Description
-Prints the value to the console.
+Prints the value to the terminal.
 
 For generic types, the generic type must be one of the following:
 + An array containing a type that can be printed

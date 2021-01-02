@@ -2,76 +2,72 @@
 title: Reading audio files in Extempore
 ---
 
-Extempore's `libsndfile` bindings[^1] provide functionality for both reading and
-writing audio files. Here's a short example of how to read audio files.
+Extempore's `AudioBuffer` library bindings provide functionality for reading and
+playing back audio files. Here's a short example of how to read audio files.
 
-First, load up the required libraries and create an audio file closure with
-`audiofile_c`
-
-~~~~ xtlang
-(sys:load "libs/external/sndfile.xtm")
-
-(bind-func dsp:DSP 1000000000  ;; allocate memory to store the audio file
-  (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0)))
-    (lambda (in time chan dat)
-      ;; get the output sample
-      (audiofile))))
-
-(dsp:set! dsp)  
-~~~~
-
-`audiofile_c` takes three arguments:
-
--   the name of the wav file to load
--   the offset into the file to start from (`0` for the start of the file)
--   the number of samples to read (`0` for the whole file)
-
-`audiofile_c` returns a closure (which is bound to `audiofile`) which will, when
-called, return successive samples from the audio file in such a way that
-`audiofile` can be called once per output sample and will play through the audio
-file at normal speed. When `dsp` is compiled, the log view also prints some info
-about the file[^2]:
-
-~~~~ sourceCode
-file name:     /Users/ben/Desktop/xtm-assets/peg.wav
-samplerate:    44100
-channels:      2
-samples read:  21202944
-~~~~
-
-It's important to realise that the playhead---the point in the file which playback
-is 'up to'---is stored internally to the `audiofile` closure, and if you just call
-it back with no arguments it will gradually move through the whole file (as it
-is doing in the above code). By default, when the playhead gets to the end of
-the file it wraps to the start, so the file playback will loop on forever.
-
-To mess with this audio stream, let's add some valve saturation-style distortion
-to both channels:
+First, load the `audiobuffer.xtm` library and create an `AudioBuffer` variable:
 
 ~~~~ xtlang
-(bind-func dsp:DSP 1000000000
-  (let ((audiofile (audiofile_c "/Users/ben/Desktop/xtm-assets/peg.wav" 0 0))
-        (saturationl (saturation_c))
-        (saturationr (saturation_c)))
+(sys:load "libs/core/audiobuffer.xtm")
+
+(bind-func dsp:DSP
+  (let ((ab (AudioBuffer "assets/samples/christmas_carol.aif")))
     (lambda (in time chan dat)
-      (* 0.1 ;; to compensate for saturation boost
-         (cond ((= chan 0)
-                (saturationl (audiofile) 1.0 0.9))
-               ((= chan 1)
-                (saturationr (audiofile) 1.0 0.9))
-               (else (convert 0.0 SAMPLE)))))))
+      (AudioBuffer_read ab chan))))
+
+(dsp:set! dsp)
 ~~~~
 
-Sounds saturated and messy---great.[^3]
+Once you run the code, you should hear the (long-ish) christmas carol audio file
+start playing (in stereo). Notice that in the body of the `dsp` closure there's
+no explicit mention of where in the file we're up to, because the current
+"playhead" is stored in the `AudioBuffer` type.
 
-[^1]: The `libsndfile` library can be found at `libs/external/sndfile.xtm`.
+You can play back from a different position in the file by supplying an extra
+argument to `AudioBuffer_read`. For example, this (slightly weird) playback
+approach will only advance the playhead 10% of the time:
 
-[^2]:
-    If you're interested, the file I'm using is 'Peg' from [Steely Dan's
-    Aja](http://www.rollingstone.com/music/lists/500-greatest-albums-of-all-time-20120531/steely-dan-aja-20120524).
-    It's a great album.
+```xtlang
+(bind-func dsp:DSP
+  (let ((ab (AudioBuffer "assets/samples/christmas_carol.aif"))
+        (pos 0))
+    (lambda (in time chan dat)
+      (if (< (random) 0.1:f)
+          (set! pos (+ pos 1)))
+      (AudioBuffer_read ab pos chan))))
+```
 
-[^3]:
-    We had to wrap the `0.0` value in a `convert` call to get the types right,
-    as discussed in another
-    [post](2013-11-15-changing-from-doubles-to-floats-in-audio_dsp.org).
+All the `AudioBuffer_read` functions will stop playback when they reach the end
+of the audio data from the file. If you'd like to _loop_ the audio file instead,
+you can use `AudioBuffer_read_looped`
+
+One other thing to say here is that `AudioBuffer` is both the name of the
+(overloaded) constructor function and the name of the type which holds the audio
+data and metadata. `AudioBuffer` is a polymorphic function, and there are
+versions for e.g. reading files with non-standard samplerates, and copying audio
+data from other `AudioBuffer` variables, but the simple case (shown above) just
+takes a single filename argument and returns an initialised `AudioBuffer` object
+(the audio data is heap-allocated).
+
+To mess with this audio stream, let's add a low-pass filter to the left channel,
+and a high-pass filter to the right channel (both with the resonance paramater
+cranked right up).
+
+~~~~ xtlang
+;; need to load this library as well to get the lpf/hpf
+(sys:load "libs/core/audio_dsp.xtm")
+
+(bind-func dsp:DSP
+  (let ((ab (AudioBuffer "assets/samples/christmas_carol.aif"))
+        (lp (lpf_c))
+        (hp (hpf_c)))
+    (lambda (in time chan dat)
+      (cond ((= chan 0)
+             (lp (AudioBuffer_read ab chan) 400. 0.99))
+            ((= chan 1)
+             (hp (AudioBuffer_read ab chan) 5000. 0.99))
+            (else 0.0:f)))))
+~~~~
+
+If you're looking for more options for messing with the signal at this low
+level, have a look at the functions in the `audio_dsp.xtm` library.

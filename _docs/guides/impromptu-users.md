@@ -30,7 +30,7 @@ There are some obvious 'big picture' differences:
 -   Extempore is [open source](https://github.com/digego/extempore)
 -   Extempore is now just an executable, it no longer has a built in editor &
     log view (so [you can use your favourite editor]({{site.baseurl}}{% link
-    _docs/overview/editor-support.md %}))
+    _docs/guides/editor-support.md %}))
 
 The biggest difference, though, is the addition of *xtlang*: a new programming
 language (and compiler). Whereas Scheme was the *only* language supported in
@@ -95,10 +95,9 @@ All AudioUnit code (i.e. any functions starting with `au:`) will have to be
 changed. I know that's a pain---sorry!---but it was an inevitable consequence of
 making things cross-platform. The 'setting up the AU graph' section of your code
 will therefore need to be rewritten. You can either use the built-in synths and
-sampler, or you can [build your own instruments]({{site.baseurl}}{% link
-_docs/guides/making-an-instrument.md %}), or you could even use Extempore's MIDI
-in/out (see `libs/external/portmidi.xtm`) to play an instrument running
-*outside* of Extempore.
+sampler, or you can build your own instruments, or you could even use
+Extempore's MIDI in/out (see `libs/external/portmidi.xtm`) to play an instrument
+running *outside* of Extempore.
 
 The good news is that from `play-note` 'up', Extempore's audio infrastructure
 works pretty much exactly the same as Impromptu's. In fact, that truth is the

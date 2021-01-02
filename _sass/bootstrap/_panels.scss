@@ -220,6 +220,13 @@
 // the help of our collapse JavaScript plugin.
 
 .panel-group {
+
+  @media screen and (min-width:992px) {
+    position: fixed;
+    height: 70vh;
+    overflow-y: scroll;
+  }
+
   margin-bottom: $line-height-computed;
 
   // Tighten up margin so it's only between panels

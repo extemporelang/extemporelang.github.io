@@ -7,15 +7,18 @@ a detour into [xtlang types]({{site.baseurl}}{% link _docs/reference/types.md
 %}), so we'll cover some of that as well.
 
 The two languages hosted by the Extempore compiler, xtlang and Scheme, have
-different approaches to dealing with memory allocation and management. Both
-languages ultimately share the same memory---the stack and heap associated with
-the Extempore process, Extempore gives access to this memory to both languages
-via different mechanisms. Broadly speaking, with Scheme code Extempore manages
-memory for you, while in xtlang you have to do it yourself. This is a common
-trade-off, and each has its advantages (in performance, programmer productivity,
-etc.) and disadvantages. To work effectively in Extempore it's helpful to know a
-bit more about how to work with memory in Extempore, and that's what I'll try to
-cover in this post.
+different approaches to allocating & managing memory. Both languages ultimately
+share the same memory---the stack and heap associated with the Extempore
+process---but via different mechanisms.
+
+Broadly speaking, with Scheme code Extempore manages memory for you, while in
+xtlang you have to do it yourself. This is a common trade-off, and each has its
+advantages (in performance, programmer productivity, etc.) and disadvantages. So
+if you're mostly going to be writing Scheme code (e.g. you're making music using
+the built-in instruments) then you probably don't _need_ to read this (although
+understanding how things work under the hood is still sometimes helpful). To
+work effectively in xtlang, though, you'll need to now a bit more about memory
+in Extempore.
 
 ## Automatic garbage collection in Scheme {#automatic-garbage-collection-in-scheme}
 
@@ -57,10 +60,10 @@ memory to store the new value into, and change the variable `a` to point to that
 new value.
 
 But what happens to the old value of `5` in memory? Well, it sits there
-unmolested, at least for a while. But we can't reach it---the only 'handle' we
+untouched, at least for a while. But we can't reach it---the only 'handle' we
 had to refer to it with was the symbol `a`, and that's now bound to some other
 value instead. The value `5` in memory is 'unreachable'. So there's no point
-having it sitting around, taking up space like some freeloading relative.
+having it sitting around, taking up space.
 
 That's where the garbage collector comes in. Every now and then the garbage
 collector checks all the Scheme objects in the world, determines which of them
@@ -125,8 +128,8 @@ but I'll give a quick summary here.
 I should also point out that the stack and heap aren't actually different types
 of memory in the computer---they're just different areas in the computer's RAM.
 The difference is in the way the program *uses* the different regions. Each
-running process has its own stack(s) heap, and they are just regions of memory
-given to the process by the OS.
+running process has its own stack(s) and heap, and they are just regions of
+memory given to the process by the OS.
 
 So, that's the stack and the heap, but there's actually one other type of memory
 in Extempore: **zone** memory. A zone is a
@@ -139,14 +142,14 @@ zone. There can be multiple zones in existence at once, and they don't interfere
 
 ## The three flavours of memory in Extempore {#the-three-flavours-of-memory-in-extempore}
 
-So, in accordance with the three different memory 'types' (the stack, the heap,
-and zones) there are three memory allocation functions in xtlang: `salloc`,
-`halloc` and `zalloc`. They all return a pointer to some allocated memory, but
-they differ in *where* that memory is allocated from, and there are no prizes in
+So, in accordance with the three different memory 'types' (stack, heap, and
+zone) there are three memory allocation functions in xtlang: `salloc`, `halloc`
+and `zalloc`. They all return a pointer to some allocated memory, but they
+differ in *where* that memory is allocated from, and there are no prizes in
 guessing which function is paired with which type of memory :)
 
 Also, `alloc` in xtlang is an alias for `zalloc`. So if you ever see an `alloc`
-in xtlang code just remember that it's grabbing memory from a zone.
+in xtlang code it's grabbing memory from a zone.
 
 ## Stack allocation with salloc {#stack-allocation-with-salloc}
 
@@ -349,7 +352,7 @@ longer buffer of `i64` values.
 ~~~~ xtlang
 (bind-func fill_buffer_memzone2
   (lambda ()
-    (memzone 100000  ;; size of memzone (in bytes)
+    (memzone 100000 ;; size of memzone (in bytes)
              (let ((region_length 1000000)
                    (int_buf:i64* (zalloc region_length))
                    (i:i64 0))
@@ -362,41 +365,21 @@ longer buffer of `i64` values.
 ~~~~
 
 This time, with a region length of one million, the code still works (at least,
-the 367Th element is still correct), but the compiler also prints a warning
-message to the log:
-
-~~~~ sourceCode
-Zone:0x7ff7ac99a100 size:100000 is full ... leaking 8000000 bytes
-Leaving a leaky zone can be dangerous ... particularly for concurrency
-~~~~
-
-So what's wrong? Well, remember that the `memzone` has a size (in bytes) which
-is specified by its first argument. We can calculate how much space `int_buf`
-will need (`region_length` multiplied by 8, because there are 8 bytes per `i64`)
-and therefore how much of the zone's memory will be allocated with the call to
-`(zalloc region_length)`. If this number is *greater* than the memzone size,
-then we'll get the "Zone is full, leaking *n* bytes" warning---as we did with
-`fill_buffer_memzone2`.
-
-When zones leak, the Extempore run-time will scramble to find extra memory for
-you, but it will be from the heap---which is time-consuming and it will never be
-deallocated. This is bad, so it's always worth making sure that the zones are
-big enough to start with.
+the 367th element is still correct).
 
 `memzone` calls can also be nested inside one another. When a new zone is
 created (pushed) any calls to `zalloc` will be allocated from the new zone
-(which is the **top** zone). When the extent of the zone is reached it is
-**popped** and its memory is reclaimed. The new **current** zone is then the
-next **top** zone. The zones are in a stack in the 'stack *data structure*'
-sense of the term, but this is not the stack that I was talking about earlier
-with `salloc`. Hopefully that's not too confusing. So we'll talk about pushing
-and popping zones from the *zone stack*, but it's still all done with `memzone`
-and `zalloc`.
+(which is the **top** zone of the "zone stack"). When the extent of the zone
+(i.e. the closing `)` of the `memzone` form) is reached it is **popped** and its
+memory is reclaimed. The new **current** zone is then the next **top** zone.
 
 By default each process has an initial **top** zone with 1M of memory. If no
 user defined zones are created (i.e. no uses of `memzone`) then any and all
-calls to zalloc will slowly (or quickly) use up this 1M of memory---you'll know
-when it runs out as you'll get about a gazillion memory leak messages.
+calls to zalloc will slowly (or quickly) use up this 1M of memory. However, if
+the memory from a zone is exhausted, then Extempore will automatically allocate
+another chunk of memory (the same length as the original length of that zone).
+This might cause slight a slight performance hit in some circumstances, hence
+the ability to set the zone size manually if necessary.
 
 In general this is the zone story. But to complicate things slightly there are
 two special zones.
@@ -417,31 +400,7 @@ Anything `zalloc`'ed from there will come from the closure's zone. Anything
 `zalloc`'ed from *inside* the closure will come from whatever the top zone is at
 the time---usually the default zone (unless you're in an enclosing `memzone`).
 
-As an example, let's revisit our 'fill buffer' examples from earlier. With a
-region length of one thousand:
-
-~~~~ xtlang
-(bind-func fill_buffer_closure_zone
-  (let ((region_length 1000)
-        (int_buf:i64* (zalloc region_length))
-        (i:i64 0))
-    (lambda ()
-      (dotimes (i region_length)
-        (pset! int_buf i i))
-      (printf "int_buf[366] = %lld\n"
-              (pref int_buf 366)))))
-~~~~
-
-The `let` where `int_buf` is allocated is outside the `lambda` form, so the
-memory will be coming from the zone associated with the closure
-`fill_buffer_closure_zone`. When we try and compile that, we get the warning:
-
-~~~~ sourceCode
-Zone:0x7fb8b3a4a610 size:8192 is full ... leaking 32 bytes
-Leaving a leaky zone can be dangerous ... particularly for concurrency
-~~~~
-
-Let's try it again, but with a 'zone size' argument to `bind-func`
+As an example, note the 'zone size' argument to `bind-func`
 
 ~~~~ xtlang
 (bind-func fill_buffer_closure_zone2 10000 ;; zone size: 10KB
@@ -456,8 +415,6 @@ Let's try it again, but with a 'zone size' argument to `bind-func`
 
 (fill_buffer_closure_zone2) ;; prints "int_buf[366] = 366"
 ~~~~
-
-Sweet---no more warnings, and the buffer seems to be getting filled nicely.
 
 This type of thing is very useful for holding data closed over by the top level
 closure. For example, an audio delay closure might specify a large `bind-func`
@@ -554,12 +511,9 @@ When I call `(fill_massive_buffer)` on my computer (with 8GB of RAM), disaster
 strikes.
 
 ~~~~ sourceCode
-Zone:0x7fc5cbc268c0 size:100000 is full ... leaking 8000000000000000 bytes
-Leaving a leaky zone can be dangerous ... particularly for concurrency
-extempore(21386,0x11833d000) malloc: *** mmap(size=8000000000000000) failed (error code=12)
-error: can't allocate region
-set a breakpoint in malloc_error_break to debug
-Segmentation fault: 11
+Compiled:  fill_massive_buffer >>> [i32]*
+
+Process extempore segmentation fault: 11
 ~~~~
 
 If you're not used to working directly with memory, you'll almost certainly

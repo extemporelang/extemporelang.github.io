@@ -301,7 +301,7 @@ amplitude and frequency values.
                (/ suml 15.0))) ; normalise over all oscs
             ((= chan 1) ; right channel
              (let ((sumr 0.0))
-               (dotimes (i 15 15) ; sum over the first 15 oscs
+               (dotimes (i 15 15) ; sum over the remaining 15 oscs
                  (set! sumr (+ sumr ((aref osc_array i)
                                      (aref amp_array i)
                                      (aref freq_array i)))))
