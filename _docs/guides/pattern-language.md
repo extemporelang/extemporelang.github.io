@@ -446,6 +446,7 @@ expression:
 - `beat` is a number which represents the number of beats (since the start of
   your extempore session)
 - `dur` is the length of the current note
+- `offset` is the current offset (third argument to the `:>` expression)
 - `LC` is another number which represents the _loop count_ (while `beat` goes up
   every beat---including half & quarter beats, etc.---`LC` only goes up by whole
   numbers, and only once a full loop through the first pattern list is
