@@ -31,7 +31,7 @@ bens_great_function (well, as long as the numbers are i64).
 
 The `@param` lines are just for providing docstrings for each argument:
 the names and types of the arguments will be taken from the actual
-closure body. All of the `@` tags are optional---you just write a
+closure body. All of the `@` tags are optional---you can just write a
 one-line string as the docstring.
 
 You can also add docstrings to other (xtlang) things:
