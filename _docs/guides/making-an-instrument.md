@@ -333,7 +333,7 @@ this time around, we want to be able to play notes, and to have silence when
 notes aren't being played. But how does the `organ` closure know what its output
 should be and which notes it should be playing?
 
-The playing of a note happens through a function called `_play_note`.
+The playing of a note happens through a function called `xtm_play_note`.
 
 ![image](/images/making-an-instrument/play-note.png)
 
@@ -346,16 +346,16 @@ which takes four arguments:
 -   `amp`: the volume/loudness of the note
 -   `dur`: the duration of the note
 
-Hopefully you can see how `_play_note` provides all the control required to
+Hopefully you can see how `xtm_play_note` provides all the control required to
 *schedule* (via the `time` argument) notes of any pitch, loudness and duration.
 All you need to play the `organ` like a MIDI soft synth. Actually, you'll mostly
 use the Scheme wrapper function `play-note` (note the lack of a leading
 underscore) which takes pitch and velocity arguments (with ranges from 0 to 127)
 instead of raw frequency and amplitude values. But `play-note` just does some
-simple argument transformations and then passes control to `_play_note`, which
-does the work, so it's `_play_note` that I'll explain first.
+simple argument transformations and then passes control to `xtm_play_note`, which
+does the work, so it's `xtm_play_note` that I'll explain first.
 
-So how does it work? When `_play_note` is called with `organ` as the instrument,
+So how does it work? When `xtm_play_note` is called with `organ` as the instrument,
 the note kernel `organ_note_c` is called which returns an anonymous closure
 that, when called once per audio sample, will generate the basic (drone) tone of
 the instrument. This closure is then turned into *another* anonymous closure
@@ -386,7 +386,7 @@ They're designed to explain the key aspects of how the code works.
 
 Back to the task at hand, we need to construct the note and effects kernels for
 our hammond organ instrument. Once we have those, `make-instrument` and
-`_play_note` allow us to play the organ like a soft synth, which is the goal
+`xtm_play_note` allow us to play the organ like a soft synth, which is the goal
 we've been pursuing since the beginning.
 
 The 'template' for the note kernel and effects kernel is something like this
@@ -498,7 +498,7 @@ This diagram is outdated
 ![image](/images/making-an-instrument/organ-drone-vs-note.png)
 
 As I described in the previous section, this provides the flexibility required
-to manage note scheduling (via `_play_note`) and polyphony.
+to manage note scheduling (via `xtm_play_note`) and polyphony.
 
 ## Step three: the effect kernel {#step-three-the-effect-kernel}
 
