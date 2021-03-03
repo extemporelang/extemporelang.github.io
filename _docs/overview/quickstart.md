@@ -114,7 +114,7 @@ Congrats, you're connected... and almost there.
 Remember, if you're not using VSCode, all the concepts are the same, but the
 names of the commands or the keyboard shortcuts might be different---I'm sure
 you'll manage 😉, and you can find the specific details for your editor in the
-[editor support guide]({{site.baseurl}}{% link _docs/guides/editor-support.md
+[editor support guide]({% link _docs/guides/editor-support.md
 %}).
 
 ### Step 3: evaluate some code {#step-3}
@@ -155,7 +155,7 @@ thumb is that when you call a print function (e.g. `println`)
   of your VSCode window like so (notice the little white `#t` on the blue
   background---I've added an orange arrow to point it out).
 
-![Extempore return value as shown in VSCode]({{site.baseurl}}{% link images/vscode-hello-world-echo-area.png %})
+![Extempore return value as shown in VSCode]({% link images/vscode-hello-world-echo-area.png %})
 
 </div>
 
@@ -226,7 +226,7 @@ then there's an Extempore library which is designed to get you up and running
 quickly with a couple of synths & samplers.
 
 Here's a one-liner example (using Extempore's built-in [pattern
-language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %})) of how to
+language]({% link _docs/guides/pattern-language.md %})) of how to
 
 ```xtlang
 ;; need to load this first, but only once
@@ -238,7 +238,7 @@ language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %})) of how t
 
 Feel free to play around with (and re-evaluate) some of the parameters in that
 `ascending-scale` and try and figure out how it all fits together, and when you
-want to go further check out the [pattern language]({{site.baseurl}}{% link
+want to go further check out the [pattern language]({% link
 _docs/guides/pattern-language.md %}) guide.
 
 ## Beyond "Hello..." {#beyond-hello}

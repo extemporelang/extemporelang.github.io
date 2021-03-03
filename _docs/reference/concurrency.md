@@ -142,7 +142,7 @@ Extempore's IPC layer for communication between Scheme processes.
 Things get more interesting when we introduce xtlang.
 
 Firstly, all calls into xtlang code are always initiated at some point by a top
-level scheme expression (see [C-xtlang interop]({{site.baseurl}}{% link
+level scheme expression (see [C-xtlang interop]({% link
 _docs/reference/c-xtlang-interop.md %}) for more detail). Under normal Extempore
 operating conditions, xtlang code is always executing in some Scheme process or
 other. Generally this xtlang code will behave as expected with regards to
@@ -272,7 +272,7 @@ thread) safe if you stick to the following three principles:
 
 1.  Don't access global xtlang variables in your xtlang functions.
 2.  Don't close over variables with top-level xtlang functions.
-3.  Don't allocate heap [memory]({{site.baseurl}}{% link
+3.  Don't allocate heap [memory]({% link
     _docs/reference/memory-management.md %}) in xtlang functions (zone and stack
     memory is OK)
 

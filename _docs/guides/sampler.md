@@ -205,9 +205,9 @@ Assuming things worked properly, we should be able to play our `samp1` sampler.
 (play-note (now) samp1 *gm-closed-hi-hat* 80 44100)
 ~~~~
 
-Using the extempore [pattern language]({{site.baseurl}}{% link
+Using the extempore [pattern language]({% link
 _docs/guides/pattern-language.md %}) you can make loops really easily. The
-[pattern language guide]({{site.baseurl}}{% link
+[pattern language guide]({% link
 _docs/guides/pattern-language.md %}) has much more info on how it all works, but
 if you just want a teaser here's a standard back-beat pattern.
 
@@ -410,8 +410,8 @@ Awesome, we've got a piano. Success!
 
 There are lots of possibilities at this stage. If you're interested in seeing
 how to make vaguely 'conventional' musical material, then learning about the
-[pattern language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %})
-or [note-level music]({{site.baseurl}}{% link _docs/guides/note-level-music.md
+[pattern language]({% link _docs/guides/pattern-language.md %})
+or [note-level music]({% link _docs/guides/note-level-music.md
 %}) would be good next steps. And if you'd like to see all this in an example
 code file, see `examples/external/sampler.xtm` and other files in that
 directory.

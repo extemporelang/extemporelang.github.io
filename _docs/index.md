@@ -28,5 +28,5 @@ which takes you directly to the source `.md` file on GitHub so that you can fix
 it up and submit a pull request.
 
 If you find any issues with these docs, let us know---contributing to the docs
-[really is pretty easy]({{site.baseurl}}{% link _docs/overview/contributing.md
+[really is pretty easy]({% link _docs/overview/contributing.md
 %}#documentation), so don't be afraid to pipe up if you've got ideas.

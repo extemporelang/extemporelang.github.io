@@ -5,9 +5,9 @@ title: xtlang types
 {:.note-box}
 
 It's not really possible to explain Extempore's types without a detour into some
-[memory stuff]({{site.baseurl}}{% link _docs/reference/memory-management.md %}),
+[memory stuff]({% link _docs/reference/memory-management.md %}),
 so we'll cover some of that as well. For more info on how xtlang fits into the
-big picture of Extempore, see [philosophy]({{site.baseurl}}{% link
+big picture of Extempore, see [philosophy]({% link
 _docs/overview/philosophy.md %}).
 
 xtlang code is statically typed---the types are determined at compile time, and

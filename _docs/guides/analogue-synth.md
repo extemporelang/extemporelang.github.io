@@ -3,7 +3,7 @@ title: The Extempore analogue synth
 ---
 
 Before we start, make sure you've read at least the [quickstart
-guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) and you can set
+guide]({% link _docs/overview/quickstart.md %}) and you can set
 up & evaluate Extempore code on your machine.
 
 ## Introduction
@@ -55,7 +55,7 @@ Don't worry about how to use them just yet, you'll see how in a minute.
 
 Loading the `examples/sharedsystem/audiosetup.xtm` library will also load up the
 Extempore pattern language stuff, which is covered in more detail in [this
-guide]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}). These two
+guide]({% link _docs/guides/pattern-language.md %}). These two
 things are conceptually independent---you certainly don't have to understand the
 sharedsystem's analogue synths in depth if you just want to make bangin' loops
 with the pattern language (or vice versa).
@@ -64,7 +64,7 @@ However, even if you're mostly interested in the sharedsystem it's still handy
 to understand a bit about the pattern language for making noise with your synths
 & samplers. That's the approach we'll take in this guide---we won't necessarily
 explain the pattern language stuff, but you can always jump over to the [pattern
-language docs]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}) to
+language docs]({% link _docs/guides/pattern-language.md %}) to
 go deeper.
 
 </div>
@@ -76,7 +76,7 @@ you can skip straight to the [sampler](#playing-the-sampler) part (or vice
 versa).
 
 Finally, as mentioned earlier this guide will use the [pattern
-language]({{site.baseurl}}{% link _docs/guides/pattern-language.md %}) to play
+language]({% link _docs/guides/pattern-language.md %}) to play
 some loops on your samplers & synths (so that you can actually hear them make
 noise). So if you're curious about how that works then check out that guide as
 well.

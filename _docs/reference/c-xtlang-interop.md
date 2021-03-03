@@ -38,7 +38,7 @@ reasons why C and xtlang should play nicely together.
 Having said that, there are some key differences between C and xtlang. C is the
 archetype of the 'static language', while xtlang is designed to allow the
 programmer to redefine core parts of the program *while it is executing* (see
-[philosophy]({{site.baseurl}}{% link _docs/overview/philosophy.md %}) for more
+[philosophy]({% link _docs/overview/philosophy.md %}) for more
 details). Extempore supports REPL-style development, with the programmer
 interacting with the source code, evaluating and compiling parts of it in a
 non-linear fashion, and then modifying and recompiling it as necessary. There
@@ -229,7 +229,7 @@ better not be important.
 Why is the library written this way? Well, one of the key benefits of this "pass
 in a location for the answer to be written to" approach is that the memory with
 the answer in it can be managed by the calling function (that is, the function
-which calls `kiss_fft`). As discussed in the [memory]({{site.baseurl}}{% link
+which calls `kiss_fft`). As discussed in the [memory]({% link
 _docs/reference/memory-management.md %}), the explicit nature of memory
 allocation and deallocation in xtlang (and in C) gives the programmer great
 control over the lifetime of any memory the program allocates. The function

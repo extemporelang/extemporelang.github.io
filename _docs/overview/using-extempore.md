@@ -6,7 +6,7 @@ title: Extempore's Compiler-as-a-Service
 
 This document is a deeper dive on what's going on when you use Extempore; if
 you're just after the quick version then the [quickstart
-guide]({{site.baseurl}}{% link _docs/overview/quickstart.md %}) might be what
+guide]({% link _docs/overview/quickstart.md %}) might be what
 you're after.
 
 The best way to think about programming and evaluating code in Extempore is to
@@ -21,7 +21,7 @@ The 'chunks' of code (serialised as strings) which are sent to the xtlang
 compiler may be anything from small one-liners to whole source files (via the
 `load` function). The functions and data (often referred to collectively as the
 *environment*) persist for as long as the `extempore` process is running. As
-discussed in the [philosophy]({{site.baseurl}}{% link
+discussed in the [philosophy]({% link
 _docs/overview/philosophy.md %}) page, the Extempore compiler actually compiles
 *two* languages: Scheme and xtlang (Extempore's own programming language). The
 process of evaluating them is the same---just sending strings to the compiler
@@ -34,7 +34,7 @@ So, to do anything in Extempore you need a text editor which can
 3.  send that string over the TCP connection
 
 There are already Extempore modes/plugins for VSCode, Emacs, Atom, vim and
-Sublime Text (see [editor support]({{site.baseurl}}{% link
+Sublime Text (see [editor support]({% link
 _docs/guides/editor-support.md %})). If you already have a favourite text
 editor, then you'll probably want to use that one. If you don't, then VSCode is
 a good choice. In the end it doesn't matter too much which editor you use, so
@@ -64,7 +64,7 @@ waiting to be given some code to evaluate. That's where the text editor part of
 the equation comes in.
 
 When you open up a file ending in `.xtm` (Extempore's default file extension),
-your [editor]({{site.baseurl}}{% link _docs/guides/editor-support.md %})
+your [editor]({% link _docs/guides/editor-support.md %})
 should detect that you're editing Extempore source code, and load the
 appropriate Extempore plugin. Here's a (short) example file containing some
 Extempore code:
@@ -158,7 +158,7 @@ Let's find out the area of a circle of radius `5.0` units. We need to call
 When we evaluate the `(circle_area 5.0)` expression, a couple of things happen.
 The code is sent to the compiler, which returns the value `78.539816` to the
 editor. In addition, a message about creating a new [memory
-zone]({{site.baseurl}}{% link _docs/reference/memory-management.md %}) is
+zone]({% link _docs/reference/memory-management.md %}) is
 printed to the log. That's because this is the first time we've *called* some
 xtlang code, and so a memory zone needs to be set up to provide any `zalloc`
 memory. This zone allocation won't happen if we evaluate the same code again,

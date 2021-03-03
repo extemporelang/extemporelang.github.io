@@ -10,7 +10,7 @@ This guide refers to the values in the DSP signal chain as `double`, whereas
 they are now `SAMPLE`, which is aliased to `float` by default.
 
 This covers the basics of creating an *instrument* in Extempore. While there are
-[other docs]({{site.baseurl}}{% link _docs/guides/audio-signal-processing.md %})
+[other docs]({% link _docs/guides/audio-signal-processing.md %})
 which cover audio digital signal processing (DSP) at a lower level---from the
 basic building blocks of oscillators and filters, this tutorial covers the
 process of building an instrument which can be played using the conventional
@@ -29,7 +29,7 @@ straight away.
 
 This is a also a fairly long and detailed post. If you're interested in just
 *playing* instruments rather than writing them, you don't need to know all this
-and can jump ahead to [note-level music]({{site.baseurl}}{% link
+and can jump ahead to [note-level music]({% link
 _docs/guides/note-level-music.md %}). If you want to come back later to find out
 in a bit more detail exactly what's going on with Extempore instruments then
 this is the place to find out.
@@ -158,7 +158,7 @@ Compiling the function `organ_drone` does three things:
   For each oscillator, this is `freq_ratio` (the frequency relationship to the
   fundamental), `drawbar_pos` (the amplitude of the sine tone) and `tonewheel`
   (the oscillator closure itself). This data is all stored via [pointers to zone
-  memory]({{site.baseurl}}{% link _docs/reference/memory-management.md %})
+  memory]({% link _docs/reference/memory-management.md %})
   through the calls to `zalloc`.
 
 - **fill memory** with the appropriate values. For `freq_ratio` and

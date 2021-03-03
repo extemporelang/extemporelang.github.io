@@ -166,7 +166,7 @@ brings us to a couple of new (compound) types: tuples, and arrays.
 
 ## Tuples in xtlang {#tuples-in-xtlang}
 
-As a refresher, [tuples]({{site.baseurl}}{% link _docs/reference/types.md %}#tuples) in xtlang are heterogeneous groupings of any xtlang types (just like a C
+As a refresher, [tuples]({% link _docs/reference/types.md %}#tuples) in xtlang are heterogeneous groupings of any xtlang types (just like a C
 struct). They're still statically typed, either explicitly or with the types
 inferred from the types of other variables and literals. Syntactically, tuples
 use angle brackets (`<>`).

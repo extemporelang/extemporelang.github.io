@@ -6,7 +6,7 @@ This guide covers the basics of how to play instruments at a "note-level" (e.g.
 play the G above middle C for 2 beats) in Extempore. If you're satisfied with
 just playing Extempore's built-in instruments (which can be found in
 `libs/core/instruments.xtm`) then you can just start at this guide. Finally,
-this guide complements the [pattern language]({{site.baseurl}}{% link
+this guide complements the [pattern language]({% link
 _docs/guides/pattern-language.md %}) one (an alternate way of triggering notes,
 loops & patterns) and you can mix and match both approaches.
 
@@ -125,7 +125,7 @@ goal with the `pc_ivl.xtm` Scheme library provide a musical framework that's as
 'unopinionated' as possible. Of course this is a somewhat ridiculous statement
 given that straight out of the gate Extempore's use of MIDI note numbers for
 pitches strongly preferences a traditional diatonic tonal system. Having said
-that, as shown in [other guides]({{site.baseurl}}{% link
+that, as shown in [other guides]({% link
 _docs/guides/audio-signal-processing.md %}), you can generate tones of any
 frequency---quarter tone composers should not despair!
 
@@ -277,12 +277,12 @@ this instance). So if you don't need to return a list, use `for-each` instead of
 ~~~~
 
 Ok, now we've covered the basics. Before we move on, if you haven't read the
-[time documentation]({{site.baseurl}}{% link _docs/overview/time.md %}) it's
+[time documentation]({% link _docs/overview/time.md %}) it's
 probably a good idea to go and read it now.
 
 ## Temporal recursion {#temporal-recursion}
 
-Once you've read the [time]({{site.baseurl}}{% link _docs/overview/time.md %})
+Once you've read the [time]({% link _docs/overview/time.md %})
 docs, you'll be all set to start using `callback`. We've already looked at
 various ways to play a sequence of notes, and we're now going to expand on that
 theme. Let's define a function that uses `callback` to temporally recurse
