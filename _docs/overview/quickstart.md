@@ -17,6 +17,11 @@ This quickstart guide is based on VSCode. If you'd prefer to use another editor
 (e.g. Emacs, Atom, ST, Vim) then that's fine as well---these boxes will explain
 how your setup process will be different.
 
+{:.note-box}
+
+With everything on this page, if you run in to problems make sure you check the
+[Troubleshooting](#troubleshooting) section at the end.
+
 ## Setup
 
 Here's the stuff you only need to do once.
@@ -73,16 +78,6 @@ VSCode command, then open a terminal in your Extempore directory and type
 instead of the forward slash) and hit <kbd>return</kbd>. Extempore supports a
 bunch of command line options---try `./extempore --help`/`.\extempore.exe
 --help` to see the full list.
-
-{:.note-box}
-
-**Windows users**: if you ever see the error message _VCRUNTIME140_1.dll was not
-found_, then you'll need to download the x64 `vc_redist.x64.exe`---make sure you
-get it from the official [Windows
-website](https://support.microsoft.com/en-au/help/2977003/the-latest-supported-visual-c-downloads),
-because there are lots of sketchy places on the web which will try and get you
-to download theirs, and who knows what they've done with it?
-
 
 ### Step 2: connect your text editor
 
@@ -166,31 +161,6 @@ the terminal where `extempore` is running to kill it. If you want to start it up
 again, then go back to [step 1](#step-1) (you'll have to re-connect VSCode to
 the new Extempore process again as well).
 
-### Troubleshooting: check your audio devices
-
-{:.note-box}
-
-This step is optional---most of the time Extempore will guess the correct audio
-device anyway---so unless you're having trouble with your audio you can probably
-skip straight to [step 1](#step-1).
-
-To print the list of audio devices that Extempore can "see", open a terminal and
-type the command `./extempore --print-devices` (or `./extempore.exe
---print-devices` if you're on Windows) and hit <kbd>return</kbd>. On my machine
-right now it says this, but yours will (almost certainly) be different.
-
-{% include extempore-output/print-devices.html %}
-
-If you do want Extempore to use a particular audio device, you can pass either
-the device index or the device name through an additional option. For example,
-if you want Extempore to use the _MacBook Pro Speakers_, either of these would
-work (again, remember to use `./extempore.exe` if you're on Windows):
-
-```
-./extempore --device 3
-./extempore --device-name "MacBook Pro Speakers"
-```
-
 ## Simple examples
 
 ### "Hello, Sine!" {#hello-sine}
@@ -247,3 +217,102 @@ These simple code examples gloss over some subtleties of what's going on. But
 hey, if you've managed to get started quickly(ish), then this _Quickstart_ page
 has done its job. To understand the subtleties, well, that's what the rest of
 the documentation is for 😊
+
+## Troubleshooting
+
+> When you're chewing on life's gristle<br/>
+> Don't grumble, give a whistle<br/>
+> And this'll help things turn out for the best<br/>
+
+### All platforms
+
+#### No sound? Check your audio device
+
+_Most_ of the time Extempore will guess the correct audio device, but not
+always. So if you're not getting any sound, it could be because Extempore is
+sending sound output to the wrong audio device.
+
+To print the list of audio devices that Extempore can "see", open a terminal and
+type the command `./extempore --print-devices` (or `./extempore.exe
+--print-devices` if you're on Windows) and hit <kbd>return</kbd>. On my machine
+right now it says this, but yours will (almost certainly) be different.
+
+{% include extempore-output/print-devices.html %}
+
+If you do want Extempore to use a particular audio device, you can pass either
+the device index or the device name through an additional option. For example,
+if you want Extempore to use the _MacBook Pro Speakers_, either of these would
+work (again, remember to use `./extempore.exe` if you're on Windows):
+
+```plaintext
+./extempore --device 3
+./extempore --device-name "MacBook Pro Speakers"
+```
+### Windows
+
+#### VCRUNTIME140_1.dll was not found
+
+**Windows users**: if you ever see the error message _VCRUNTIME140_1.dll was not
+found_, then you'll need to download the x64 `vc_redist.x64.exe`---make sure you
+get it from the official [Windows
+website](https://support.microsoft.com/en-au/help/2977003/the-latest-supported-visual-c-downloads),
+because there are lots of sketchy places on the web which will try and get you
+to download theirs, and who knows what they've done with it?
+
+### macOS
+
+#### File cannot be opened because developer cannot be verified
+
+Since OSX 10.15 Catalina, Apple enforces stricter security rules which may
+result in some files in the Extempore download not being allowed to run. When
+you start `extempore`, depending on which libraries are being used, you may see
+a warning dialog box rather like this:
+
+!["dylib cannot be opened" popup]({% link images/quickstart/dylib-cannot-be-opened-popup.png %})
+
+The named file in this example is
+`extempore/libs/platform-shlibs/libportmidi.dylib`. Other files known to have
+caused trouble include `libkiss_fft.dylib` and `libsndfile.dylib`.
+
+Software loaded onto the newer versions of macOS which have _not_ come from App
+Store and have not been properly "notarized" will [not run without some
+user](https://developer.apple.com/news/?id=12232019a).
+
+There are two ways to solve this issue---a safer way and a less safe way. 
+
+The **safer** way is to open the file in a text editor, and on the way you will
+get the opportunity to override the security protection. Search for and navigate
+to the file in question. When you find it, it's no good just double-clicking the
+file because you will just get the same security block and the same options.
+Right-click (or <kbd>ctrl</kbd>-click) on the file in Finder, choose "Open With"
+and choose "Other", as shown in this screenshot:
+
+![Right-click context menu for opening the dylib file]({% link images/quickstart/open-with-context-menu.png %})
+
+It doesn't matter which program you choose (e.g. TextEdit is fine), because you
+don't actually want to edit it, just open it. After this, the warning will be
+more explicit and you can choose "Open":
+
+![Open dylib "are you sure" confirmation dialog]({% link images/quickstart/open-dylib-are-you-sure-dialog.png %})
+
+Once you have opened it you have bypassed the macOS built-in protection so you
+can close the file immediately and go back to using the file in Extempore.
+
+{:.note-box}
+
+There may be another way of doing this "safer" method: after attempting to run
+`extempore`, look at the _Security & Privacy_ General section of _System
+Preferences_ and you may find a note that the offending file has been blocked,
+with an "Open Anyway" button provided.
+
+The **less safe** way is to temporarily disable the System Integrity Protection
+(SIP). This seems pretty drastic and there are [plenty of warnings from
+Apple](https://developer.apple.com/documentation/security/disabling_and_enabling_system_integrity_protection).
+The idea is to restart the computer in recovery mode and run the disabling code
+in _Terminal.app_. Then, after running the blocked Extempore code, restart in
+recovery and run another command in the terminal. You can check the current status of SIP on your computer by running the
+following in Terminal:
+
+```plaintext
+csrutil status System Integrity Protection
+```
