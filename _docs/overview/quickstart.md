@@ -285,8 +285,8 @@ The **safer** way is to open the file in a text editor, and on the way you will
 get the opportunity to override the security protection. Search for and navigate
 to the file in question. When you find it, it's no good just double-clicking the
 file because you will just get the same security block and the same options.
-`control`-click on the file in Finder, choose "Open With" and choose "Other", as
-shown in this screenshot:
+<kbd class="nopretty">ctrl</kbd>-click (or right-click) on the file in Finder,
+choose "Open With" and choose "Other", as shown in this screenshot:
 
 ![Control-click context menu for opening the dylib file]({% link images/quickstart/open-with-context-menu.png %})
 
