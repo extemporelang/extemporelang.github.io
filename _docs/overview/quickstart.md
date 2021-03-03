@@ -156,10 +156,11 @@ thumb is that when you call a print function (e.g. `println`)
 
 ### Step 4: stopping Extempore
 
-If you want to stop the Extempore process, just <kbd>ctrl</kbd>+<kbd>c</kbd> in
-the terminal where `extempore` is running to kill it. If you want to start it up
-again, then go back to [step 1](#step-1) (you'll have to re-connect VSCode to
-the new Extempore process again as well).
+If you want to stop the Extempore process, just <kbd
+class="nopretty">ctrl</kbd>+<kbd>c</kbd> in the terminal where `extempore` is
+running to kill it. If you want to start it up again, then go back to [step
+1](#step-1) (you'll have to re-connect VSCode to the new Extempore process again
+as well).
 
 ## Simple examples
 
@@ -276,7 +277,7 @@ caused trouble include `libkiss_fft.dylib` and `libsndfile.dylib`.
 
 Software loaded onto the newer versions of macOS which have _not_ come from App
 Store and have not been properly "notarized" will [not run without some
-user](https://developer.apple.com/news/?id=12232019a).
+user intervention](https://developer.apple.com/news/?id=12232019a).
 
 There are two ways to solve this issue---a safer way and a less safe way. 
 
@@ -284,10 +285,10 @@ The **safer** way is to open the file in a text editor, and on the way you will
 get the opportunity to override the security protection. Search for and navigate
 to the file in question. When you find it, it's no good just double-clicking the
 file because you will just get the same security block and the same options.
-Right-click (or <kbd>ctrl</kbd>-click) on the file in Finder, choose "Open With"
-and choose "Other", as shown in this screenshot:
+`control`-click on the file in Finder, choose "Open With" and choose "Other", as
+shown in this screenshot:
 
-![Right-click context menu for opening the dylib file]({% link images/quickstart/open-with-context-menu.png %})
+![Control-click context menu for opening the dylib file]({% link images/quickstart/open-with-context-menu.png %})
 
 It doesn't matter which program you choose (e.g. TextEdit is fine), because you
 don't actually want to edit it, just open it. After this, the warning will be
