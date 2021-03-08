@@ -539,7 +539,7 @@ macro
 
 ![image](/images/simple-instrument/whole-instrument.png)
 
-As long as your kernel (`saw_synth_note_c`) and fx (`saw_synth_fx`)
+As long as your kernel (`saw_synth_note`) and fx (`saw_synth_fx`)
 closures have the right signature, then evaluating the above line should
 print for you
 
