@@ -9,11 +9,13 @@
 
 <script src="{{ "/js/algolia.js" | prepend: site.baseurl }} "></script>
 
-<script src="{{ "/js/highlight/highlight.js" | prepend: site.baseurl }}"></script>
-<script src="{{ "/js/highlight/languages/extempore/extempore.js" | prepend: site.baseurl }}""></script>
+
+<script src='{{ "/js/highlight.pack.js" | relative_url }}' type="text/javascript"></script>
+<script src='{{ "/js/extempore.min.js" | relative_url }}' type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href='{{ "/css/atom-one-light.css" | relative_url }}'>
+
 <script>
-    hljs.registerLanguage('extempore', window.hljsDefineExtempore);
-    hljs.initHighlightingOnLoad();
+ hljs.highlightAll();
 </script>
 
 <script src='{{ "/js/os-aware-modifiers.js" | prepend: site.baseurl }}' type="text/javascript"></script>
