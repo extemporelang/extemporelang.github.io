@@ -31,13 +31,13 @@ already, so you should head over there and get started.
 [extempore-emacs-mode](https://github.com/extemporelang/extempore-emacs-mode) is
 the Emacs mode for working with Extempore code, and it's available from
 [MELPA](http://melpa.org/). If you're using `package.el` (i.e. if you're on a
-modern-ish Emacs) then just `M-x package-install RET extempore-mode RET` and
-you're done.
+modern-ish Emacs) then just <kbd>M-x</kbd> `package-install` <kbd>RET</kbd>
+`extempore-mode` <kbd>RET</kbd> and you're done.
 
 If you encounter an error with `eldoc-beginning-of-sexp`, put this code in
 your init file to bind that name
 ```
-(unless (fboundp 'eldoc-beginning-of-sexp)  ;; Hacking to get extempore-mode
+(unless (fboundp 'eldoc-beginning-of-sexp)
   (defalias 'eldoc-beginning-of-sexp 'elisp--beginning-of-sexp))
 ```
 
@@ -52,14 +52,14 @@ layer](https://github.com/benswift/.dotfiles/blob/master/spacemacs-layers/extemp
 layer repo or however that works, so you'll need to do a bit of downloading &
 manual setup stuff to get it working).
 
-| command                                                         | keybinding                                                                                                                                                   |
-|-----------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `switch-to-extempore` (or start Extermpore if it's not running) | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>Z</kbd>                                                                  |
-| `extempore-connect-or-disconnect` ()                            | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>J</kbd>                                                                  |
-| `extempore-send-definition` (to evaluate current sexp)          | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> or <kbd class="nopretty">CTRL</kbd>+<kbd>META</kbd>+<kbd>X</kbd> |
-| `extempore-send-region`                                         | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>R</kbd>                                                                  |
-| `extempore-send-buffer`                                         | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>B</kbd>                                                                  |
-|                                                                 |                                                                                                                                                              |
+| command                                                              | keybinding                                                                                  |
+|----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| `switch-to-extempore` (or start Extermpore if it's not running)      | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>Z</kbd> |
+| `extempore-connect-or-disconnect` ()                                 | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>J</kbd> |
+| `extempore-send-dwim` (to evaluate current top-level form or region) | <kbd class="nopretty">CTRL</kbd>+<kbd>META</kbd>+<kbd>X</kbd>                               |
+| `extempore-send-region`                                              | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>R</kbd> |
+| `extempore-send-buffer`                                              | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>B</kbd> |
+|                                                                      |                                                                                             |
 
 To restart the Extempore process, just <kbd
 class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd
