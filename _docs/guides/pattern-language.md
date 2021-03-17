@@ -628,7 +628,7 @@ exception that these ones _do_ exist (and can be modified) outside a pattern
 expression. This is because while `dur` (potentially) changes every time through
 the pattern list, things like chords, roots and scales _usually_ are held
 consistent on slightly larger timescales (bars, etc.) and so we define them
-outside an indivitual pattern expression, and can also change them outside the
+outside an individual pattern expression, and can also change them outside the
 expression with `set!`.
 
 By default, `scale` (and the related `qnt` and `rel` functions we'll look at
@@ -678,7 +678,7 @@ here---make some noise and experiment with what sounds good to you.
 
 ### Holders
 
-Everything so far has been determinstic---the pattern list(s) are always the
+Everything so far has been deterministic---the pattern list(s) are always the
 same, so the sequence of pitches is always the same each time through the loop.
 Sometimes you want a bit of randomness, though---here's one way to do it.
 
@@ -689,7 +689,7 @@ Sometimes you want a bit of randomness, though---here's one way to do it.
                                              (random '(60 67 77))))
 ```
 
-These four calls to `random` choose from the same three piches (`60`, `67` and
+These four calls to `random` choose from the same three pitches (`60`, `67` and
 `70`). There's a nice shortcut for this sort of thing called `nof` (i.e. give me
 _n_ of this thing):
 
@@ -846,7 +846,7 @@ with regular Scheme lists. You can use all the rest of the Extempore "world"
 inside these patterns---you can pass higher-order functions, you can define and
 call your own library code (as long as it returns lists), you can call
 [xtlang]({% link _docs/reference/scheme-xtlang-interop.md
-%})---there's nothing you can do in Extmpore that you can't do inside a pattern.
+%})---there's nothing you can do in Extempore that you can't do inside a pattern.
 
 So Extempore's pattern language isn't really a
 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language), it's more of a
