@@ -250,7 +250,7 @@ work (again, remember to use `./extempore.exe` if you're on Windows):
 ./extempore --device-name "MacBook Pro Speakers"
 ```
 
-{:.warn-box}
+{:.note-box}
 
 The order of your audio devices can change at any time, especially when you're
 plugging and unplugging devices. So the device number (i.e. the `3` in the
