@@ -246,14 +246,14 @@ if you want Extempore to use the _MacBook Pro Speakers_, either of these would
 work (again, remember to use `./extempore.exe` if you're on Windows):
 
 ```plaintext
-./extempore --device 3
+./extempore --device 5
 ./extempore --device-name "MacBook Pro Speakers"
 ```
 
 {:.note-box}
 
 The order of your audio devices can change at any time, especially when you're
-plugging and unplugging devices. So the device number (i.e. the `3` in the
+plugging and unplugging devices. So the device number (i.e. the `5` in the
 example above) won't always correspond to the _MacBook Pro Speakers_. In a gig
 situation it's always safer to use `--device-name` to be sure that you're using
 the correct audio device.
