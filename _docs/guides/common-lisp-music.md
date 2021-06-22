@@ -46,10 +46,11 @@ Now we have two oscillators, one for the left channel and one for the right. We
 also introduce `DSP`, a type alias for `[float,float,i64,i64,float*]*`
 
 ~~~~ xtlang
+;; we also introduce DSP, which is an alias for [float,float,i64,i64,float*]*
 (bind-func dsp:DSP
   (let ((oscil_left (osc_c 0.0))
         (oscil_right (osc_c 0.0)))
-    (lambda (in time chan dat)
+    (lambda (in time chan dat) ;; we don't need to type these anymore because we typed dsp
       (cond ((= chan 0) ;; left
              (oscil_left 0.3 330.0))
             ((= chan 1) ;; right
