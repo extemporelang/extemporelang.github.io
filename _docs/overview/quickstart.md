@@ -31,16 +31,20 @@ Here's the stuff you only need to do once.
 **VSCode** (a.k.a. Visual Studio Code) is freely available on all the operating
 systems that Extempore runs on (macOS, Windows & Linux). To install VSCode, go
 to the [homepage](https://code.visualstudio.com/) and hit the big "Download"
-button (you can't miss it).
-
-Once you've installed VSCode, you need to install the [VSCode Extempore
+button (you can't miss it). Once you've installed VSCode, you need to install
+the [VSCode Extempore
 extension](https://github.com/extemporelang/vscode-extempore)---this tells
-VSCode how to deal with Extempore code. The main way to do things in VSCode is
-through the "command palette", which you can open up with
-<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
-Command Palette...`). Type in a few characters of the command _Extensions:
+VSCode how to deal with Extempore code.
+
+Open the _Command Palette_, type in a few characters of the command _Extensions:
 Install Extensions_ until it shows up, then hit <kbd>return</kbd>. Then, search
 for "Extempore" and install the extension.
+
+{:.info-box id="vscode-command-palette"}
+
+The main way to do things in VSCode is through the "command palette", which you
+can open up with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the
+menu `View > Command Palette...`).
 
 ### Download Extempore
 
@@ -84,7 +88,8 @@ bunch of command line options---try `./extempore --help`/`.\extempore.exe
 Extempore is now just sitting waiting for you to tell it what code to execute.
 Before you can do this, you first need to connect your text editor to the
 running Extempore session. In VSCode, you do this with the _Extempore Connect_
-command.
+command (again, you can find this command using the [command
+palette](#vscode-command-palette)).
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
