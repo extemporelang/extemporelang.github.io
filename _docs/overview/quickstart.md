@@ -40,7 +40,7 @@ Open the _Command Palette_, type in a few characters of the command _Extensions:
 Install Extensions_ until it shows up, then hit <kbd>return</kbd>. Then, search
 for "Extempore" and install the extension.
 
-{:.info-box id="vscode-command-palette"}
+{:.note-box id="vscode-command-palette"}
 
 The main way to do things in VSCode is through the "command palette", which you
 can open up with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the
