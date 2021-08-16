@@ -13,3 +13,6 @@ group :jekyll_plugins do
    gem "jekyll-redirect-from"
    gem "jekyll-seo-tag"
 end
+
+# Add webrick as a dependency for Ruby 3.0, as it's no longer a bundled gem
+gem "webrick", "~> 1.7"
