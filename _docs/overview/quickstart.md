@@ -42,15 +42,16 @@ for "Extempore" and install the extension.
 
 {:.note-box id="vscode-command-palette"}
 
-The main way to do things in VSCode is through the "command palette", which you
-can open up with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the
-menu `View > Command Palette...`).
+The main way to run commands (in other words, to "do things") in VSCode is
+through the _Command Palette_, which you can open up with
+<kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd> (or through the menu `View >
+Command Palette...`).
 
 ### Download Extempore
 
 If you're on Windows or macOS then VSCode has an _Extempore: Download binary_
 command which will download & set up Extempore for you (again, access it through
-the command palette with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd>). It's
+the _Command Palette_ with <kbd>ctrl</kbd>+<kbd>shift</kbd>+<kbd>P</kbd>). It's
 about a 300MB download, so it might take a while, but when it's done you're good
 to go.
 
@@ -68,28 +69,29 @@ Here's the stuff you need to do every time you want to work with Extempore.
 
 ### Step 1: start Extempore {#step-1}
 
-You can start Extempore using the _Extempore: Start_ command. It'll open up a
-terminal (VSCode has a built-in terminal which you can bring up with <kbd
-class="nopretty">CTRL</kbd>+<kbd>`</kbd>), `cd` into your extempore folder, and
-start the Extempore running. If you see something like this, everything's
-working---nice one.
+You can start Extempore using the _Extempore: Start_ command (again, you can
+find this command using the [command palette](#vscode-command-palette)). It'll
+open up a terminal, `cd` into your extempore folder, and start the Extempore
+running. If you see something like this, everything's working---nice one.
 
 {% include extempore-output/startup.html %}
 
+{:.note-box}
+
 If you can't (or don't want to) start Extempore using the _Extempore: Start_
-VSCode command, then open a terminal in your Extempore directory and type
-`./extempore` (or `.\extempore.exe` if you're on Windows---note the backslash
-instead of the forward slash) and hit <kbd>return</kbd>. Extempore supports a
-bunch of command line options---try `./extempore --help`/`.\extempore.exe
---help` to see the full list.
+VSCode command, then open a terminal in your Extempore directory (VSCode has a
+built-in terminal which you can bring up with <kbd class="nopretty">CTRL</kbd>+<kbd>`</kbd>)
+and type `./extempore` (or `.\extempore.exe` if you're on Windows---note the
+backslash instead of the forward slash) and hit <kbd>return</kbd>. Extempore
+supports a bunch of command line options---try `./extempore
+--help`/`.\extempore.exe --help` to see the full list.
 
 ### Step 2: connect your text editor
 
 Extempore is now just sitting waiting for you to tell it what code to execute.
 Before you can do this, you first need to connect your text editor to the
 running Extempore session. In VSCode, you do this with the _Extempore Connect_
-command (again, you can find this command using the [command
-palette](#vscode-command-palette)).
+command.
 
 <pre style="color: #b2b2b2; background-color: #292b2e;">
 <span style="background-color: #444155;">Starting </span><span style="color: #86D7DB; background-color: #444155;">primary</span><span style="background-color: #444155;"> process
