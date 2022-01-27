@@ -122,14 +122,6 @@ Pointers aren't very interesting, though, if you can't read and write to the
 values they point to. That's where the xtlang functions `pref`, `pset!` and
 `pref-ptr` come in.
 
-{:.note-box}
-
-The semantics of the `*ref` functions are in the process of being changed---see
-[this thread](https://groups.google.com/forum/#!topic/extemporelang/HiYKEstuM_w)
-on the mailing list for more details. We'll update these docs as soon as things
-settle down, but for now accept my humble apology that some of this stuff is out
-of date. Sorry!
-
 Unlike in C, `*` is not a dereference *operator*, it's just the syntax for the
 specifying pointer types. Instead, there's a function `pref` for *dereferencing*
 a pointer (getting the value the pointer 'points' to). `pref` takes two
