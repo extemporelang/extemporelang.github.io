@@ -191,7 +191,7 @@ about `times2` (note that `ipc:bind-func` has a slightly different signature
 from `ipc:define`):
 
 ~~~~ xtlang
-(ipc:bind-func "myproc" times2)
+(ipc:bind-func "myproc" 'times2)
 (ipc:define "myproc" 'my-scm-func my-scm-func)
 ~~~~
 
@@ -209,7 +209,7 @@ OK, so far the behaviour of xtlang fits in with our existing understanding of
 both Extempore's cooperative concurrency and Extempore's Scheme process
 architecture. Now things will begin to diverge somewhat.
 
-Firstly, the `(ipc:bind-func "myproc" times2)` call from above is needed to
+Firstly, the `(ipc:bind-func "myproc" 'times2)` call from above is needed to
 define the "scheme times2 wrapper" in *myproc*---**not** the xtlang times2
 function itself which is bound globally across the entire Extempore OS process
 and so is automatically available to all Scheme processes, and indeed
