@@ -264,6 +264,47 @@ example above) won't always correspond to the _MacBook Pro Speakers_. In a gig
 situation it's always safer to use `--device-name` to be sure that you're using
 the correct audio device.
 
+#### Glitchy sound? "Audio underflow" warning messages in the terminal? {#glitchy-sound}
+
+Especially if you're using the sharedsystem (e.g. in the "hello scale" example
+above), it's actually kindof heavyweight[^cpu-requirements] (or at least
+medium-weight) from a CPU use perspective. It loads up 4 analogue synths and a
+sampler, plus some FX (e.g. global convolution reverb) and tries to distribute
+them across multiple cores on your machine.
+
+[^cpu-requirements]:
+    I mean, it's still supposed to work on a half-decent laptop---it shouldn't
+    require a real beast---but if you're on a particularly old/wheezy machine
+    then even with the below tricks the sharedsystem might not be a good choice.
+    The other examples (e.g. `examples/core/fmsynth.xtm`) show how to create a
+    lighter-weight DSP chain, and from there you could add only the instruments
+    & effects that you need.
+
+If you're getting lots of "audio underflow" messages, you've got a few options,
+in order of easiest fixes to most difficult:
+
+1. don't run any other software on your machine that you don't absolutely need
+   for the gig
+
+2. try starting Extempore with a larger frame size (e.g. `./extempore --frames 8192`)
+
+3. if you don't need MIDI I/O, just load `(sys:load
+   "examples/sharedsystem/audiosetup.xtm")` instead of `(sys:load
+   "examples/sharedsystem/setup.xtm")`
+
+4. remove some of the `dspN` (for `N` = 1..5) functions from the signal chain in
+   `examples/sharedsystem/audiosetup.xtm` (e.g. if you're only using `syn1` and
+   `syn2` you could remove `dsp3` from the signal chain, which uses `dspmt` as
+   the final output sink)
+
+5. try doing it on a beefier machine (not an option for many people, obviously)
+
+If you go with option #4, remember that you can create a new copy of
+`audiosetup.xtm` and modify it to your heart's content. Even if you've just been
+messing with the original `audiosetup.xtm` file directly, remember that you can
+get a "pristine" version at any time from
+[GitHub](https://github.com/digego/extempore/blob/master/examples/sharedsystem/audiosetup.xtm).
+
 ### Windows
 
 #### VCRUNTIME140_1.dll was not found
