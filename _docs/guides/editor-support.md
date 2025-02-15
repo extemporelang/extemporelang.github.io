@@ -55,10 +55,9 @@ manual setup stuff to get it working).
 | command                                                              | keybinding                                                                                  |
 |----------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
 | `switch-to-extempore` (or start Extermpore if it's not running)      | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>Z</kbd> |
-| `extempore-connect-or-disconnect` ()                                 | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>J</kbd> |
+| `extempore-connect-or-disconnect`                                    | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>J</kbd> |
 | `extempore-send-dwim` (to evaluate current top-level form or region) | <kbd class="nopretty">CTRL</kbd>+<kbd>META</kbd>+<kbd>X</kbd>                               |
 | `extempore-send-region`                                              | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>R</kbd> |
-| `extempore-send-buffer`                                              | <kbd class="nopretty">CTRL</kbd>+<kbd>C</kbd> <kbd class="nopretty">CTRL</kbd>+<kbd>B</kbd> |
 |                                                                      |                                                                                             |
 
 To restart the Extempore process, just <kbd
