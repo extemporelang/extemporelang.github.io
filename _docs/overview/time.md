@@ -63,6 +63,7 @@ arpeggiated triad).
 (bind-func dsp:DSP
   (lambda (in time chan dat)
     (synth in time chan dat)))
+
 (dsp:set! dsp)
 
 ;; schedule three nodes to play in succession
@@ -216,7 +217,7 @@ will have moved on. You should always try to schedule your code execution
 ;; This is best (callback happens 4100 samples earlier than new time)
 (define loop
   (lambda (time)
-    (play-note time synth 60 80 1.0)
+    (play-note time synth 60 80 44100)
     (callback (+ time 40000) 'loop (+ time 44100))))
 
 (loop (now))
@@ -226,6 +227,8 @@ In the 'good' version of `loop`, the `time` passed as an argument to `loop` is
 exactly the same time as the scheduled callback time. The problem with this is
 that the next note needs to be scheduled at exactly the same time that the
 function is called. The note will always be late. The 'best' version schedules
-the callback just ahead of the time that we want the note to play. This gives us
-`4100` samples to execute the code to schedule the note before the note is
-required to sound.
+the callback just ahead of the time that you want the note to play. This gives
+Extempore `4100` samples to execute the code to schedule the note before the note
+is required to sound.
+Notice `*second*` has been replaced by its actual value in samples to make
+the time difference explicit.
