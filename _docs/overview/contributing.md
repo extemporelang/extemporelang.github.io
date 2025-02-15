@@ -18,12 +18,12 @@ list](mailto:extemporelang@googlegroups.com).
 
 This documentation is built using [Jekyll](https://jekyllrb.com/), using the
 [Jekyll Doc](https://aksakalli.github.io/jekyll-doc-theme/) theme. Since it's
-all just markdown files in the `docs/` subdirectory, it's easy for others to
+all just markdown files in the `_docs/` subdirectory, it's easy for others to
 contribute.
 
 If you find problems, or can think of improvements, [fork away on
 GH](https://github.com/digego/extempore), edit the documentation source files
-and submit a pull request---there's a nice little "Edit on Github" link at the
+and submit a pull request---there's a nice little "IMPROVE THIS PAGE" link at the
 bottom of every page. We'd love these docs to become a real community effort.
 There will probably be a few broken links and other little things like that, so
 no pull request is too small to be appreciated :)
@@ -42,7 +42,8 @@ If you want to see your changes locally (which of course you do!) then you can
 run a local 'live' test server with
 
 ~~~~ sourceCode
-    bundle exec jekyll serve
+    bundle exec jekyll serve              # or
+    bundle exec jekyll serve --livereload # to have the site reload on save
 ~~~~
 
 ### Hosting
