@@ -91,7 +91,7 @@ factor of two integers `a` and `b` using a brute-force approach:
                              (= (modulo b i) 0))
                         i
                         (hcf (- i 1))))))
-      (hcf (if (< a b) b a)))))
+      (hcf (if (< a b) a b)))))
 
 (hcf-scheme 10 15) ;; returns 5
 
@@ -102,7 +102,7 @@ factor of two integers `a` and `b` using a brute-force approach:
                           (= (modulo b i) 0))
                      i
                      (hcf (- i 1))))))
-      (hcf (if (< a b) b a)))))
+      (hcf (if (< a b) a b)))))
 
 (hcf_xtlang 10 15)  ;; returns 5
 ~~~~
