@@ -94,7 +94,7 @@ The syntax highlighting currently doesn't cover a few edge cases---so if you end
 up tinkering with `Extempore.JSON-tmLanguage` to fix anything then feel free to
 submit a pull request.
 
-## Vim {#vim}
+## Vim {#vim} & NeoVim {#nvim}
 
 Extempore's [vim plugin](https://github.com/timburgess/extempore.vim) is written
 by Tim Burgess.
@@ -109,3 +109,5 @@ by Tim Burgess.
 
 The vim mode doesn't yet support multiple connections or user-specified
 host/port, but pull requests are welcome.
+
+Unfortunately, Burgess’s plugin is vim-only, so if you’re on NeoVim, you should check out [extempore.nvim](https://github.com/gotalovefiracode/extempore.nvim), which is a NeoVim fork and rewrite of his plugin, with a few improvements, such as configurable host and port, as well as visual feedback on evaluation. Pull requests are also welcome!
